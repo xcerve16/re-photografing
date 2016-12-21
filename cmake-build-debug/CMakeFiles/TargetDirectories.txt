@@ -1,0 +1,3 @@
+C:/Users/acervenka2/ClionProjects/rephotografing/cmake-build-debug/CMakeFiles/rephotografing_cv.dir
+C:/Users/acervenka2/ClionProjects/rephotografing/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/acervenka2/ClionProjects/rephotografing/cmake-build-debug/CMakeFiles/rebuild_cache.dir

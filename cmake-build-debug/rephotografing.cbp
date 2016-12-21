@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="rephotografing"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\OpenCV\;CMake Files\OpenCV\opencv\;CMake Files\OpenCV\opencv\build\;CMake Files\OpenCV\opencv\build\install\;CMake Files\OpenCV\opencv\build\install\x86\;CMake Files\OpenCV\opencv\build\install\x86\mingw\;CMake Files\OpenCV\opencv\build\install\x86\mingw\lib\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="C:/Users/acervenka2/ClionProjects/rephotografing/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/acervenka2/ClionProjects/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/acervenka2/ClionProjects/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/acervenka2/ClionProjects/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/acervenka2/ClionProjects/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rephotografing_cv">
+				<Option output="C:/Users/acervenka2/ClionProjects/rephotografing/cmake-build-debug/rephotografing_cv.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir=""/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/OpenCV/opencv/build/install/include"/>
+					<Add directory="D:/OpenCV/opencv/build/install/include/opencv"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/../../../../mingw32/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/include/c++/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/acervenka2/ClionProjects/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 rephotografing_cv"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/acervenka2/ClionProjects/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/acervenka2/ClionProjects/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/acervenka2/ClionProjects/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rephotografing_cv/fast">
+				<Option output="C:/Users/acervenka2/ClionProjects/rephotografing/cmake-build-debug/rephotografing_cv.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir=""/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/OpenCV/opencv/build/install/include"/>
+					<Add directory="D:/OpenCV/opencv/build/install/include/opencv"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/../../../../mingw32/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/include/c++/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/acervenka2/ClionProjects/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 rephotografing_cv/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/acervenka2/ClionProjects/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/acervenka2/ClionProjects/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/acervenka2/ClionProjects/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="C:/Users/acervenka2/ClionProjects/rephotografing/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/acervenka2/ClionProjects/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/acervenka2/ClionProjects/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/acervenka2/ClionProjects/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/acervenka2/ClionProjects/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="C:/Users/acervenka2/ClionProjects/rephotografing/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/acervenka2/ClionProjects/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/acervenka2/ClionProjects/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/acervenka2/ClionProjects/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/acervenka2/ClionProjects/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/src/CameraCalibrator.cpp">
+			<Option target="rephotografing_cv"/>
+		</Unit>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/src/CameraCalibrator.h">
+			<Option target="rephotografing_cv"/>
+		</Unit>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/src/CsvReader.cpp">
+			<Option target="rephotografing_cv"/>
+		</Unit>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/src/CsvReader.h">
+			<Option target="rephotografing_cv"/>
+		</Unit>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/src/CsvWriter.cpp">
+			<Option target="rephotografing_cv"/>
+		</Unit>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/src/CsvWriter.h">
+			<Option target="rephotografing_cv"/>
+		</Unit>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/src/Mesh.cpp">
+			<Option target="rephotografing_cv"/>
+		</Unit>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/src/Mesh.h">
+			<Option target="rephotografing_cv"/>
+		</Unit>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/src/Model.cpp">
+			<Option target="rephotografing_cv"/>
+		</Unit>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/src/Model.h">
+			<Option target="rephotografing_cv"/>
+		</Unit>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/src/ModelRegistration.cpp">
+			<Option target="rephotografing_cv"/>
+		</Unit>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/src/ModelRegistration.h">
+			<Option target="rephotografing_cv"/>
+		</Unit>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/src/MyMatcher.h">
+			<Option target="rephotografing_cv"/>
+		</Unit>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/src/PnPProblem.cpp">
+			<Option target="rephotografing_cv"/>
+		</Unit>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/src/PnPProblem.h">
+			<Option target="rephotografing_cv"/>
+		</Unit>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/src/RobustMatcher.cpp">
+			<Option target="rephotografing_cv"/>
+		</Unit>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/src/RobustMatcher.h">
+			<Option target="rephotografing_cv"/>
+		</Unit>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/src/Utils.cpp">
+			<Option target="rephotografing_cv"/>
+		</Unit>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/src/Utils.h">
+			<Option target="rephotografing_cv"/>
+		</Unit>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/src/main_registration.cpp">
+			<Option target="rephotografing_cv"/>
+		</Unit>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/OpenCV/opencv/build/install/OpenCVConfig-version.cmake">
+			<Option virtualFolder="CMake Files\OpenCV\opencv\build\install\"/>
+		</Unit>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/OpenCV/opencv/build/install/OpenCVConfig.cmake">
+			<Option virtualFolder="CMake Files\OpenCV\opencv\build\install\"/>
+		</Unit>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/OpenCV/opencv/build/install/OpenCVConfig-version.cmake">
+			<Option virtualFolder="CMake Files\OpenCV\opencv\build\install\"/>
+		</Unit>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/OpenCV/opencv/build/install/OpenCVConfig.cmake">
+			<Option virtualFolder="CMake Files\OpenCV\opencv\build\install\"/>
+		</Unit>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/OpenCV/opencv/build/install/x86/mingw/lib/OpenCVConfig.cmake">
+			<Option virtualFolder="CMake Files\OpenCV\opencv\build\install\x86\mingw\lib\"/>
+		</Unit>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/OpenCV/opencv/build/install/x86/mingw/lib/OpenCVModules.cmake">
+			<Option virtualFolder="CMake Files\OpenCV\opencv\build\install\x86\mingw\lib\"/>
+		</Unit>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/OpenCV/opencv/build/install/x86/mingw/lib/OpenCVModules-release.cmake">
+			<Option virtualFolder="CMake Files\OpenCV\opencv\build\install\x86\mingw\lib\"/>
+		</Unit>
+		<Unit filename="C:/Users/acervenka2/ClionProjects/rephotografing/OpenCV/opencv/build/install/x86/mingw/lib/OpenCVConfig.cmake">
+			<Option virtualFolder="CMake Files\OpenCV\opencv\build\install\x86\mingw\lib\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
