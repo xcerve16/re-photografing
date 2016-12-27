@@ -9,6 +9,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/rephotografing_cv.dir/src/RobustMatcher.cpp.obj"
   "CMakeFiles/rephotografing_cv.dir/src/Utils.cpp.obj"
   "CMakeFiles/rephotografing_cv.dir/src/CameraCalibrator.cpp.obj"
+  "CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.obj"
   "rephotografing_cv.pdb"
   "rephotografing_cv.exe"
   "rephotografing_cv.exe.manifest"

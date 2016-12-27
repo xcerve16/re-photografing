@@ -107,6 +107,14 @@ void draw2DPoints(cv::Mat image, std::vector<cv::Point2f> &list_points, cv::Scal
   }
 }
 
+void draw2DPoint(cv::Mat image, Point2f &list_points, cv::Scalar color)
+{
+    cv::Point2f point_2d = list_points;
+
+    // Draw Selected points
+    cv::circle(image, point_2d, radius, color, -1, lineType );
+}
+
 // Draw an arrow into the image
 void drawArrow(cv::Mat image, cv::Point2i p, cv::Point2i q, cv::Scalar color, int arrowMagnitude, int thickness, int line_type, int shift)
 {

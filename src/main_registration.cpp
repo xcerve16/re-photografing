@@ -2,74 +2,49 @@
 // Created by acervenka2 on 15.12.2016.
 //
 
-// C++
 #include <iostream>
-// OpenCV
+
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/calib3d/calib3d.hpp>
 #include <iomanip>
 #include "opencv2/xfeatures2d.hpp"
 
-// PnP Tutorial
-#include "Mesh.h"
-#include "Model.h"
 #include "PnPProblem.h"
 #include "CameraCalibrator.h"
 #include "Utils.h"
 #include "MyMatcher.h"
-#include "RobustMatcher.h"
+#include "Line2D.h"
 
 using namespace cv;
 using namespace std;
 using namespace xfeatures2d;
 
-/**  GLOBAL VARIABLES  **/
-
-string ply_read_path = "data/box.ply";          // object mesh
-string write_path = "data/cookies_ORB.yml";     // output file
-string yml_read_path = "data/cookies_ORB.yml"; // 3dpts + descriptors
-
-
-// Boolean the know if the registration it's done
 bool end_registration = false;
-
-// Intrinsic camera parameters: UVC WEBCAM
-double f = 45; // focal length in mm
-double sx = 22.3, sy = 14.9;
-double width = 2592, height = 1944;
-double params_CANON[] = {width * f / sx,   // fx
-                         height * f / sy,  // fy
-                         width / 2,      // cx
-                         height / 2};    // cy
 
 
 int const number_registration = 8;
-int pts[] = {1, 2, 3, 4, 5, 6, 7, 8}; // 3 -> 4
+int pts[number_registration];
 
-// Some basic colors
 Scalar red(0, 0, 255);
 Scalar green(0, 255, 0);
 Scalar blue(255, 0, 0);
+Scalar white(255, 255, 255);
 
 ModelRegistration registration;
-Model model;
-Mesh mesh;
-PnPProblem pnp_registration(params_CANON);
 CameraCalibrator cameraCalibrator;
-MyRobustMatcher rmatcher;
+MyRobustMatcher robustMatcher;
 
 static void onMouseModelRegistration(int event, int x, int y, int, void *) {
     if (event == EVENT_LBUTTONUP) {
 
-        int n_vertex = pts[registration.getNumRegistration()];
         Point2f point_2d = Point2f((float) x, (float) y);
-        Point3f point_3d = mesh.getVertex(n_vertex - 1);
-
         bool is_registrable = registration.is_registrable();
         if (is_registrable) {
-            registration.registerPoint(point_2d, point_3d);
-            if (registration.getNumRegistration() == registration.getNumMax()) end_registration = true;
+            registration.register2DPoint(point_2d);
+            if (registration.getNumRegistration() == registration.getNumMax()) {
+                end_registration = true;
+            }
         }
     }
 }
@@ -77,82 +52,72 @@ static void onMouseModelRegistration(int event, int x, int y, int, void *) {
 
 int main(int argc, char *argv[]) {
 
-    if (argc != 3) {
-        return -1;
-    }
-
-
     /*************************************************************
      *                   * Kalibrace *
      *************************************************************/
 
     Mat image;
-    vector<string> filelist;
+    vector<string> fileList;
     for (int i = 1; i <= 20; i++) {
         stringstream str;
         str << "image/chessboards/chessboard" << setw(2) << setfill('0') << i << ".jpg";
-        filelist.push_back(str.str());
+        fileList.push_back(str.str());
         image = imread(str.str(), 0);
     }
 
     Size boardSize(6, 4);
-    cameraCalibrator.addChessboardPoints(filelist, boardSize);
+    cameraCalibrator.addChessboardPoints(fileList, boardSize);
     cameraCalibrator.calibrate((Size &) image.size);
 
     /*************************************************************
      *                * Robust matcher *
      *************************************************************/
 
-    Mat image1 = imread("image/church01.jpg", 0);
-    Mat image2 = imread("image/church02.jpg", 0);
-    if (!image1.data || !image2.data)
-        return 0;
+    Mat image1 = imread("image/church01.jpg");
+    Mat image2 = imread("image/church02.jpg");
 
     cameraCalibrator.cleanVectors();
     cameraCalibrator.calibrate((Size &) image1.size);
-    cameraCalibrator.calibrate((Size &) image2.size);
 
-
-    rmatcher.setConfidenceLevel(0.98);
-    rmatcher.setMinDistanceToEpipolar(1.0);
-    rmatcher.setRatio(0.65f);
+    robustMatcher.setConfidenceLevel(0.98);
+    robustMatcher.setMinDistanceToEpipolar(1.0);
+    robustMatcher.setRatio(0.65f);
 
     Ptr<FeatureDetector> pfd = SURF::create(10);
-    rmatcher.setFeatureDetector(pfd);
+    robustMatcher.setFeatureDetector(pfd);
 
     vector<DMatch> matches;
-    vector<KeyPoint> keypoints1, keypoints2;
-    Mat fundemental = rmatcher.match(image1, image2, matches, keypoints1, keypoints2);
+    vector<KeyPoint> keyPoints1, keyPoints2;
+    Mat fundamental = robustMatcher.match(image1, image2, matches, keyPoints1, keyPoints2);
 
     vector<Point2f> points1, points2;
 
-    for (vector<DMatch>::const_iterator it = matches.begin();
-         it != matches.end(); ++it) {
-        float x = keypoints1[it->queryIdx].pt.x;
-        float y = keypoints1[it->queryIdx].pt.y;
+    for (vector<DMatch>::const_iterator it = matches.begin(); it != matches.end(); ++it) {
+        float x = keyPoints1[it->queryIdx].pt.x;
+        float y = keyPoints1[it->queryIdx].pt.y;
         points1.push_back(Point2f(x, y));
-        circle(image1, Point((int) x, (int) y), 3, Scalar(255, 255, 255), 3);
+        circle(image1, Point((int) x, (int) y), 3, white, 3);
 
-        x = keypoints2[it->trainIdx].pt.x;
-        y = keypoints2[it->trainIdx].pt.y;
-        circle(image2, Point((int) x, (int) y), 3, Scalar(255, 255, 255), 3);
+        x = keyPoints2[it->trainIdx].pt.x;
+        y = keyPoints2[it->trainIdx].pt.y;
+        circle(image2, Point((int) x, (int) y), 3, white, 3);
         points2.push_back(Point2f(x, y));
     }
 
     vector<Vec3f> lines1;
-    computeCorrespondEpilines(Mat(points1), 1, fundemental, lines1);
+    computeCorrespondEpilines(Mat(points1), 1, fundamental, lines1);
 
     for (vector<Vec3f>::const_iterator it = lines1.begin(); it != lines1.end(); ++it) {
         line(image2, Point(0, -(*it)[2] / (*it)[1]),
-             Point(image2.cols, (int) (-((*it)[2] + (*it)[0] * image2.cols) / (*it)[1])), Scalar(255, 255, 255));
+             Point(image2.cols, (int) (-((*it)[2] + (*it)[0] * image2.cols) / (*it)[1])), white);
     }
 
     vector<Vec3f> lines2;
-    computeCorrespondEpilines(Mat(points2), 2, fundemental, lines2);
+    computeCorrespondEpilines(Mat(points2), 2, fundamental, lines2);
 
     for (vector<Vec3f>::const_iterator it = lines2.begin(); it != lines2.end(); ++it) {
         line(image1, Point(0, -(*it)[2] / (*it)[1]),
-             Point(image1.cols, (int) (-((*it)[2] + (*it)[0] * image1.cols) / (*it)[1])), Scalar(255, 255, 255));
+             Point(image1.cols, (int) (-((*it)[2] + (*it)[0] * image1.cols) / (*it)[1])), white);
     }
 
     /*namedWindow("Right Image Epilines (RANSAC)");
@@ -202,171 +167,226 @@ int main(int argc, char *argv[]) {
     transpose(pnts3D, triangulatedPoints3D);
     convertPointsFromHomogeneous(triangulatedPoints3D, triangulatedPoints3D);
 
-    Mat rvec, tvec;
+    vector<Point3f> list3DPoint;
+    vector<Point2f> list2DPoint;
+    for (int i = 0; i < triangulatedPoints3D.rows; i++) {
+        Point3f point3f = Point3f(triangulatedPoints3D.at<float>(i, 0), triangulatedPoints3D.at<float>(i, 1),
+                                  triangulatedPoints3D.at<float>(i, 2));
+        list3DPoint.push_back(Point3f(triangulatedPoints3D.at<float>(i, 0), triangulatedPoints3D.at<float>(i, 1),
+                                      triangulatedPoints3D.at<float>(i, 2)));
+    }
 
-    solvePnPRansac(triangulatedPoints3D, points1, cameraCalibrator.getCameraMatrix(), cameraCalibrator.getDistCoeffs(),
-                   rvec, tvec);
-    cout << "Rotation Vector: " << rvec << endl;
-    cout << "Translation Vector: " << tvec << endl;
+    projectPoints(list3DPoint, rotation_vector_b, translation_vector_b, cameraCalibrator.getCameraMatrix(),
+                  cameraCalibrator.getDistCoeffs(), list2DPoint);
+
+
+    Mat xx = imread("image/church02.jpg");
+
+    draw2DPoints(xx, list2DPoint, blue);
+
+    /*namedWindow("Triangulation 1");
+    imshow("Triangulation 1", xx);*/
+
+    projectPoints(list3DPoint, rotation_vector_a, translation_vector_a, cameraCalibrator.getCameraMatrix(),
+                  cameraCalibrator.getDistCoeffs(), list2DPoint);
+
+    Mat yy = imread("image/church01.jpg");
+
+    draw2DPoints(yy, list2DPoint, blue);
+
+    /*namedWindow("Triangulation 2");
+    imshow("Triangulation 2", yy);*/
+
 
     /*************************************************************
      *                    * Registration *                       *
      *************************************************************/
 
-    mesh.load(ply_read_path);
+    Mat image3 = imread("image/church03.jpg");
+
 
     namedWindow("MODEL REGISTRATION", WINDOW_KEEPRATIO);
     setMouseCallback("MODEL REGISTRATION", onMouseModelRegistration, 0);
 
-    Mat img_in = imread("data/resized_IMG_3875.jpg");
-    Mat img_vis = img_in.clone();
+    Mat img_vis = image3.clone();
 
-    if (!img_in.data) {
+    if (!image3.data) {
         cout << "Could not open or find the image" << endl;
         return -1;
     }
 
-    registration.setNumMax(number_registration);
 
+    vector<Point2f> list;
+    int i = 0;
+    while (registration.get_points3d().size() < number_registration) {
+        if (list3DPoint[i].x < 100.0 && list3DPoint[i].x > -100.0 && list3DPoint[i].y < 100.0 &&
+            list3DPoint[i].y > -100.0 && list3DPoint[i].z < 100.0 && list3DPoint[i].z > -100.0) {
+            registration.register3DPoint(list3DPoint[i]);
+            list.push_back(list2DPoint[i]);
+        }
+        i++;
+    }
+
+
+    registration.setNumMax(number_registration);
 
     while (waitKey(30) < 0) {
 
-        img_vis = img_in.clone();
+        img_vis = image3.clone();
         vector<Point2f> list_points2d = registration.get_points2d();
         vector<Point3f> list_points3d = registration.get_points3d();
-
-        drawPoints(img_vis, list_points2d, list_points3d, red);
-
         if (!end_registration) {
-            int n_vertex = pts[registration.getNumRegistration()];
-            Point3f current_point3d = mesh.getVertex(n_vertex - 1);
-            drawQuestion(img_vis, current_point3d, green);
             drawCounter(img_vis, registration.getNumRegistration(), registration.getNumMax(), red);
+            draw2DPoint(yy, list[registration.getNumRegistration()], green);
+            Point3f point3f = registration.get_points3d()[registration.getNumRegistration()];
+            drawQuestion(img_vis, point3f, red);
         } else {
             drawText(img_vis, "END REGISTRATION", green);
             drawCounter(img_vis, registration.getNumRegistration(), registration.getNumMax(), green);
             break;
         }
+
+        draw2DPoints(img_vis, list_points2d, blue);
         imshow("MODEL REGISTRATION", img_vis);
+        imshow("MODEL REGISTRATION 1", yy);
     }
 
     vector<Point2f> list_points2d = registration.get_points2d();
-    vector<Point3f> list_points3d = registration.get_points3d();
-
-    if (pnp_registration.estimatePose(list_points3d, list_points2d, SOLVEPNP_ITERATIVE)) {
-        cout << "Correspondence found" << endl;
-
-        vector<Point2f> list_points2d_mesh = pnp_registration.verify_points(&mesh);
-        draw2DPoints(img_vis, list_points2d_mesh, green);
-
-    } else {
-        cout << "Correspondence not found" << endl << endl;
-    }
-
-    vector<KeyPoint> keypoints_model;
-    Mat descriptors;
-
-    rmatcher.getExtractor()->detect(img_in, keypoints_model);
-    rmatcher.getDetector()->compute(img_in, keypoints_model, descriptors);
-
-    for (unsigned int i = 0; i < keypoints_model.size(); ++i) {
-        Point2f point2d(keypoints_model[i].pt);
-        Point3f point3d;
-        bool on_surface = pnp_registration.backProject2DPoint(&mesh, point2d, point3d);
-        if (on_surface) {
-            model.add_correspondence(point2d, point3d);
-            model.add_descriptor(descriptors.row(i));
-            model.add_key_point(keypoints_model[i]);
-        } else {
-            model.add_outlier(point2d);
-        }
-    }
-
-    model.save(write_path);
-    img_vis = img_in.clone();
-
-    vector<Point2f> list_points_in = model.get_points2d_in();
-    vector<Point2f> list_points_out = model.get_points2d_out();
-
-    string num = IntToString((int) list_points_in.size());
-    string text = "There are " + num + " inliers";
-    drawText(img_vis, text, green);
-
-    num = IntToString((int) list_points_out.size());
-    text = "There are " + num + " outliers";
-    drawText2(img_vis, text, red);
-
-    drawObjectMesh(img_vis, &mesh, &pnp_registration, blue);
-
-    draw2DPoints(img_vis, list_points_in, green);
-    draw2DPoints(img_vis, list_points_out, red);
-
-    imshow("MODEL REGISTRATION", img_vis);
 
     /*************************************************************
-     *                  * Pose Estimation *
+     *                   * Point Estimation *
      *************************************************************/
 
-    Mat im = img_vis;
+    line(img_vis, list_points2d[0], list_points2d[1], blue, 5);
+    line(img_vis, list_points2d[1], list_points2d[2], blue, 5);
+    line(img_vis, list_points2d[2], list_points2d[3], blue, 5);
+    line(img_vis, list_points2d[3], list_points2d[0], blue, 5);
 
-    vector<Point2f> image_points;
-    vector<Point3f> model_points;
-    Mat rotation_vector, translation_vector;
+    /* namedWindow("Point estimation");
+     imshow("Point estimation", img_vis);*/
 
-    for (int i = 0; i < 8; i++) {
-        image_points.push_back(Point2d(list_points2d[i].x, list_points2d[i].y));
-        model_points.push_back(Point3d(list_points3d[i].x, list_points3d[i].y, list_points3d[i].z));
+    double cx,cy;
+
+    double parameters[4];
+    parameters[0] = cameraCalibrator.getCameraMatrix().at<double>(0, 0);
+    parameters[1] = cameraCalibrator.getCameraMatrix().at<double>(1, 1);
+    parameters[2] = img_vis.cols / 2; // nutno jeste vypocitat
+    parameters[3] = img_vis.rows / 2; // nutno jeste vypocitat
+
+    PnPProblem pnp_registration(parameters);
+
+    vector<KeyPoint> keyPoints3;
+    Mat descriptors;
+
+    robustMatcher.getExtractor()->detect(image3, keyPoints3);
+    robustMatcher.getDetector()->compute(image3, keyPoints3, descriptors);
+
+
+    Mat rvect, tvect;
+    Mat out;
+
+    vector<Point3f> list3D = registration.get_points3d();
+    vector<Point2f> list2D = registration.get_points2d();
+
+
+    pnp_registration.mySolvePnPRansac(list3D, list2D, rvect, tvect);
+
+    solvePnPRansac(list3D, list2D, cameraCalibrator.getCameraMatrix(), cameraCalibrator.getDistCoeffs(), rvect, tvect);
+
+
+    vector<Point3f> nose_end_point3D;
+    vector<Point2f> nose_end_point2D;
+    vector<Point2f> pom;
+    nose_end_point3D.push_back(Point3d(0, 0, 0));
+    projectPoints(nose_end_point3D, rvect, tvect, cameraCalibrator.getCameraMatrix(), cameraCalibrator.getDistCoeffs(),
+                  nose_end_point2D);
+
+    draw2DPoints(image3, nose_end_point2D, blue);
+    for (int i = 0; i < list2D.size(); i++) {
+        for (int j = 0; j < nose_end_point2D.size(); j++) {
+            line(image3, nose_end_point2D[j], list2D[i], blue, 3);
+        }
+
     }
 
-    // Camera internals
-    double focal_length = im.cols; // Approximate focal length.
-    Point2d center = Point2d(im.cols / 2, im.rows / 2);
-    Mat camera_matrix = (Mat_<double>(3, 3) << focal_length, 0, center.x, 0, focal_length, center.y, 0, 0, 1);
-    Mat dist_coeffs = Mat::zeros(4, 1, cv::DataType<double>::type);
-
-    cout << "Camera Matrix " << endl << camera_matrix << endl;
-
-    /*
-     * Funkce pro vypocet odhadu 3D bodu
-     * model_points - list 3D bodu
-     * image_points - list 2D bodu
-     * camera_matrix - vstupni kamera matice s optickym stredem
-     * dist_coeffs - vstupni vektor zkreslenych koeficientu
-     * rotation_vector_a - vystupni vektor po rotaci
-     * translation_vector - vystupni vektor pro posun
-     * SOLVEPNP_ITERATIVE - iterační metoda založená na Levenberg-Marquardt optimalizaci
-     */
-    //solvePnP(model_points, image_points, cameraCalibrator.getCameraMatrix(), cameraCalibrator.getDistCoeffs(), rotation_vector, translation_vector, SOLVEPNP_ITERATIVE );
-    solvePnPRansac(model_points, image_points, camera_matrix, dist_coeffs,
-                  rotation_vector, translation_vector, SOLVEPNP_ITERATIVE);
-
-    vector<Point3d> nose_end_point3D;
-    vector<Point2d> nose_end_point2D;
-    nose_end_point3D.push_back(Point3d(0, 0, 1000.0));
-
-    projectPoints(nose_end_point3D, rotation_vector, translation_vector, cameraCalibrator.getCameraMatrix(),
-                  cameraCalibrator.getDistCoeffs(), nose_end_point2D);
+    pom.push_back(nose_end_point2D[0]);
+    nose_end_point3D.clear();
+    nose_end_point2D.clear();
 
 
-    /*for (int i = 0; i < image_points.size(); i++) {
-        circle(im, image_points[i], 3, blue, -1);
-    }*/
+    nose_end_point3D.push_back(Point3d(25, 0, 0));
+    projectPoints(nose_end_point3D, rvect, tvect, cameraCalibrator.getCameraMatrix(), cameraCalibrator.getDistCoeffs(),
+                  nose_end_point2D);
 
+    draw2DPoints(image3, nose_end_point2D, blue);
+    for (int i = 0; i < list2D.size(); i++) {
+        for (int j = 0; j < nose_end_point2D.size(); j++) {
+            line(image3, nose_end_point2D[j], list2D[i], blue, 3);
+        }
 
-    for (int i = 0; i < image_points.size(); i++) {
-        line(im, image_points[i], nose_end_point2D[0], blue, 2);
     }
 
-    cout << "Rotation Vector " << endl << rotation_vector << endl;
-    cout << "Translation Vector" << endl << translation_vector << endl;
+    pom.push_back(nose_end_point2D[0]);
+    nose_end_point3D.clear();
+    nose_end_point2D.clear();
 
-    cout << nose_end_point2D << endl;
+    nose_end_point3D.push_back(Point3d(0, 25, 0));
+    projectPoints(nose_end_point3D, rvect, tvect, cameraCalibrator.getCameraMatrix(), cameraCalibrator.getDistCoeffs(),
+                  nose_end_point2D);
 
-    imshow("Output", im);
+    draw2DPoints(image3, nose_end_point2D, blue);
+    for (int i = 0; i < list2D.size(); i++) {
+        for (int j = 0; j < nose_end_point2D.size(); j++) {
+            line(image3, nose_end_point2D[j], list2D[i], blue, 3);
+        }
+
+    }
+
+    pom.push_back(nose_end_point2D[0]);
+
+    Point2f A = pom[0];
+    Point2f B = pom[1];
+    Point2f C = pom[2];
+
+    line(image3, A, B, red, 1);
+    line(image3, B, C, red, 1);
+    line(image3, C, A, red, 1);
+
+    Point2f center, tmp;
+    center.x = (A.x + B.x) / 2;
+    center.y = (A.y + B.y) / 2;
+    tmp.x = C.x;
+    tmp.y = C.y;
+    line(image3, center, tmp, green, 5);
+    Line2D primka1(center.x , center.y , tmp.x, tmp.y);
+
+    center.x = (A.x + C.x) / 2;
+    center.y = (A.y + C.y) / 2;
+    tmp.x = B.x;
+    tmp.y = B.y;
+    line(image3, center, tmp, green, 5);
+    Line2D primka2(center.x , center.y , tmp.x, tmp.y);
+
+    center.x = (C.x + B.x) / 2;
+    center.y = (C.y + B.y) / 2;
+    tmp.x = A.x;
+    tmp.y = A.y;
+    line(image3, center, tmp, green, 5);
+    Line2D primka3(center.x , center.y , tmp.x, tmp.y);
+
+
+    double prusecik_x, prusecik_y;
+    if(primka1.getIntersection(primka2, prusecik_x, prusecik_y))    {
+        printf("Prusecik [%f; %f]\n", prusecik_x, prusecik_y);
+    }
+
+    cx = prusecik_x;
+    cy = prusecik_y;
+
+    namedWindow("Final");
+    imshow("Final", image3);
 
     waitKey(0);
-    destroyWindow("MODEL REGISTRATION");
-
     return 0;
 }
 

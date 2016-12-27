@@ -183,6 +183,9 @@ CMakeFiles/rephotografing_cv.dir/src/CsvWriter.cpp.obj: ../src/ModelRegistration
 CMakeFiles/rephotografing_cv.dir/src/CsvWriter.cpp.obj: ../src/PnPProblem.h
 CMakeFiles/rephotografing_cv.dir/src/CsvWriter.cpp.obj: ../src/Utils.h
 
+CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.obj: ../src/Line2D.cpp
+CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.obj: ../src/Line2D.h
+
 CMakeFiles/rephotografing_cv.dir/src/Mesh.cpp.obj: D:/OpenCV/opencv/build/install/include/opencv/cxcore.h
 CMakeFiles/rephotografing_cv.dir/src/Mesh.cpp.obj: D:/OpenCV/opencv/build/install/include/opencv2/calib3d.hpp
 CMakeFiles/rephotografing_cv.dir/src/Mesh.cpp.obj: D:/OpenCV/opencv/build/install/include/opencv2/calib3d/calib3d_c.h
@@ -610,12 +613,11 @@ CMakeFiles/rephotografing_cv.dir/src/main_registration.cpp.obj: D:/OpenCV/opencv
 CMakeFiles/rephotografing_cv.dir/src/main_registration.cpp.obj: D:/OpenCV/opencv/build/install/include/opencv2/xfeatures2d.hpp
 CMakeFiles/rephotografing_cv.dir/src/main_registration.cpp.obj: D:/OpenCV/opencv/build/install/include/opencv2/xfeatures2d/nonfree.hpp
 CMakeFiles/rephotografing_cv.dir/src/main_registration.cpp.obj: ../src/CameraCalibrator.h
+CMakeFiles/rephotografing_cv.dir/src/main_registration.cpp.obj: ../src/Line2D.h
 CMakeFiles/rephotografing_cv.dir/src/main_registration.cpp.obj: ../src/Mesh.h
-CMakeFiles/rephotografing_cv.dir/src/main_registration.cpp.obj: ../src/Model.h
 CMakeFiles/rephotografing_cv.dir/src/main_registration.cpp.obj: ../src/ModelRegistration.h
 CMakeFiles/rephotografing_cv.dir/src/main_registration.cpp.obj: ../src/MyMatcher.h
 CMakeFiles/rephotografing_cv.dir/src/main_registration.cpp.obj: ../src/PnPProblem.h
-CMakeFiles/rephotografing_cv.dir/src/main_registration.cpp.obj: ../src/RobustMatcher.h
 CMakeFiles/rephotografing_cv.dir/src/main_registration.cpp.obj: ../src/Utils.h
 CMakeFiles/rephotografing_cv.dir/src/main_registration.cpp.obj: ../src/main_registration.cpp
 

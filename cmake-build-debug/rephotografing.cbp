@@ -104,6 +104,12 @@
 		<Unit filename="D:/Project/rephotografing/src/CsvWriter.h">
 			<Option target="rephotografing_cv"/>
 		</Unit>
+		<Unit filename="D:/Project/rephotografing/src/Line2D.cpp">
+			<Option target="rephotografing_cv"/>
+		</Unit>
+		<Unit filename="D:/Project/rephotografing/src/Line2D.h">
+			<Option target="rephotografing_cv"/>
+		</Unit>
 		<Unit filename="D:/Project/rephotografing/src/Mesh.cpp">
 			<Option target="rephotografing_cv"/>
 		</Unit>

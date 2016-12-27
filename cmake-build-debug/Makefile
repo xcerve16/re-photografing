@@ -203,6 +203,33 @@ src/CsvWriter.cpp.s:
 	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/CsvWriter.cpp.s
 .PHONY : src/CsvWriter.cpp.s
 
+src/Line2D.obj: src/Line2D.cpp.obj
+
+.PHONY : src/Line2D.obj
+
+# target to build an object file
+src/Line2D.cpp.obj:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.obj
+.PHONY : src/Line2D.cpp.obj
+
+src/Line2D.i: src/Line2D.cpp.i
+
+.PHONY : src/Line2D.i
+
+# target to preprocess a source file
+src/Line2D.cpp.i:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.i
+.PHONY : src/Line2D.cpp.i
+
+src/Line2D.s: src/Line2D.cpp.s
+
+.PHONY : src/Line2D.s
+
+# target to generate assembly for a file
+src/Line2D.cpp.s:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.s
+.PHONY : src/Line2D.cpp.s
+
 src/Mesh.obj: src/Mesh.cpp.obj
 
 .PHONY : src/Mesh.obj
@@ -410,6 +437,9 @@ help:
 	@echo ... src/CsvWriter.obj
 	@echo ... src/CsvWriter.i
 	@echo ... src/CsvWriter.s
+	@echo ... src/Line2D.obj
+	@echo ... src/Line2D.i
+	@echo ... src/Line2D.s
 	@echo ... src/Mesh.obj
 	@echo ... src/Mesh.i
 	@echo ... src/Mesh.s

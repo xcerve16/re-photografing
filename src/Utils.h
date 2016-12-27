@@ -73,4 +73,7 @@ std::string IntToString ( int Number );
 
 vector<Point2f> Points(vector<KeyPoint> keypoints);
 
+void draw2DPoint(cv::Mat image, Point2f &list_points, cv::Scalar color);
+
+
 #endif /* UTILS_H_ */
