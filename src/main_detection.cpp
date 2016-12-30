@@ -35,7 +35,6 @@ double params_WEBCAM[] = {width * f / sx,   // fx
                           width / 2,      // cx
                           height / 2};    // cy
 
-// Some basic colors
 Scalar red(0, 0, 255);
 Scalar green(0, 255, 0);
 Scalar blue(255, 0, 0);
@@ -102,7 +101,6 @@ int main(int argc, char *argv[]) {
 
     namedWindow("REAL TIME DEMO", WINDOW_KEEPRATIO);
 
-
     VideoCapture cap;
     cap.open(video_read_path);
 
@@ -168,12 +166,8 @@ int main(int argc, char *argv[]) {
          *************************************************************/
 
         if (good_matches.size() > 0) {
-
-
             pnp_detection.estimatePoseRANSAC(list_points3d_model_match, list_points2d_scene_match, pnpMethod,
                                              inliers_idx, iterationsCount, reprojectionError, confidence);
-
-
             for (int inliers_index = 0; inliers_index < inliers_idx.rows; ++inliers_index) {
                 int n = inliers_idx.at<int>(inliers_index);
                 Point2f point2d = list_points2d_scene_match[n];
@@ -212,10 +206,7 @@ int main(int argc, char *argv[]) {
             Mat rotation_estimated(3, 3, CV_64F);
 
             // update the Kalman filter with good measurements
-            updateKalmanFilter(KF, measurements,
-                               translation_estimated, rotation_estimated);
-
-
+            updateKalmanFilter(KF, measurements, translation_estimated, rotation_estimated);
             pnp_detection_est.set_P_matrix(rotation_estimated, translation_estimated);
 
         }

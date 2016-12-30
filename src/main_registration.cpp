@@ -21,10 +21,7 @@ using namespace std;
 using namespace xfeatures2d;
 
 bool end_registration = false;
-
-
 int const number_registration = 8;
-int pts[number_registration];
 
 Scalar red(0, 0, 255);
 Scalar green(0, 255, 0);
@@ -34,6 +31,10 @@ Scalar white(255, 255, 255);
 ModelRegistration registration;
 CameraCalibrator cameraCalibrator;
 MyRobustMatcher robustMatcher;
+
+String frame1 = "image/test1.jpg";
+String frame2 = "image/test2.jpg";
+String ref = ;
 
 static void onMouseModelRegistration(int event, int x, int y, int, void *) {
     if (event == EVENT_LBUTTONUP) {
@@ -73,8 +74,8 @@ int main(int argc, char *argv[]) {
      *                * Robust matcher *
      *************************************************************/
 
-    Mat image1 = imread("image/church01.jpg");
-    Mat image2 = imread("image/church02.jpg");
+    Mat image1 = imread(frame1);
+    Mat image2 = imread(frame2);
 
     cameraCalibrator.cleanVectors();
     cameraCalibrator.calibrate((Size &) image1.size);
@@ -180,7 +181,7 @@ int main(int argc, char *argv[]) {
                   cameraCalibrator.getDistCoeffs(), list2DPoint);
 
 
-    Mat xx = imread("image/church02.jpg");
+    Mat xx = imread(frame1);
 
     draw2DPoints(xx, list2DPoint, blue);
 
@@ -190,7 +191,7 @@ int main(int argc, char *argv[]) {
     projectPoints(list3DPoint, rotation_vector_a, translation_vector_a, cameraCalibrator.getCameraMatrix(),
                   cameraCalibrator.getDistCoeffs(), list2DPoint);
 
-    Mat yy = imread("image/church01.jpg");
+    Mat yy = imread(frame2);
 
     draw2DPoints(yy, list2DPoint, blue);
 
@@ -202,7 +203,7 @@ int main(int argc, char *argv[]) {
      *                    * Registration *                       *
      *************************************************************/
 
-    Mat image3 = imread("image/church03.jpg");
+    Mat image3 = imread(ref);
 
 
     namedWindow("MODEL REGISTRATION", WINDOW_KEEPRATIO);
@@ -298,6 +299,7 @@ int main(int argc, char *argv[]) {
     vector<Point2f> nose_end_point2D;
     vector<Point2f> pom;
     nose_end_point3D.push_back(Point3d(0, 0, 0));
+
     projectPoints(nose_end_point3D, rvect, tvect, cameraCalibrator.getCameraMatrix(), cameraCalibrator.getDistCoeffs(),
                   nose_end_point2D);
 
@@ -306,7 +308,6 @@ int main(int argc, char *argv[]) {
         for (int j = 0; j < nose_end_point2D.size(); j++) {
             line(image3, nose_end_point2D[j], list2D[i], blue, 3);
         }
-
     }
 
     pom.push_back(nose_end_point2D[0]);
@@ -331,6 +332,7 @@ int main(int argc, char *argv[]) {
     nose_end_point2D.clear();
 
     nose_end_point3D.push_back(Point3d(0, 25, 0));
+
     projectPoints(nose_end_point3D, rvect, tvect, cameraCalibrator.getCameraMatrix(), cameraCalibrator.getDistCoeffs(),
                   nose_end_point2D);
 
