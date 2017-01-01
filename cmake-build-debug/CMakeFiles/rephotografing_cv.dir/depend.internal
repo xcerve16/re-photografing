@@ -552,7 +552,7 @@ CMakeFiles/rephotografing_cv.dir/src/Utils.cpp.obj
  D:/Project/rephotografing/src/PnPProblem.h
  D:/Project/rephotografing/src/Utils.cpp
  D:/Project/rephotografing/src/Utils.h
-CMakeFiles/rephotografing_cv.dir/src/main_registration.cpp.obj
+CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.obj
  D:/OpenCV/opencv/build/install/include/opencv/cv.h
  D:/OpenCV/opencv/build/install/include/opencv/cv.hpp
  D:/OpenCV/opencv/build/install/include/opencv/cxcore.h
@@ -613,11 +613,11 @@ CMakeFiles/rephotografing_cv.dir/src/main_registration.cpp.obj
  D:/OpenCV/opencv/build/install/include/opencv2/videoio/videoio_c.h
  D:/OpenCV/opencv/build/install/include/opencv2/xfeatures2d.hpp
  D:/OpenCV/opencv/build/install/include/opencv2/xfeatures2d/nonfree.hpp
- D:/Project/rephotografing/src/CameraCalibrator.h
- D:/Project/rephotografing/src/Line2D.h
  D:/Project/rephotografing/src/Mesh.h
+ D:/Project/rephotografing/src/Model.h
  D:/Project/rephotografing/src/ModelRegistration.h
- D:/Project/rephotografing/src/MyMatcher.h
+ D:/Project/rephotografing/src/MyRobustMatcher.h
  D:/Project/rephotografing/src/PnPProblem.h
+ D:/Project/rephotografing/src/RobustMatcher.h
  D:/Project/rephotografing/src/Utils.h
- D:/Project/rephotografing/src/main_registration.cpp
+ D:/Project/rephotografing/src/main_detection.cpp

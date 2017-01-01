@@ -128,7 +128,7 @@
 		<Unit filename="D:/Project/rephotografing/src/ModelRegistration.h">
 			<Option target="rephotografing_cv"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/src/MyMatcher.h">
+		<Unit filename="D:/Project/rephotografing/src/MyRobustMatcher.h">
 			<Option target="rephotografing_cv"/>
 		</Unit>
 		<Unit filename="D:/Project/rephotografing/src/PnPProblem.cpp">
@@ -149,7 +149,7 @@
 		<Unit filename="D:/Project/rephotografing/src/Utils.h">
 			<Option target="rephotografing_cv"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/src/main_registration.cpp">
+		<Unit filename="D:/Project/rephotografing/src/main_detection.cpp">
 			<Option target="rephotografing_cv"/>
 		</Unit>
 		<Unit filename="D:/Project/rephotografing/CMakeLists.txt">

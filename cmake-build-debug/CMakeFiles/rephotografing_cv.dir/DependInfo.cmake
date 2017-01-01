@@ -14,7 +14,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "D:/Project/rephotografing/src/PnPProblem.cpp" "D:/Project/rephotografing/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/PnPProblem.cpp.obj"
   "D:/Project/rephotografing/src/RobustMatcher.cpp" "D:/Project/rephotografing/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/RobustMatcher.cpp.obj"
   "D:/Project/rephotografing/src/Utils.cpp" "D:/Project/rephotografing/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/Utils.cpp.obj"
-  "D:/Project/rephotografing/src/main_registration.cpp" "D:/Project/rephotografing/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/main_registration.cpp.obj"
+  "D:/Project/rephotografing/src/main_detection.cpp" "D:/Project/rephotografing/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

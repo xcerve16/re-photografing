@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/rephotografing_cv.dir/src/main_registration.cpp.obj"
+  "CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.obj"
   "CMakeFiles/rephotografing_cv.dir/src/CsvReader.cpp.obj"
   "CMakeFiles/rephotografing_cv.dir/src/CsvWriter.cpp.obj"
   "CMakeFiles/rephotografing_cv.dir/src/Mesh.cpp.obj"

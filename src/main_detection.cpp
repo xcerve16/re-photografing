@@ -1,29 +1,29 @@
 // C++
 #include <iostream>
 #include <time.h>
+#include <string>     // std::string, std::to_string
+
 // OpenCV
 #include <opencv2/core/core.hpp>
-#include <opencv2/core/utility.hpp>
 #include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/calib3d/calib3d.hpp>
 #include <opencv2/video/tracking.hpp>
 // PnP Tutorial
 #include "Mesh.h"
 #include "Model.h"
 #include "PnPProblem.h"
-#include "RobustMatcher.h"
-#include "ModelRegistration.h"
 #include "Utils.h"
+#include "MyRobustMatcher.h"
+#include "RobustMatcher.h"
 
 /**  GLOBAL VARIABLES  **/
 
 using namespace cv;
 using namespace std;
 
-string video_read_path = "data/box.mp4";       // recorded video
-string yml_read_path = "data/cookies_ORB.yml"; // 3dpts + descriptors
-string ply_read_path = "data/box.ply";         // mesh
+string video_read_path = "resource/video/video2.mp4";       // recorded video
+string yml_read_path = "result.yml"; // 3dpts + descriptors
+string ply_read_path = "resource/data/box.ply";         // mesh
 
 // Intrinsic camera parameters: UVC WEBCAM
 double f = 55;                           // focal length in mm
@@ -39,6 +39,7 @@ Scalar red(0, 0, 255);
 Scalar green(0, 255, 0);
 Scalar blue(255, 0, 0);
 Scalar yellow(0, 255, 255);
+Scalar white(255, 255, 255);
 
 
 // Robust Matcher parameters
@@ -73,6 +74,19 @@ void fillMeasurements(Mat &measurements,
 /**  Main program  **/
 int main(int argc, char *argv[]) {
 
+    const String keys =
+            "{help h        |      | print this message                   }"
+                    "{video v       |      | path to recorded video               }"
+                    "{model         |      | path to yml model                    }"
+                    "{mesh          |      | path to ply mesh                     }"
+                    "{keypoints k   |2000  | number of keypoints to detect        }"
+                    "{ratio r       |0.7   | threshold for ratio test             }"
+                    "{iterations it |500   | RANSAC maximum iterations count      }"
+                    "{error e       |2.0   | RANSAC reprojection errror           }"
+                    "{confidence c  |0.95  | RANSAC confidence                    }"
+                    "{inliers in    |30    | minimum inliers for Kalman update    }"
+                    "{method  pnp   |0     | PnP method: (0) ITERATIVE - (1) EPNP - (2) P3P - (3) DLS}"
+                    "{fast f        |true  | use of robust fast match             }";
     CommandLineParser parser(argc, (const char *const *) argv, keys);
 
     PnPProblem pnp_detection(params_WEBCAM);
@@ -117,6 +131,28 @@ int main(int argc, char *argv[]) {
 
     Mat frame, frame_vis;
 
+    Mat image2 = imread("resource/image/test1.jpg");
+    Mat detection_model;
+
+    vector<KeyPoint> keyPoints2;
+    Ptr<FeatureDetector> orb = ORB::create();
+    orb->detect(image2, keyPoints2);
+    orb->compute(image2, keyPoints2, detection_model);
+    //detection_model = descriptors_model;
+
+    MyRobustMatcher robustMatcher;
+    robustMatcher.setConfidenceLevel(0.98);
+    robustMatcher.setMinDistanceToEpipolar(1.0);
+    robustMatcher.setRatio(0.65f);
+
+    Ptr<FeatureDetector> pfd = SURF::create(10);
+    robustMatcher.setFeatureDetector(pfd);
+
+    vector<DMatch> matches;
+
+    vector<Point2f> points1, points2;
+
+
     while (cap.read(frame) && waitKey(30) != 27) {
 
         frame_vis = frame.clone();
@@ -128,7 +164,6 @@ int main(int argc, char *argv[]) {
 
         RobustMatcher rmatcher;
 
-        Ptr<FeatureDetector> orb = ORB::create();
 
         rmatcher.setFeatureDetector(orb);
         rmatcher.setDescriptorExtractor(orb);
@@ -142,7 +177,9 @@ int main(int argc, char *argv[]) {
 
         vector<DMatch> good_matches;
         vector<KeyPoint> keypoints_scene;
-        rmatcher.robustMatch(frame, good_matches, keypoints_scene, descriptors_model);
+
+
+        rmatcher.robustMatch(frame_vis, good_matches, keypoints_scene, detection_model);
 
         /*************************************************************
          *                  * 2D/3D correspondences *
@@ -165,7 +202,7 @@ int main(int argc, char *argv[]) {
          *                  * Estimate pose *
          *************************************************************/
 
-        if (good_matches.size() > 0) {
+        if (matches.size() > 0) {
             pnp_detection.estimatePoseRANSAC(list_points3d_model_match, list_points2d_scene_match, pnpMethod,
                                              inliers_idx, iterationsCount, reprojectionError, confidence);
             for (int inliers_index = 0; inliers_index < inliers_idx.rows; ++inliers_index) {
@@ -173,58 +210,57 @@ int main(int argc, char *argv[]) {
                 Point2f point2d = list_points2d_scene_match[n];
                 list_points2d_inliers.push_back(point2d);
             }
+        }
 
-            draw2DPoints(frame_vis, list_points2d_inliers, blue);
+        draw2DPoints(frame_vis, list_points2d_inliers, blue);
 
 
         /*************************************************************
          *                  * Kalman filter *
         *************************************************************/
 
-            good_measurement = false;
+        good_measurement = false;
 
-            // GOOD MEASUREMENT
-            if (inliers_idx.rows >= minInliersKalman) {
+        // GOOD MEASUREMENT
+        if (inliers_idx.rows >= minInliersKalman) {
 
-                // Get the measured translation
-                Mat translation_measured(3, 1, CV_64F);
-                translation_measured = pnp_detection.get_t_matrix();
+            // Get the measured translation
+            Mat translation_measured(3, 1, CV_64F);
+            translation_measured = pnp_detection.get_t_matrix();
 
-                // Get the measured rotation
-                Mat rotation_measured(3, 3, CV_64F);
-                rotation_measured = pnp_detection.get_R_matrix();
+            // Get the measured rotation
+            Mat rotation_measured(3, 3, CV_64F);
+            rotation_measured = pnp_detection.get_R_matrix();
 
-                // fill the measurements vector
-                fillMeasurements(measurements, translation_measured, rotation_measured);
+            // fill the measurements vector
+            fillMeasurements(measurements, translation_measured, rotation_measured);
 
-                good_measurement = true;
-
-            }
-
-            // Instantiate estimated translation and rotation
-            Mat translation_estimated(3, 1, CV_64F);
-            Mat rotation_estimated(3, 3, CV_64F);
-
-            // update the Kalman filter with good measurements
-            updateKalmanFilter(KF, measurements, translation_estimated, rotation_estimated);
-            pnp_detection_est.set_P_matrix(rotation_estimated, translation_estimated);
+            good_measurement = true;
 
         }
+
+        // Instantiate estimated translation and rotation
+        Mat translation_estimated(3, 1, CV_64F);
+        Mat rotation_estimated(3, 3, CV_64F);
+
+        // update the Kalman filter with good measurements
+        updateKalmanFilter(KF, measurements, translation_estimated, rotation_estimated);
+        pnp_detection_est.set_P_matrix(rotation_estimated, translation_estimated);
 
 
         if (good_measurement) {
-            drawObjectMesh(frame_vis, &mesh, &pnp_detection, green);  // draw current pose
+           // drawObjectMesh(frame_vis, &mesh, &pnp_detection, green);  // draw current pose
         } else {
-            drawObjectMesh(frame_vis, &mesh, &pnp_detection_est, yellow); // draw estimated pose
+            //drawObjectMesh(frame_vis, &mesh, &pnp_detection_est, yellow); // draw estimated pose
         }
 
         float l = 5;
-        vector<Point2f> pose_points2d;
-        pose_points2d.push_back(pnp_detection_est.backproject3DPoint(Point3f(0, 0, 0)));  // axis center
+        /*vector<Point2f> pose_points2d;
+        pose_points2d.push_back(pnp_detection_est.backproject3DPoint(Point3f(5, 5, 5)));  // axis center
         pose_points2d.push_back(pnp_detection_est.backproject3DPoint(Point3f(l, 0, 0)));  // axis x
         pose_points2d.push_back(pnp_detection_est.backproject3DPoint(Point3f(0, l, 0)));  // axis y
         pose_points2d.push_back(pnp_detection_est.backproject3DPoint(Point3f(0, 0, l)));  // axis z
-        draw3DCoordinateAxes(frame_vis, pose_points2d);           // draw axes
+        draw3DCoordinateAxes(frame_vis, pose_points2d);           // draw axes*/
 
         // FRAME RATE
 
@@ -237,9 +273,9 @@ int main(int argc, char *argv[]) {
 
         fps = counter / sec;
 
-        drawFPS(frame_vis, fps, yellow); // frame ratio
+        //drawFPS(frame_vis, fps, yellow); // frame ratio
         double detection_ratio = ((double) inliers_idx.rows / (double) good_matches.size()) * 100;
-        drawConfidence(frame_vis, detection_ratio, yellow);
+        //drawConfidence(frame_vis, detection_ratio, yellow);
 
 
         // -- Step X: Draw some debugging text
@@ -255,6 +291,7 @@ int main(int argc, char *argv[]) {
 
         drawText(frame_vis, text, green);
         drawText2(frame_vis, text2, red);
+
 
         imshow("REAL TIME DEMO", frame_vis);
     }
@@ -300,9 +337,9 @@ void initKalmanFilter(KalmanFilter &KF, int nStates, int nMeasurements, int nInp
     KF.transitionMatrix.at<double>(3, 6) = dt;
     KF.transitionMatrix.at<double>(4, 7) = dt;
     KF.transitionMatrix.at<double>(5, 8) = dt;
-    KF.transitionMatrix.at<double>(0, 6) = 0.5 * pow(dt, 2);
-    KF.transitionMatrix.at<double>(1, 7) = 0.5 * pow(dt, 2);
-    KF.transitionMatrix.at<double>(2, 8) = 0.5 * pow(dt, 2);
+    KF.transitionMatrix.at<double>(0, 6) = 0.5 * dt * dt;
+    KF.transitionMatrix.at<double>(1, 7) = 0.5 * dt * dt;
+    KF.transitionMatrix.at<double>(2, 8) = 0.5 * dt * dt;
 
     // orientation
     KF.transitionMatrix.at<double>(9, 12) = dt;
@@ -311,9 +348,9 @@ void initKalmanFilter(KalmanFilter &KF, int nStates, int nMeasurements, int nInp
     KF.transitionMatrix.at<double>(12, 15) = dt;
     KF.transitionMatrix.at<double>(13, 16) = dt;
     KF.transitionMatrix.at<double>(14, 17) = dt;
-    KF.transitionMatrix.at<double>(9, 15) = 0.5 * pow(dt, 2);
-    KF.transitionMatrix.at<double>(10, 16) = 0.5 * pow(dt, 2);
-    KF.transitionMatrix.at<double>(11, 17) = 0.5 * pow(dt, 2);
+    KF.transitionMatrix.at<double>(9, 15) = 0.5 * dt * dt;
+    KF.transitionMatrix.at<double>(10, 16) = 0.5 * dt * dt;
+    KF.transitionMatrix.at<double>(11, 17) = 0.5 * dt * dt;
 
 
     /** MEASUREMENT MODEL **/

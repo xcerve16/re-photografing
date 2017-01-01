@@ -13,8 +13,10 @@
 #include "PnPProblem.h"
 #include "CameraCalibrator.h"
 #include "Utils.h"
-#include "MyMatcher.h"
+#include "MyRobustMatcher.h"
 #include "Line2D.h"
+#include "Model.h"
+
 
 using namespace cv;
 using namespace std;
@@ -31,10 +33,12 @@ Scalar white(255, 255, 255);
 ModelRegistration registration;
 CameraCalibrator cameraCalibrator;
 MyRobustMatcher robustMatcher;
+Model model;
+Mesh mesh;
 
-String frame1 = "image/test1.jpg";
-String frame2 = "image/test2.jpg";
-String ref = ;
+String frame1 = "resource/image/test1.jpg";
+String frame2 = "resource/image/test2.jpg";
+String ref = "resource/image/refVelehrad.jpg";
 
 static void onMouseModelRegistration(int event, int x, int y, int, void *) {
     if (event == EVENT_LBUTTONUP) {
@@ -61,7 +65,7 @@ int main(int argc, char *argv[]) {
     vector<string> fileList;
     for (int i = 1; i <= 20; i++) {
         stringstream str;
-        str << "image/chessboards/chessboard" << setw(2) << setfill('0') << i << ".jpg";
+        str << "resource/image/chessboards/chessboard" << setw(2) << setfill('0') << i << ".jpg";
         fileList.push_back(str.str());
         image = imread(str.str(), 0);
     }
@@ -121,10 +125,10 @@ int main(int argc, char *argv[]) {
              Point(image1.cols, (int) (-((*it)[2] + (*it)[0] * image1.cols) / (*it)[1])), white);
     }
 
-    /*namedWindow("Right Image Epilines (RANSAC)");
-    imshow("Right Image Epilines (RANSAC)", image1);
-    namedWindow("Left Image Epilines (RANSAC)");
-    imshow("Left Image Epilines (RANSAC)", image2);*/
+    /*namedWindow("Right Image (RANSAC)");
+    imshow("Right Image (RANSAC)", image1);
+    namedWindow("Left Image (RANSAC)");
+    imshow("Left Image (RANSAC)", image2);*/
 
     /*************************************************************
      *                   * Triangulation *
@@ -146,7 +150,6 @@ int main(int argc, char *argv[]) {
 
     Mat rt_a;
     Mat rt_d;
-
 
     hconcat(rotation_vector_a, translation_vector_a, rt_a);
     hconcat(rotation_vector_b, translation_vector_b, rt_d);
@@ -171,8 +174,6 @@ int main(int argc, char *argv[]) {
     vector<Point3f> list3DPoint;
     vector<Point2f> list2DPoint;
     for (int i = 0; i < triangulatedPoints3D.rows; i++) {
-        Point3f point3f = Point3f(triangulatedPoints3D.at<float>(i, 0), triangulatedPoints3D.at<float>(i, 1),
-                                  triangulatedPoints3D.at<float>(i, 2));
         list3DPoint.push_back(Point3f(triangulatedPoints3D.at<float>(i, 0), triangulatedPoints3D.at<float>(i, 1),
                                       triangulatedPoints3D.at<float>(i, 2)));
     }
@@ -230,12 +231,13 @@ int main(int argc, char *argv[]) {
 
 
     registration.setNumMax(number_registration);
-
+    vector<Point2f> list_points2d;
+    vector<Point3f> list_points3d;
     while (waitKey(30) < 0) {
 
         img_vis = image3.clone();
-        vector<Point2f> list_points2d = registration.get_points2d();
-        vector<Point3f> list_points3d = registration.get_points3d();
+        list_points2d = registration.get_points2d();
+        list_points3d = registration.get_points3d();
         if (!end_registration) {
             drawCounter(img_vis, registration.getNumRegistration(), registration.getNumMax(), red);
             draw2DPoint(yy, list[registration.getNumRegistration()], green);
@@ -252,7 +254,6 @@ int main(int argc, char *argv[]) {
         imshow("MODEL REGISTRATION 1", yy);
     }
 
-    vector<Point2f> list_points2d = registration.get_points2d();
 
     /*************************************************************
      *                   * Point Estimation *
@@ -266,13 +267,13 @@ int main(int argc, char *argv[]) {
     /* namedWindow("Point estimation");
      imshow("Point estimation", img_vis);*/
 
-    double cx,cy;
+    double cx, cy;
 
     double parameters[4];
     parameters[0] = cameraCalibrator.getCameraMatrix().at<double>(0, 0);
     parameters[1] = cameraCalibrator.getCameraMatrix().at<double>(1, 1);
-    parameters[2] = img_vis.cols / 2; // nutno jeste vypocitat
-    parameters[3] = img_vis.rows / 2; // nutno jeste vypocitat
+    parameters[2] = cameraCalibrator.getCameraMatrix().at<double>(0, 2);
+    parameters[3] = cameraCalibrator.getCameraMatrix().at<double>(1, 2);
 
     PnPProblem pnp_registration(parameters);
 
@@ -281,6 +282,10 @@ int main(int argc, char *argv[]) {
 
     robustMatcher.getExtractor()->detect(image3, keyPoints3);
     robustMatcher.getDetector()->compute(image3, keyPoints3, descriptors);
+
+    for (int i = 0; i < descriptors.rows; i++) {
+        model.add_descriptor(descriptors.row(i));
+    }
 
 
     Mat rvect, tvect;
@@ -360,33 +365,59 @@ int main(int argc, char *argv[]) {
     tmp.x = C.x;
     tmp.y = C.y;
     line(image3, center, tmp, green, 5);
-    Line2D primka1(center.x , center.y , tmp.x, tmp.y);
+    Line2D primka1(center.x, center.y, tmp.x, tmp.y);
 
     center.x = (A.x + C.x) / 2;
     center.y = (A.y + C.y) / 2;
     tmp.x = B.x;
     tmp.y = B.y;
     line(image3, center, tmp, green, 5);
-    Line2D primka2(center.x , center.y , tmp.x, tmp.y);
+    Line2D primka2(center.x, center.y, tmp.x, tmp.y);
 
     center.x = (C.x + B.x) / 2;
     center.y = (C.y + B.y) / 2;
     tmp.x = A.x;
     tmp.y = A.y;
     line(image3, center, tmp, green, 5);
-    Line2D primka3(center.x , center.y , tmp.x, tmp.y);
+    Line2D primka3(center.x, center.y, tmp.x, tmp.y);
 
 
     double prusecik_x, prusecik_y;
-    if(primka1.getIntersection(primka2, prusecik_x, prusecik_y))    {
+    if (primka1.getIntersection(primka2, prusecik_x, prusecik_y)) {
         printf("Prusecik [%f; %f]\n", prusecik_x, prusecik_y);
     }
 
     cx = prusecik_x;
     cy = prusecik_y;
 
+
+    /*************************************************************
+     *                   * Save registration *
+     *************************************************************/
+
+
+    /*
+     * [ fx   0  cx ]
+     * [  0  fy  cy ]
+     * [  0   0   1 ]
+     */
+    Mat camera_matrix_ref = cv::Mat::zeros(3, 3, CV_64FC1);
+    camera_matrix_ref.at<double>(0, 0) = cameraCalibrator.getCameraMatrix().at<double>(0, 0);
+    camera_matrix_ref.at<double>(1, 1) = cameraCalibrator.getCameraMatrix().at<double>(1, 1);
+    camera_matrix_ref.at<double>(0, 2) = cx;
+    camera_matrix_ref.at<double>(1, 2) = cy;
+    camera_matrix_ref.at<double>(2, 2) = 1;
+
+    for (int i = 0; i < list3D.size(); i++) {
+        model.add_correspondence(list2D[i], list3D[i]);
+    }
+
+    model.set_camera_matrix(camera_matrix_ref);
+    model.save("result.yml");
+
     namedWindow("Final");
     imshow("Final", image3);
+
 
     waitKey(0);
     return 0;

@@ -596,7 +596,7 @@ iostream
 opencv2/core/core.hpp
 -
 
-D:/Project/rephotografing/src/MyMatcher.h
+D:/Project/rephotografing/src/MyRobustMatcher.h
 vector
 -
 opencv2/core/core.hpp
@@ -639,10 +639,6 @@ D:/Project/rephotografing/src/ModelRegistration.h
 D:/Project/rephotografing/src/RobustMatcher.cpp
 RobustMatcher.h
 D:/Project/rephotografing/src/RobustMatcher.h
-time.h
--
-opencv2/features2d/features2d.hpp
--
 
 D:/Project/rephotografing/src/RobustMatcher.h
 iostream
@@ -678,27 +674,31 @@ opencv2/core.hpp
 PnPProblem.h
 D:/Project/rephotografing/src/PnPProblem.h
 
-D:/Project/rephotografing/src/main_registration.cpp
+D:/Project/rephotografing/src/main_detection.cpp
 iostream
+-
+time.h
+-
+string
 -
 opencv2/core/core.hpp
 -
-opencv2/imgproc/imgproc.hpp
+opencv2/highgui/highgui.hpp
 -
 opencv2/calib3d/calib3d.hpp
 -
-iomanip
+opencv2/video/tracking.hpp
 -
-opencv2/xfeatures2d.hpp
-D:/Project/rephotografing/src/opencv2/xfeatures2d.hpp
+Mesh.h
+D:/Project/rephotografing/src/Mesh.h
+Model.h
+D:/Project/rephotografing/src/Model.h
 PnPProblem.h
 D:/Project/rephotografing/src/PnPProblem.h
-CameraCalibrator.h
-D:/Project/rephotografing/src/CameraCalibrator.h
 Utils.h
 D:/Project/rephotografing/src/Utils.h
-MyMatcher.h
-D:/Project/rephotografing/src/MyMatcher.h
-Line2D.h
-D:/Project/rephotografing/src/Line2D.h
+MyRobustMatcher.h
+D:/Project/rephotografing/src/MyRobustMatcher.h
+RobustMatcher.h
+D:/Project/rephotografing/src/RobustMatcher.h
 
