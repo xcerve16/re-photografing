@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+D:/rephotografing/src/lmmin.c
+stdlib.h
+-
+stdio.h
+-
+math.h
+-
+float.h
+-
+lmmin.h
+D:/rephotografing/src/lmmin.h
+
+D:/rephotografing/src/lmmin.h
+

@@ -393,69 +393,19 @@ int main(int argc, char *argv[]) {
         model.add_descriptor(descriptors.row(i));
     }
 
-
-    Mat rvect, tvect;
-    Mat out;
-
-    vector<Point3f> list3D = registration.get_points3d();
-    vector<Point2f> list2D = registration.get_points2d();
-
-
-    pnp_registration.mySolvePnPRansac(list3D, list2D, rvect, tvect);
-
-    solvePnPRansac(list3D, list2D, cameraCalibrator.getCameraMatrix(), cameraCalibrator.getDistCoeffs(), rvect, tvect);
-
-
-    vector<Point3f> nose_end_point3D;
-    vector<Point2f> nose_end_point2D;
-    vector<Point2f> pom;
-    nose_end_point3D.push_back(Point3d(0, 0, 0));
-
-    projectPoints(nose_end_point3D, rvect, tvect, cameraCalibrator.getCameraMatrix(), cameraCalibrator.getDistCoeffs(),
-                  nose_end_point2D);
-
-    draw2DPoints(image3, nose_end_point2D, blue);
-    for (int i = 0; i < list2D.size(); i++) {
-        for (int j = 0; j < nose_end_point2D.size(); j++) {
-            line(image3, nose_end_point2D[j], list2D[i], blue, 3);
-        }
+    vector<Point3f> registration_3DPoint = registration.get_points3d();
+    vector<Point2f> registration_2DPoint = registration.get_points2d();
+    
+    for (int i = 0; i < list3DPoint.size(); i++) {
+        model.add_correspondence(registration_2DPoint[i], registration_3DPoint[i]);
     }
 
-    pom.push_back(nose_end_point2D[0]);
-    nose_end_point3D.clear();
-    nose_end_point2D.clear();
 
+    /*************************************************************
+     *                   * Vanish point *
+     *************************************************************/
 
-    nose_end_point3D.push_back(Point3d(25, 0, 0));
-    projectPoints(nose_end_point3D, rvect, tvect, cameraCalibrator.getCameraMatrix(), cameraCalibrator.getDistCoeffs(),
-                  nose_end_point2D);
-
-    draw2DPoints(image3, nose_end_point2D, blue);
-    for (int i = 0; i < list2D.size(); i++) {
-        for (int j = 0; j < nose_end_point2D.size(); j++) {
-            line(image3, nose_end_point2D[j], list2D[i], blue, 3);
-        }
-
-    }
-
-    pom.push_back(nose_end_point2D[0]);
-    nose_end_point3D.clear();
-    nose_end_point2D.clear();
-
-    nose_end_point3D.push_back(Point3d(0, 25, 0));
-
-    projectPoints(nose_end_point3D, rvect, tvect, cameraCalibrator.getCameraMatrix(), cameraCalibrator.getDistCoeffs(),
-                  nose_end_point2D);
-
-    draw2DPoints(image3, nose_end_point2D, blue);
-    for (int i = 0; i < list2D.size(); i++) {
-        for (int j = 0; j < nose_end_point2D.size(); j++) {
-            line(image3, nose_end_point2D[j], list2D[i], blue, 3);
-        }
-
-    }
     vector<Mat> vanish_point;
-    pom.push_back(nose_end_point2D[0]);
 
     // Images
     cv::Mat inputImg = imread("resource/image/refVelehrad.jpg"), imgGRAY;
@@ -494,13 +444,9 @@ int main(int argc, char *argv[]) {
     vector<Point2f> vanish_point_2d;
 
     for (int i = 0; i < vanish_point.size(); i++) {
-        vanish_point_3d.push_back(Point3f(vanish_point[i].at<float>(0, 0), vanish_point[i].at<float>(1, 0),
-                                          vanish_point[i].at<float>(2, 0)));
+        vanish_point_2d.push_back(Point2f(vanish_point[i].at<float>(0, 0), vanish_point[i].at<float>(1, 0)));
     }
 
-
-    projectPoints(vanish_point_3d, rvect, tvect, cameraCalibrator.getCameraMatrix(), cameraCalibrator.getDistCoeffs(),
-                  vanish_point_2d);
 
     Point2f A = vanish_point_2d[0];
     Point2f B = vanish_point_2d[1];
@@ -525,6 +471,7 @@ int main(int argc, char *argv[]) {
     center.y = (C.y + B.y) / 2;
     tmp.x = A.x;
     tmp.y = A.y;
+    line(image3, center, tmp, green, 1);
     line(image3, center, tmp, green, 1);
     Line2D primka3(center.x, center.y, tmp.x, tmp.y);
 
@@ -555,9 +502,7 @@ int main(int argc, char *argv[]) {
     camera_matrix_ref.at<double>(1, 2) = cy;
     camera_matrix_ref.at<double>(2, 2) = 1;
 
-    for (int i = 0; i < list3D.size(); i++) {
-        model.add_correspondence(list2D[i], list3D[i]);
-    }
+
 
     model.set_camera_matrix(camera_matrix_ref);
     model.save("result.yml");
