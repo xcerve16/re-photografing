@@ -230,6 +230,33 @@ src/Line2D.cpp.s:
 	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.s
 .PHONY : src/Line2D.cpp.s
 
+src/MSAC.obj: src/MSAC.cpp.obj
+
+.PHONY : src/MSAC.obj
+
+# target to build an object file
+src/MSAC.cpp.obj:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/MSAC.cpp.obj
+.PHONY : src/MSAC.cpp.obj
+
+src/MSAC.i: src/MSAC.cpp.i
+
+.PHONY : src/MSAC.i
+
+# target to preprocess a source file
+src/MSAC.cpp.i:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/MSAC.cpp.i
+.PHONY : src/MSAC.cpp.i
+
+src/MSAC.s: src/MSAC.cpp.s
+
+.PHONY : src/MSAC.s
+
+# target to generate assembly for a file
+src/MSAC.cpp.s:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/MSAC.cpp.s
+.PHONY : src/MSAC.cpp.s
+
 src/Mesh.obj: src/Mesh.cpp.obj
 
 .PHONY : src/Mesh.obj
@@ -392,32 +419,86 @@ src/Utils.cpp.s:
 	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/Utils.cpp.s
 .PHONY : src/Utils.cpp.s
 
-src/main_detection.obj: src/main_detection.cpp.obj
+src/errorNIETO.obj: src/errorNIETO.cpp.obj
 
-.PHONY : src/main_detection.obj
+.PHONY : src/errorNIETO.obj
 
 # target to build an object file
-src/main_detection.cpp.obj:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.obj
-.PHONY : src/main_detection.cpp.obj
+src/errorNIETO.cpp.obj:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/errorNIETO.cpp.obj
+.PHONY : src/errorNIETO.cpp.obj
 
-src/main_detection.i: src/main_detection.cpp.i
+src/errorNIETO.i: src/errorNIETO.cpp.i
 
-.PHONY : src/main_detection.i
+.PHONY : src/errorNIETO.i
 
 # target to preprocess a source file
-src/main_detection.cpp.i:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.i
-.PHONY : src/main_detection.cpp.i
+src/errorNIETO.cpp.i:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/errorNIETO.cpp.i
+.PHONY : src/errorNIETO.cpp.i
 
-src/main_detection.s: src/main_detection.cpp.s
+src/errorNIETO.s: src/errorNIETO.cpp.s
 
-.PHONY : src/main_detection.s
+.PHONY : src/errorNIETO.s
 
 # target to generate assembly for a file
-src/main_detection.cpp.s:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.s
-.PHONY : src/main_detection.cpp.s
+src/errorNIETO.cpp.s:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/errorNIETO.cpp.s
+.PHONY : src/errorNIETO.cpp.s
+
+src/lmmin.obj: src/lmmin.c.obj
+
+.PHONY : src/lmmin.obj
+
+# target to build an object file
+src/lmmin.c.obj:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/lmmin.c.obj
+.PHONY : src/lmmin.c.obj
+
+src/lmmin.i: src/lmmin.c.i
+
+.PHONY : src/lmmin.i
+
+# target to preprocess a source file
+src/lmmin.c.i:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/lmmin.c.i
+.PHONY : src/lmmin.c.i
+
+src/lmmin.s: src/lmmin.c.s
+
+.PHONY : src/lmmin.s
+
+# target to generate assembly for a file
+src/lmmin.c.s:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/lmmin.c.s
+.PHONY : src/lmmin.c.s
+
+src/main_registration.obj: src/main_registration.cpp.obj
+
+.PHONY : src/main_registration.obj
+
+# target to build an object file
+src/main_registration.cpp.obj:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/main_registration.cpp.obj
+.PHONY : src/main_registration.cpp.obj
+
+src/main_registration.i: src/main_registration.cpp.i
+
+.PHONY : src/main_registration.i
+
+# target to preprocess a source file
+src/main_registration.cpp.i:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/main_registration.cpp.i
+.PHONY : src/main_registration.cpp.i
+
+src/main_registration.s: src/main_registration.cpp.s
+
+.PHONY : src/main_registration.s
+
+# target to generate assembly for a file
+src/main_registration.cpp.s:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/main_registration.cpp.s
+.PHONY : src/main_registration.cpp.s
 
 # Help Target
 help:
@@ -440,6 +521,9 @@ help:
 	@echo ... src/Line2D.obj
 	@echo ... src/Line2D.i
 	@echo ... src/Line2D.s
+	@echo ... src/MSAC.obj
+	@echo ... src/MSAC.i
+	@echo ... src/MSAC.s
 	@echo ... src/Mesh.obj
 	@echo ... src/Mesh.i
 	@echo ... src/Mesh.s
@@ -458,9 +542,15 @@ help:
 	@echo ... src/Utils.obj
 	@echo ... src/Utils.i
 	@echo ... src/Utils.s
-	@echo ... src/main_detection.obj
-	@echo ... src/main_detection.i
-	@echo ... src/main_detection.s
+	@echo ... src/errorNIETO.obj
+	@echo ... src/errorNIETO.i
+	@echo ... src/errorNIETO.s
+	@echo ... src/lmmin.obj
+	@echo ... src/lmmin.i
+	@echo ... src/lmmin.s
+	@echo ... src/main_registration.obj
+	@echo ... src/main_registration.i
+	@echo ... src/main_registration.s
 .PHONY : help
 
 

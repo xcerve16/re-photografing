@@ -16,6 +16,18 @@
 #include "MyRobustMatcher.h"
 #include "Line2D.h"
 #include "Model.h"
+#include "MSAC.h"
+
+
+#ifdef WIN32
+#include <windows.h>
+#endif
+#ifdef linux
+#include <stdio.h>
+#endif
+
+#define USE_PPHT
+#define MAX_NUM_LINES    200
 
 
 using namespace cv;
@@ -35,6 +47,7 @@ CameraCalibrator cameraCalibrator;
 MyRobustMatcher robustMatcher;
 Model model;
 Mesh mesh;
+MSAC msac;
 
 String frame1 = "resource/image/test1.jpg";
 String frame2 = "resource/image/test2.jpg";
@@ -52,6 +65,100 @@ static void onMouseModelRegistration(int event, int x, int y, int, void *) {
             }
         }
     }
+}
+
+vector<Mat> processImage(MSAC &msac, int numVps, cv::Mat &imgGRAY, cv::Mat &outputImg) {
+    cv::Mat imgCanny;
+
+    // Canny
+    cv::Canny(imgGRAY, imgCanny, 180, 120, 3);
+
+    // Hough
+    vector<vector<cv::Point> > lineSegments;
+    vector<cv::Point> aux;
+#ifndef USE_PPHT
+    vector<Vec2f> lines;
+    cv::HoughLines( imgCanny, lines, 1, CV_PI/180, 200);
+
+    for(size_t i=0; i< lines.size(); i++)
+    {
+        float rho = lines[i][0];
+        float theta = lines[i][1];
+
+        double a = cos(theta), b = sin(theta);
+        double x0 = a*rho, y0 = b*rho;
+
+        Point pt1, pt2;
+        pt1.x = cvRound(x0 + 1000*(-b));
+        pt1.y = cvRound(y0 + 1000*(a));
+        pt2.x = cvRound(x0 - 1000*(-b));
+        pt2.y = cvRound(y0 - 1000*(a));
+
+        aux.clear();
+        aux.push_back(pt1);
+        aux.push_back(pt2);
+        lineSegments.push_back(aux);
+
+        line(outputImg, pt1, pt2, CV_RGB(0, 0, 0), 1, 8);
+
+    }
+#else
+    vector<Vec4i> lines;
+    int houghThreshold = 70;
+    if (imgGRAY.cols * imgGRAY.rows < 400 * 400)
+        houghThreshold = 100;
+
+    cv::HoughLinesP(imgCanny, lines, 1, CV_PI / 180, houghThreshold, 10, 10);
+
+    while (lines.size() > MAX_NUM_LINES) {
+        lines.clear();
+        houghThreshold += 10;
+        cv::HoughLinesP(imgCanny, lines, 1, CV_PI / 180, houghThreshold, 10, 10);
+    }
+    for (size_t i = 0; i < lines.size(); i++) {
+        Point pt1, pt2;
+        pt1.x = lines[i][0];
+        pt1.y = lines[i][1];
+        pt2.x = lines[i][2];
+        pt2.y = lines[i][3];
+        line(outputImg, pt1, pt2, CV_RGB(0, 0, 0), 2);
+        /*circle(outputImg, pt1, 2, CV_RGB(255,255,255), CV_FILLED);
+        circle(outputImg, pt1, 3, CV_RGB(0,0,0),1);
+        circle(outputImg, pt2, 2, CV_RGB(255,255,255), CV_FILLED);
+        circle(outputImg, pt2, 3, CV_RGB(0,0,0),1);*/
+
+        // Store into vector of pairs of Points for msac
+        aux.clear();
+        aux.push_back(pt1);
+        aux.push_back(pt2);
+        lineSegments.push_back(aux);
+    }
+
+#endif
+
+    // Multiple vanishing points
+    std::vector<cv::Mat> vps;            // vector of vps: vps[vpNum], with vpNum=0...numDetectedVps
+    std::vector<std::vector<int> > CS;    // index of Consensus Set for all vps: CS[vpNum] is a vector containing indexes of lineSegments belonging to Consensus Set of vp numVp
+    std::vector<int> numInliers;
+
+    std::vector<std::vector<std::vector<cv::Point> > > lineSegmentsClusters;
+
+    // Call msac function for multiple vanishing point estimation
+    msac.multipleVPEstimation(lineSegments, lineSegmentsClusters, numInliers, vps, numVps);
+    for (int v = 0; v < vps.size(); v++) {
+        printf("VP %d (%.3f, %.3f, %.3f)", v, vps[v].at<float>(0, 0), vps[v].at<float>(1, 0), vps[v].at<float>(2, 0));
+        fflush(stdout);
+        double vpNorm = cv::norm(vps[v]);
+        if (fabs(vpNorm - 1) < 0.001) {
+            printf("(INFINITE)");
+            fflush(stdout);
+        }
+        printf("\n");
+    }
+
+    // Draw line segments according to their cluster
+    msac.drawCS(outputImg, lineSegmentsClusters, vps);
+    return vps;
 }
 
 
@@ -133,7 +240,6 @@ int main(int argc, char *argv[]) {
     /*************************************************************
      *                   * Triangulation *
      *************************************************************/
-
     cameraCalibrator.cleanVectors();
     cameraCalibrator.calibrate((Size &) image1.size);
     Mat rotation_vector_a = cameraCalibrator.getRotationVector().data()[0];
@@ -259,7 +365,7 @@ int main(int argc, char *argv[]) {
      *                   * Point Estimation *
      *************************************************************/
 
-    line(img_vis, list_points2d[0], list_points2d[1], blue, 5);
+    /*line(img_vis, list_points2d[0], list_points2d[1], blue, 5);
     line(img_vis, list_points2d[1], list_points2d[2], blue, 5);
     line(img_vis, list_points2d[2], list_points2d[3], blue, 5);
     line(img_vis, list_points2d[3], list_points2d[0], blue, 5);
@@ -348,37 +454,78 @@ int main(int argc, char *argv[]) {
         }
 
     }
-
+    vector<Mat> vanish_point;
     pom.push_back(nose_end_point2D[0]);
 
-    Point2f A = pom[0];
-    Point2f B = pom[1];
-    Point2f C = pom[2];
+    // Images
+    cv::Mat inputImg = imread("resource/image/refVelehrad.jpg"), imgGRAY;
+    cv::Mat outputImg;
 
-    line(image3, A, B, red, 1);
-    line(image3, B, C, red, 1);
-    line(image3, C, A, red, 1);
+    int mode = MODE_NIETO;
+    int numVps = 3;
+    bool verbose = false;
+
+    cv::Size procSize;
+
+    int width = inputImg.cols;
+    int height = inputImg.rows;
+    procSize = cv::Size(width, height);
+
+    MSAC msac;
+    msac.init(mode, procSize, verbose);
+    cv::resize(inputImg, inputImg, procSize);
+    
+    if (inputImg.channels() == 3) {
+        cv::cvtColor(inputImg, imgGRAY, CV_BGR2GRAY);
+        inputImg.copyTo(outputImg);
+    } else {
+        inputImg.copyTo(imgGRAY);
+        cv::cvtColor(inputImg, outputImg, CV_GRAY2BGR);
+    }
+
+    vanish_point = processImage(msac, numVps, imgGRAY, outputImg);
+
+
+    // View
+    imshow("Output", outputImg);
+
+
+    vector<Point3f> vanish_point_3d;
+    vector<Point2f> vanish_point_2d;
+
+    for (int i = 0; i < vanish_point.size(); i++) {
+        vanish_point_3d.push_back(Point3f(vanish_point[i].at<float>(0, 0), vanish_point[i].at<float>(1, 0),
+                                          vanish_point[i].at<float>(2, 0)));
+    }
+
+
+    projectPoints(vanish_point_3d, rvect, tvect, cameraCalibrator.getCameraMatrix(), cameraCalibrator.getDistCoeffs(),
+                  vanish_point_2d);
+
+    Point2f A = vanish_point_2d[0];
+    Point2f B = vanish_point_2d[1];
+    Point2f C = vanish_point_2d[2];
 
     Point2f center, tmp;
     center.x = (A.x + B.x) / 2;
     center.y = (A.y + B.y) / 2;
     tmp.x = C.x;
     tmp.y = C.y;
-    line(image3, center, tmp, green, 5);
+    line(image3, center, tmp, green, 1);
     Line2D primka1(center.x, center.y, tmp.x, tmp.y);
 
     center.x = (A.x + C.x) / 2;
     center.y = (A.y + C.y) / 2;
     tmp.x = B.x;
     tmp.y = B.y;
-    line(image3, center, tmp, green, 5);
+    line(image3, center, tmp, green, 1);
     Line2D primka2(center.x, center.y, tmp.x, tmp.y);
 
     center.x = (C.x + B.x) / 2;
     center.y = (C.y + B.y) / 2;
     tmp.x = A.x;
     tmp.y = A.y;
-    line(image3, center, tmp, green, 5);
+    line(image3, center, tmp, green, 1);
     Line2D primka3(center.x, center.y, tmp.x, tmp.y);
 
 
@@ -417,7 +564,6 @@ int main(int argc, char *argv[]) {
 
     namedWindow("Final");
     imshow("Final", image3);
-
 
     waitKey(0);
     return 0;

@@ -110,6 +110,12 @@
 		<Unit filename="D:/rephotografing/src/Line2D.h">
 			<Option target="rephotografing_cv"/>
 		</Unit>
+		<Unit filename="D:/rephotografing/src/MSAC.cpp">
+			<Option target="rephotografing_cv"/>
+		</Unit>
+		<Unit filename="D:/rephotografing/src/MSAC.h">
+			<Option target="rephotografing_cv"/>
+		</Unit>
 		<Unit filename="D:/rephotografing/src/Mesh.cpp">
 			<Option target="rephotografing_cv"/>
 		</Unit>
@@ -149,7 +155,19 @@
 		<Unit filename="D:/rephotografing/src/Utils.h">
 			<Option target="rephotografing_cv"/>
 		</Unit>
-		<Unit filename="D:/rephotografing/src/main_detection.cpp">
+		<Unit filename="D:/rephotografing/src/errorNIETO.cpp">
+			<Option target="rephotografing_cv"/>
+		</Unit>
+		<Unit filename="D:/rephotografing/src/errorNIETO.h">
+			<Option target="rephotografing_cv"/>
+		</Unit>
+		<Unit filename="D:/rephotografing/src/lmmin.c">
+			<Option target="rephotografing_cv"/>
+		</Unit>
+		<Unit filename="D:/rephotografing/src/lmmin.h">
+			<Option target="rephotografing_cv"/>
+		</Unit>
+		<Unit filename="D:/rephotografing/src/main_registration.cpp">
 			<Option target="rephotografing_cv"/>
 		</Unit>
 		<Unit filename="D:/rephotografing/CMakeLists.txt">
