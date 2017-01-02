@@ -44,19 +44,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "C:\Program Files (x86)\JetBrains\CLion 2016.3\bin\cmake\bin\cmake.exe"
+CMAKE_COMMAND = "C:\Program Files (x86)\JetBrains\CLion 2016.3.1\bin\cmake\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "C:\Program Files (x86)\JetBrains\CLion 2016.3\bin\cmake\bin\cmake.exe" -E remove -f
+RM = "C:\Program Files (x86)\JetBrains\CLion 2016.3.1\bin\cmake\bin\cmake.exe" -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = D:\Project\rephotografing
+CMAKE_SOURCE_DIR = D:\rephotografing
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = D:\Project\rephotografing\cmake-build-debug
+CMAKE_BINARY_DIR = D:\rephotografing\cmake-build-debug
 
 #=============================================================================
 # Target rules for target CMakeFiles/rephotografing_cv.dir
@@ -65,7 +65,7 @@ CMAKE_BINARY_DIR = D:\Project\rephotografing\cmake-build-debug
 CMakeFiles/rephotografing_cv.dir/all:
 	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/depend
 	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=D:\Project\rephotografing\cmake-build-debug\CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12 "Built target rephotografing_cv"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=D:\rephotografing\cmake-build-debug\CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12 "Built target rephotografing_cv"
 .PHONY : CMakeFiles/rephotografing_cv.dir/all
 
 # Include target in all.
@@ -75,9 +75,9 @@ all: CMakeFiles/rephotografing_cv.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/rephotografing_cv.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\Project\rephotografing\cmake-build-debug\CMakeFiles 12
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\rephotografing\cmake-build-debug\CMakeFiles 12
 	$(MAKE) -f CMakeFiles\Makefile2 CMakeFiles/rephotografing_cv.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\Project\rephotografing\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\rephotografing\cmake-build-debug\CMakeFiles 0
 .PHONY : CMakeFiles/rephotografing_cv.dir/rule
 
 # Convenience name for target.

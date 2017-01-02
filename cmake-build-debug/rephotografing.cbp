@@ -5,21 +5,21 @@
 		<Option title="rephotografing"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
-		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\OpenCV\;CMake Files\..\..\OpenCV\opencv\;CMake Files\..\..\OpenCV\opencv\build\;CMake Files\..\..\OpenCV\opencv\build\install\;CMake Files\..\..\OpenCV\opencv\build\install\x86\;CMake Files\..\..\OpenCV\opencv\build\install\x86\mingw\;CMake Files\..\..\OpenCV\opencv\build\install\x86\mingw\lib\;"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\OpenCV\;CMake Files\..\OpenCV\opencv\;CMake Files\..\OpenCV\opencv\build\;CMake Files\..\OpenCV\opencv\build\install\;CMake Files\..\OpenCV\opencv\build\install\x86\;CMake Files\..\OpenCV\opencv\build\install\x86\mingw\;CMake Files\..\OpenCV\opencv\build\install\x86\mingw\lib\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="D:/Project/rephotografing/cmake-build-debug"/>
+				<Option working_dir="D:/rephotografing/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Project/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Project/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Project/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Project/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rephotografing_cv">
-				<Option output="D:/Project/rephotografing/cmake-build-debug/rephotografing_cv.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="D:/Project/rephotografing/cmake-build-debug"/>
+				<Option output="D:/rephotografing/cmake-build-debug/rephotografing_cv.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/rephotografing/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -35,15 +35,15 @@
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/include/c++/backward"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Project/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 rephotografing_cv"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Project/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Project/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Project/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 rephotografing_cv"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rephotografing_cv/fast">
-				<Option output="D:/Project/rephotografing/cmake-build-debug/rephotografing_cv.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="D:/Project/rephotografing/cmake-build-debug"/>
+				<Option output="D:/rephotografing/cmake-build-debug/rephotografing_cv.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/rephotografing/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -59,125 +59,125 @@
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/include/c++/backward"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Project/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 rephotografing_cv/fast"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Project/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Project/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Project/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 rephotografing_cv/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="D:/Project/rephotografing/cmake-build-debug"/>
+				<Option working_dir="D:/rephotografing/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Project/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Project/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Project/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Project/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="D:/Project/rephotografing/cmake-build-debug"/>
+				<Option working_dir="D:/rephotografing/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Project/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Project/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Project/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Project/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/rephotografing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="D:/Project/rephotografing/src/CameraCalibrator.cpp">
+		<Unit filename="D:/rephotografing/src/CameraCalibrator.cpp">
 			<Option target="rephotografing_cv"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/src/CameraCalibrator.h">
+		<Unit filename="D:/rephotografing/src/CameraCalibrator.h">
 			<Option target="rephotografing_cv"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/src/CsvReader.cpp">
+		<Unit filename="D:/rephotografing/src/CsvReader.cpp">
 			<Option target="rephotografing_cv"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/src/CsvReader.h">
+		<Unit filename="D:/rephotografing/src/CsvReader.h">
 			<Option target="rephotografing_cv"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/src/CsvWriter.cpp">
+		<Unit filename="D:/rephotografing/src/CsvWriter.cpp">
 			<Option target="rephotografing_cv"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/src/CsvWriter.h">
+		<Unit filename="D:/rephotografing/src/CsvWriter.h">
 			<Option target="rephotografing_cv"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/src/Line2D.cpp">
+		<Unit filename="D:/rephotografing/src/Line2D.cpp">
 			<Option target="rephotografing_cv"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/src/Line2D.h">
+		<Unit filename="D:/rephotografing/src/Line2D.h">
 			<Option target="rephotografing_cv"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/src/Mesh.cpp">
+		<Unit filename="D:/rephotografing/src/Mesh.cpp">
 			<Option target="rephotografing_cv"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/src/Mesh.h">
+		<Unit filename="D:/rephotografing/src/Mesh.h">
 			<Option target="rephotografing_cv"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/src/Model.cpp">
+		<Unit filename="D:/rephotografing/src/Model.cpp">
 			<Option target="rephotografing_cv"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/src/Model.h">
+		<Unit filename="D:/rephotografing/src/Model.h">
 			<Option target="rephotografing_cv"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/src/ModelRegistration.cpp">
+		<Unit filename="D:/rephotografing/src/ModelRegistration.cpp">
 			<Option target="rephotografing_cv"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/src/ModelRegistration.h">
+		<Unit filename="D:/rephotografing/src/ModelRegistration.h">
 			<Option target="rephotografing_cv"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/src/MyRobustMatcher.h">
+		<Unit filename="D:/rephotografing/src/MyRobustMatcher.h">
 			<Option target="rephotografing_cv"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/src/PnPProblem.cpp">
+		<Unit filename="D:/rephotografing/src/PnPProblem.cpp">
 			<Option target="rephotografing_cv"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/src/PnPProblem.h">
+		<Unit filename="D:/rephotografing/src/PnPProblem.h">
 			<Option target="rephotografing_cv"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/src/RobustMatcher.cpp">
+		<Unit filename="D:/rephotografing/src/RobustMatcher.cpp">
 			<Option target="rephotografing_cv"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/src/RobustMatcher.h">
+		<Unit filename="D:/rephotografing/src/RobustMatcher.h">
 			<Option target="rephotografing_cv"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/src/Utils.cpp">
+		<Unit filename="D:/rephotografing/src/Utils.cpp">
 			<Option target="rephotografing_cv"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/src/Utils.h">
+		<Unit filename="D:/rephotografing/src/Utils.h">
 			<Option target="rephotografing_cv"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/src/main_detection.cpp">
+		<Unit filename="D:/rephotografing/src/main_detection.cpp">
 			<Option target="rephotografing_cv"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/CMakeLists.txt">
+		<Unit filename="D:/rephotografing/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/../../OpenCV/opencv/build/install/OpenCVConfig-version.cmake">
-			<Option virtualFolder="CMake Files\..\..\OpenCV\opencv\build\install\"/>
+		<Unit filename="D:/rephotografing/../OpenCV/opencv/build/install/OpenCVConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\OpenCV\opencv\build\install\"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/../../OpenCV/opencv/build/install/OpenCVConfig.cmake">
-			<Option virtualFolder="CMake Files\..\..\OpenCV\opencv\build\install\"/>
+		<Unit filename="D:/rephotografing/../OpenCV/opencv/build/install/OpenCVConfig.cmake">
+			<Option virtualFolder="CMake Files\..\OpenCV\opencv\build\install\"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/../../OpenCV/opencv/build/install/OpenCVConfig-version.cmake">
-			<Option virtualFolder="CMake Files\..\..\OpenCV\opencv\build\install\"/>
+		<Unit filename="D:/rephotografing/../OpenCV/opencv/build/install/OpenCVConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\OpenCV\opencv\build\install\"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/../../OpenCV/opencv/build/install/OpenCVConfig.cmake">
-			<Option virtualFolder="CMake Files\..\..\OpenCV\opencv\build\install\"/>
+		<Unit filename="D:/rephotografing/../OpenCV/opencv/build/install/OpenCVConfig.cmake">
+			<Option virtualFolder="CMake Files\..\OpenCV\opencv\build\install\"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/../../OpenCV/opencv/build/install/x86/mingw/lib/OpenCVConfig.cmake">
-			<Option virtualFolder="CMake Files\..\..\OpenCV\opencv\build\install\x86\mingw\lib\"/>
+		<Unit filename="D:/rephotografing/../OpenCV/opencv/build/install/x86/mingw/lib/OpenCVConfig.cmake">
+			<Option virtualFolder="CMake Files\..\OpenCV\opencv\build\install\x86\mingw\lib\"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/../../OpenCV/opencv/build/install/x86/mingw/lib/OpenCVModules.cmake">
-			<Option virtualFolder="CMake Files\..\..\OpenCV\opencv\build\install\x86\mingw\lib\"/>
+		<Unit filename="D:/rephotografing/../OpenCV/opencv/build/install/x86/mingw/lib/OpenCVModules.cmake">
+			<Option virtualFolder="CMake Files\..\OpenCV\opencv\build\install\x86\mingw\lib\"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/../../OpenCV/opencv/build/install/x86/mingw/lib/OpenCVModules-release.cmake">
-			<Option virtualFolder="CMake Files\..\..\OpenCV\opencv\build\install\x86\mingw\lib\"/>
+		<Unit filename="D:/rephotografing/../OpenCV/opencv/build/install/x86/mingw/lib/OpenCVModules-release.cmake">
+			<Option virtualFolder="CMake Files\..\OpenCV\opencv\build\install\x86\mingw\lib\"/>
 		</Unit>
-		<Unit filename="D:/Project/rephotografing/../../OpenCV/opencv/build/install/x86/mingw/lib/OpenCVConfig.cmake">
-			<Option virtualFolder="CMake Files\..\..\OpenCV\opencv\build\install\x86\mingw\lib\"/>
+		<Unit filename="D:/rephotografing/../OpenCV/opencv/build/install/x86/mingw/lib/OpenCVConfig.cmake">
+			<Option virtualFolder="CMake Files\..\OpenCV\opencv\build\install\x86\mingw\lib\"/>
 		</Unit>
 	</Project>
 </CodeBlocks_project_file>
