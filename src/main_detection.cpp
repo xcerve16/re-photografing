@@ -1,7 +1,6 @@
 // C++
 #include <iostream>
 #include <time.h>
-#include <string>     // std::string, std::to_string
 
 // OpenCV
 #include <opencv2/core/core.hpp>
@@ -13,8 +12,8 @@
 #include "Model.h"
 #include "PnPProblem.h"
 #include "Utils.h"
-#include "MyRobustMatcher.h"
 #include "RobustMatcher.h"
+#include "MyRobustMatcher.h"
 
 /**  GLOBAL VARIABLES  **/
 
@@ -43,17 +42,16 @@ Scalar white(255, 255, 255);
 
 
 // Robust Matcher parameters
-int numKeyPoints = 2000;      // number of detected keypoints
-float ratioTest = 0.70f;          // ratio test
-bool fast_match = true;       // fastRobustMatch() or robustMatch()
+int numKeyPoints = 1000;
+float ratioTest = 0.70f;
 
 // RANSAC parameters
-int iterationsCount = 500;      // number of Ransac iterations.
-float reprojectionError = 2.0;  // maximum allowed distance to consider it an inlier.
-double confidence = 0.95;        // ransac successful confidence.
+int iterationsCount = 500;
+float reprojectionError = 2.0;
+double confidence = 0.95;
 
 // Kalman Filter parameters
-int minInliersKalman = 30;    // Kalman threshold updating
+int minInliersKalman = 30;
 
 // PnP parameters
 int pnpMethod = SOLVEPNP_ITERATIVE;
@@ -134,36 +132,64 @@ int main(int argc, char *argv[]) {
     Mat image2 = imread("resource/image/test1.jpg");
     Mat detection_model;
 
-    vector<KeyPoint> keyPoints2;
-    Ptr<FeatureDetector> orb = ORB::create();
-    orb->detect(image2, keyPoints2);
-    orb->compute(image2, keyPoints2, detection_model);
-    //detection_model = descriptors_model;
-
-    MyRobustMatcher robustMatcher;
-    robustMatcher.setConfidenceLevel(0.98);
-    robustMatcher.setMinDistanceToEpipolar(1.0);
-    robustMatcher.setRatio(0.65f);
-
-    Ptr<FeatureDetector> pfd = SURF::create(10);
-    robustMatcher.setFeatureDetector(pfd);
-
     vector<DMatch> matches;
 
-    vector<Point2f> points1, points2;
 
+    vector<KeyPoint> keypoints_1, keypoints_2;
+    Mat descriptors_1, descriptors_2;
+
+    Ptr<SURF> detector = SURF::create();
 
     while (cap.read(frame) && waitKey(30) != 27) {
 
-        frame_vis = frame.clone();
-
 
         /*************************************************************
-         *                  * Robust matcher *
+     *           * Robust Camera Pose Estimation *
+     *************************************************************/
+
+        frame_vis = frame.clone();
+
+        detector->setHessianThreshold(numKeyPoints);
+
+        detector->detectAndCompute(image2, Mat(), keypoints_1, descriptors_1);
+        detector->detectAndCompute(frame_vis, Mat(), keypoints_2, descriptors_2);
+
+
+        FlannBasedMatcher matcher;
+        vector<DMatch> matches;
+        matcher.match(descriptors_1, descriptors_2, matches);
+
+
+        double max_dist = 0;
+        double min_dist = 100;
+
+        for (int i = 0; i < descriptors_1.rows; i++) {
+            double dist = matches[i].distance;
+            if (dist < min_dist) min_dist = dist;
+            if (dist > max_dist) max_dist = dist;
+        }
+
+        std::vector<DMatch> good_matches;
+        for (int i = 0; i < descriptors_1.rows; i++) {
+            if (matches[i].distance <= max(2 * min_dist, 0.02)) { good_matches.push_back(matches[i]); }
+        }
+
+        Mat img_matches;
+        drawMatches(image2, keypoints_1, frame_vis, keypoints_2, good_matches, img_matches, Scalar::all(-1), Scalar::all(-1),
+                    vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
+
+        imshow("Good Matches", img_matches);
+
+        /*************************************************************
+         *           * Real-time Camera Pose Estimation *
          *************************************************************/
 
-        RobustMatcher rmatcher;
 
+        RobustMatcher rmatcher;
+        vector<KeyPoint> keyPoints2;
+        Ptr<FeatureDetector> orb = ORB::create(numKeyPoints);
+        orb->detect(image2, keyPoints2);
+        orb->compute(image2, keyPoints2, detection_model);
 
         rmatcher.setFeatureDetector(orb);
         rmatcher.setDescriptorExtractor(orb);
@@ -171,19 +197,16 @@ int main(int argc, char *argv[]) {
         Ptr<flann::IndexParams> indexParams = makePtr<flann::LshIndexParams>(6, 12, 1);
         Ptr<flann::SearchParams> searchParams = makePtr<flann::SearchParams>(50);
 
-        Ptr<DescriptorMatcher> matcher = makePtr<FlannBasedMatcher>(indexParams, searchParams);
-        rmatcher.setDescriptorMatcher(matcher);
+        Ptr<DescriptorMatcher> descriptorMatcher = makePtr<FlannBasedMatcher>(indexParams, searchParams);
+        rmatcher.setDescriptorMatcher(descriptorMatcher);
         rmatcher.setRatio(ratioTest);
 
-        vector<DMatch> good_matches;
+        good_matches.clear();
         vector<KeyPoint> keypoints_scene;
 
 
-        rmatcher.robustMatch(frame_vis, good_matches, keypoints_scene, detection_model);
+        rmatcher.fastRobustMatch(frame_vis, good_matches, keypoints_scene, detection_model);
 
-        /*************************************************************
-         *                  * 2D/3D correspondences *
-         *************************************************************/
 
         vector<Point3f> list_points3d_model_match;
         vector<Point2f> list_points2d_scene_match;
@@ -194,7 +217,26 @@ int main(int argc, char *argv[]) {
             list_points2d_scene_match.push_back(point2d_scene);
         }
 
-        draw2DPoints(frame_vis, list_points2d_scene_match, red);
+        draw2DPoints(frame_vis, list_points2d_scene_match, blue);
+
+
+        rmatcher.robustMatch(frame_vis, good_matches, keypoints_scene, detection_model);
+
+        list_points3d_model_match.clear();
+        list_points2d_scene_match.clear();
+        for (unsigned int match_index = 0; match_index < good_matches.size(); ++match_index) {
+            Point3f point3d_model = list_points3d_model[good_matches[match_index].trainIdx];
+            Point2f point2d_scene = keypoints_scene[good_matches[match_index].queryIdx].pt;
+            list_points3d_model_match.push_back(point3d_model);
+            list_points2d_scene_match.push_back(point2d_scene);
+        }
+
+        draw2DPoints(frame_vis, list_points2d_scene_match, yellow);
+        drawText(frame_vis, "Robust match", yellow);
+        drawText2(frame_vis, "Fast match", blue);
+        namedWindow("Matcher");
+        imshow("Matcher", frame_vis);
+
         Mat inliers_idx;
         vector<Point2f> list_points2d_inliers;
 
@@ -249,7 +291,7 @@ int main(int argc, char *argv[]) {
 
 
         if (good_measurement) {
-           // drawObjectMesh(frame_vis, &mesh, &pnp_detection, green);  // draw current pose
+            //drawObjectMesh(frame_vis, &mesh, &pnp_detection, green);  // draw current pose
         } else {
             //drawObjectMesh(frame_vis, &mesh, &pnp_detection_est, yellow); // draw estimated pose
         }

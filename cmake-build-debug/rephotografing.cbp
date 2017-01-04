@@ -167,7 +167,7 @@
 		<Unit filename="D:/rephotografing/src/lmmin.h">
 			<Option target="rephotografing_cv"/>
 		</Unit>
-		<Unit filename="D:/rephotografing/src/main_registration.cpp">
+		<Unit filename="D:/rephotografing/src/main_detection.cpp">
 			<Option target="rephotografing_cv"/>
 		</Unit>
 		<Unit filename="D:/rephotografing/CMakeLists.txt">

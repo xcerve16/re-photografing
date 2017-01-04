@@ -473,32 +473,32 @@ src/lmmin.c.s:
 	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/lmmin.c.s
 .PHONY : src/lmmin.c.s
 
-src/main_registration.obj: src/main_registration.cpp.obj
+src/main_detection.obj: src/main_detection.cpp.obj
 
-.PHONY : src/main_registration.obj
+.PHONY : src/main_detection.obj
 
 # target to build an object file
-src/main_registration.cpp.obj:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/main_registration.cpp.obj
-.PHONY : src/main_registration.cpp.obj
+src/main_detection.cpp.obj:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.obj
+.PHONY : src/main_detection.cpp.obj
 
-src/main_registration.i: src/main_registration.cpp.i
+src/main_detection.i: src/main_detection.cpp.i
 
-.PHONY : src/main_registration.i
+.PHONY : src/main_detection.i
 
 # target to preprocess a source file
-src/main_registration.cpp.i:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/main_registration.cpp.i
-.PHONY : src/main_registration.cpp.i
+src/main_detection.cpp.i:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.i
+.PHONY : src/main_detection.cpp.i
 
-src/main_registration.s: src/main_registration.cpp.s
+src/main_detection.s: src/main_detection.cpp.s
 
-.PHONY : src/main_registration.s
+.PHONY : src/main_detection.s
 
 # target to generate assembly for a file
-src/main_registration.cpp.s:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/main_registration.cpp.s
-.PHONY : src/main_registration.cpp.s
+src/main_detection.cpp.s:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.s
+.PHONY : src/main_detection.cpp.s
 
 # Help Target
 help:
@@ -548,9 +548,9 @@ help:
 	@echo ... src/lmmin.obj
 	@echo ... src/lmmin.i
 	@echo ... src/lmmin.s
-	@echo ... src/main_registration.obj
-	@echo ... src/main_registration.i
-	@echo ... src/main_registration.s
+	@echo ... src/main_detection.obj
+	@echo ... src/main_detection.i
+	@echo ... src/main_detection.s
 .PHONY : help
 
 

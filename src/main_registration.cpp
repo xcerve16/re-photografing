@@ -29,6 +29,7 @@
 #define USE_PPHT
 #define MAX_NUM_LINES    200
 
+const double PI = 3.141592653589793238463;
 
 using namespace cv;
 using namespace std;
@@ -65,6 +66,12 @@ static void onMouseModelRegistration(int event, int x, int y, int, void *) {
             }
         }
     }
+}
+
+double convert_radian_to_degree(double  ENTER) {
+    double Pi = 3.14159265;
+    double degrees = (ENTER * 180) / Pi;
+    return degrees;
 }
 
 vector<Mat> processImage(MSAC &msac, int numVps, cv::Mat &imgGRAY, cv::Mat &outputImg) {
@@ -395,7 +402,7 @@ int main(int argc, char *argv[]) {
 
     vector<Point3f> registration_3DPoint = registration.get_points3d();
     vector<Point2f> registration_2DPoint = registration.get_points2d();
-    
+
     for (int i = 0; i < list3DPoint.size(); i++) {
         model.add_correspondence(registration_2DPoint[i], registration_3DPoint[i]);
     }
@@ -424,7 +431,7 @@ int main(int argc, char *argv[]) {
     MSAC msac;
     msac.init(mode, procSize, verbose);
     cv::resize(inputImg, inputImg, procSize);
-    
+
     if (inputImg.channels() == 3) {
         cv::cvtColor(inputImg, imgGRAY, CV_BGR2GRAY);
         inputImg.copyTo(outputImg);
@@ -434,11 +441,7 @@ int main(int argc, char *argv[]) {
     }
 
     vanish_point = processImage(msac, numVps, imgGRAY, outputImg);
-
-
-    // View
     imshow("Output", outputImg);
-
 
     vector<Point3f> vanish_point_3d;
     vector<Point2f> vanish_point_2d;
@@ -489,6 +492,28 @@ int main(int argc, char *argv[]) {
      *                   * Save registration *
      *************************************************************/
 
+    Mat r, t;
+
+
+    vector<Point2f> ll;
+    vector<Point2f> kk;
+
+
+    Mat essential = findEssentialMat(list, list_points2d, cameraCalibrator.getCameraMatrix());
+    correctMatches(essential, list, list_points2d, list, list_points2d);
+    recoverPose(essential, list, list_points2d, r, t, 1, Point2f(cx, cy));
+
+    double xAngle = atan2f(r.at<float>(2, 1), r.at<float>(2, 2));
+    double yAngle = atan2f(-r.at<float>(2, 0), sqrtf(r.at<float>(2, 1) * r.at<float>(2, 1) + r.at<float>(2, 2) * r.at<float>(2, 2)));
+    double zAngle = atan2f(r.at<float>(1, 0), r.at<float>(0, 0));
+
+    xAngle = (int) convert_radian_to_degree(xAngle);
+    yAngle = (int) convert_radian_to_degree(yAngle);
+    zAngle = (int) convert_radian_to_degree(zAngle);
+
+    cout << "xAngle: " << xAngle << "%" << endl;
+    cout << "yAngle: " << yAngle << "%" << endl;
+    cout << "zAngle: " << zAngle << "%" << endl;
 
     /*
      * [ fx   0  cx ]
@@ -502,13 +527,11 @@ int main(int argc, char *argv[]) {
     camera_matrix_ref.at<double>(1, 2) = cy;
     camera_matrix_ref.at<double>(2, 2) = 1;
 
-
-
     model.set_camera_matrix(camera_matrix_ref);
     model.save("result.yml");
 
     namedWindow("Final");
-    imshow("Final", image3);
+    imshow("Final", essential);
 
     waitKey(0);
     return 0;
