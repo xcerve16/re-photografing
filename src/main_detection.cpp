@@ -8,6 +8,7 @@
 #include <opencv2/calib3d/calib3d.hpp>
 #include <opencv2/video/tracking.hpp>
 #include <iomanip>
+#include <pthread.h>
 // PnP Tutorial
 #include "Mesh.h"
 #include "Model.h"
@@ -47,6 +48,9 @@ double confidence = 0.95;
 int minInliersKalman = 30;
 
 CameraCalibrator cameraCalibrator;
+RobustMatcher rmatcher;
+PnPProblem pnp_detection;
+
 
 // PnP parameters
 int pnpMethod = SOLVEPNP_ITERATIVE;
@@ -62,6 +66,93 @@ void fillMeasurements(Mat &measurements,
 double convert_radian_to_degree(double input) {
     double degrees = (input * 180) / PI;
     return degrees;
+}
+
+struct arg_struct {
+    Mat frame;
+    vector<Mat> frames;
+    Mat detection_model;
+    vector<Point3f> list_points3D_model;
+    vector<Point2f> list_points2D_scene_match;
+};
+
+void *fast_robust_matcher(void *arg) {
+
+    struct arg_struct *arg_struct = (struct arg_struct *) arg;
+    vector<Mat> frames = arg_struct->frames;
+    for (int i = 0; i < frames.size(); i++) {
+        Mat frame_vis = arg_struct->frames[i];
+        Mat detection_model = arg_struct->detection_model;
+        vector<Point3f> list_points3D_model = arg_struct->list_points3D_model;
+
+        vector<Point3f> list_points3D_model_match;
+        vector<Point2f> list_points2D_scene_match;
+        vector<KeyPoint> keypoints_scene;
+
+        vector<DMatch> good_matches;
+
+
+        rmatcher.fastRobustMatch(frame_vis, good_matches, keypoints_scene, detection_model);
+
+        for (unsigned int match_index = 0; match_index < good_matches.size(); ++match_index) {
+            Point3f point3d_model = list_points3D_model[good_matches[match_index].trainIdx];
+            Point2f point2d_scene = keypoints_scene[good_matches[match_index].queryIdx].pt;
+            list_points3D_model_match.push_back(point3d_model);
+            list_points2D_scene_match.push_back(point2d_scene);
+        }
+        arg_struct->list_points2D_scene_match = list_points2D_scene_match;
+        arg_struct->frame = frame_vis;
+        arg_struct->detection_model = detection_model;
+        arg_struct->list_points3D_model;
+        draw2DPoints(frame_vis, list_points2D_scene_match, green);
+
+        namedWindow("Matcher");
+        imshow("Matcher", frame_vis);
+
+    }
+}
+
+
+void *robust_matcher(void *arg) {
+
+    struct arg_struct *ass = (struct arg_struct *) arg;
+
+    Mat frame_vis = ass->frame;
+    Mat detection_model = ass->detection_model;
+    vector<Point3f> list_points3D_model = ass->list_points3D_model;
+
+    vector<Point3f> list_points3D_model_match;
+    vector<Point2f> list_points2D_scene_match;
+    vector<KeyPoint> keypoints_scene;
+
+    vector<DMatch> good_matches;
+
+
+    rmatcher.robustMatch(frame_vis, good_matches, keypoints_scene, detection_model);
+
+    for (unsigned int match_index = 0; match_index < good_matches.size(); ++match_index) {
+        Point3f point3d_model = list_points3D_model[good_matches[match_index].trainIdx];
+        Point2f point2d_scene = keypoints_scene[good_matches[match_index].queryIdx].pt;
+        list_points3D_model_match.push_back(point3d_model);
+        list_points2D_scene_match.push_back(point2d_scene);
+    }
+
+    Mat inliers_idx;
+    vector<Point2f> list_points2d_inliers;
+
+    if (good_matches.size() > 0) {
+        pnp_detection.estimatePoseRANSAC(list_points3D_model_match, list_points2D_scene_match, pnpMethod,
+                                         inliers_idx, iterationsCount, reprojectionError, confidence);
+        for (int inliers_index = 0; inliers_index < inliers_idx.rows; ++inliers_index) {
+            int n = inliers_idx.at<int>(inliers_index);
+            Point2f point2d = list_points2D_scene_match[n];
+            list_points2d_inliers.push_back(point2d);
+        }
+    }
+
+    ass->list_points2D_scene_match = list_points2D_scene_match;
+    draw2DPoints(frame_vis, list_points2D_scene_match, blue);
+    pthread_exit(NULL);
 }
 
 int main(int argc, char *argv[]) {
@@ -86,7 +177,8 @@ int main(int argc, char *argv[]) {
     cameraParams[2] = cameraCalibrator.getCameraMatrix().at<double>(0, 2);
     cameraParams[3] = cameraCalibrator.getCameraMatrix().at<double>(1, 2);
 
-    PnPProblem pnp_detection(cameraParams);
+
+    pnp_detection.setMatrixParam(cameraParams);
     PnPProblem pnp_detection_est(cameraParams);
 
     Model model;
@@ -106,7 +198,7 @@ int main(int argc, char *argv[]) {
     measurements.setTo(Scalar(0));
     bool good_measurement = false;
 
-    vector<Point3f> list_points3d_model = model.get_points3d();
+    vector<Point3f> list_points3D_model = model.get_points3d();
     Mat descriptors_model = model.get_descriptors();
 
     //namedWindow("REAL TIME DEMO", WINDOW_KEEPRATIO);
@@ -141,7 +233,6 @@ int main(int argc, char *argv[]) {
     Ptr<SURF> detector = SURF::create();
     FlannBasedMatcher matcher;
 
-    RobustMatcher rmatcher;
     vector<KeyPoint> keyPoints2;
     Ptr<FeatureDetector> orb = ORB::create(numKeyPoints);
 
@@ -187,7 +278,7 @@ int main(int argc, char *argv[]) {
                 Scalar::all(-1),
                 vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
 
-    imshow("ANN Matches", img_matches);
+    //imshow("ANN Matches", img_matches);
 
 
 
@@ -214,7 +305,7 @@ int main(int argc, char *argv[]) {
         list_points3d_model_match.clear();
         list_points2d_scene_match.clear();
         for (unsigned int match_index = 0; match_index < good_matches.size(); ++match_index) {
-            Point3f point3d_model = list_points3d_model[good_matches[match_index].trainIdx];
+            Point3f point3d_model = list_points3D_model[good_matches[match_index].trainIdx];
             Point2f point2d_scene = keypoints_scene[good_matches[match_index].queryIdx].pt;
             list_points3d_model_match.push_back(point3d_model);
             list_points2d_scene_match.push_back(point2d_scene);
@@ -222,13 +313,12 @@ int main(int argc, char *argv[]) {
 
         draw2DPoints(frame_vis, list_points2d_scene_match, blue);
 
-
         rmatcher.robustMatch(frame_vis, good_matches, keypoints_scene, detection_model);
 
         list_points3d_model_match.clear();
         list_points2d_scene_match.clear();
         for (unsigned int match_index = 0; match_index < good_matches.size(); ++match_index) {
-            Point3f point3d_model = list_points3d_model[good_matches[match_index].trainIdx];
+            Point3f point3d_model = list_points3D_model[good_matches[match_index].trainIdx];
             Point2f point2d_scene = keypoints_scene[good_matches[match_index].queryIdx].pt;
             list_points3d_model_match.push_back(point3d_model);
             list_points2d_scene_match.push_back(point2d_scene);
