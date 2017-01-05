@@ -19,7 +19,8 @@
 class PnPProblem {
 
 public:
-    explicit PnPProblem(const double param[]);  // custom constructor
+    PnPProblem();
+    PnPProblem(const double param[]);
     virtual ~PnPProblem();
 
     bool backProject2DPoint(const Mesh *mesh, const cv::Point2f &point2d, cv::Point3f &point3d);
@@ -53,6 +54,8 @@ public:
     cv::Mat get_P_matrix() const { return _P_matrix; }
 
     void set_P_matrix(const cv::Mat &R_matrix, const cv::Mat &t_matrix);
+
+    void setMatrixParam(const double params[]);
 
 private:
     /** The calibration matrix */

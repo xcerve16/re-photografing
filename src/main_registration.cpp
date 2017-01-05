@@ -50,8 +50,8 @@ Model model;
 Mesh mesh;
 MSAC msac;
 
-String frame1 = "resource/image/test1.jpg";
-String frame2 = "resource/image/test2.jpg";
+String frame1 = "resource/image/test0.jpg";
+String frame2 = "resource/image/test1.jpg";
 String ref = "resource/image/refVelehrad.jpg";
 
 static void onMouseModelRegistration(int event, int x, int y, int, void *) {
@@ -68,9 +68,8 @@ static void onMouseModelRegistration(int event, int x, int y, int, void *) {
     }
 }
 
-double convert_radian_to_degree(double  ENTER) {
-    double Pi = 3.14159265;
-    double degrees = (ENTER * 180) / Pi;
+double convert_radian_to_degree(double  input) {
+    double degrees = (input * 180) / PI;
     return degrees;
 }
 
@@ -247,6 +246,7 @@ int main(int argc, char *argv[]) {
     /*************************************************************
      *                   * Triangulation *
      *************************************************************/
+
     cameraCalibrator.cleanVectors();
     cameraCalibrator.calibrate((Size &) image1.size);
     Mat rotation_vector_a = cameraCalibrator.getRotationVector().data()[0];
@@ -291,23 +291,12 @@ int main(int argc, char *argv[]) {
                                       triangulatedPoints3D.at<float>(i, 2)));
     }
 
-    projectPoints(list3DPoint, rotation_vector_b, translation_vector_b, cameraCalibrator.getCameraMatrix(),
-                  cameraCalibrator.getDistCoeffs(), list2DPoint);
-
-
-    Mat xx = imread(frame1);
-
-    draw2DPoints(xx, list2DPoint, blue);
-
-    /*namedWindow("Triangulation 1");
-    imshow("Triangulation 1", xx);*/
-
     projectPoints(list3DPoint, rotation_vector_a, translation_vector_a, cameraCalibrator.getCameraMatrix(),
                   cameraCalibrator.getDistCoeffs(), list2DPoint);
 
-    Mat yy = imread(frame2);
+    Mat frame_with_triangulation = imread(frame1);
 
-    draw2DPoints(yy, list2DPoint, blue);
+    draw2DPoints(frame_with_triangulation, list2DPoint, blue);
 
     /*namedWindow("Triangulation 2");
     imshow("Triangulation 2", yy);*/
@@ -319,7 +308,7 @@ int main(int argc, char *argv[]) {
 
     Mat image3 = imread(ref);
 
-
+    namedWindow("MODEL REGISTRATION 1");
     namedWindow("MODEL REGISTRATION", WINDOW_KEEPRATIO);
     setMouseCallback("MODEL REGISTRATION", onMouseModelRegistration, 0);
 
@@ -353,7 +342,7 @@ int main(int argc, char *argv[]) {
         list_points3d = registration.get_points3d();
         if (!end_registration) {
             drawCounter(img_vis, registration.getNumRegistration(), registration.getNumMax(), red);
-            draw2DPoint(yy, list[registration.getNumRegistration()], green);
+            draw2DPoint(frame_with_triangulation, list[registration.getNumRegistration()], green);
             Point3f point3f = registration.get_points3d()[registration.getNumRegistration()];
             drawQuestion(img_vis, point3f, red);
         } else {
@@ -364,7 +353,7 @@ int main(int argc, char *argv[]) {
 
         draw2DPoints(img_vis, list_points2d, blue);
         imshow("MODEL REGISTRATION", img_vis);
-        imshow("MODEL REGISTRATION 1", yy);
+        imshow("MODEL REGISTRATION 1", frame_with_triangulation);
     }
 
 
@@ -487,17 +476,17 @@ int main(int argc, char *argv[]) {
     cx = prusecik_x;
     cy = prusecik_y;
 
+    namedWindow("Vanish point");
+    imshow("Vanish point", image3);
+
 
     /*************************************************************
      *                   * Save registration *
      *************************************************************/
 
     Mat r, t;
-
-
     vector<Point2f> ll;
     vector<Point2f> kk;
-
 
     Mat essential = findEssentialMat(list, list_points2d, cameraCalibrator.getCameraMatrix());
     correctMatches(essential, list, list_points2d, list, list_points2d);
@@ -511,9 +500,9 @@ int main(int argc, char *argv[]) {
     yAngle = (int) convert_radian_to_degree(yAngle);
     zAngle = (int) convert_radian_to_degree(zAngle);
 
-    cout << "xAngle: " << xAngle << "%" << endl;
-    cout << "yAngle: " << yAngle << "%" << endl;
-    cout << "zAngle: " << zAngle << "%" << endl;
+    cout << "x angle: " << xAngle << "%" << endl;
+    cout << "y angle: " << yAngle << "%" << endl;
+    cout << "z angle: " << zAngle << "%" << endl;
 
     /*
      * [ fx   0  cx ]
@@ -530,8 +519,8 @@ int main(int argc, char *argv[]) {
     model.set_camera_matrix(camera_matrix_ref);
     model.save("result.yml");
 
-    namedWindow("Final");
-    imshow("Final", essential);
+    //namedWindow("Final");
+    //imshow("Final", essential);
 
     waitKey(0);
     return 0;

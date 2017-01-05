@@ -734,6 +734,7 @@ CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.obj
  D:/OpenCV/opencv/build/install/include/opencv2/videoio/videoio_c.h
  D:/OpenCV/opencv/build/install/include/opencv2/xfeatures2d.hpp
  D:/OpenCV/opencv/build/install/include/opencv2/xfeatures2d/nonfree.hpp
+ D:/rephotografing/src/CameraCalibrator.h
  D:/rephotografing/src/Mesh.h
  D:/rephotografing/src/Model.h
  D:/rephotografing/src/ModelRegistration.h

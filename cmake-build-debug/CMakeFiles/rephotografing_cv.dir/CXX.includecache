@@ -729,6 +729,8 @@ opencv2/calib3d/calib3d.hpp
 -
 opencv2/video/tracking.hpp
 -
+iomanip
+-
 Mesh.h
 D:/rephotografing/src/Mesh.h
 Model.h
@@ -741,4 +743,6 @@ RobustMatcher.h
 D:/rephotografing/src/RobustMatcher.h
 MyRobustMatcher.h
 D:/rephotografing/src/MyRobustMatcher.h
+CameraCalibrator.h
+D:/rephotografing/src/CameraCalibrator.h
 

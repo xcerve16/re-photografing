@@ -7,6 +7,7 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/calib3d/calib3d.hpp>
 #include <opencv2/video/tracking.hpp>
+#include <iomanip>
 // PnP Tutorial
 #include "Mesh.h"
 #include "Model.h"
@@ -14,32 +15,24 @@
 #include "Utils.h"
 #include "RobustMatcher.h"
 #include "MyRobustMatcher.h"
+#include "CameraCalibrator.h"
 
 /**  GLOBAL VARIABLES  **/
 
 using namespace cv;
 using namespace std;
 
+const double PI = 3.141592653589793238463;
+
 string video_read_path = "resource/video/video2.mp4";       // recorded video
 string yml_read_path = "result.yml"; // 3dpts + descriptors
 string ply_read_path = "resource/data/box.ply";         // mesh
-
-// Intrinsic camera parameters: UVC WEBCAM
-double f = 55;                           // focal length in mm
-double sx = 22.3, sy = 14.9;             // sensor size
-double width = 640, height = 480;        // image size
-
-double params_WEBCAM[] = {width * f / sx,   // fx
-                          height * f / sy,  // fy
-                          width / 2,      // cx
-                          height / 2};    // cy
 
 Scalar red(0, 0, 255);
 Scalar green(0, 255, 0);
 Scalar blue(255, 0, 0);
 Scalar yellow(0, 255, 255);
 Scalar white(255, 255, 255);
-
 
 // Robust Matcher parameters
 int numKeyPoints = 1000;
@@ -53,12 +46,10 @@ double confidence = 0.95;
 // Kalman Filter parameters
 int minInliersKalman = 30;
 
+CameraCalibrator cameraCalibrator;
+
 // PnP parameters
 int pnpMethod = SOLVEPNP_ITERATIVE;
-
-
-/**  Functions headers  **/
-void help();
 
 void initKalmanFilter(KalmanFilter &KF, int nStates, int nMeasurements, int nInputs, double dt);
 
@@ -68,34 +59,41 @@ void updateKalmanFilter(KalmanFilter &KF, Mat &measurements,
 void fillMeasurements(Mat &measurements,
                       const Mat &translation_measured, const Mat &rotation_measured);
 
+double convert_radian_to_degree(double input) {
+    double degrees = (input * 180) / PI;
+    return degrees;
+}
 
-/**  Main program  **/
 int main(int argc, char *argv[]) {
 
-    const String keys =
-            "{help h        |      | print this message                   }"
-                    "{video v       |      | path to recorded video               }"
-                    "{model         |      | path to yml model                    }"
-                    "{mesh          |      | path to ply mesh                     }"
-                    "{keypoints k   |2000  | number of keypoints to detect        }"
-                    "{ratio r       |0.7   | threshold for ratio test             }"
-                    "{iterations it |500   | RANSAC maximum iterations count      }"
-                    "{error e       |2.0   | RANSAC reprojection errror           }"
-                    "{confidence c  |0.95  | RANSAC confidence                    }"
-                    "{inliers in    |30    | minimum inliers for Kalman update    }"
-                    "{method  pnp   |0     | PnP method: (0) ITERATIVE - (1) EPNP - (2) P3P - (3) DLS}"
-                    "{fast f        |true  | use of robust fast match             }";
-    CommandLineParser parser(argc, (const char *const *) argv, keys);
 
-    PnPProblem pnp_detection(params_WEBCAM);
-    PnPProblem pnp_detection_est(params_WEBCAM);
+    Mat image;
+    vector<string> fileList;
+    for (int i = 1; i <= 20; i++) {
+        stringstream str;
+        str << "resource/image/chessboards/chessboard" << setw(2) << setfill('0') << i << ".jpg";
+        fileList.push_back(str.str());
+        image = imread(str.str(), 0);
+    }
+
+    Size boardSize(6, 4);
+    cameraCalibrator.addChessboardPoints(fileList, boardSize);
+    cameraCalibrator.calibrate((Size &) image.size);
+
+    double cameraParams[4];
+    cameraParams[0] = cameraCalibrator.getCameraMatrix().at<double>(0, 0);
+    cameraParams[1] = cameraCalibrator.getCameraMatrix().at<double>(1, 1);
+    cameraParams[2] = cameraCalibrator.getCameraMatrix().at<double>(0, 2);
+    cameraParams[3] = cameraCalibrator.getCameraMatrix().at<double>(1, 2);
+
+    PnPProblem pnp_detection(cameraParams);
+    PnPProblem pnp_detection_est(cameraParams);
 
     Model model;
     model.load(yml_read_path);
 
     Mesh mesh;
     mesh.load(ply_read_path);
-
 
     KalmanFilter KF;
     int nStates = 18;            // the number of states
@@ -111,7 +109,7 @@ int main(int argc, char *argv[]) {
     vector<Point3f> list_points3d_model = model.get_points3d();
     Mat descriptors_model = model.get_descriptors();
 
-    namedWindow("REAL TIME DEMO", WINDOW_KEEPRATIO);
+    //namedWindow("REAL TIME DEMO", WINDOW_KEEPRATIO);
 
     VideoCapture cap;
     cap.open(video_read_path);
@@ -129,7 +127,9 @@ int main(int argc, char *argv[]) {
 
     Mat frame, frame_vis;
 
-    Mat image2 = imread("resource/image/test1.jpg");
+    Mat current_frame = imread("resource/image/test0.jpg");
+    Mat first_frame = imread("resource/image/test1.jpg");
+
     Mat detection_model;
 
     vector<DMatch> matches;
@@ -139,77 +139,80 @@ int main(int argc, char *argv[]) {
     Mat descriptors_1, descriptors_2;
 
     Ptr<SURF> detector = SURF::create();
+    FlannBasedMatcher matcher;
 
-    while (cap.read(frame) && waitKey(30) != 27) {
+    RobustMatcher rmatcher;
+    vector<KeyPoint> keyPoints2;
+    Ptr<FeatureDetector> orb = ORB::create(numKeyPoints);
+
+    Ptr<flann::IndexParams> indexParams = makePtr<flann::LshIndexParams>(6, 12, 1);
+    Ptr<flann::SearchParams> searchParams = makePtr<flann::SearchParams>(50);
+
+    Ptr<DescriptorMatcher> descriptorMatcher = makePtr<FlannBasedMatcher>(indexParams, searchParams);
+    rmatcher.setDescriptorMatcher(descriptorMatcher);
+    rmatcher.setRatio(ratioTest);
+
+    vector<KeyPoint> keypoints_scene;
 
 
-        /*************************************************************
+    /*************************************************************
      *           * Robust Camera Pose Estimation *
      *************************************************************/
 
+    detector->setHessianThreshold(numKeyPoints);
+
+    detector->detectAndCompute(current_frame, Mat(), keypoints_1, descriptors_1);
+    detector->detectAndCompute(first_frame, Mat(), keypoints_2, descriptors_2);
+
+
+    matcher.match(descriptors_1, descriptors_2, matches);
+
+
+    double max_dist = 0;
+    double min_dist = 100;
+
+    for (int i = 0; i < descriptors_1.rows; i++) {
+        double dist = matches[i].distance;
+        if (dist < min_dist) min_dist = dist;
+        if (dist > max_dist) max_dist = dist;
+    }
+
+    std::vector<DMatch> good_matches;
+    for (int i = 0; i < descriptors_1.rows; i++) {
+        if (matches[i].distance <= max(2 * min_dist, 0.02)) { good_matches.push_back(matches[i]); }
+    }
+
+    Mat img_matches;
+    drawMatches(current_frame, keypoints_1, first_frame, keypoints_2, good_matches, img_matches, Scalar::all(-1),
+                Scalar::all(-1),
+                vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
+
+    imshow("ANN Matches", img_matches);
+
+
+
+    /*************************************************************
+     *           * Real-time Camera Pose Estimation *
+     *************************************************************/
+
+    orb->detect(current_frame, keyPoints2);
+    orb->compute(current_frame, keyPoints2, detection_model);
+
+    rmatcher.setFeatureDetector(orb);
+    rmatcher.setDescriptorExtractor(orb);
+
+    vector<Point3f> list_points3d_model_match;
+    vector<Point2f> list_points2d_scene_match;
+
+    while (cap.read(frame) && waitKey(30) != 27) {
+
         frame_vis = frame.clone();
 
-        detector->setHessianThreshold(numKeyPoints);
-
-        detector->detectAndCompute(image2, Mat(), keypoints_1, descriptors_1);
-        detector->detectAndCompute(frame_vis, Mat(), keypoints_2, descriptors_2);
-
-
-        FlannBasedMatcher matcher;
-        vector<DMatch> matches;
-        matcher.match(descriptors_1, descriptors_2, matches);
-
-
-        double max_dist = 0;
-        double min_dist = 100;
-
-        for (int i = 0; i < descriptors_1.rows; i++) {
-            double dist = matches[i].distance;
-            if (dist < min_dist) min_dist = dist;
-            if (dist > max_dist) max_dist = dist;
-        }
-
-        std::vector<DMatch> good_matches;
-        for (int i = 0; i < descriptors_1.rows; i++) {
-            if (matches[i].distance <= max(2 * min_dist, 0.02)) { good_matches.push_back(matches[i]); }
-        }
-
-        Mat img_matches;
-        drawMatches(image2, keypoints_1, frame_vis, keypoints_2, good_matches, img_matches, Scalar::all(-1), Scalar::all(-1),
-                    vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
-
-        imshow("Good Matches", img_matches);
-
-        /*************************************************************
-         *           * Real-time Camera Pose Estimation *
-         *************************************************************/
-
-
-        RobustMatcher rmatcher;
-        vector<KeyPoint> keyPoints2;
-        Ptr<FeatureDetector> orb = ORB::create(numKeyPoints);
-        orb->detect(image2, keyPoints2);
-        orb->compute(image2, keyPoints2, detection_model);
-
-        rmatcher.setFeatureDetector(orb);
-        rmatcher.setDescriptorExtractor(orb);
-
-        Ptr<flann::IndexParams> indexParams = makePtr<flann::LshIndexParams>(6, 12, 1);
-        Ptr<flann::SearchParams> searchParams = makePtr<flann::SearchParams>(50);
-
-        Ptr<DescriptorMatcher> descriptorMatcher = makePtr<FlannBasedMatcher>(indexParams, searchParams);
-        rmatcher.setDescriptorMatcher(descriptorMatcher);
-        rmatcher.setRatio(ratioTest);
-
         good_matches.clear();
-        vector<KeyPoint> keypoints_scene;
-
-
         rmatcher.fastRobustMatch(frame_vis, good_matches, keypoints_scene, detection_model);
 
-
-        vector<Point3f> list_points3d_model_match;
-        vector<Point2f> list_points2d_scene_match;
+        list_points3d_model_match.clear();
+        list_points2d_scene_match.clear();
         for (unsigned int match_index = 0; match_index < good_matches.size(); ++match_index) {
             Point3f point3d_model = list_points3d_model[good_matches[match_index].trainIdx];
             Point2f point2d_scene = keypoints_scene[good_matches[match_index].queryIdx].pt;
@@ -240,10 +243,6 @@ int main(int argc, char *argv[]) {
         Mat inliers_idx;
         vector<Point2f> list_points2d_inliers;
 
-        /*************************************************************
-         *                  * Estimate pose *
-         *************************************************************/
-
         if (matches.size() > 0) {
             pnp_detection.estimatePoseRANSAC(list_points3d_model_match, list_points2d_scene_match, pnpMethod,
                                              inliers_idx, iterationsCount, reprojectionError, confidence);
@@ -258,10 +257,35 @@ int main(int argc, char *argv[]) {
 
 
         /*************************************************************
-         *                  * Kalman filter *
+         *                  * Interleaved Scheme *
         *************************************************************/
 
-        good_measurement = false;
+        /*double cx = cameraCalibrator.getCameraMatrix().at<double>(0, 2);
+        double cy = cameraCalibrator.getCameraMatrix().at<double>(1, 2);
+
+
+        Mat r, t;
+        vector<Point2f> ll;
+        vector<Point2f> kk;
+
+        Mat essential = findEssentialMat(list_points2d_inliers, list_points2d_scene_match, cameraCalibrator.getCameraMatrix());
+        correctMatches(essential, list_points2d_inliers, list_points2d_scene_match, list_points2d_inliers, list_points2d_scene_match);
+        recoverPose(essential, list_points2d_inliers, list_points2d_scene_match, r, t, 1, Point2f(cx, cy));
+
+        double xAngle = atan2f(r.at<float>(2, 1), r.at<float>(2, 2));
+        double yAngle = atan2f(-r.at<float>(2, 0), sqrtf(r.at<float>(2, 1) * r.at<float>(2, 1) + r.at<float>(2, 2) * r.at<float>(2, 2)));
+        double zAngle = atan2f(r.at<float>(1, 0), r.at<float>(0, 0));
+
+        xAngle = (int) convert_radian_to_degree(xAngle);
+        yAngle = (int) convert_radian_to_degree(yAngle);
+        zAngle = (int) convert_radian_to_degree(zAngle);
+
+        cout << "xAngle: " << xAngle << "%" << endl;
+        cout << "yAngle: " << yAngle << "%" << endl;
+        cout << "zAngle: " << zAngle << "%" << endl;*/
+
+
+        /*good_measurement = false;
 
         // GOOD MEASUREMENT
         if (inliers_idx.rows >= minInliersKalman) {
@@ -302,7 +326,7 @@ int main(int argc, char *argv[]) {
         pose_points2d.push_back(pnp_detection_est.backproject3DPoint(Point3f(l, 0, 0)));  // axis x
         pose_points2d.push_back(pnp_detection_est.backproject3DPoint(Point3f(0, l, 0)));  // axis y
         pose_points2d.push_back(pnp_detection_est.backproject3DPoint(Point3f(0, 0, l)));  // axis z
-        draw3DCoordinateAxes(frame_vis, pose_points2d);           // draw axes*/
+        draw3DCoordinateAxes(frame_vis, pose_points2d);           // draw axes
 
         // FRAME RATE
 
@@ -320,9 +344,6 @@ int main(int argc, char *argv[]) {
         //drawConfidence(frame_vis, detection_ratio, yellow);
 
 
-        // -- Step X: Draw some debugging text
-
-        // Draw some debug text
         int inliers_int = inliers_idx.rows;
         int outliers_int = (int) good_matches.size() - inliers_int;
         string inliers_str = IntToString(inliers_int);
@@ -334,22 +355,21 @@ int main(int argc, char *argv[]) {
         drawText(frame_vis, text, green);
         drawText2(frame_vis, text2, red);
 
-
-        imshow("REAL TIME DEMO", frame_vis);
+    */
+        //imshow("REAL TIME DEMO", frame_vis);
     }
 
-    destroyWindow("REAL TIME DEMO");
+    destroyWindow("ANN Matches");
+    destroyWindow("Matcher");
 }
 
 /**********************************************************************************************************/
 void initKalmanFilter(KalmanFilter &KF, int nStates, int nMeasurements, int nInputs, double dt) {
 
-    KF.init(nStates, nMeasurements, nInputs, CV_64F);                 // init Kalman Filter
-
-    setIdentity(KF.processNoiseCov, Scalar::all(1e-5));       // set process noise
-    setIdentity(KF.measurementNoiseCov, Scalar::all(1e-2));   // set measurement noise
-    setIdentity(KF.errorCovPost, Scalar::all(1));             // error covariance
-
+    KF.init(nStates, nMeasurements, nInputs, CV_64F);
+    setIdentity(KF.processNoiseCov, Scalar::all(1e-5));
+    setIdentity(KF.measurementNoiseCov, Scalar::all(1e-2));
+    setIdentity(KF.errorCovPost, Scalar::all(1));
 
     /** DYNAMIC MODEL **/
 
@@ -395,7 +415,7 @@ void initKalmanFilter(KalmanFilter &KF, int nStates, int nMeasurements, int nInp
     KF.transitionMatrix.at<double>(11, 17) = 0.5 * dt * dt;
 
 
-    /** MEASUREMENT MODEL **/
+    /** Mereny model **/
 
     //  [1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
     //  [0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
@@ -413,40 +433,31 @@ void initKalmanFilter(KalmanFilter &KF, int nStates, int nMeasurements, int nInp
 
 }
 
-/**********************************************************************************************************/
-void updateKalmanFilter(KalmanFilter &KF, Mat &measurement,
-                        Mat &translation_estimated, Mat &rotation_estimated) {
+void updateKalmanFilter(KalmanFilter &KF, Mat &measurement, Mat &translation_estimated, Mat &rotation_estimated) {
 
-    // First predict, to update the internal statePre variable
     Mat prediction = KF.predict();
 
-    // The "correct" phase that is going to use the predicted value and our measurement
     Mat estimated = KF.correct(measurement);
 
-    // Estimated translation
     translation_estimated.at<double>(0) = estimated.at<double>(0);
     translation_estimated.at<double>(1) = estimated.at<double>(1);
     translation_estimated.at<double>(2) = estimated.at<double>(2);
 
-    // Estimated euler angles
+
     Mat eulers_estimated(3, 1, CV_64F);
     eulers_estimated.at<double>(0) = estimated.at<double>(9);
     eulers_estimated.at<double>(1) = estimated.at<double>(10);
     eulers_estimated.at<double>(2) = estimated.at<double>(11);
 
-    // Convert estimated quaternion to rotation matrix
     rotation_estimated = euler2rot(eulers_estimated);
 
 }
 
-/**********************************************************************************************************/
-void fillMeasurements(Mat &measurements,
-                      const Mat &translation_measured, const Mat &rotation_measured) {
-    // Convert rotation matrix to euler angles
+void fillMeasurements(Mat &measurements, const Mat &translation_measured, const Mat &rotation_measured) {
+
     Mat measured_eulers(3, 1, CV_64F);
     measured_eulers = rot2euler(rotation_measured);
 
-    // Set measurement to predict
     measurements.at<double>(0) = translation_measured.at<double>(0); // x
     measurements.at<double>(1) = translation_measured.at<double>(1); // y
     measurements.at<double>(2) = translation_measured.at<double>(2); // z

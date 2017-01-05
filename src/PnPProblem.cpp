@@ -314,3 +314,20 @@ bool PnPProblem::intersect_MollerTrumbore(Ray &Ray, Triangle &Triangle, double *
     // No hit, no win
     return false;
 }
+
+void PnPProblem::setMatrixParam(const double params[]) {
+    _A_matrix = cv::Mat::zeros(3, 3, CV_64FC1);   // intrinsic camera parameters
+    _A_matrix.at<double>(0, 0) = params[0];       //      [ fx   0  cx ]
+    _A_matrix.at<double>(1, 1) = params[1];       //      [  0  fy  cy ]
+    _A_matrix.at<double>(0, 2) = params[2];       //      [  0   0   1 ]
+    _A_matrix.at<double>(1, 2) = params[3];
+    _A_matrix.at<double>(2, 2) = 1;
+    _R_matrix = cv::Mat::zeros(3, 3, CV_64FC1);   // rotation matrix
+    _t_matrix = cv::Mat::zeros(3, 1, CV_64FC1);   // translation matrix
+    _P_matrix = cv::Mat::zeros(3, 4, CV_64FC1);   // rotation-translation matrix
+
+}
+
+PnPProblem::PnPProblem() {
+
+}

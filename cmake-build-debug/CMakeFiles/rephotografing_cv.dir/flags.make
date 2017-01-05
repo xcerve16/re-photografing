@@ -9,7 +9,7 @@ C_DEFINES =
 
 C_INCLUDES = @CMakeFiles/rephotografing_cv.dir/includes_C.rsp
 
-CXX_FLAGS =  -std=c++11 -g  
+CXX_FLAGS =  -std=c++11 -pthread -lpthread  -g  
 
 CXX_DEFINES = 
 
