@@ -601,9 +601,9 @@ void lm_lmdif( int m, int n, double *x, double *fvec, double ftol,
 
             ratio = prered != 0 ? actred / prered : 0;
 #ifdef LMFIT_DEBUG_MESSAGES
-            printf("lmdif/ actred=%.10e prered=%.10e ratio=%.10e"
+            printf("lmdif/ actred=%.10e prered=%.10e ratioTest=%.10e"
                    " sq(1)=%.10e sq(2)=%.10e dd=%.10e\n",
-                   actred, prered, prered != 0 ? ratio : 0.,
+                   actred, prered, prered != 0 ? ratioTest : 0.,
                    SQR(temp1), SQR(temp2), dirder);
 #endif
 

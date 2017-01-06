@@ -27,7 +27,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "D:/rephotografing/src/RobustMatcher.cpp" "D:/rephotografing/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/RobustMatcher.cpp.obj"
   "D:/rephotografing/src/Utils.cpp" "D:/rephotografing/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/Utils.cpp.obj"
   "D:/rephotografing/src/errorNIETO.cpp" "D:/rephotografing/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/errorNIETO.cpp.obj"
-  "D:/rephotografing/src/main_registration.cpp" "D:/rephotografing/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/main_registration.cpp.obj"
+  "D:/rephotografing/src/main_detection.cpp" "D:/rephotografing/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

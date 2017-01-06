@@ -27,7 +27,7 @@ private:
     cv::Ptr<cv::FeatureDetector> detector;
     // pointer to the feature descriptor extractor object
     cv::Ptr<cv::DescriptorExtractor> extractor;
-    float ratio; // max ratio between 1st and 2nd NN
+    float ratio; // max ratioTest between 1st and 2nd NN
     bool refineF; // if true will refine the F matrix
     double distance; // min distance to epipolar
     double confidence; // confidence level (probability)
@@ -65,7 +65,7 @@ public:
         confidence= c;
     }
 
-    // Set the NN ratio
+    // Set the NN ratioTest
     void setRatio(float r) {
 
         ratio= r;
@@ -77,7 +77,7 @@ public:
         refineF= flag;
     }
 
-    // Clear matches for which NN ratio is > than threshold
+    // Clear matches for which NN ratioTest is > than threshold
     // return the number of removed points
     // (corresponding entries being cleared, i.e. size will be 0)
     int ratioTest(std::vector<std::vector<cv::DMatch>>& matches) {
@@ -91,7 +91,7 @@ public:
             // if 2 NN has been identified
             if (matchIterator->size() > 1) {
 
-                // check distance ratio
+                // check distance ratioTest
                 if ((*matchIterator)[0].distance/(*matchIterator)[1].distance > ratio) {
 
                     matchIterator->clear(); // remove match
@@ -254,14 +254,14 @@ public:
         //std::cout << "Number of matched points 1->2: " << matches1.size() << std::endl;
         //std::cout << "Number of matched points 2->1: " << matches2.size() << std::endl;
 
-        // 3. Remove matches for which NN ratio is > than threshold
+        // 3. Remove matches for which NN ratioTest is > than threshold
 
         // clean image 1 -> image 2 matches
         int removed= ratioTest(matches1);
-        //std::cout << "Number of matched points 1->2 (ratio test) : " << matches1.size()-removed << std::endl;
+        //std::cout << "Number of matched points 1->2 (ratioTest test) : " << matches1.size()-removed << std::endl;
         // clean image 2 -> image 1 matches
         removed= ratioTest(matches2);
-        //std::cout << "Number of matched points 1->2 (ratio test) : " << matches2.size()-removed << std::endl;
+        //std::cout << "Number of matched points 1->2 (ratioTest test) : " << matches2.size()-removed << std::endl;
 
         // 4. Remove non-symmetrical matches
         std::vector<cv::DMatch> symMatches;
@@ -316,14 +316,14 @@ public:
         //std::cout << "Number of matched points 1->2: " << matches1.size() << std::endl;
         //std::cout << "Number of matched points 2->1: " << matches2.size() << std::endl;
 
-        // 3. Remove matches for which NN ratio is > than threshold
+        // 3. Remove matches for which NN ratioTest is > than threshold
 
         // clean image 1 -> image 2 matches
         int removed= ratioTest(matches1);
-        //std::cout << "Number of matched points 1->2 (ratio test) : " << matches1.size()-removed << std::endl;
+        //std::cout << "Number of matched points 1->2 (ratioTest test) : " << matches1.size()-removed << std::endl;
         // clean image 2 -> image 1 matches
         removed= ratioTest(matches2);
-        //std::cout << "Number of matched points 1->2 (ratio test) : " << matches2.size()-removed << std::endl;
+        //std::cout << "Number of matched points 1->2 (ratioTest test) : " << matches2.size()-removed << std::endl;
 
         // 4. Remove non-symmetrical matches
         std::vector<cv::DMatch> symMatches;

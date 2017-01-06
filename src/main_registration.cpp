@@ -49,20 +49,20 @@ MyRobustMatcher robustMatcher;
 Model model;
 MSAC msac;
 
-//Robust matcher parameters
+// Robust matcher parameters
 double confidenceLevel = 0.98;
 double minDistance = 1.0;
-double ratio = 0.65f;
+double ratioTest = 0.65f;
 
-//SIFT parameters
+// SIFT parameters
 int numOfPoints = 10;
 
-//MSAC parameters
+// MSAC parameters
 int mode = MODE_NIETO;
 int numVps = 3;
 bool verbose = false;
 
-//Window name
+// Window's names
 string WIN_USER_SELECT_POINT = "WIN_USER_SELECT_POINT";
 string WIN_REF_IMAGE_FOR_USER = "WIN_REF_IMAGE_FOR_USER";
 string WIN_REF_IMAGE_WITH_HOUGH_LINES = "WIN_REF_IMAGE_WITH_HOUGH_LINES";
@@ -209,14 +209,15 @@ int main(int argc, char *argv[]) {
 
     robustMatcher.setConfidenceLevel(confidenceLevel);
     robustMatcher.setMinDistanceToEpipolar(minDistance);
-    robustMatcher.setRatio(ratio);
+    robustMatcher.setRatio(ratioTest);
 
     Ptr<FeatureDetector> featureDetector = SURF::create(numOfPoints);
     robustMatcher.setFeatureDetector(featureDetector);
 
     vector<DMatch> matches;
     vector<KeyPoint> key_points_first_image, key_points_second_image;
-    Mat fundamental = robustMatcher.match(first_image, second_image, matches, key_points_first_image, key_points_second_image);
+    Mat fundamental = robustMatcher.match(first_image, second_image, matches, key_points_first_image,
+                                          key_points_second_image);
 
     vector<Point2f> detection_points_first_image, detection_points_second_image;
 
@@ -295,12 +296,14 @@ int main(int argc, char *argv[]) {
     vector<Point3f> list_3D_points_after_triangulation;
     vector<Point2f> list_2D_points_after_triangulation;
     for (int i = 0; i < triangulation_3D_points.rows; i++) {
-        list_3D_points_after_triangulation.push_back(Point3f(triangulation_3D_points.at<float>(i, 0), triangulation_3D_points.at<float>(i, 1),
-                                      triangulation_3D_points.at<float>(i, 2)));
+        list_3D_points_after_triangulation.push_back(
+                Point3f(triangulation_3D_points.at<float>(i, 0), triangulation_3D_points.at<float>(i, 1),
+                        triangulation_3D_points.at<float>(i, 2)));
     }
 
     projectPoints(list_3D_points_after_triangulation, rotation_vector_first_image, translation_vector_first_image,
-                  cameraCalibrator.getCameraMatrix(), cameraCalibrator.getDistCoeffs(), list_2D_points_after_triangulation);
+                  cameraCalibrator.getCameraMatrix(), cameraCalibrator.getDistCoeffs(),
+                  list_2D_points_after_triangulation);
 
 
     draw2DPoints(first_image, list_2D_points_after_triangulation, blue);
@@ -326,7 +329,8 @@ int main(int argc, char *argv[]) {
     vector<Point2f> list;
     int i = 0;
     while (registration.get_points3d().size() < number_registration) {
-        if (list_3D_points_after_triangulation[i].x < 100.0 && list_3D_points_after_triangulation[i].x > -100.0 && list_3D_points_after_triangulation[i].y < 100.0 &&
+        if (list_3D_points_after_triangulation[i].x < 100.0 && list_3D_points_after_triangulation[i].x > -100.0 &&
+            list_3D_points_after_triangulation[i].y < 100.0 &&
             list_3D_points_after_triangulation[i].y > -100.0) {
             registration.register3DPoint(list_3D_points_after_triangulation[i]);
             list.push_back(list_2D_points_after_triangulation[i]);

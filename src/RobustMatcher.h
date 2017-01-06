@@ -46,10 +46,10 @@ public:
     // Compute the descriptors of an image given its keypoints
     void computeDescriptors(const cv::Mat &image, std::vector<cv::KeyPoint> &keypoints, cv::Mat &descriptors);
 
-    // Set ratio parameter for the ratio test
+    // Set ratioTest parameter for the ratioTest test
     void setRatio(float rat) { ratio_ = rat; }
 
-    // Clear matches for which NN ratio is > than threshold
+    // Clear matches for which NN ratioTest is > than threshold
     // return the number of removed points
     // (corresponding entries being cleared,
     // i.e. size will be 0)
@@ -60,12 +60,12 @@ public:
                       const std::vector<std::vector<cv::DMatch> > &matches2,
                       std::vector<cv::DMatch> &symMatches);
 
-    // Match feature points using ratio and symmetry test
+    // Match feature points using ratioTest and symmetry test
     void robustMatch(const cv::Mat &frame, std::vector<cv::DMatch> &good_matches,
                      std::vector<cv::KeyPoint> &keypoints_frame,
                      const cv::Mat &descriptors_model);
 
-    // Match feature points using ratio test
+    // Match feature points using ratioTest test
     void fastRobustMatch(const cv::Mat &frame, std::vector<cv::DMatch> &good_matches,
                          std::vector<cv::KeyPoint> &keypoints_frame,
                          const cv::Mat &descriptors_model);
@@ -80,7 +80,7 @@ private:
     cv::Ptr<cv::DescriptorExtractor> extractor_;
     // pointer to the matcher object
     cv::Ptr<cv::DescriptorMatcher> matcher_;
-    // max ratio between 1st and 2nd NN
+    // max ratioTest between 1st and 2nd NN
     float ratio_;
 };
 

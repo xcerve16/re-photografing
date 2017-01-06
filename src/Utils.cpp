@@ -47,7 +47,7 @@ void drawText2(cv::Mat image, std::string text, cv::Scalar color)
   cv::putText(image, text, cv::Point(25,75), fontFace, fontScale, color, thickness_font, 8);
 }
 
-// Draw a text with the frame ratio
+// Draw a text with the frame ratioTest
 void drawFPS(cv::Mat image, double fps, cv::Scalar color)
 {
   std::string fps_str = IntToString((int)fps);
@@ -55,7 +55,7 @@ void drawFPS(cv::Mat image, double fps, cv::Scalar color)
   cv::putText(image, text, cv::Point(500,50), fontFace, fontScale, color, thickness_font, 8);
 }
 
-// Draw a text with the frame ratio
+// Draw a text with the frame ratioTest
 void drawConfidence(cv::Mat image, double confidence, cv::Scalar color)
 {
   std::string conf_str = IntToString((int)confidence);

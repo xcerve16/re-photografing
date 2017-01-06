@@ -26,10 +26,10 @@ void drawText(cv::Mat image, std::string text, cv::Scalar color);
 // Draw a text with the number of entered points
 void drawText2(cv::Mat image, std::string text, cv::Scalar color);
 
-// Draw a text with the frame ratio
+// Draw a text with the frame ratioTest
 void drawFPS(cv::Mat image, double fps, cv::Scalar color);
 
-// Draw a text with the frame ratio
+// Draw a text with the frame ratioTest
 void drawConfidence(cv::Mat image, double confidence, cv::Scalar color);
 
 // Draw a text with the number of entered points

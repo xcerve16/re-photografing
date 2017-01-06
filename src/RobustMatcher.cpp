@@ -27,7 +27,7 @@ int RobustMatcher::ratioTest(std::vector<std::vector<cv::DMatch> > &matches) {
                  matchIterator = matches.begin(); matchIterator != matches.end(); ++matchIterator) {
         // if 2 NN has been identified
         if (matchIterator->size() > 1) {
-            // check distance ratio
+            // check distance ratioTest
             if ((*matchIterator)[0].distance / (*matchIterator)[1].distance > ratio_) {
                 matchIterator->clear(); // remove match
                 removed++;
@@ -104,7 +104,7 @@ void RobustMatcher::robustMatch(const cv::Mat &frame, std::vector<cv::DMatch> &g
 
     }
 
-    // 3. Remove matches for which NN ratio is > than threshold
+    // 3. Remove matches for which NN ratioTest is > than threshold
     // clean image 1 -> image 2 matches
     ratioTest(matches12);
     // clean image 2 -> image 1 matches
@@ -131,7 +131,7 @@ void RobustMatcher::fastRobustMatch(const cv::Mat &frame, std::vector<cv::DMatch
     std::vector<std::vector<cv::DMatch> > matches;
     matcher_->knnMatch(descriptors_frame, descriptors_model, matches, 2);
 
-    // 3. Remove matches for which NN ratio is > than threshold
+    // 3. Remove matches for which NN ratioTest is > than threshold
     ratioTest(matches);
 
     // 4. Fill good matches container

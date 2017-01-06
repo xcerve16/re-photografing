@@ -25,19 +25,26 @@ using namespace std;
 
 const double PI = 3.141592653589793238463;
 
-string video_read_path = "resource/video/video2.mp4";       // recorded video
-string yml_read_path = "result.yml"; // 3dpts + descriptors
-string ply_read_path = "resource/data/box.ply";         // mesh
+string video_read_path = "resource/video/video2.mp4";
+string yml_read_path = "result.yml";
+string ply_read_path = "resource/data/box.ply";
 
+// Color
 Scalar red(0, 0, 255);
 Scalar green(0, 255, 0);
 Scalar blue(255, 0, 0);
 Scalar yellow(0, 255, 255);
 Scalar white(255, 255, 255);
 
+CameraCalibrator cameraCalibrator;
+RobustMatcher rmatcher;
+PnPProblem pnp_detection;
+
 // Robust Matcher parameters
 int numKeyPoints = 1000;
 float ratioTest = 0.70f;
+double max_dist = 0;
+double min_dist = 100;
 
 // RANSAC parameters
 int iterationsCount = 500;
@@ -47,21 +54,18 @@ double confidence = 0.95;
 // Kalman Filter parameters
 int minInliersKalman = 30;
 
-CameraCalibrator cameraCalibrator;
-RobustMatcher rmatcher;
-PnPProblem pnp_detection;
-
-
 // PnP parameters
 int pnpMethod = SOLVEPNP_ITERATIVE;
 
+// Window's names
+string WIN_REAL_TIME_DEMO = "WIN_REAL_TIME_DEMO";
+
+
 void initKalmanFilter(KalmanFilter &KF, int nStates, int nMeasurements, int nInputs, double dt);
 
-void updateKalmanFilter(KalmanFilter &KF, Mat &measurements,
-                        Mat &translation_estimated, Mat &rotation_estimated);
+void updateKalmanFilter(KalmanFilter &KF, Mat &measurements, Mat &translation_estimated, Mat &rotation_estimated);
 
-void fillMeasurements(Mat &measurements,
-                      const Mat &translation_measured, const Mat &rotation_measured);
+void fillMeasurements(Mat &measurements, const Mat &translation_measured, const Mat &rotation_measured);
 
 double convert_radian_to_degree(double input) {
     double degrees = (input * 180) / PI;
@@ -110,16 +114,17 @@ void *fast_robust_matcher(void *arg) {
         imshow("Matcher", frame_vis);
 
     }
+    pthread_exit(NULL);
 }
 
 
 void *robust_matcher(void *arg) {
 
-    struct arg_struct *ass = (struct arg_struct *) arg;
+    struct arg_struct *arg_struct1 = (struct arg_struct *) arg;
 
-    Mat frame_vis = ass->frame;
-    Mat detection_model = ass->detection_model;
-    vector<Point3f> list_points3D_model = ass->list_points3D_model;
+    Mat frame_vis = arg_struct1->frame;
+    Mat detection_model = arg_struct1->detection_model;
+    vector<Point3f> list_points3D_model = arg_struct1->list_points3D_model;
 
     vector<Point3f> list_points3D_model_match;
     vector<Point2f> list_points2D_scene_match;
@@ -150,7 +155,7 @@ void *robust_matcher(void *arg) {
         }
     }
 
-    ass->list_points2D_scene_match = list_points2D_scene_match;
+    arg_struct1->list_points2D_scene_match = list_points2D_scene_match;
     draw2DPoints(frame_vis, list_points2D_scene_match, blue);
     pthread_exit(NULL);
 }
@@ -258,10 +263,6 @@ int main(int argc, char *argv[]) {
 
     matcher.match(descriptors_1, descriptors_2, matches);
 
-
-    double max_dist = 0;
-    double min_dist = 100;
-
     for (int i = 0; i < descriptors_1.rows; i++) {
         double dist = matches[i].distance;
         if (dist < min_dist) min_dist = dist;
@@ -275,10 +276,7 @@ int main(int argc, char *argv[]) {
 
     Mat img_matches;
     drawMatches(current_frame, keypoints_1, first_frame, keypoints_2, good_matches, img_matches, Scalar::all(-1),
-                Scalar::all(-1),
-                vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
-
-    //imshow("ANN Matches", img_matches);
+                Scalar::all(-1), vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
 
 
 
@@ -295,6 +293,14 @@ int main(int argc, char *argv[]) {
     vector<Point3f> list_points3d_model_match;
     vector<Point2f> list_points2d_scene_match;
 
+    bool isFirstImage = true;
+
+    vector<Point2f> featuresPrevious;
+    vector<Point2f> featuresCurrent;
+    vector<Point2f> featuresNextPos;
+    vector<uchar> featuresFound;
+    Mat cImage, lastImgRef, err;
+
     while (cap.read(frame) && waitKey(30) != 27) {
 
         frame_vis = frame.clone();
@@ -302,7 +308,7 @@ int main(int argc, char *argv[]) {
         good_matches.clear();
         rmatcher.fastRobustMatch(frame_vis, good_matches, keypoints_scene, detection_model);
 
-        list_points3d_model_match.clear();
+        /*list_points3d_model_match.clear();
         list_points2d_scene_match.clear();
         for (unsigned int match_index = 0; match_index < good_matches.size(); ++match_index) {
             Point3f point3d_model = list_points3D_model[good_matches[match_index].trainIdx];
@@ -311,7 +317,7 @@ int main(int argc, char *argv[]) {
             list_points2d_scene_match.push_back(point2d_scene);
         }
 
-        draw2DPoints(frame_vis, list_points2d_scene_match, blue);
+        draw2DPoints(frame_vis, list_points2d_scene_match, blue);*/
 
         rmatcher.robustMatch(frame_vis, good_matches, keypoints_scene, detection_model);
 
@@ -323,12 +329,6 @@ int main(int argc, char *argv[]) {
             list_points3d_model_match.push_back(point3d_model);
             list_points2d_scene_match.push_back(point2d_scene);
         }
-
-        draw2DPoints(frame_vis, list_points2d_scene_match, yellow);
-        drawText(frame_vis, "Robust match", yellow);
-        drawText2(frame_vis, "Fast match", blue);
-        namedWindow("Matcher");
-        imshow("Matcher", frame_vis);
 
         Mat inliers_idx;
         vector<Point2f> list_points2d_inliers;
@@ -343,39 +343,17 @@ int main(int argc, char *argv[]) {
             }
         }
 
-        draw2DPoints(frame_vis, list_points2d_inliers, blue);
+        //draw2DPoints(frame_vis, list_points2d_inliers, blue);
 
 
         /*************************************************************
          *                  * Interleaved Scheme *
         *************************************************************/
 
-        /*double cx = cameraCalibrator.getCameraMatrix().at<double>(0, 2);
+        double cx = cameraCalibrator.getCameraMatrix().at<double>(0, 2);
         double cy = cameraCalibrator.getCameraMatrix().at<double>(1, 2);
 
-
-        Mat r, t;
-        vector<Point2f> ll;
-        vector<Point2f> kk;
-
-        Mat essential = findEssentialMat(list_points2d_inliers, list_points2d_scene_match, cameraCalibrator.getCameraMatrix());
-        correctMatches(essential, list_points2d_inliers, list_points2d_scene_match, list_points2d_inliers, list_points2d_scene_match);
-        recoverPose(essential, list_points2d_inliers, list_points2d_scene_match, r, t, 1, Point2f(cx, cy));
-
-        double xAngle = atan2f(r.at<float>(2, 1), r.at<float>(2, 2));
-        double yAngle = atan2f(-r.at<float>(2, 0), sqrtf(r.at<float>(2, 1) * r.at<float>(2, 1) + r.at<float>(2, 2) * r.at<float>(2, 2)));
-        double zAngle = atan2f(r.at<float>(1, 0), r.at<float>(0, 0));
-
-        xAngle = (int) convert_radian_to_degree(xAngle);
-        yAngle = (int) convert_radian_to_degree(yAngle);
-        zAngle = (int) convert_radian_to_degree(zAngle);
-
-        cout << "xAngle: " << xAngle << "%" << endl;
-        cout << "yAngle: " << yAngle << "%" << endl;
-        cout << "zAngle: " << zAngle << "%" << endl;*/
-
-
-        /*good_measurement = false;
+        good_measurement = false;
 
         // GOOD MEASUREMENT
         if (inliers_idx.rows >= minInliersKalman) {
@@ -390,12 +368,35 @@ int main(int argc, char *argv[]) {
 
             // fill the measurements vector
             fillMeasurements(measurements, translation_measured, rotation_measured);
-
             good_measurement = true;
 
         }
 
-        // Instantiate estimated translation and rotation
+        /*************************************************************
+         *                   * Lucas-Kanade method *
+         *************************************************************/
+
+        cvtColor(frame_vis, cImage, CV_BGR2GRAY);
+        cImage.convertTo(frame_vis, CV_8U);
+        featuresPrevious = std::move(featuresCurrent);
+        goodFeaturesToTrack(frame_vis, featuresCurrent, 30, 0.01, 30);
+
+        if (!isFirstImage) {
+            calcOpticalFlowPyrLK(lastImgRef, frame_vis, featuresPrevious, featuresNextPos, featuresFound, err);
+            for (size_t i = 0; i < featuresNextPos.size(); i++) {
+                if (featuresFound[i]) {
+                    line(frame_vis, featuresPrevious[i], featuresNextPos[i], Scalar(0, 0, 255), 5);
+                }
+            }
+        }
+
+        lastImgRef = frame_vis.clone();
+        isFirstImage = false;
+
+        /*************************************************************
+         *                   * Kalman filter *
+         *************************************************************/
+
         Mat translation_estimated(3, 1, CV_64F);
         Mat rotation_estimated(3, 3, CV_64F);
 
@@ -403,54 +404,50 @@ int main(int argc, char *argv[]) {
         updateKalmanFilter(KF, measurements, translation_estimated, rotation_estimated);
         pnp_detection_est.set_P_matrix(rotation_estimated, translation_estimated);
 
-
-        if (good_measurement) {
-            //drawObjectMesh(frame_vis, &mesh, &pnp_detection, green);  // draw current pose
-        } else {
-            //drawObjectMesh(frame_vis, &mesh, &pnp_detection_est, yellow); // draw estimated pose
-        }
-
         float l = 5;
-        /*vector<Point2f> pose_points2d;
+        vector<Point2f> pose_points2d;
         pose_points2d.push_back(pnp_detection_est.backproject3DPoint(Point3f(5, 5, 5)));  // axis center
         pose_points2d.push_back(pnp_detection_est.backproject3DPoint(Point3f(l, 0, 0)));  // axis x
         pose_points2d.push_back(pnp_detection_est.backproject3DPoint(Point3f(0, l, 0)));  // axis y
         pose_points2d.push_back(pnp_detection_est.backproject3DPoint(Point3f(0, 0, l)));  // axis z
         draw3DCoordinateAxes(frame_vis, pose_points2d);           // draw axes
 
-        // FRAME RATE
-
-        // see how much time has elapsed
         time(&end);
-
-        // calculate current FPS
         ++counter;
         sec = difftime(end, start);
-
         fps = counter / sec;
 
-        //drawFPS(frame_vis, fps, yellow); // frame ratio
+        drawFPS(frame_vis, fps, yellow); // frame ratio
         double detection_ratio = ((double) inliers_idx.rows / (double) good_matches.size()) * 100;
-        //drawConfidence(frame_vis, detection_ratio, yellow);
-
+        drawConfidence(frame_vis, detection_ratio, yellow);
 
         int inliers_int = inliers_idx.rows;
-        int outliers_int = (int) good_matches.size() - inliers_int;
-        string inliers_str = IntToString(inliers_int);
-        string outliers_str = IntToString(outliers_int);
-        string n = IntToString((int) good_matches.size());
-        string text = "Found " + inliers_str + " of " + n + " matches";
-        string text2 = "Inliers: " + inliers_str + " - Outliers: " + outliers_str;
 
-        drawText(frame_vis, text, green);
-        drawText2(frame_vis, text2, red);
 
-    */
-        //imshow("REAL TIME DEMO", frame_vis);
+        /*
+
+        Mat r, t;
+        vector<Point2f> ll;
+        vector<Point2f> kk;
+         Mat essential = findEssentialMat(list_points2d_inliers, list_points2d_scene_match, cameraCalibrator.getCameraMatrix());
+         correctMatches(essential, list_points2d_inliers, list_points2d_scene_match, list_points2d_inliers, list_points2d_scene_match);
+         recoverPose(essential, list_points2d_inliers, list_points2d_scene_match, r, t, 1, Point2f(cx, cy));
+
+         double xAngle = atan2f(r.at<float>(2, 1), r.at<float>(2, 2));
+         double yAngle = atan2f(-r.at<float>(2, 0), sqrtf(r.at<float>(2, 1) * r.at<float>(2, 1) + r.at<float>(2, 2) * r.at<float>(2, 2)));
+         double zAngle = atan2f(r.at<float>(1, 0), r.at<float>(0, 0));
+
+         xAngle = (int) convert_radian_to_degree(xAngle);
+         yAngle = (int) convert_radian_to_degree(yAngle);
+         zAngle = (int) convert_radian_to_degree(zAngle);
+
+         cout << "xAngle: " << xAngle << "%" << endl;
+         cout << "yAngle: " << yAngle << "%" << endl;
+         cout << "zAngle: " << zAngle << "%" << endl;*/
+
+        imshow(WIN_REAL_TIME_DEMO, frame_vis);
     }
-
-    destroyWindow("ANN Matches");
-    destroyWindow("Matcher");
+    destroyWindow(WIN_REAL_TIME_DEMO);
 }
 
 /**********************************************************************************************************/

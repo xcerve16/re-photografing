@@ -673,11 +673,10 @@ CMakeFiles/rephotografing_cv.dir/src/errorNIETO.cpp.obj
  D:/OpenCV/opencv/build/install/include/opencv2/xfeatures2d/nonfree.hpp
  D:/rephotografing/src/errorNIETO.cpp
  D:/rephotografing/src/errorNIETO.h
-CMakeFiles/rephotografing_cv.dir/src/main_registration.cpp.obj
+CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.obj
  D:/OpenCV/opencv/build/install/include/opencv/cv.h
  D:/OpenCV/opencv/build/install/include/opencv/cv.hpp
  D:/OpenCV/opencv/build/install/include/opencv/cxcore.h
- D:/OpenCV/opencv/build/install/include/opencv/highgui.h
  D:/OpenCV/opencv/build/install/include/opencv2/calib3d.hpp
  D:/OpenCV/opencv/build/install/include/opencv2/calib3d/calib3d.hpp
  D:/OpenCV/opencv/build/install/include/opencv2/calib3d/calib3d_c.h
@@ -736,13 +735,11 @@ CMakeFiles/rephotografing_cv.dir/src/main_registration.cpp.obj
  D:/OpenCV/opencv/build/install/include/opencv2/xfeatures2d.hpp
  D:/OpenCV/opencv/build/install/include/opencv2/xfeatures2d/nonfree.hpp
  D:/rephotografing/src/CameraCalibrator.h
- D:/rephotografing/src/Line2D.h
- D:/rephotografing/src/MSAC.h
  D:/rephotografing/src/Mesh.h
  D:/rephotografing/src/Model.h
  D:/rephotografing/src/ModelRegistration.h
  D:/rephotografing/src/MyRobustMatcher.h
  D:/rephotografing/src/PnPProblem.h
+ D:/rephotografing/src/RobustMatcher.h
  D:/rephotografing/src/Utils.h
- D:/rephotografing/src/errorNIETO.h
- D:/rephotografing/src/main_registration.cpp
+ D:/rephotografing/src/main_detection.cpp
