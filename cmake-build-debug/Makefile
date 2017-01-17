@@ -473,32 +473,32 @@ src/lmmin.c.s:
 	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/lmmin.c.s
 .PHONY : src/lmmin.c.s
 
-src/main_detection.obj: src/main_detection.cpp.obj
+src/main.obj: src/main.cpp.obj
 
-.PHONY : src/main_detection.obj
+.PHONY : src/main.obj
 
 # target to build an object file
-src/main_detection.cpp.obj:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.obj
-.PHONY : src/main_detection.cpp.obj
+src/main.cpp.obj:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/main.cpp.obj
+.PHONY : src/main.cpp.obj
 
-src/main_detection.i: src/main_detection.cpp.i
+src/main.i: src/main.cpp.i
 
-.PHONY : src/main_detection.i
+.PHONY : src/main.i
 
 # target to preprocess a source file
-src/main_detection.cpp.i:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.i
-.PHONY : src/main_detection.cpp.i
+src/main.cpp.i:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
 
-src/main_detection.s: src/main_detection.cpp.s
+src/main.s: src/main.cpp.s
 
-.PHONY : src/main_detection.s
+.PHONY : src/main.s
 
 # target to generate assembly for a file
-src/main_detection.cpp.s:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.s
-.PHONY : src/main_detection.cpp.s
+src/main.cpp.s:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
 
 # Help Target
 help:
@@ -548,9 +548,9 @@ help:
 	@echo ... src/lmmin.obj
 	@echo ... src/lmmin.i
 	@echo ... src/lmmin.s
-	@echo ... src/main_detection.obj
-	@echo ... src/main_detection.i
-	@echo ... src/main_detection.s
+	@echo ... src/main.obj
+	@echo ... src/main.i
+	@echo ... src/main.s
 .PHONY : help
 
 

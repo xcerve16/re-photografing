@@ -56,29 +56,29 @@ include CMakeFiles/rephotografing_cv.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/rephotografing_cv.dir/flags.make
 
-CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.obj: CMakeFiles/rephotografing_cv.dir/flags.make
-CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.obj: CMakeFiles/rephotografing_cv.dir/includes_CXX.rsp
-CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.obj: ../src/main_detection.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\rephotografing\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.obj"
-	C:\MinGW\bin\g++.exe   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\rephotografing_cv.dir\src\main_detection.cpp.obj -c D:\rephotografing\src\main_detection.cpp
+CMakeFiles/rephotografing_cv.dir/src/main.cpp.obj: CMakeFiles/rephotografing_cv.dir/flags.make
+CMakeFiles/rephotografing_cv.dir/src/main.cpp.obj: CMakeFiles/rephotografing_cv.dir/includes_CXX.rsp
+CMakeFiles/rephotografing_cv.dir/src/main.cpp.obj: ../src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\rephotografing\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/rephotografing_cv.dir/src/main.cpp.obj"
+	C:\MinGW\bin\g++.exe   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\rephotografing_cv.dir\src\main.cpp.obj -c D:\rephotografing\src\main.cpp
 
-CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.i"
-	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\rephotografing\src\main_detection.cpp > CMakeFiles\rephotografing_cv.dir\src\main_detection.cpp.i
+CMakeFiles/rephotografing_cv.dir/src/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rephotografing_cv.dir/src/main.cpp.i"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\rephotografing\src\main.cpp > CMakeFiles\rephotografing_cv.dir\src\main.cpp.i
 
-CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.s"
-	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\rephotografing\src\main_detection.cpp -o CMakeFiles\rephotografing_cv.dir\src\main_detection.cpp.s
+CMakeFiles/rephotografing_cv.dir/src/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rephotografing_cv.dir/src/main.cpp.s"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\rephotografing\src\main.cpp -o CMakeFiles\rephotografing_cv.dir\src\main.cpp.s
 
-CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.obj.requires:
+CMakeFiles/rephotografing_cv.dir/src/main.cpp.obj.requires:
 
-.PHONY : CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.obj.requires
+.PHONY : CMakeFiles/rephotografing_cv.dir/src/main.cpp.obj.requires
 
-CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.obj.provides: CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.obj.requires
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.obj.provides.build
-.PHONY : CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.obj.provides
+CMakeFiles/rephotografing_cv.dir/src/main.cpp.obj.provides: CMakeFiles/rephotografing_cv.dir/src/main.cpp.obj.requires
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/main.cpp.obj.provides.build
+.PHONY : CMakeFiles/rephotografing_cv.dir/src/main.cpp.obj.provides
 
-CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.obj.provides.build: CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.obj
+CMakeFiles/rephotografing_cv.dir/src/main.cpp.obj.provides.build: CMakeFiles/rephotografing_cv.dir/src/main.cpp.obj
 
 
 CMakeFiles/rephotografing_cv.dir/src/CsvReader.cpp.obj: CMakeFiles/rephotografing_cv.dir/flags.make
@@ -408,7 +408,7 @@ CMakeFiles/rephotografing_cv.dir/src/lmmin.c.obj.provides.build: CMakeFiles/reph
 
 # Object files for target rephotografing_cv
 rephotografing_cv_OBJECTS = \
-"CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.obj" \
+"CMakeFiles/rephotografing_cv.dir/src/main.cpp.obj" \
 "CMakeFiles/rephotografing_cv.dir/src/CsvReader.cpp.obj" \
 "CMakeFiles/rephotografing_cv.dir/src/CsvWriter.cpp.obj" \
 "CMakeFiles/rephotografing_cv.dir/src/Mesh.cpp.obj" \
@@ -426,7 +426,7 @@ rephotografing_cv_OBJECTS = \
 # External object files for target rephotografing_cv
 rephotografing_cv_EXTERNAL_OBJECTS =
 
-rephotografing_cv.exe: CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.obj
+rephotografing_cv.exe: CMakeFiles/rephotografing_cv.dir/src/main.cpp.obj
 rephotografing_cv.exe: CMakeFiles/rephotografing_cv.dir/src/CsvReader.cpp.obj
 rephotografing_cv.exe: CMakeFiles/rephotografing_cv.dir/src/CsvWriter.cpp.obj
 rephotografing_cv.exe: CMakeFiles/rephotografing_cv.dir/src/Mesh.cpp.obj
@@ -486,7 +486,7 @@ CMakeFiles/rephotografing_cv.dir/build: rephotografing_cv.exe
 
 .PHONY : CMakeFiles/rephotografing_cv.dir/build
 
-CMakeFiles/rephotografing_cv.dir/requires: CMakeFiles/rephotografing_cv.dir/src/main_detection.cpp.obj.requires
+CMakeFiles/rephotografing_cv.dir/requires: CMakeFiles/rephotografing_cv.dir/src/main.cpp.obj.requires
 CMakeFiles/rephotografing_cv.dir/requires: CMakeFiles/rephotografing_cv.dir/src/CsvReader.cpp.obj.requires
 CMakeFiles/rephotografing_cv.dir/requires: CMakeFiles/rephotografing_cv.dir/src/CsvWriter.cpp.obj.requires
 CMakeFiles/rephotografing_cv.dir/requires: CMakeFiles/rephotografing_cv.dir/src/Mesh.cpp.obj.requires

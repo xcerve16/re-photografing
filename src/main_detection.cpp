@@ -20,52 +20,7 @@
 
 /**  GLOBAL VARIABLES  **/
 
-using namespace cv;
-using namespace std;
 
-const double PI = 3.141592653589793238463;
-
-string video_read_path = "resource/video/video2.mp4";
-string yml_read_path = "result.yml";
-string ply_read_path = "resource/data/box.ply";
-
-// Color
-Scalar red(0, 0, 255);
-Scalar green(0, 255, 0);
-Scalar blue(255, 0, 0);
-Scalar yellow(0, 255, 255);
-Scalar white(255, 255, 255);
-
-CameraCalibrator cameraCalibrator;
-RobustMatcher rmatcher;
-PnPProblem pnp_detection;
-
-// Robust Matcher parameters
-int numKeyPoints = 1000;
-float ratioTest = 0.70f;
-double max_dist = 0;
-double min_dist = 100;
-
-// RANSAC parameters
-int iterationsCount = 500;
-float reprojectionError = 2.0;
-double confidence = 0.95;
-
-// Kalman Filter parameters
-int minInliersKalman = 30;
-
-// PnP parameters
-int pnpMethod = SOLVEPNP_ITERATIVE;
-
-// Window's names
-string WIN_REAL_TIME_DEMO = "WIN_REAL_TIME_DEMO";
-
-
-void initKalmanFilter(KalmanFilter &KF, int nStates, int nMeasurements, int nInputs, double dt);
-
-void updateKalmanFilter(KalmanFilter &KF, Mat &measurements, Mat &translation_estimated, Mat &rotation_estimated);
-
-void fillMeasurements(Mat &measurements, const Mat &translation_measured, const Mat &rotation_measured);
 
 double convert_radian_to_degree(double input) {
     double degrees = (input * 180) / PI;
@@ -193,10 +148,7 @@ int main(int argc, char *argv[]) {
     mesh.load(ply_read_path);
 
     KalmanFilter KF;
-    int nStates = 18;            // the number of states
-    int nMeasurements = 6;       // the number of measured states
-    int nInputs = 0;             // the number of control actions
-    double dt = 0.125;           // time between measurements (1/FPS)
+
 
     initKalmanFilter(KF, nStates, nMeasurements, nInputs, dt);
     Mat measurements(nMeasurements, 1, CV_64F);
@@ -423,10 +375,7 @@ int main(int argc, char *argv[]) {
 
         int inliers_int = inliers_idx.rows;
 
-
-        /*
-
-        Mat r, t;
+        /*Mat r, t;
         vector<Point2f> ll;
         vector<Point2f> kk;
          Mat essential = findEssentialMat(list_points2d_inliers, list_points2d_scene_match, cameraCalibrator.getCameraMatrix());

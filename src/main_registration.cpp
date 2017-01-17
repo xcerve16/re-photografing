@@ -55,7 +55,7 @@ double minDistance = 1.0;
 double ratioTest = 0.65f;
 
 // SIFT parameters
-int numOfPoints = 10;
+int numOfPoints = 1000;
 
 // MSAC parameters
 int mode = MODE_NIETO;
@@ -229,23 +229,21 @@ int main(int argc, char *argv[]) {
 
         x = key_points_second_image[it->trainIdx].pt.x;
         y = key_points_second_image[it->trainIdx].pt.y;
-        circle(second_image, Point((int) x, (int) y), 3, white, 3);
+        //circle(second_image, Point((int) x, (int) y), 3, white, 3);
         detection_points_second_image.push_back(Point2f(x, y));
     }
 
-    // Vizualizace RANSAC algoritmu
-    /*vector<Vec3f> lines1;
+    vector<Vec3f> lines1, lines2;
     computeCorrespondEpilines(Mat(detection_points_first_image), 1, fundamental, lines1);
 
-    for (vector<Vec3f>::const_iterator it = lines1.begin(); it != lines1.end(); ++it) {
+    /*for (vector<Vec3f>::const_iterator it = lines1.begin(); it != lines1.end(); ++it) {
         line(second_image, Point(0, -(*it)[2] / (*it)[1]),
              Point(second_image.cols, (int) (-((*it)[2] + (*it)[0] * second_image.cols) / (*it)[1])), white);
-    }
+    }*/
 
-    vector<Vec3f> lines2;
     computeCorrespondEpilines(Mat(detection_points_second_image), 2, fundamental, lines2);
 
-    for (vector<Vec3f>::const_iterator it = lines2.begin(); it != lines2.end(); ++it) {
+    /*for (vector<Vec3f>::const_iterator it = lines2.begin(); it != lines2.end(); ++it) {
         line(first_image, Point(0, -(*it)[2] / (*it)[1]),
              Point(first_image.cols, (int) (-((*it)[2] + (*it)[0] * first_image.cols) / (*it)[1])), white);
     }*/
@@ -285,9 +283,9 @@ int main(int argc, char *argv[]) {
     double y = result_3D_points.at<double>(1, 0) / w;
     double z = result_3D_points.at<double>(2, 0) / w;
 
-    cout << "Value of X: " << x << endl;
+    /*cout << "Value of X: " << x << endl;
     cout << "Value of Y: " << y << endl;
-    cout << "Value of Z: " << z << endl;
+    cout << "Value of Z: " << z << endl;*/
 
     Mat triangulation_3D_points;
     transpose(result_3D_points, triangulation_3D_points);
@@ -387,11 +385,11 @@ int main(int argc, char *argv[]) {
         model.add_descriptor(descriptors_of_ref_image.row(i));
     }
 
-    vector<Point3f> registration_3DPoint = registration.get_points3d();
+    vector<Point3f> list_3D_points_after_registration = registration.get_points3d();
     vector<Point2f> registration_2DPoint = registration.get_points2d();
 
-    for (int i = 0; i < list_3D_points_after_triangulation.size(); i++) {
-        model.add_correspondence(registration_2DPoint[i], registration_3DPoint[i]);
+    for (int i = 0; i < list_3D_points_after_registration.size(); i++) {
+        model.add_correspondence(registration_2DPoint[i], list_3D_points_after_registration[i]);
     }
 
     /*************************************************************
@@ -465,8 +463,8 @@ int main(int argc, char *argv[]) {
     imshow(WIN_REF_IMAGE_WITH_VANISH_POINTS, ref_image);
 
 
-    for (int i = 0; i < list_3D_points_after_triangulation.size(); i++) {
-        cout << list_3D_points_after_triangulation[i] << endl;
+    for (int i = 0; i < list_3D_points_after_registration.size(); i++) {
+        cout << list_3D_points_after_registration[i] << endl;
     }
 
     /*************************************************************
