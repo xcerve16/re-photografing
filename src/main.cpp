@@ -332,6 +332,23 @@ int main(int argc, char *argv[]) {
     model.set_camera_matrix(camera_matrix_ref);
     model.save("result.yml");*/
 
+    double fx = cameraCalibrator.getCameraMatrix().at<double>(0, 0);
+    double fy = cameraCalibrator.getCameraMatrix().at<double>(1, 1);
+
+    double avg_f = (fx + fy) / 2;
+    double focal_length = 40;
+    double m = avg_f / focal_length;
+
+    //cv::RotatedRect box = cv::minAreaRect(cv::Mat(points));
+
+
+    double xxx = (m * 641) / 3264;
+
+
+    double object_real_world_mm = 0;
+    double focal_length_mm = 0;
+    double object_image_sensor_mm = xxx ;
+    double distance_mm = object_real_world_mm * focal_length_mm / object_image_sensor_mm;
 
     /*************************************************************************
      *  4.0 DETECTION
@@ -490,9 +507,24 @@ int main(int argc, char *argv[]) {
     vector<uchar> featuresFound;
     Mat cImage, lastImgRef, err;
 
+    pthread_t fast_robust_matcher_t, robust_matcher_t;
+
+    arg_struct *fast_robust_matcher_arg_struct;
+    fast_robust_matcher_arg_struct->detection_model = detection_model ;
+    fast_robust_matcher_arg_struct->frame = first_image;
+    fast_robust_matcher_arg_struct->list_points3D_model = list_3D_points_after_registration;
+
+
+    arg_struct *robust_matcher_arg_struct;
+
+    pthread_create(&fast_robust_matcher_t, NULL, fast_robust_matcher, (void *) fast_robust_matcher_arg_struct);
+    //pthread_create(&robust_matcher_t, NULL, robust_matcher, (void *) robust_matcher_arg_struct);
+
+
     while (cap.read(frame) && waitKey(30) != 27) {
 
         frame_vis = frame.clone();
+
 
         good_matches.clear();
         rmatcher.fastRobustMatch(frame_vis, good_matches, keypoints_scene, detection_model);
@@ -660,48 +692,40 @@ static void onMouseModelRegistration(int event, int x, int y, int, void *) {
     }
 }
 
-struct arg_struct {
-    Mat frame;
-    vector<Mat> frames;
-    Mat detection_model;
-    vector<Point3f> list_points3D_model;
-    vector<Point2f> list_points2D_scene_match;
-};
 
 void *fast_robust_matcher(void *arg) {
 
     struct arg_struct *arg_struct = (struct arg_struct *) arg;
-    vector<Mat> frames = arg_struct->frames;
-    for (int i = 0; i < frames.size(); i++) {
-        Mat frame_vis = arg_struct->frames[i];
-        Mat detection_model = arg_struct->detection_model;
-        vector<Point3f> list_points3D_model = arg_struct->list_points3D_model;
+    Mat frame_vis = arg_struct->frame;
+    Mat detection_model = arg_struct->detection_model;
+    vector<Point3f> list_points3D_model = arg_struct->list_points3D_model;
 
-        vector<Point3f> list_points3D_model_match;
-        vector<Point2f> list_points2D_scene_match;
-        vector<KeyPoint> keypoints_scene;
+    vector<Point3f> list_points3D_model_match;
+    vector<Point2f> list_points2D_scene_match;
+    vector<KeyPoint> keypoints_scene;
 
-        vector<DMatch> good_matches;
+    vector<DMatch> good_matches;
 
 
-        rmatcher.fastRobustMatch(frame_vis, good_matches, keypoints_scene, detection_model);
+    rmatcher.fastRobustMatch(frame_vis, good_matches, keypoints_scene, detection_model);
 
-        for (unsigned int match_index = 0; match_index < good_matches.size(); ++match_index) {
-            Point3f point3d_model = list_points3D_model[good_matches[match_index].trainIdx];
-            Point2f point2d_scene = keypoints_scene[good_matches[match_index].queryIdx].pt;
-            list_points3D_model_match.push_back(point3d_model);
-            list_points2D_scene_match.push_back(point2d_scene);
-        }
-        arg_struct->list_points2D_scene_match = list_points2D_scene_match;
-        arg_struct->frame = frame_vis;
-        arg_struct->detection_model = detection_model;
-        arg_struct->list_points3D_model;
-        draw2DPoints(frame_vis, list_points2D_scene_match, green);
-
-        namedWindow("Matcher");
-        imshow("Matcher", frame_vis);
-
+    for (unsigned int match_index = 0; match_index < good_matches.size(); ++match_index) {
+        Point3f point3d_model = list_points3D_model[good_matches[match_index].trainIdx];
+        Point2f point2d_scene = keypoints_scene[good_matches[match_index].queryIdx].pt;
+        list_points3D_model_match.push_back(point3d_model);
+        list_points2D_scene_match.push_back(point2d_scene);
     }
+
+    arg_struct->list_points2D_scene_match = list_points2D_scene_match;
+    arg_struct->frame = frame_vis;
+    arg_struct->detection_model = detection_model;
+    arg_struct->list_points3D_model;
+    draw2DPoints(frame_vis, list_points2D_scene_match, green);
+
+    namedWindow("Matcher");
+    imshow("Matcher", frame_vis);
+
+
     pthread_exit(NULL);
 }
 

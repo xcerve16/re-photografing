@@ -106,6 +106,20 @@ double dt = 0.125;           // time between measurements (1/FPS)
 // PnP parameters
 int pnpMethod = SOLVEPNP_ITERATIVE;
 
+
+struct arg_struct {
+    Mat frame;
+    vector<Mat> frames;
+    Mat detection_model;
+    vector<Point3f> list_points3D_model;
+    vector<Point2f> list_points2D_scene_match;
+};
+
+
+void *robust_matcher(void *arg);
+
+void *fast_robust_matcher(void *arg);
+
 static void onMouseModelRegistration(int event, int x, int y, int, void *);
 
 vector<Mat> processImage(MSAC &msac, int numVps, cv::Mat &imgGRAY, cv::Mat &outputImg);
