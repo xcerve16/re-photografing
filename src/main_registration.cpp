@@ -475,9 +475,9 @@ int main(int argc, char *argv[]) {
     vector<Point2f> ll;
     vector<Point2f> kk;
 
-    Mat essential = findEssentialMat(list, list_points2d, cameraCalibrator.getCameraMatrix());
-    correctMatches(essential, list, list_points2d, list, list_points2d);
-    recoverPose(essential, list, list_points2d, r, t, 1, Point2f(cx, cy));
+    Mat essential = findEssentialMat(key_points_first_image, key_points_second_image, cameraCalibrator.getCameraMatrix());
+    correctMatches(essential, key_points_first_image, key_points_second_image, key_points_first_image, key_points_second_image);
+    recoverPose(essential, key_points_first_image, key_points_second_image, r, t, 1, Point2f(cx, cy));
 
     double xAngle = atan2f(r.at<float>(2, 1), r.at<float>(2, 2));
     double yAngle = atan2f(-r.at<float>(2, 0),

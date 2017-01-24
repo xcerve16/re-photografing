@@ -40,3 +40,7 @@ void ModelRegistration::reset() {
     list_points2d_.clear();
     list_points3d_.clear();
 }
+
+void ModelRegistration::set_points3d(int i, cv::Point3f point3_) {
+    list_points3d_[i] = point3_;
+}
