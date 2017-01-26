@@ -1,0 +1,169 @@
+%=========================================================================
+% (c) Michal Bidlo, Bohuslav Křena, 2008
+\chapter{Úvod}
+Cílem re-fotografického nástroje je zachytit existující fotografii ze stejného pohledu jako referenční historická fotografie. Historický snímek s dobře zarovnanou moderní re-fotografií může sloužit jako pozoruhodná vizualizace ukazující časový vývoj. Proces re-fotografie je zdlouhavý a často nepřesný, protože vytvořit fotografii ze stejným pohledem jako u historické fotografie je poměrně náročné. Re-fotografický nástroj musí jednoznačně rozhodovat na základě dostupných parametrů fotoaparátu.
+
+Dokumentace představuje re-fotografický nástroj, který uživatelům umožňuje dosáhnout požadovaného stanoviska během fotografování. Aplikace vyžaduje historickou fotografii z požadovaného místa. Uživatel se pohybuje po scéně s kamerou a řídí se naší vizualizací k dosažení požadovaného stanoviska. Využívá se techniky počítačového zpracování obrazu pro výpočet relativního rozdílu pohledu. 
+
+Před samotným představení re-fotografického nástroje je uvedena samotná problematika související s re-fotografováním, popřípadě jeho řešení. Čtenář je seznámen s nezbytnou teorií a použitím aplikace. Druhá polovina dokumentace je věnována samotné implementaci a testování re-fotografického nástroje.
+
+\chapter{Problematika}
+Proces re-fotografování naráží na značné problémy a překážky. Na úvod bude uvedena problematika spjatá s re-fotografováním, a také jejich řešení reprezentované již osvědčenými postupy a metodami. Cílem kapitoly není představit zdrojové kódy, ale metodické postupy. 
+
+\section{Seznámení s problémy}
+Před samotným řešením je třeba se obeznámit se základními problémy v oblasti výpočtu re-fotografie: 
+
+1. Je náročné komunikovat s 3D překladem a rotací u uživatele, protože tento pohyb má šest stupňů volnosti. Zoom fotoaparátu přidává sedmý stupeň.
+
+2. 3D rekonstrukce z fotografie i s kalibrovanou kamerou nese značné nejasnosti v globálním měřítku. Tato nejednoznačnost komplikuje výpočet určující úhel a vzdálenost uživatele od požadovaného pohledu.
+
+3. Relativní představa obnáší komplikace v případě nulového pohybu uživatelské kamery. Tato komplikace znamená, že odhad se stane nestabilním, jakmile uživatel dosáhne cílového pohledu.
+
+4. Historická fotografie může být velmi odlišná od současného stavu v důsledku architektonických úprav, kvality fotografie, počasí atd.
+
+5. Historické obrazy jsou zachyceny pomocí kamer s neznámými parametry, např., ohnisková vzdálenost a hlavní bod. Kromě toho byly historické fotografie  často zachyceny s non-centrálními hlavními body.\cite{Bae:2010:CR:1805964.1805968}
+
+\section{Řešení}
+První řešení zahrnuje odpověď na poslední problém. Aplikace požaduje, aby uživatel vyfotografoval dva obrazy objektu s širokou základní linií. Uživatel je vyzván, aby zachytit první a druhou fotografii.
+
+Pak se zrekonstruuje 3D scéna a použije se struktura pro kalibraci historického fotoaparátu poté, co je uživatel požádán, aby manuálně identifikoval několik korespondenčních bodů na historické fotografii (4). Dále se využije široká základní linie k vyřešení problému číslo 3. Provádí se odhad vzhledem k prvnímu snímku, nikoliv vůči referenčnímu pohledu, což pomáhá zabránit dalším komplikacím. Vypočítaná 3D struktura nám také pomáhá spočítat konzistentní 3D úroveň v celé iteraci (2).
+
+Dalším klíčovým aspektem je vizualizace v reálném čase, která směruje uživatele k požadovanému pohledu. Tato zpětná vazba zahrnuje vizualizaci potřebného 3D překladu referenčního pohledu prokládaného pomalejším a robustním porovnáváním s rychlejším a lehkým porovnáváním. Počítá se relativní pozice a rotace stabilizace (bod 4.5); To znamená, že ukazuje aktuální pohled pro uživatele po deformaci s nekonečným homography z referenčního pohledu, což může představovat otáčení fotoaparátu a zoom. Vzhledem k této stabilizaci se uživatel nemusí starat o přesné otáčení fotoaparátu a může se zaměřit na následující pokyny 3D překladu od našeho nástroje (1).\cite{Bae:2010:CR:1805964.1805968}
+
+\section{Odhad pozice}
+Při rekonstrukci 3D objektu je zapotřebí si uvědomit, že fotografie pořízená fotoaparátem má pouze 2D souřadnice. Třetí souřadnici je potřeba vypočítat, a to vzhledem k pozici fotoaparátu k zaměřenému objektu. 3D objekt má vzhledem ke kameře dva pohyby, tj. překlad a rotaci. 
+
+\begin{itemize}
+ \item Překlad: Pohyb fotoaparátu z jeho aktuálního umístění do nového umístění. Překlad má tři stupně a to X, Y, Z.
+ \item Otočení: Fotoaparát se může také otočit a to po ose X, Y, Z. 
+\end{itemize}
+       
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=90mm]{images/odhadPozice1}
+\caption{Odhad pozice fotoaparátu \cite{tutorial_real_time_pose} 
+\label{overflow}}
+\end{figure}
+
+Takže odhad pozice z 3D objektu znamená najít šest čísel – tři pro překlad a tři pro rotaci. Pro výpočet 3D pozice bude potřeba zjistit šest až osm 2D bodů a k nim umístění stejných 3D bodů. Dále pomocí procesu kalibrace fotoaparátu se zjistí zbývající nezbytné parametry, tj. ohnisková vzdálenost, optický střed obrazu a parametry pro zkreslení. Proto je potřeba hned na úvod procesu re-fotografování provést kalibraci nebo jinak vypočítat nezbytné údaje. 
+	
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=40mm]{images/odhadPozice2}
+\caption{Rovnice souřadnicového systému \cite{tutorial_real_time_pose}
+\label{overflow}}
+\end{figure}    
+    
+3D souřadnice foceného objektu se promítnou do obrazové roviny s tím, že se 3D objekt promítne jako 2D objekt. Na obrázku níže je vidět zobrazení 3D bodu P do 2D bodu p. Předpokládá se, že víme umístění 3D bodu P v globálních souřadnicích s ohledem na parametry kamery. Poté se může vypočítat umístění bodu P ve fotoaparátu souřadnicového systému s použitím rovnice uvedené níže.\cite{tutorial_real_time_pose} 
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=50mm]{images/odhadPozice3}
+\caption{Matice v rozšířené formě \cite{tutorial_real_time_pose}
+\label{overflow}}
+\end{figure}
+
+\chapter{Knihovna OpenCV}
+Knihovna OpenCV je multiplatformní open source knihovna pro implementaci v počítačovém vidění. Knihovna byla nezbytná pro realizaci samotné aplikace. Obsahuje velké množství funkcí, které napomohli k implementaci re-fotografického nástroje. Další kapitoly popíší použité algoritmy v rámci vývoje a testování aplikace.
+
+\section{SIFT}
+K rekonstrukci 3D souřadnic je potřeba vycházet z více fotografií zaměřeného objektu. Pro potřeby re-fotografování uživatel pořídí dvě fotografie, z kterých 3D rekonstrukce bude vycházet. Na fotografiích je potřeba rozeznat klíčové body, tj. body, které jsou konstantní. K tomu se používá známý algoritmus zvaný Scale-invariant feature transform (zkráceně SIFT).  
+
+V roce 2004 D. Lowe z univerzity v Britské Kolumbii přišel s algoritmem SIFT. Jednalo se o obrázkovou rozlišovací funkci pro detekci konstantních bodů, která extrahuje klíčové body a zjišťuje jejich popis. V roce 2006 byla uvedena rychlejší verze SIFT algoritmu Speeded-Up Robust Features (zkráceně SURF), která byla použita i v rámci projektu. \cite{tutorial_py_sift_intro}  
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=60mm]{images/sift1}
+\caption{A simple caption \label{overflow}}
+\end{figure}
+
+\section{RANSAC}
+Jedná se o iterační metodu pro odhad parametrů matematického modelu ze sady pozorovaných dat. Data obsahují nekorespondující body, které nemají žádný vliv na hodnoty odhadů. Z tohoto důvodu může být interpretován jako způsob detekce odlehlých hodnot. Jedná se o nedeterministický algoritmus ve smyslu, že produkuje přiměřený výsledek jen s určitou pravděpodobností. Se zvýšením počtu iterací se zvyšuje pravděpodobnost.
+
+Data se skládají z „inliers“, tedy z dat, jejichž rozdělení lze vysvětil nějakým souborem parametrů modelu. „Outliers“ jsou data, které jsou mimo model a nemají žádný vliv na výsledek. 
+
+\section{Triangulace}
+
+
+\chapter{Pohled uživatele}
+Cílem aplikace je oslovit především amatérské historiky a fotografy zajímající se o minulost míst, budov a podobně. Uživateli je tak umožněno zmapovat místa, jejich vývoj v průběhu časů a porovnat ho se současným stavem. K tomu potřebuje jen základní gramotnost s mobilními zařízeními. Následující kapitoly popíší postup použití aplikace z pohledu uživatele tak, aby uživatel dosáhl cíleného výsledku. 
+
+\section{Prostředky}
+Aplikace je určená pro mobilní zařízení s operačním systémem Android OS. Dále je vyžadována historická fotografie místa nebo budovy, jejichž re-fotografii chce provést. Pak už zbývá dojít na příslušné místo a spustit aplikaci.
+
+\section{Postup}
+Fotoaparát v aplikaci se zamíří na požadované místo přibližně z místa, ze kterého mohla být historická fotografie pořízena a vytvoří dvě fotografie. Aplikace požádá uživatele o označení odpovídajících bodů na historické fotografii, které odpovídají první pořízené fotografii. Tím se vyřeší problém lokalizace stejných bodů na historické a současné fotografii. Uživatel po zadání šest až osm korespondenčních bodů bude navigován aplikací pomocí šipek zobrazujících v jeho mobilním zařízení. Uživatel se tak dostane na stejné místo a zamíří fotoaparát stejným směrem, jakým byla pořízena historická fotografie. 
+
+\section{Výsledek}
+Fotografie, která byla touto aplikací pořízena odpovídá fotografii, která posloužila jako referenční fotografie. Tímto způsobem uživatel může zmapovat důležitá historická místa. Aplikace pomůže uživateli především se soustředit na fotografování, aniž by musel řešit lokalizaci referenčního snímku.  
+
+\chapter{Kalibrace}
+Prvním krokem výpočtu re-fotografického nástroje je kalibrace kamery a zjištění parametrů neznámého historického fotoaparátu. Provede
+ se 3D rekonstrukce scény, na nichž byla historická fotka pořízena. Uživatel pořídí dva snímky. Aby se minimalizovala projekční chyba, je provedena optimalizace parametrů neznámého fotoaparátu. 
+
+\section{3D rekonstrukce}
+Uživatel začíná tím, že zachytí dva obrazy s širokou základní linií. Široký základ zlepšuje přesnost a stabilitu 3D rekonstrukce. Předpokládá se, že současná kamera je kalibrována, a poté je provedena struktura pohybu (zkráceně SFM), která zaregistruje dvě fotografie a rekonstruuje 3D strukturu. Konkrétně se využívá robustní algoritmus pro odhad pozice. Shodné body mezi těmito dvěma pohledy ve vzorkovací smyčce se vypočítají pomocí metody RANSAC. Vzhledem k projekci dvou kamer se může rekonstruovat 3D souřadnice každého bodu pomocí triangulace. Tyto 3D body se pak promítají do druhého pohledu a zobrazí se uživateli podél referenčního snímku. Uživatel je vyzván ke kliknutí šesti až osmi body. Tyto body se používají k registraci referenční kamery v dalším kroku registrace.
+
+\section{Referenční snímek}
+Dále je potřeba se zaměřit na referenční snímek na rekonstruované scéně z prvních dvou fotografií pořízených uživatelem. Ke zjištění důležitých parametrů referenčního fotoaparátu je použita Levenberg-Marquardt optimalizace, kterou se minimalizuje počet projekčních chyb porovnaných bodů. Předpokládá se nulové zkreslení a devět parametrů: jeden pro ohniskovou vzdálenost, dva pro hlavní bod, tři pro otáčení a tři pro překlad. Inicializujeme rotaci matice k matici identity. Překlad matice je nastaven na nulu a ohnisková vzdálenost je nastavena na ohniskovou vzdálenost aktuální kamery. Inicializace hlavního bodu je popsáno níže.
+
+\subsection{Princip odhadu hlavního bodu}
+Hlavním bodem je střed optické osy v obrazové rovině. Hlavní bod není ve středu snímku, ale musí být vypočítaný. Analýza úběžníků poskytuje silné podněty pro odvozování umístění hlavního bodu. Vzhledem k úběžníkům tří kolmic je hlavní bod umístěn na trojúhelníku, jehož vrcholy jsou úběžníky. 
+
+I přestože jsou dvě paralelní linky dostatečné pro výpočet, žádáme uživatele ke kliknutí na tři paralelní linky ve stejném směru. Je to důležité ke zlepšení robustnosti samotného výpočtu. Vypočítá se průsečík z rovnoběžek. Na základě váženého průměru tří průsečíků se lokalizují jednotlivé úběžníky . 
+
+Během Levenberg-Marquardt nelineární optimalizace se inicializuje hlavní bod jako optický střed. V souhrnu lze konstatovat, že výsledek z výše uvedených metod je 3D rekonstrukce scény z první a druhé fotografie. Stejně jako kalibrace referenčního zobrazení a jeho relativní shody s aktuálním pohledem. Tato informace je poté použita v dalších postupech.
+
+\chapter{NAVIGACE UŽIVATELE V REÁLNÉM ČASE}
+Re-fotografický nástroj poskytuje uživateli v reálném čase navigaci směrem k referenčnímu snímku. K tomu musí počítat s relativní představou mezi aktuálním a referenčním pohledem, a také s vizualizací potřebnou pro 3D překlad. Samotná navigace probíhá pro uživatele v podobě dvou šipek směřujících k referenčnímu hledisku. Ukáže se aktuální pohled pro uživatele až po nejlepší shodu mezi aktuálním a referenčním pohledem. Rotační stabilizace umožňuje uživateli zaměřit se na 3D překlad a vyhnout se starosti s přesnou rotací fotoaparátu. K dosažení výkonu v reálném čase se bude prokládat hrubý odhad s odhadem rychlým. 
+
+\section{Silná pozice fotoaparátu}
+Na úvod výpočtu je třeba porovnat aktuální pohled s pořízenými fotografiemi. K tomu slouží postup jehož výsledkem jsou shodné body a odhad základní matice mezi kalibrovanými kamerami. 
+
+\subsection{Korespondence odhadu}
+Při zjišťování shody mezi první a aktuální fotografií, se používá funkce určená pro detekci bodů SIFT, který detekuje kolem jednoho tisíce hraných bodů. Body jsou dále porovnávány metodou ANN k nalezení přibližné shody. 
+
+\subsection{Odhad základní matice}
+Vzhledem k tomu, že kamera uživatele je již kalibrovaná, jediné, co potřebujete je odhadnout základní matici, která se týká kalibrovaných obrazů. Používá se pětibodový algoritmus, který odhaduje základní matici mezi dvěma kalibrovanými kamerami v reálném čase. 
+
+\section{Odhad pozice kamery v reálném čase}
+Je potřeba poskytovat spolehlivé výsledky a zároveň v reálném čase komunikovat s uživatelem. Náš hrubý odhad poskytuje spolehlivé výsledky, ale jeho výpočet je pomalý. Aby bylo možné poskytovat v reálném čase zpětnou vazbu, bude se prokládat hrubý odhad s lehkým, který představuje jeden průchod. 
+
+\section{Prokládání scény}
+Prokládání scény je realizováno ve třech vláknech: jedno komunikuje s fotoaparátem, druhé provádí hrubý odhad a další lehký odhad. Výsledkem každého hrubého odhadu je sada vhodných bodů, která je předána do vlákna lehkého odhadu. Je-li sada vhodných bodů obnovena s novým hrubým odhadem uživatelského výsledku, lze pozorovat jednu sekundu zpoždění. Nicméně to je zanedbatelné ve srovnání s celý procesem re-fotografie. Zpoždění nemá vliv na výkon uživatele nebo výslednou kvalitu re-fotografie. 
+
+\subsection{Testování}
+U každé výsledné pozice se provádí tři testy. Je potřeba se ujistit, že vizualizace je spolehlivá. Porovnává se 3D rekonstrukce z každého snímku s počáteční 3D rekonstrukcí z prvních dvou snímků. 
+
+Kromě toho, že se kontroluje, zda aktuální kamera reprezentuje konzistentní výsledek s těmi předchozími, měří se průměr a směrodatná odchylka z místa fotoaparátu na předchozích deseti snímcích. Předpokládáme, že pohyb kamery je hladký a představované variace jsou malé. Výše uvedené dva testy obvykle detekují špatnou odpověď zhruba jednou za 100 snímků.
+
+Testuje se, zda jsou všechny vhodné body pocházejí z jedné roviny ve scéně. Najde se nejlépe shodná homografie pomocí RANSAC s průměrnou mapovací chybou do 1,5 pixelu na 500 iterací. V případě, že počet vhodných bodů homografie je více než 70 procent epipolárních bodů geometrie, ignoruje se pozice výsledku odhadu. Vzhledem k tomu se používá předchozí stav, ale tato chyba se nevyskytuje často.
+
+Když odhad výsledku neprojde výše uvedenými testy, neaktualizuje se vizualizace. Vzhledem k tomu, že špatné odpovědi se nevyskytují často, nemá to žádné výrazné dopady pro uživatele. 
+
+\section{Měřítko odhadu}
+Po výpočtu relativní pozice zůstává problém, že překlad mezi současným pohledem a prvním snímkem je nejednoznačný. V počátečním kroku kalibrace se zrekonstruuje 3D struktura mezi prvním a druhým snímkem pomocí triangulace. V následné iteraci \textit{N} se zrekonstruuje 3D struktura mezi prvním a druhým snímkem. Měřítko mezi těmito rekonstrukcemi by mělo mít odlišný konstantní faktor. Vypočítá se střední poměr vzdálenosti pro každý bod v 3D rekonstrukci první a n-té rekonstrukce. Nakonec se vynásobí délka překladu vektoru podle poměru, což umožní, že délka šipky z vizualizace je smysluplná a konzistentní napříč snímky.
+
+\section{Rotace a stabilizace}
+Používá se také výsledný relativní odhad rotace pro zobrazení stabilního aktuálního snímku. Automaticky se vypočítá nejlepší rotace kamery mezi aktuálním a referenčním snímkem. Tato rotace umožňuje uživateli soustředit se na natočení fotoaparátu správným směrem, aniž by se snažil držet fotoaparát ve správné orientaci.
+
+Účinky 3D natočení kamery a zoom mohou být popsány s nekonečným homografem. Nekonečný homograf je podtřídou obecného homografu.
+
+\chapter{Testovací prostředky}
+Během implementace a po dokončení projektu bylo využito hned několik nástrojů pro zjištění správnosti výsledku, případně odhalení chyb algoritmů. V další části budou uvedeny programy, které byly využity k validaci re-fotografického nástroje.
+
+
+\section{Meshlab}
+Meshlab je nástroj pro zpracování a editaci 3D trojúhelníkové sítě. MeshLab vznikl na Fakultě informatiky Univerzity v Pise, vytvořili jej z převážné části sami studenti. Meshlab poskytuje sadu nástrojů pro editaci, čištění, opravu, kontrolu, renderování a konverzi 3D sítě objektu. 
+
+Pro testovací účely sloužily především ke kontrole korektnosti 3D rekonstrukce objektu. 3D souřadnice zjištěné pomocí metody triangulace se uložili do souboru typu yml. a do programu Meshlab byly importovány. Zde byla zobrazena jejich korektnost respektive nekorektnost. Taktéž byla poskytnuta vizualizace 3D objektu vůči kameře, což napomohlo k implementaci v dalším postupu.   
+
+\section{VisualSFM}
+VisualSFM je grafická aplikace pro tvorbu 3D rekonstrukce s použitím struktury z pohybu (SFM). Aplikace VisualSFM běží rychle tím, že využívá více-jádrový paralelismus pro detekci funkcí.
+
+Nástroj na základě několika snímků zrekonstruuje focený objekt. Podobný postup můžeme vidět ve struktuře Bundler. Re-fotografický nástroj používá podobnou rekonstrukci proto VisualSFM lze použít jako testovací nástroj a k porovnání výsledných rekonstrukcí.\cite{vsfm}
+
+\chapter{Závěr}
+
+
+%=========================================================================
