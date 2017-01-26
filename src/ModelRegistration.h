@@ -38,6 +38,10 @@ public:
 
     void reset();
 
+    void set_points3d(int i, cv::Point3f point3_);
+
+    void registerEmpty2DPoint();
+
 private:
 /** The current number of registered points */
     int n_registrations_;
