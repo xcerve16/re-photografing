@@ -56,20 +56,19 @@ ModelRegistration registration;
 CameraCalibrator cameraCalibrator;
 MyRobustMatcher robustMatcher;
 RobustMatcher rmatcher;
-PnPProblem pnp_detection;
+PnPProblem pnp_registration;
 KalmanFilter kalmanFilter;
 MSAC msac;
 
 
 // Robust Matcher parameters
-double confidenceLevel = 0.98;
-int numKeyPoints = 1000;
+double confidenceLevel = 0.99;
 float ratioTest = 0.70f;
 double max_dist = 0;
 double min_dist = 100;
 
 // SIFT parameters
-int numOfPoints = 1000;
+int numKeyPoints = 1000;
 
 // MSAC parameters
 int mode = MODE_NIETO;
@@ -88,12 +87,10 @@ String path_to_first_image = "resource/image/test1.jpg";
 String path_to_second_image = "resource/image/test2.jpg";
 String path_to_ref_image = "resource/image/refVelehrad.jpg";
 string video_read_path = "resource/video/video2.mp4";
-string yml_read_path = "result.yml";
-string ply_read_path = "resource/data/box.ply";
 
 // RANSAC parameters
-int iterationsCount = 500;
-float reprojectionError = 2.0;
+int iterationsCount = 1000;
+float reprojectionError = 10.0;
 double confidence = 0.95;
 
 // Kalman Filter parameters
@@ -108,11 +105,14 @@ int pnpMethod = SOLVEPNP_ITERATIVE;
 
 
 struct arg_struct {
-    Mat frame;
-    vector<Mat> frames;
-    Mat detection_model;
-    vector<Point3f> list_points3D_model;
-    vector<Point2f> list_points2D_scene_match;
+    Mat current_frame;
+    Mat description_first_image;
+    vector<Point3f> list_3D_points_after_registration;
+    vector<Point2f> list_2D_points_after_registration;
+    int focal;
+    Point2f center;
+    time_t start;
+    Mat measurements;
 };
 
 
@@ -133,5 +133,7 @@ void fillMeasurements(Mat &measurements, const Mat &translation_measured, const 
 double convert_radian_to_degree(double input) {
     return (input * 180) / PI;
 }
+
+int getDirection(vector<Point2f> list_points2d_scene_match, vector<Point2f> registration_2D_points, int focal, Point2f center);
 
 #endif //REPHOTOGRAFING_MAIN_H

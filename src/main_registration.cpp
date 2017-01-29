@@ -51,7 +51,7 @@ MSAC msac;
 
 // Robust matcher parameters
 double confidenceLevel = 0.98;
-double minDistance = 1.0;
+double min_dist = 1.0;
 double ratioTest = 0.65f;
 
 // SIFT parameters
@@ -62,16 +62,20 @@ int mode = MODE_NIETO;
 int numVps = 3;
 bool verbose = false;
 
+// PNP registration
+int method = SOLVEPNP_ITERATIVE;
+
 // Window's names
 string WIN_USER_SELECT_POINT = "WIN_USER_SELECT_POINT";
 string WIN_REF_IMAGE_FOR_USER = "WIN_REF_IMAGE_FOR_USER";
 string WIN_REF_IMAGE_WITH_HOUGH_LINES = "WIN_REF_IMAGE_WITH_HOUGH_LINES";
 string WIN_REF_IMAGE_WITH_VANISH_POINTS = "WIN_REF_IMAGE_WITH_VANISH_POINTS";
 
-
 String path_to_first_image = "resource/image/test1.jpg";
 String path_to_second_image = "resource/image/test2.jpg";
 String path_to_ref_image = "resource/image/refVelehrad.jpg";
+
+int index = 0;
 
 static void onMouseModelRegistration(int event, int x, int y, int, void *) {
 
@@ -208,7 +212,7 @@ int main(int argc, char *argv[]) {
     Mat second_image = imread(path_to_second_image);
 
     robustMatcher.setConfidenceLevel(confidenceLevel);
-    robustMatcher.setMinDistanceToEpipolar(minDistance);
+    robustMatcher.setMinDistanceToEpipolar(min_dist);
     robustMatcher.setRatio(ratioTest);
 
     Ptr<FeatureDetector> featureDetector = SURF::create(numOfPoints);
@@ -249,9 +253,9 @@ int main(int argc, char *argv[]) {
     }*/
 
     /*namedWindow("Right Image (RANSAC)");
-    imshow("Right Image (RANSAC)", image1);
+    imshow("Right Image (RANSAC)", first_image);
     namedWindow("Left Image (RANSAC)");
-    imshow("Left Image (RANSAC)", image2);*/
+    imshow("Left Image (RANSAC)", second_image);*/
 
     /*************************************************************
      *                   * Triangulation *
@@ -283,9 +287,6 @@ int main(int argc, char *argv[]) {
     double y = result_3D_points.at<double>(1, 0) / w;
     double z = result_3D_points.at<double>(2, 0) / w;
 
-    /*cout << "Value of X: " << x << endl;
-    cout << "Value of Y: " << y << endl;
-    cout << "Value of Z: " << z << endl;*/
 
     Mat triangulation_3D_points;
     transpose(result_3D_points, triangulation_3D_points);
@@ -326,19 +327,16 @@ int main(int argc, char *argv[]) {
 
     vector<Point2f> list;
     int i = 0;
-    while (registration.get_points3d().size() < number_registration) {
-        if (list_3D_points_after_triangulation[i].x < 100.0 && list_3D_points_after_triangulation[i].x > -100.0 &&
-            list_3D_points_after_triangulation[i].y < 100.0 &&
-            list_3D_points_after_triangulation[i].y > -100.0) {
-            registration.register3DPoint(list_3D_points_after_triangulation[i]);
-            list.push_back(list_2D_points_after_triangulation[i]);
-        }
+    while (i < list_3D_points_after_triangulation.size()) {
+        list.push_back(list_2D_points_after_triangulation[i]);
         i++;
     }
 
     registration.setNumMax(number_registration);
     vector<Point2f> list_points2d;
     vector<Point3f> list_points3d;
+
+    int previslyNumRegistration = registration.getNumRegistration();
     while (waitKey(30) < 0) {
 
         clone_of_ref_image = ref_image.clone();
@@ -346,9 +344,14 @@ int main(int argc, char *argv[]) {
         list_points3d = registration.get_points3d();
         if (!end_registration) {
             drawCounter(clone_of_ref_image, registration.getNumRegistration(), registration.getNumMax(), red);
-            draw2DPoint(frame_with_triangulation, list[registration.getNumRegistration()], green);
-            Point3f point3f = registration.get_points3d()[registration.getNumRegistration()];
+            draw2DPoint(frame_with_triangulation, list[index], green);
+            Point3f point3f = list_3D_points_after_triangulation[index];
             drawQuestion(clone_of_ref_image, point3f, red);
+            if (previslyNumRegistration != registration.getNumRegistration()) {
+                registration.register3DPoint(point3f);
+                previslyNumRegistration = registration.getNumRegistration();
+            }
+
         } else {
             drawText(clone_of_ref_image, "END REGISTRATION", green);
             drawCounter(clone_of_ref_image, registration.getNumRegistration(), registration.getNumMax(), green);
@@ -365,32 +368,29 @@ int main(int argc, char *argv[]) {
      *                   * Point Estimation *
      *************************************************************/
 
-    double cx, cy;
-
     double camera_parameters[4];
     camera_parameters[0] = cameraCalibrator.getCameraMatrix().at<double>(0, 0);
     camera_parameters[1] = cameraCalibrator.getCameraMatrix().at<double>(1, 1);
     camera_parameters[2] = cameraCalibrator.getCameraMatrix().at<double>(0, 2);
     camera_parameters[3] = cameraCalibrator.getCameraMatrix().at<double>(1, 2);
 
-    PnPProblem pnp_registration(camera_parameters);
+    vector<Point3f> list_3D_points_after_registration = registration.get_points3d();
+    vector<Point2f> list_2D_points_after_registration = registration.get_points2d();
 
-    vector<KeyPoint> key_points_ref_image;
+    PnPProblem pnp_registration(camera_parameters);
+    pnp_registration.estimatePose(list_3D_points_after_registration, list_2D_points_after_registration, method);
+
+    /*vector<KeyPoint> key_points_ref_image;
     Mat descriptors_of_ref_image;
 
     robustMatcher.getExtractor()->detect(ref_image, key_points_ref_image);
     robustMatcher.getDetector()->compute(ref_image, key_points_ref_image, descriptors_of_ref_image);
 
-    for (int i = 0; i < descriptors_of_ref_image.rows; i++) {
-        model.add_descriptor(descriptors_of_ref_image.row(i));
-    }
-
     vector<Point3f> list_3D_points_after_registration = registration.get_points3d();
-    vector<Point2f> registration_2DPoint = registration.get_points2d();
+    vector<Point2f> registration_2DPoint = registration.get_points2d();*/
 
-    for (int i = 0; i < list_3D_points_after_registration.size(); i++) {
-        model.add_correspondence(registration_2DPoint[i], list_3D_points_after_registration[i]);
-    }
+    double fx = cameraCalibrator.getCameraMatrix().at<double>(0, 2);
+    double fy = cameraCalibrator.getCameraMatrix().at<double>(1, 2);
 
     /*************************************************************
      *                   * Vanish point *
@@ -449,63 +449,25 @@ int main(int argc, char *argv[]) {
     tmp.y = A.y;
     line(ref_image, center, tmp, green, 1);
     line(ref_image, center, tmp, green, 1);
+
     Line2D primka3(center.x, center.y, tmp.x, tmp.y);
 
-    double prusecik_x, prusecik_y;
-    if (primka1.getIntersection(primka2, prusecik_x, prusecik_y)) {
-        printf("Prusecik [%f; %f]\n", prusecik_x, prusecik_y);
-    }
-
-    cx = prusecik_x;
-    cy = prusecik_y;
+    double cx, cy;
+    primka1.getIntersection(primka2, cx, cy);
 
     namedWindow(WIN_REF_IMAGE_WITH_VANISH_POINTS);
     imshow(WIN_REF_IMAGE_WITH_VANISH_POINTS, ref_image);
-
 
     for (int i = 0; i < list_3D_points_after_registration.size(); i++) {
         cout << list_3D_points_after_registration[i] << endl;
     }
 
-    /*************************************************************
-     *                   * Save registration *
-     *************************************************************/
 
-    Mat r, t;
-    vector<Point2f> ll;
-    vector<Point2f> kk;
+    cout << "======= Vysledek prvni casti ========" << endl;
+    cout << "[ " << cx << " 0 " << fx << " ]" << endl;
+    cout << "[ 0 " << cy << fy << " ]" << endl;
+    cout << "[ 0 0 1 ]" << endl;
 
-    Mat essential = findEssentialMat(key_points_first_image, key_points_second_image, cameraCalibrator.getCameraMatrix());
-    correctMatches(essential, key_points_first_image, key_points_second_image, key_points_first_image, key_points_second_image);
-    recoverPose(essential, key_points_first_image, key_points_second_image, r, t, 1, Point2f(cx, cy));
-
-    double xAngle = atan2f(r.at<float>(2, 1), r.at<float>(2, 2));
-    double yAngle = atan2f(-r.at<float>(2, 0),
-                           sqrtf(r.at<float>(2, 1) * r.at<float>(2, 1) + r.at<float>(2, 2) * r.at<float>(2, 2)));
-    double zAngle = atan2f(r.at<float>(1, 0), r.at<float>(0, 0));
-
-    xAngle = (int) convert_radian_to_degree(xAngle);
-    yAngle = (int) convert_radian_to_degree(yAngle);
-    zAngle = (int) convert_radian_to_degree(zAngle);
-
-    cout << "x angle: " << xAngle << "%" << endl;
-    cout << "y angle: " << yAngle << "%" << endl;
-    cout << "z angle: " << zAngle << "%" << endl;
-
-    /*
-     * [ fx   0  cx ]
-     * [  0  fy  cy ]
-     * [  0   0   1 ]
-     */
-    Mat camera_matrix_ref = cv::Mat::zeros(3, 3, CV_64FC1);
-    camera_matrix_ref.at<double>(0, 0) = cameraCalibrator.getCameraMatrix().at<double>(0, 0);
-    camera_matrix_ref.at<double>(1, 1) = cameraCalibrator.getCameraMatrix().at<double>(1, 1);
-    camera_matrix_ref.at<double>(0, 2) = cx;
-    camera_matrix_ref.at<double>(1, 2) = cy;
-    camera_matrix_ref.at<double>(2, 2) = 1;
-
-    model.set_camera_matrix(camera_matrix_ref);
-    model.save("result.yml");
 
     waitKey(0);
     return 0;

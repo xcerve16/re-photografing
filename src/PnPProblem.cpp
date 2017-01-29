@@ -331,3 +331,8 @@ void PnPProblem::setMatrixParam(const double params[]) {
 PnPProblem::PnPProblem() {
 
 }
+
+void PnPProblem::setOpticalCenter(double x, double y) {
+    _A_matrix.at<double>(0, 2) = x;
+    _A_matrix.at<double>(1, 2) = y;
+}

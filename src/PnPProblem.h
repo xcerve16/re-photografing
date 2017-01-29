@@ -57,6 +57,8 @@ public:
 
     void setMatrixParam(const double params[]);
 
+    void setOpticalCenter(double x, double y);
+
 private:
     /** The calibration matrix */
     cv::Mat _A_matrix;
