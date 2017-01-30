@@ -115,6 +115,13 @@ struct arg_struct {
     Mat measurements;
 };
 
+struct F {
+    std::vector<cv::Point2f> points2In;
+    std::vector<cv::Point2f>::const_iterator itPts;
+    std::vector<uchar>::const_iterator itIn;
+    std::vector<uchar> inliers;
+};
+
 
 void *robust_matcher(void *arg);
 
@@ -133,6 +140,8 @@ void fillMeasurements(Mat &measurements, const Mat &translation_measured, const 
 double convert_radian_to_degree(double input) {
     return (input * 180) / PI;
 }
+
+void getInliersPoints(Mat first_image, Mat second_image, vector<cv::KeyPoint> keypoints1, Mat descriptor1);
 
 int getDirection(vector<Point2f> list_points2d_scene_match, vector<Point2f> registration_2D_points, int focal, Point2f center);
 
