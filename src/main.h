@@ -68,7 +68,7 @@ double max_dist = 0;
 double min_dist = 100;
 
 // SIFT parameters
-int numKeyPoints = 1000;
+int numKeyPoints = 500;
 
 // MSAC parameters
 int mode = MODE_NIETO;
@@ -94,7 +94,7 @@ float reprojectionError = 10.0;
 double confidence = 0.95;
 
 // Kalman Filter parameters
-int minInliersKalman = 30;
+int minInliersKalman = 10;
 int nStates = 18;            // the number of states
 int nMeasurements = 6;       // the number of measured states
 int nInputs = 0;             // the number of control actions
@@ -141,7 +141,8 @@ double convert_radian_to_degree(double input) {
     return (input * 180) / PI;
 }
 
-void getInliersPoints(Mat first_image, Mat second_image, vector<cv::KeyPoint> keypoints1, Mat descriptor1);
+Mat
+getInliersPoints(Mat first_image, Mat second_image, vector<cv::KeyPoint> keypoints1, Mat descriptor1);
 
 int getDirection(vector<Point2f> list_points2d_scene_match, vector<Point2f> registration_2D_points, int focal, Point2f center);
 

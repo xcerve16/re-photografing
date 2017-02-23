@@ -2,9 +2,6 @@
 // Created by acervenka2 on 17.01.2017.
 //
 
-
-
-
 #include "main.h"
 
 int index = 0;
@@ -31,6 +28,8 @@ bool getRobustEstimation(Mat current_frame_vis, Mat description_first_image,
         list_points2d_scene_match.push_back(point2d_scene);
     }
 
+    bool good_measurement = false;
+
     if (good_matches.size() > 0) {
 
         pnp_registration.estimatePoseRANSAC(list_points3d_model_match, list_points2d_scene_match, pnpMethod,
@@ -46,12 +45,12 @@ bool getRobustEstimation(Mat current_frame_vis, Mat description_first_image,
         if (inliers_idx.rows >= minInliersKalman) {
 
             Mat translation_measured(3, 1, CV_64F);
-            translation_measured = pnp_registration.get_t_matrix();
+            translation_measured = pnp_registration.get_T_matrix();
 
             Mat rotation_measured(3, 3, CV_64F);
             rotation_measured = pnp_registration.get_R_matrix();
 
-
+            good_measurement = true;
             fillMeasurements(measurements, translation_measured, rotation_measured);
         }
     }
@@ -72,7 +71,7 @@ bool getRobustEstimation(Mat current_frame_vis, Mat description_first_image,
 
     inliners = list_points2d_inliers;
 
-    return true;
+    return good_measurement;
 }
 
 bool getLightweightEstimation(Mat current_frame_vis, Mat description_first_image,
@@ -90,14 +89,14 @@ bool getLightweightEstimation(Mat current_frame_vis, Mat description_first_image
     vector<Point2f> list_points2d_inliers;
 
 
-    boolean good_measurement = false;
+    bool good_measurement = false;
 
     // GOOD MEASUREMENT
     if (inliers_idx.rows >= minInliersKalman) {
 
         // Get the measured translation
         Mat translation_measured(3, 1, CV_64F);
-        translation_measured = pnp_registration.get_t_matrix();
+        translation_measured = pnp_registration.get_T_matrix();
 
         // Get the measured rotation
         Mat rotation_measured(3, 3, CV_64F);
@@ -117,7 +116,7 @@ bool getLightweightEstimation(Mat current_frame_vis, Mat description_first_image
     updateKalmanFilter(kalmanFilter, measurements, translation_estimated, rotation_estimated);
     pnp_registration.set_P_matrix(rotation_estimated, translation_estimated);
 
-    return true;
+    return good_measurement;
 }
 
 
@@ -128,7 +127,8 @@ int getDirection(vector<Point2f> list_points2d_scene_match, vector<Point2f> regi
     Mat tvect;
 
     Mat essential = findEssentialMat(list_points2d_scene_match, registration_2D_points, focal, center);
-    // correctMatches(essential, list_points2d_scene_match, registration_2D_points,list_points2d_scene_match, registration_2D_points);
+    correctMatches(essential, list_points2d_scene_match, registration_2D_points, list_points2d_scene_match,
+                   registration_2D_points);
     recoverPose(essential, list_points2d_scene_match, registration_2D_points, rvect, tvect, 1, center);
 
     double xAngle = atan2f(rvect.at<float>(2, 1), rvect.at<float>(2, 2));
@@ -194,37 +194,49 @@ int main(int argc, char *argv[]) {
         float x = key_points_first_image[it->queryIdx].pt.x;
         float y = key_points_first_image[it->queryIdx].pt.y;
         detection_points_first_image.push_back(Point2f(x, y));
-        //circle(first_image, Point((int) x, (int) y), 3, white, 3);
 
         x = key_points_second_image[it->trainIdx].pt.x;
         y = key_points_second_image[it->trainIdx].pt.y;
-        //circle(second_image, Point((int) x, (int) y), 3, white, 3);
         detection_points_second_image.push_back(Point2f(x, y));
     }
 
     vector<Vec3f> lines1, lines2;
     computeCorrespondEpilines(Mat(detection_points_first_image), 1, fundamental, lines1);
-
-    /*for (vector<Vec3f>::const_iterator it = lines1.begin(); it != lines1.end(); ++it) {
-        line(second_image, Point(0, -(*it)[2] / (*it)[1]),
-             Point(second_image.cols, (int) (-((*it)[2] + (*it)[0] * second_image.cols) / (*it)[1])), white);
-    }*/
-
     computeCorrespondEpilines(Mat(detection_points_second_image), 2, fundamental, lines2);
 
-    /*for (vector<Vec3f>::const_iterator it = lines2.begin(); it != lines2.end(); ++it) {
-        line(first_image, Point(0, -(*it)[2] / (*it)[1]),
-             Point(first_image.cols, (int) (-((*it)[2] + (*it)[0] * first_image.cols) / (*it)[1])), white);
-    }*/
+    /*************************************************************
+     *                   * Výpočet F/E matice *
+     *************************************************************/
 
-    /*namedWindow("Right Image (RANSAC)");
-    imshow("Right Image (RANSAC)", first_image);
-    namedWindow("Left Image (RANSAC)");
-    imshow("Left Image (RANSAC)", second_image);*/
+    double cx = cameraCalibrator.getCameraMatrix().at<double>(0, 0);
+    double cy = cameraCalibrator.getCameraMatrix().at<double>(1, 1);
+    double fx = cameraCalibrator.getCameraMatrix().at<double>(0, 2);
+    double fy = cameraCalibrator.getCameraMatrix().at<double>(1, 2);
+
+    Point2f center = Point2f(cx, cy);
+
+    double width_image = first_image.cols;
+    double height_image = first_image.rows;
+
+    double sx = 1.5 * width_image;
+    double sy = 1.5 * height_image;
+
+    Mat rvect;
+    Mat tvect;
+
+    double focal = (fx * sx) / width_image;
+    cout << "Focal lenght: " << focal << endl;
+    focal = (fy * sy) / height_image;
+    cout << "Focal lenght: " << focal << endl;
+
+    /*Mat essential = findEssentialMat(lines1, lines2, focal, center);
+    correctMatches(essential, lines1, lines2,lines1, lines2);
+    recoverPose(essential, lines1, lines2, rvect, tvect, 1, center);*/
+
 
     /*************************************************************
-     *                   * Triangulation *
-     *************************************************************/
+    *                   * Získání pozý kamer *
+    *************************************************************/
 
     cameraCalibrator.calibrate((Size &) first_image.size);
     Mat rotation_vector_first_image = cameraCalibrator.getRotationVector().data()[0];
@@ -242,6 +254,10 @@ int main(int argc, char *argv[]) {
     hconcat(rotation_vector_first_image, translation_vector_first_image, rotation_translation_vector_first_image);
     hconcat(rotation_vector_second_image, translation_vector_second_image, rotation_translation_vector_second_image);
 
+    /*************************************************************
+     *                   * Triangulation *
+     *************************************************************/
+
     Mat camera_matrix_a = cameraCalibrator.getCameraMatrix() * rotation_translation_vector_first_image;
     Mat camera_matrix_b = cameraCalibrator.getCameraMatrix() * rotation_translation_vector_second_image;
     triangulatePoints(camera_matrix_a, camera_matrix_b, detection_points_first_image, detection_points_second_image,
@@ -251,7 +267,6 @@ int main(int argc, char *argv[]) {
     double x = result_3D_points.at<double>(0, 0) / w;
     double y = result_3D_points.at<double>(1, 0) / w;
     double z = result_3D_points.at<double>(2, 0) / w;
-
 
     Mat triangulation_3D_points;
     transpose(result_3D_points, triangulation_3D_points);
@@ -290,18 +305,14 @@ int main(int argc, char *argv[]) {
         return -1;
     }
 
-    vector<Point2f> list;
-    int i = 0;
-    while (i < list_3D_points_after_triangulation.size()) {
-        list.push_back(list_2D_points_after_triangulation[i]);
-        i++;
-    }
 
     registration.setNumMax(number_registration);
     vector<Point2f> list_points2d;
     vector<Point3f> list_points3d;
 
-    int previslyNumRegistration = registration.getNumRegistration();
+    int previousNumRegistration = registration.getNumRegistration();
+    vector<int> index_of_points;
+
     while (waitKey(30) < 0) {
 
         clone_of_ref_image = ref_image.clone();
@@ -309,15 +320,20 @@ int main(int argc, char *argv[]) {
         list_points3d = registration.get_points3d();
         if (!end_registration) {
             drawCounter(clone_of_ref_image, registration.getNumRegistration(), registration.getNumMax(), red);
-            draw2DPoint(frame_with_triangulation, list[index], green);
+            draw2DPoint(frame_with_triangulation, list_2D_points_after_triangulation[index], green);
             Point3f point3f = list_3D_points_after_triangulation[index];
             drawQuestion(clone_of_ref_image, point3f, red);
-            if (previslyNumRegistration != registration.getNumRegistration()) {
+
+            if (previousNumRegistration != registration.getNumRegistration()) {
+                index_of_points.push_back(index);
                 registration.register3DPoint(point3f);
-                previslyNumRegistration = registration.getNumRegistration();
+                previousNumRegistration = registration.getNumRegistration();
             }
 
         } else {
+            Point3f point3f = list_3D_points_after_triangulation[index];
+            registration.register3DPoint(point3f);
+            index_of_points.push_back(index);
             draw2DPoints(clone_of_ref_image, list_points2d, blue);
             break;
         }
@@ -344,10 +360,14 @@ int main(int argc, char *argv[]) {
     vector<Point2f> list_2D_points_after_registration = registration.get_points2d();
 
     pnp_registration.setMatrixParam(camera_parameters);
-    //pnp_registration.estimatePose(list_3D_points_after_registration, list_2D_points_after_registration, pnpMethod);
+    pnp_registration.estimatePose(list_3D_points_after_registration, list_2D_points_after_registration, pnpMethod);
 
-    double fx = cameraCalibrator.getCameraMatrix().at<double>(0, 2);
-    double fy = cameraCalibrator.getCameraMatrix().at<double>(1, 2);
+
+    Mat tvec = pnp_registration.get_T_matrix();
+    Mat rvec = pnp_registration.get_R_matrix();
+
+    cout << tvec << endl;
+    cout << rvec << endl;
 
     /*************************************************************
      *                   * Vanish point *
@@ -385,7 +405,7 @@ int main(int argc, char *argv[]) {
     Point2f B = vanish_point_2d[1];
     Point2f C = vanish_point_2d[2];
 
-    Point2f center, tmp;
+    Point2f tmp;
     center.x = (A.x + B.x) / 2;
     center.y = (A.y + B.y) / 2;
     tmp.x = C.x;
@@ -408,8 +428,6 @@ int main(int argc, char *argv[]) {
     line(ref_image, center, tmp, green, 1);
 
     Line2D primka3(center.x, center.y, tmp.x, tmp.y);
-
-    double cx, cy;
     primka1.getIntersection(primka2, cx, cy);
 
     //namedWindow(WIN_REF_IMAGE_WITH_VANISH_POINTS);
@@ -426,23 +444,15 @@ int main(int argc, char *argv[]) {
     cout << "[ 0 " << cy << " " << fy << " ]" << endl;
     cout << "[ 0 0 1 ]" << endl;
 
-    double width_image = first_image.cols;
-    double height_image = first_image.rows;
-
-    double sx = 1.5 * width_image;
-    double sy = 1.5 * height_image;
-
-    double focal = (fx * sx) / width_image;
-    cout << "Focal lenght: " << focal << endl;
-    focal = (fy * sy) / height_image;
-    cout << "Focal lenght: " << focal << endl;
-
     Mat test = first_image.clone();
+
 
     vector<Point2f> list_2D_points_first_image;
     vector<Point2f> list_2D_points_ref_image;
-    for (int i = 0; i < 8; i++) {
-        list_2D_points_first_image.push_back(list[i]);
+    int index;
+    for (int i = 0; i < index_of_points.size(); i++) {
+        index = index_of_points[i] - 1;
+        list_2D_points_first_image.push_back(list_2D_points_after_triangulation[index]);
     }
 
     for (int i = 0; i < 8; i++) {
@@ -451,14 +461,23 @@ int main(int argc, char *argv[]) {
         list_2D_points_ref_image.push_back(Point2f(resize_x, resize_y));
     }
 
+
     draw2DPoints(test, list_2D_points_ref_image, red);
     draw2DPoints(test, list_2D_points_first_image, blue);
-    for (int i = 0; i < registration.getNumRegistration(); i++) {
+    for (int i = 0; i < 8; i++) {
         line(test, list_2D_points_ref_image[i], list_2D_points_first_image[i], green);
     }
     namedWindow("TEST");
     imshow("TEST", test);
 
+    /*************************************************************************
+     *                     Pozice historické kamery
+     ************************************************************************/
+
+    Mat inliers;
+
+    pnp_registration.estimatePoseRANSAC(list_3D_points_after_registration, list_2D_points_after_registration, pnpMethod,
+                                        inliers, iterationsCount, reprojectionError, confidence);
     /*************************************************************************
      *  4.0 DETECTION
      ************************************************************************/
@@ -520,16 +539,19 @@ int main(int argc, char *argv[]) {
     vector<Point2f> list_2D_points_ref_image_resize_for_video;
     vector<Point2f> list_2D_points_first_image_resize_for_video;
 
-    //namedWindow("Right Image Homography (RANSAC)");
-    //namedWindow("Left Image Homography (RANSAC)");
 
     std::vector<cv::KeyPoint> keypoints1;
+
     Ptr<SurfFeatureDetector> surf = SurfFeatureDetector::create(numKeyPoints);
     surf->detect(first_image, keypoints1);
+
     Ptr<SurfDescriptorExtractor> surfDesc = SurfDescriptorExtractor::create();
+
     cv::Mat descriptors1;
     surfDesc->compute(first_image, keypoints1, descriptors1);
 
+    int testProsel = 0;
+    int testNeprosel = 0;
 
     while (cap.read(current_frame) && waitKey(30) != 27) {
 
@@ -537,8 +559,8 @@ int main(int argc, char *argv[]) {
 
 
         for (int i = 0; i < 8; i++) {
-            double resize_x_first_image = (list_2D_points_first_image[i].x * current_frame_vis.cols) / first_image.cols;
-            double resize_y_first_image = (list_2D_points_first_image[i].y * current_frame_vis.rows) / first_image.rows;
+            double resize_y_first_image = (list_2D_points_first_image[i].x * first_image.cols) / current_frame_vis.cols;
+            double resize_x_first_image = (list_2D_points_first_image[i].y * first_image.rows) / current_frame_vis.rows;
             double resize_x_ref_image = (list_2D_points_ref_image[i].x * current_frame_vis.cols) / first_image.cols;
             double resize_y_ref_image = (list_2D_points_ref_image[i].y * current_frame_vis.rows) / first_image.rows;
             list_2D_points_ref_image_resize_for_video.push_back(Point2f(resize_x_first_image, resize_y_first_image));
@@ -554,19 +576,22 @@ int main(int argc, char *argv[]) {
             //pthread_create(&robust_matcher_t, NULL, robust_matcher, (void *) &robust_matcher_arg_struct);
         }*/
 
-        //getInliersPoints(first_image.clone(), current_frame, keypoints1, descriptors1);
 
+        bool result = getRobustEstimation(current_frame_vis, descriptor_first_image, list_3D_points_after_registration,
+                                          list_2D_points_after_registration, focal, Point2f(cx, cy), measurements);
 
-
-        getRobustEstimation(current_frame_vis, descriptor_first_image, list_3D_points_after_registration,
-                            list_2D_points_after_registration, focal, Point2f(cx, cy), measurements);
-
-
-        draw2DPoints(current_frame_vis, list_2D_points_first_image_resize_for_video, red);
-        draw2DPoints(current_frame_vis, inliners, yellow);
-        for (int i = 0; i < inliners.size(); i++) {
-            line(current_frame_vis, list_2D_points_first_image_resize_for_video[i], inliners[i], green);
+        if(result){
+            cout << "Test prosel" << endl;
+            testProsel++;
+        }else{
+            cout << "Test neprosel" << endl;
+            testNeprosel++;
         }
+
+
+        //current_frame_vis = getInliersPoints(first_image.clone(), current_frame_vis.clone(), keypoints1, descriptors1);
+
+
 
         /*************************************************************
          *                   * Lucas-Kanade method *
@@ -591,6 +616,9 @@ int main(int argc, char *argv[]) {
         isFirstImage = false;
         imshow(WIN_REAL_TIME_DEMO, current_frame_vis);
     }
+
+    cout << "Test prosel: " << testProsel << endl;
+    cout << "Test neprosel: " << testNeprosel << endl;
 
     waitKey(0);
     return 0;
@@ -826,7 +854,7 @@ void fillMeasurements(Mat &measurements, const Mat &translation_measured, const 
 }
 
 
-void getInliersPoints(Mat first_image, Mat second_image, vector<cv::KeyPoint> keypoints1, Mat descriptors1) {
+Mat getInliersPoints(Mat first_image, Mat second_image, vector<cv::KeyPoint> keypoints1, Mat descriptors1) {
 
     cv::Mat image1 = first_image.clone();
     cv::Mat image2 = second_image.clone();
@@ -907,18 +935,7 @@ void getInliersPoints(Mat first_image, Mat second_image, vector<cv::KeyPoint> ke
     }
 
     cv::findHomography(cv::Mat(points1In), cv::Mat(points2In), inliers, CV_RANSAC, 1.);
-
-    image1 = first_image.clone();
     image2 = second_image.clone();
-
-    itPts = points1In.begin();
-    itIn = inliers.begin();
-    while (itPts != points1In.end()) {
-        if (*itIn)
-            cv::circle(first_image, *itPts, 3, white, 2);
-        ++itPts;
-        ++itIn;
-    }
 
     itPts = points2In.begin();
     itIn = inliers.begin();
@@ -929,8 +946,7 @@ void getInliersPoints(Mat first_image, Mat second_image, vector<cv::KeyPoint> ke
         ++itIn;
     }
 
-    cv::imshow("Homography", first_image);
-    cv::imshow("Homography", second_image);
+    return second_image;
 }
 
 

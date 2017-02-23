@@ -72,7 +72,7 @@ PnPProblem::PnPProblem(const double params[]) {
     _A_matrix.at<double>(1, 2) = params[3];
     _A_matrix.at<double>(2, 2) = 1;
     _R_matrix = cv::Mat::zeros(3, 3, CV_64FC1);   // rotation matrix
-    _t_matrix = cv::Mat::zeros(3, 1, CV_64FC1);   // translation matrix
+    _T_matrix = cv::Mat::zeros(3, 1, CV_64FC1);   // translation matrix
     _P_matrix = cv::Mat::zeros(3, 4, CV_64FC1);   // rotation-translation matrix
 
 }
@@ -114,10 +114,10 @@ bool PnPProblem::estimatePose(const std::vector<cv::Point3f> &list_points3d,
 
     // Transforms Rotation Vector to Matrix
     Rodrigues(rvec, _R_matrix);
-    _t_matrix = tvec;
+    _T_matrix = tvec;
 
     // Set projection matrix
-    this->set_P_matrix(_R_matrix, _t_matrix);
+    this->set_P_matrix(_R_matrix, _T_matrix);
 
     return correspondence;
 }
@@ -141,9 +141,9 @@ void PnPProblem::estimatePoseRANSAC(const std::vector<cv::Point3f> &list_points3
                        inliers, flags);
 
     Rodrigues(rvec, _R_matrix);      // converts Rotation Vector to Matrix
-    _t_matrix = tvec;       // set translation matrix
+    _T_matrix = tvec;       // set translation matrix
 
-    this->set_P_matrix(_R_matrix, _t_matrix); // set rotation-translation matrix
+    this->set_P_matrix(_R_matrix, _T_matrix); // set rotation-translation matrix
 
 }
 
@@ -217,10 +217,10 @@ bool PnPProblem::backProject2DPoint(const Mesh *mesh, const cv::Point2f &point2d
     cv::Mat X_c = _A_matrix.inv() * point2d_vec; // 3x1
 
     // Point in world coordinates
-    cv::Mat X_w = _R_matrix.inv() * (X_c - _t_matrix); // 3x1
+    cv::Mat X_w = _R_matrix.inv() * (X_c - _T_matrix); // 3x1
 
     // Center of projection
-    cv::Mat C_op = cv::Mat(_R_matrix.inv()).mul(-1) * _t_matrix; // 3x1
+    cv::Mat C_op = cv::Mat(_R_matrix.inv()).mul(-1) * _T_matrix; // 3x1
 
     // Ray direction vector
     cv::Mat ray = X_w - C_op; // 3x1
@@ -323,7 +323,7 @@ void PnPProblem::setMatrixParam(const double params[]) {
     _A_matrix.at<double>(1, 2) = params[3];
     _A_matrix.at<double>(2, 2) = 1;
     _R_matrix = cv::Mat::zeros(3, 3, CV_64FC1);   // rotation matrix
-    _t_matrix = cv::Mat::zeros(3, 1, CV_64FC1);   // translation matrix
+    _T_matrix = cv::Mat::zeros(3, 1, CV_64FC1);   // translation matrix
     _P_matrix = cv::Mat::zeros(3, 4, CV_64FC1);   // rotation-translation matrix
 
 }

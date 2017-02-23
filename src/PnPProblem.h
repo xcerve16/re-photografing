@@ -49,7 +49,7 @@ public:
 
     cv::Mat get_R_matrix() const { return _R_matrix; }
 
-    cv::Mat get_t_matrix() const { return _t_matrix; }
+    cv::Mat get_T_matrix() const { return _T_matrix; }
 
     cv::Mat get_P_matrix() const { return _P_matrix; }
 
@@ -65,7 +65,7 @@ private:
     /** The computed rotation matrix */
     cv::Mat _R_matrix;
     /** The computed translation matrix */
-    cv::Mat _t_matrix;
+    cv::Mat _T_matrix;
     /** The computed projection matrix */
     cv::Mat _P_matrix;
 };
