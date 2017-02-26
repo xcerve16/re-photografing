@@ -68,7 +68,7 @@ double max_dist = 0;
 double min_dist = 100;
 
 // SIFT parameters
-int numKeyPoints = 500;
+int numKeyPoints = 1000;
 
 // MSAC parameters
 int mode = MODE_NIETO;
@@ -83,10 +83,10 @@ string WIN_REF_IMAGE_WITH_VANISH_POINTS = "WIN_REF_IMAGE_WITH_VANISH_POINTS";
 string WIN_REAL_TIME_DEMO = "WIN_REAL_TIME_DEMO";
 
 // File's path
-String path_to_first_image = "resource/image/test1.jpg";
-String path_to_second_image = "resource/image/test2.jpg";
-String path_to_ref_image = "resource/image/refVelehrad.jpg";
-string video_read_path = "resource/video/video2.mp4";
+String path_to_first_image = "resource/image/rsz_biskupsky_palac_3.jpg";
+String path_to_second_image = "resource/image/rsz_biskupsky_palac_4.jpg";
+String path_to_ref_image = "resource/image/ref_biskupsky_palac.jpg";
+string video_read_path = "resource/video/biskupsky_palac.mp4";
 
 // RANSAC parameters
 int iterationsCount = 1000;
