@@ -5,7 +5,7 @@
 
 
 
-#include "main.h"
+#include "vzor.h"
 
 int index = 0;
 vector<Point2f> inliners;
@@ -229,13 +229,13 @@ int main(int argc, char *argv[]) {
      *************************************************************/
 
     cameraCalibrator.calibrate((Size &) first_image.size);
-    Mat rotation_vector_first_image = cameraCalibrator.getRotationVector().data()[0];
-    Mat translation_vector_first_image = cameraCalibrator.getTransportVector().data()[0];
+    Mat rotation_vector_first_image = cameraCalibrator.getRotationVector().data()[1];
+    Mat translation_vector_first_image = cameraCalibrator.getTransportVector().data()[1];
     Rodrigues(rotation_vector_first_image, rotation_vector_first_image);
 
     cameraCalibrator.calibrate((Size &) second_image.size);
-    Mat rotation_vector_second_image = cameraCalibrator.getRotationVector().data()[1];
-    Mat translation_vector_second_image = cameraCalibrator.getTransportVector().data()[1];
+    Mat rotation_vector_second_image = cameraCalibrator.getRotationVector().data()[2];
+    Mat translation_vector_second_image = cameraCalibrator.getTransportVector().data()[2];
     Rodrigues(rotation_vector_second_image, rotation_vector_second_image);
 
     Mat result_3D_points(1, 100, CV_64FC4);
@@ -271,9 +271,10 @@ int main(int argc, char *argv[]) {
                   cameraCalibrator.getCameraMatrix(), cameraCalibrator.getDistCoeffs(),
                   list_2D_points_after_triangulation);
 
-
-    draw2DPoints(first_image.clone(), list_2D_points_after_triangulation, blue);
     Mat frame_with_triangulation = first_image.clone();
+    draw2DPoints(frame_with_triangulation, list_2D_points_after_triangulation, blue);
+
+    cout << list_3D_points_after_triangulation << endl;
 
     /*************************************************************
      *                    * Registration *                       *
