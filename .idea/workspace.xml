@@ -13,17 +13,8 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70e342c2-adc5-4064-9319-db384ed3edb0" name="Default" comment="oprava chyb v souvislosti s novymi fotkami">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/objects.a" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/objects.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/rephotografing_cv.exe" afterPath="$PROJECT_DIR$/cmake-build-debug/rephotografing_cv.exe" />
+    <list default="true" id="70e342c2-adc5-4064-9319-db384ed3edb0" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/CXX.includecache" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/CXX.includecache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/depend.internal" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/depend.internal" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/depend.make" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/depend.make" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/PnPProblem.cpp" afterPath="$PROJECT_DIR$/src/PnPProblem.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main.cpp" afterPath="$PROJECT_DIR$/src/main.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vzor.cpp" afterPath="$PROJECT_DIR$/src/vzor.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vzor.h" afterPath="$PROJECT_DIR$/src/vzor.h" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -45,8 +36,8 @@
       <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="296" column="60" lean-forward="true" selection-start-line="296" selection-start-column="60" selection-end-line="296" selection-end-column="60" />
+            <state relative-caret-position="134">
+              <caret line="299" column="60" lean-forward="false" selection-start-line="299" selection-start-column="60" selection-end-line="299" selection-end-column="60" />
               <folding>
                 <element signature="e#28959#29622#0" expanded="true" />
               </folding>
@@ -739,7 +730,7 @@
       <workItem from="1489077921852" duration="12021000" />
       <workItem from="1489140816600" duration="2895000" />
       <workItem from="1489144290335" duration="667000" />
-      <workItem from="1489328141462" duration="8832000" />
+      <workItem from="1489328141462" duration="9393000" />
     </task>
     <task id="LOCAL-00001" summary="registrace funguje, detekce zatim ne">
       <created>1481836872027</created>
@@ -930,11 +921,25 @@
       <option name="project" value="LOCAL" />
       <updated>1488140024767</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Výpočet relativní matice">
+      <created>1489347589626</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1489347589626</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Výpočet relativní matice">
+      <created>1489347943066</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1489347943066</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="550295000" />
+    <option name="totallyTimeSpent" value="550856000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1026,7 +1031,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="init" />
     <MESSAGE value="registrace funguje, detekce zatim ne" />
     <MESSAGE value="Pose Estimation popsany a funkcni" />
     <MESSAGE value="Pridani Robust Matcher" />
@@ -1051,7 +1055,8 @@
     <MESSAGE value="uprava prezentace" />
     <MESSAGE value="pridani novych testovacich fotografii" />
     <MESSAGE value="oprava chyb v souvislosti s novymi fotkami" />
-    <option name="LAST_COMMIT_MESSAGE" value="oprava chyb v souvislosti s novymi fotkami" />
+    <MESSAGE value="Výpočet relativní matice" />
+    <option name="LAST_COMMIT_MESSAGE" value="Výpočet relativní matice" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1431,8 +1436,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="296" column="60" lean-forward="true" selection-start-line="296" selection-start-column="60" selection-end-line="296" selection-end-column="60" />
+        <state relative-caret-position="134">
+          <caret line="299" column="60" lean-forward="false" selection-start-line="299" selection-start-column="60" selection-end-line="299" selection-end-column="60" />
           <folding>
             <element signature="e#28959#29622#0" expanded="true" />
           </folding>
