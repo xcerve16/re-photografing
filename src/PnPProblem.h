@@ -13,7 +13,6 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
-#include "Mesh.h"
 #include "ModelRegistration.h"
 
 class PnPProblem {
@@ -22,12 +21,6 @@ public:
     PnPProblem();
     PnPProblem(const double param[]);
     virtual ~PnPProblem();
-
-    bool backProject2DPoint(const Mesh *mesh, const cv::Point2f &point2d, cv::Point3f &point3d);
-
-    bool intersect_MollerTrumbore(Ray &R, Triangle &T, double *out);
-
-    std::vector<cv::Point2f> verify_points(Mesh *mesh);
 
     cv::Point2f backproject3DPoint(const cv::Point3f &point3d);
 
@@ -55,7 +48,7 @@ public:
 
     void set_P_matrix(const cv::Mat &R_matrix, const cv::Mat &t_matrix);
 
-    void setMatrixParam(const double params[]);
+    void setMatrixParam(double fx, double fy, double sx, double sy);
 
     void setOpticalCenter(double x, double y);
 

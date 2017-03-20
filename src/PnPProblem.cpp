@@ -159,22 +159,8 @@ void PnPProblem::mySolvePnPRansac(const std::vector<cv::Point3f> &list_points3d,
 void PnPProblem::myProjectPoints(std::vector<cv::Point3f> list3DPoint, cv::Mat rvect, cv::Mat tvect,
                                  std::vector<cv::Point2f> list2DPoint){
     cv::Mat distCoeffs = cv::Mat::zeros(4, 1, CV_64FC1);
-    projectPoints(list3DPoint,  _A_matrix, distCoeffs, rvect, tvect, list2DPoint);
+    projectPoints(list3DPoint, rvect, tvect,_A_matrix, distCoeffs, list2DPoint);
 }
-
-
-// Given the mesh, backproject the 3D points to 2D to verify the pose estimation
-std::vector<cv::Point2f> PnPProblem::verify_points(Mesh *mesh) {
-    std::vector<cv::Point2f> verified_points_2d;
-    for (int i = 0; i < mesh->getNumVertices(); i++) {
-        cv::Point3f point3d = mesh->getVertex(i);
-        cv::Point2f point2d = this->backproject3DPoint(point3d);
-        verified_points_2d.push_back(point2d);
-    }
-
-    return verified_points_2d;
-}
-
 
 // Backproject a 3D point to 2D using the estimated pose parameters
 
@@ -198,129 +184,18 @@ cv::Point2f PnPProblem::backproject3DPoint(const cv::Point3f &point3d) {
     return point2d;
 }
 
-// Back project a 2D point to 3D and returns if it's on the object surface
-bool PnPProblem::backProject2DPoint(const Mesh *mesh, const cv::Point2f &point2d, cv::Point3f &point3d) {
-    // Triangles list of the object mesh
-    std::vector<std::vector<int> > triangles_list = mesh->getTrianglesList();
+void PnPProblem::setMatrixParam(double fx, double fy, double cx, double cy) {
 
-    double lambda = 8;
-    double u = point2d.x;
-    double v = point2d.y;
+    /*double fx = width * f / sx;
+    double fy = height * f / sy;
+    double cx = width / 2;
+    double cy = height / 2;*/
 
-    // Point in vector form
-    cv::Mat point2d_vec = cv::Mat::ones(3, 1, CV_64F); // 3x1
-    point2d_vec.at<double>(0) = u * lambda;
-    point2d_vec.at<double>(1) = v * lambda;
-    point2d_vec.at<double>(2) = lambda;
-
-    // Point in camera coordinates
-    cv::Mat X_c = _A_matrix.inv() * point2d_vec; // 3x1
-
-    // Point in world coordinates
-    cv::Mat X_w = _R_matrix.inv() * (X_c - _T_matrix); // 3x1
-
-    // Center of projection
-    cv::Mat C_op = cv::Mat(_R_matrix.inv()).mul(-1) * _T_matrix; // 3x1
-
-    // Ray direction vector
-    cv::Mat ray = X_w - C_op; // 3x1
-    ray = ray / cv::norm(ray); // 3x1
-
-    // Set up Ray
-    Ray R((cv::Point3f) C_op, (cv::Point3f) ray);
-
-    // A vector to store the intersections found
-    std::vector<cv::Point3f> intersections_list;
-
-    // Loop for all the triangles and check the intersection
-    for (unsigned int i = 0; i < triangles_list.size(); i++) {
-        cv::Point3f V0 = mesh->getVertex(triangles_list[i][0]);
-        cv::Point3f V1 = mesh->getVertex(triangles_list[i][1]);
-        cv::Point3f V2 = mesh->getVertex(triangles_list[i][2]);
-
-        Triangle T(i, V0, V1, V2);
-
-        double out;
-        if (this->intersect_MollerTrumbore(R, T, &out)) {
-            cv::Point3f tmp_pt = R.getP0() + out * R.getP1(); // P = O + t*D
-            intersections_list.push_back(tmp_pt);
-        }
-    }
-
-    // If there are intersection, find the nearest one
-    if (!intersections_list.empty()) {
-        point3d = get_nearest_3D_point(intersections_list, R.getP0());
-        return true;
-    } else {
-        return false;
-    }
-}
-
-// Möller–Trumbore intersection algorithm
-bool PnPProblem::intersect_MollerTrumbore(Ray &Ray, Triangle &Triangle, double *out) {
-    const double EPSILON = 0.000001;
-
-    cv::Point3f e1, e2;
-    cv::Point3f P, Q, T;
-    double det, inv_det, u, v;
-    double t;
-
-    cv::Point3f V1 = Triangle.getV0();  // Triangle vertices
-    cv::Point3f V2 = Triangle.getV1();
-    cv::Point3f V3 = Triangle.getV2();
-
-    cv::Point3f O = Ray.getP0(); // Ray origin
-    cv::Point3f D = Ray.getP1(); // Ray direction
-
-    //Find vectors for two edges sharing V1
-    e1 = SUB(V2, V1);
-    e2 = SUB(V3, V1);
-
-    // Begin calculation determinant - also used to calculate U parameter
-    P = CROSS(D, e2);
-
-    // If determinant is near zero, ray lie in plane of triangle
-    det = DOT(e1, P);
-
-    //NOT CULLING
-    if (det > -EPSILON && det < EPSILON) return false;
-    inv_det = 1.f / det;
-
-    //calculate distance from V1 to ray origin
-    T = SUB(O, V1);
-
-    //Calculate u parameter and test bound
-    u = DOT(T, P) * inv_det;
-
-    //The intersection lies outside of the triangle
-    if (u < 0.f || u > 1.f) return false;
-
-    //Prepare to test v parameter
-    Q = CROSS(T, e1);
-
-    //Calculate V parameter and test bound
-    v = DOT(D, Q) * inv_det;
-
-    //The intersection lies outside of the triangle
-    if (v < 0.f || u + v > 1.f) return false;
-
-    t = DOT(e2, Q) * inv_det;
-
-    if (t > EPSILON) { //ray intersection
-        *out = t;
-        return true;
-    }
-
-    // No hit, no win
-    return false;
-}
-
-void PnPProblem::setMatrixParam(const double params[]) {
     _A_matrix = cv::Mat::zeros(3, 3, CV_64FC1);   // intrinsic camera parameters
-    _A_matrix.at<double>(0, 0) = params[0];       //      [ fx   0  cx ]
-    _A_matrix.at<double>(1, 1) = params[1];       //      [  0  fy  cy ]
-    _A_matrix.at<double>(0, 2) = params[2];       //      [  0   0   1 ]
-    _A_matrix.at<double>(1, 2) = params[3];
+    _A_matrix.at<double>(0, 0) = fx;       //      [ fx   0  cx ]
+    _A_matrix.at<double>(1, 1) = fy;       //      [  0  fy  cy ]
+    _A_matrix.at<double>(0, 2) = cx;       //      [  0   0   1 ]
+    _A_matrix.at<double>(1, 2) = cy;
     _A_matrix.at<double>(2, 2) = 1;
     _R_matrix = cv::Mat::zeros(3, 3, CV_64FC1);   // rotation matrix
     _T_matrix = cv::Mat::zeros(3, 1, CV_64FC1);   // translation matrix

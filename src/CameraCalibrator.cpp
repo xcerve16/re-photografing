@@ -3,8 +3,11 @@
 //
 
 #include <opencv/cv.hpp>
+#include <iostream>
 
 #include "CameraCalibrator.h"
+#include "Utils.h"
+
 
 int CameraCalibrator::addChessboardPoints(const vector<string> &filelist, Size &boardSize) {
 
@@ -19,14 +22,16 @@ int CameraCalibrator::addChessboardPoints(const vector<string> &filelist, Size &
 
     Mat image;
     int successes = 0;
-
     for (int i = 0; i < filelist.size(); i++) {
-        image = imread(filelist[i], 0);
-        bool found = findChessboardCorners(image, boardSize, imageCorners);
-        cornerSubPix(image, imageCorners, Size(5, 5), Size(-1, -1), TermCriteria(TermCriteria::MAX_ITER + cv::TermCriteria::EPS, 30, 0.1));
-        if (imageCorners.size() == boardSize.area()) {
-            addPoints(imageCorners, objectCorners);
-            successes++;
+        image = imread(filelist[i], IMREAD_GRAYSCALE);
+
+        if (findChessboardCorners(image, boardSize, imageCorners )) {
+            cornerSubPix(image, imageCorners, Size(5, 5), Size(-1, -1),
+                         TermCriteria(TermCriteria::MAX_ITER + cv::TermCriteria::EPS, 30, 0.1));
+            if (imageCorners.size() == boardSize.area()) {
+                addPoints(imageCorners, objectCorners);
+                successes++;
+            }
         }
     }
     return successes;
@@ -46,7 +51,7 @@ double CameraCalibrator::calibrate(Size &imageSize) {
 Mat CameraCalibrator::myremap(const Mat &image) {
     Mat undistorted;
     if (mustInitUndistort) {
-        initUndistortRectifyMap(cameraMatrix, distCoeffs, Mat(), Mat(), image.size(), CV_64FC2, map1, map2);
+        initUndistortRectifyMap(cameraMatrix, distCoeffs, Mat(), Mat(), image.size(), CV_32FC1, map1, map2);
         mustInitUndistort = false;
     }
 

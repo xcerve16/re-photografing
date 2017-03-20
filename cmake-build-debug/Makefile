@@ -149,60 +149,6 @@ src/CameraCalibrator.cpp.s:
 	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/CameraCalibrator.cpp.s
 .PHONY : src/CameraCalibrator.cpp.s
 
-src/CsvReader.obj: src/CsvReader.cpp.obj
-
-.PHONY : src/CsvReader.obj
-
-# target to build an object file
-src/CsvReader.cpp.obj:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/CsvReader.cpp.obj
-.PHONY : src/CsvReader.cpp.obj
-
-src/CsvReader.i: src/CsvReader.cpp.i
-
-.PHONY : src/CsvReader.i
-
-# target to preprocess a source file
-src/CsvReader.cpp.i:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/CsvReader.cpp.i
-.PHONY : src/CsvReader.cpp.i
-
-src/CsvReader.s: src/CsvReader.cpp.s
-
-.PHONY : src/CsvReader.s
-
-# target to generate assembly for a file
-src/CsvReader.cpp.s:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/CsvReader.cpp.s
-.PHONY : src/CsvReader.cpp.s
-
-src/CsvWriter.obj: src/CsvWriter.cpp.obj
-
-.PHONY : src/CsvWriter.obj
-
-# target to build an object file
-src/CsvWriter.cpp.obj:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/CsvWriter.cpp.obj
-.PHONY : src/CsvWriter.cpp.obj
-
-src/CsvWriter.i: src/CsvWriter.cpp.i
-
-.PHONY : src/CsvWriter.i
-
-# target to preprocess a source file
-src/CsvWriter.cpp.i:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/CsvWriter.cpp.i
-.PHONY : src/CsvWriter.cpp.i
-
-src/CsvWriter.s: src/CsvWriter.cpp.s
-
-.PHONY : src/CsvWriter.s
-
-# target to generate assembly for a file
-src/CsvWriter.cpp.s:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/CsvWriter.cpp.s
-.PHONY : src/CsvWriter.cpp.s
-
 src/Line2D.obj: src/Line2D.cpp.obj
 
 .PHONY : src/Line2D.obj
@@ -257,59 +203,32 @@ src/MSAC.cpp.s:
 	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/MSAC.cpp.s
 .PHONY : src/MSAC.cpp.s
 
-src/Mesh.obj: src/Mesh.cpp.obj
+src/Main.obj: src/Main.cpp.obj
 
-.PHONY : src/Mesh.obj
-
-# target to build an object file
-src/Mesh.cpp.obj:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/Mesh.cpp.obj
-.PHONY : src/Mesh.cpp.obj
-
-src/Mesh.i: src/Mesh.cpp.i
-
-.PHONY : src/Mesh.i
-
-# target to preprocess a source file
-src/Mesh.cpp.i:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/Mesh.cpp.i
-.PHONY : src/Mesh.cpp.i
-
-src/Mesh.s: src/Mesh.cpp.s
-
-.PHONY : src/Mesh.s
-
-# target to generate assembly for a file
-src/Mesh.cpp.s:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/Mesh.cpp.s
-.PHONY : src/Mesh.cpp.s
-
-src/Model.obj: src/Model.cpp.obj
-
-.PHONY : src/Model.obj
+.PHONY : src/Main.obj
 
 # target to build an object file
-src/Model.cpp.obj:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/Model.cpp.obj
-.PHONY : src/Model.cpp.obj
+src/Main.cpp.obj:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/Main.cpp.obj
+.PHONY : src/Main.cpp.obj
 
-src/Model.i: src/Model.cpp.i
+src/Main.i: src/Main.cpp.i
 
-.PHONY : src/Model.i
+.PHONY : src/Main.i
 
 # target to preprocess a source file
-src/Model.cpp.i:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/Model.cpp.i
-.PHONY : src/Model.cpp.i
+src/Main.cpp.i:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/Main.cpp.i
+.PHONY : src/Main.cpp.i
 
-src/Model.s: src/Model.cpp.s
+src/Main.s: src/Main.cpp.s
 
-.PHONY : src/Model.s
+.PHONY : src/Main.s
 
 # target to generate assembly for a file
-src/Model.cpp.s:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/Model.cpp.s
-.PHONY : src/Model.cpp.s
+src/Main.cpp.s:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/Main.cpp.s
+.PHONY : src/Main.cpp.s
 
 src/ModelRegistration.obj: src/ModelRegistration.cpp.obj
 
@@ -473,33 +392,6 @@ src/lmmin.c.s:
 	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/lmmin.c.s
 .PHONY : src/lmmin.c.s
 
-src/main.obj: src/main.cpp.obj
-
-.PHONY : src/main.obj
-
-# target to build an object file
-src/main.cpp.obj:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/main.cpp.obj
-.PHONY : src/main.cpp.obj
-
-src/main.i: src/main.cpp.i
-
-.PHONY : src/main.i
-
-# target to preprocess a source file
-src/main.cpp.i:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/main.cpp.i
-.PHONY : src/main.cpp.i
-
-src/main.s: src/main.cpp.s
-
-.PHONY : src/main.s
-
-# target to generate assembly for a file
-src/main.cpp.s:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/main.cpp.s
-.PHONY : src/main.cpp.s
-
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -512,24 +404,15 @@ help:
 	@echo ... src/CameraCalibrator.obj
 	@echo ... src/CameraCalibrator.i
 	@echo ... src/CameraCalibrator.s
-	@echo ... src/CsvReader.obj
-	@echo ... src/CsvReader.i
-	@echo ... src/CsvReader.s
-	@echo ... src/CsvWriter.obj
-	@echo ... src/CsvWriter.i
-	@echo ... src/CsvWriter.s
 	@echo ... src/Line2D.obj
 	@echo ... src/Line2D.i
 	@echo ... src/Line2D.s
 	@echo ... src/MSAC.obj
 	@echo ... src/MSAC.i
 	@echo ... src/MSAC.s
-	@echo ... src/Mesh.obj
-	@echo ... src/Mesh.i
-	@echo ... src/Mesh.s
-	@echo ... src/Model.obj
-	@echo ... src/Model.i
-	@echo ... src/Model.s
+	@echo ... src/Main.obj
+	@echo ... src/Main.i
+	@echo ... src/Main.s
 	@echo ... src/ModelRegistration.obj
 	@echo ... src/ModelRegistration.i
 	@echo ... src/ModelRegistration.s
@@ -548,9 +431,6 @@ help:
 	@echo ... src/lmmin.obj
 	@echo ... src/lmmin.i
 	@echo ... src/lmmin.s
-	@echo ... src/main.obj
-	@echo ... src/main.i
-	@echo ... src/main.s
 .PHONY : help
 
 

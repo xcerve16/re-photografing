@@ -47,9 +47,6 @@ void drawArrow(cv::Mat image, cv::Point2i p, cv::Point2i q, cv::Scalar color, in
 // Draw the 3D coordinate axes
 void draw3DCoordinateAxes(cv::Mat image, const std::vector<cv::Point2f> &list_points2d);
 
-// Draw the object mesh
-void drawObjectMesh(cv::Mat image, const Mesh *mesh, PnPProblem *pnpProblem, cv::Scalar color);
-
 // Computes the norm of the translation error
 double get_translation_error(const cv::Mat &t_true, const cv::Mat &t);
 

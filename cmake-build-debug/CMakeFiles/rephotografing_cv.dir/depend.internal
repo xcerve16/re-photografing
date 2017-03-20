@@ -14,6 +14,7 @@ CMakeFiles/rephotografing_cv.dir/src/CameraCalibrator.cpp.obj
  D:/OpenCV/opencv/build/install/include/opencv2/core/affine.hpp
  D:/OpenCV/opencv/build/install/include/opencv2/core/base.hpp
  D:/OpenCV/opencv/build/install/include/opencv2/core/bufferpool.hpp
+ D:/OpenCV/opencv/build/install/include/opencv2/core/core.hpp
  D:/OpenCV/opencv/build/install/include/opencv2/core/core_c.h
  D:/OpenCV/opencv/build/install/include/opencv2/core/cvdef.h
  D:/OpenCV/opencv/build/install/include/opencv2/core/cvstd.hpp
@@ -39,6 +40,7 @@ CMakeFiles/rephotografing_cv.dir/src/CameraCalibrator.cpp.obj
  D:/OpenCV/opencv/build/install/include/opencv2/flann/defines.h
  D:/OpenCV/opencv/build/install/include/opencv2/flann/miniflann.hpp
  D:/OpenCV/opencv/build/install/include/opencv2/highgui.hpp
+ D:/OpenCV/opencv/build/install/include/opencv2/highgui/highgui.hpp
  D:/OpenCV/opencv/build/install/include/opencv2/highgui/highgui_c.h
  D:/OpenCV/opencv/build/install/include/opencv2/imgcodecs.hpp
  D:/OpenCV/opencv/build/install/include/opencv2/imgcodecs/imgcodecs_c.h
@@ -62,127 +64,6 @@ CMakeFiles/rephotografing_cv.dir/src/CameraCalibrator.cpp.obj
  D:/OpenCV/opencv/build/install/include/opencv2/xfeatures2d/nonfree.hpp
  D:/rephotografing/src/CameraCalibrator.cpp
  D:/rephotografing/src/CameraCalibrator.h
-CMakeFiles/rephotografing_cv.dir/src/CsvReader.cpp.obj
- D:/OpenCV/opencv/build/install/include/opencv/cxcore.h
- D:/OpenCV/opencv/build/install/include/opencv2/calib3d.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/calib3d/calib3d_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/core.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/affine.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/base.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/bufferpool.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/core.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/core_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/core/cvdef.h
- D:/OpenCV/opencv/build/install/include/opencv2/core/cvstd.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/cvstd.inl.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/fast_math.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/hal/interface.h
- D:/OpenCV/opencv/build/install/include/opencv2/core/mat.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/mat.inl.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/matx.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/neon_utils.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/operations.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/optim.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/persistence.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/ptr.inl.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/saturate.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/traits.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/types.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/types_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/core/utility.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/version.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/features2d.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/flann/config.h
- D:/OpenCV/opencv/build/install/include/opencv2/flann/defines.h
- D:/OpenCV/opencv/build/install/include/opencv2/flann/miniflann.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/highgui.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/highgui/highgui.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/highgui/highgui_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/imgcodecs.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/imgcodecs/imgcodecs_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/imgproc.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/imgproc/imgproc_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/imgproc/types_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/ml.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/objdetect.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/objdetect/detection_based_tracker.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/objdetect/objdetect_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/opencv.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/photo.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/photo/photo_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/video.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/video/background_segm.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/video/tracking.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/video/tracking_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/videoio.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/videoio/videoio_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/xfeatures2d.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/xfeatures2d/nonfree.hpp
- D:/rephotografing/src/CsvReader.cpp
- D:/rephotografing/src/CsvReader.h
- D:/rephotografing/src/Mesh.h
- D:/rephotografing/src/ModelRegistration.h
- D:/rephotografing/src/PnPProblem.h
- D:/rephotografing/src/Utils.h
-CMakeFiles/rephotografing_cv.dir/src/CsvWriter.cpp.obj
- D:/OpenCV/opencv/build/install/include/opencv/cxcore.h
- D:/OpenCV/opencv/build/install/include/opencv2/calib3d.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/calib3d/calib3d_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/core.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/affine.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/base.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/bufferpool.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/core.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/core_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/core/cvdef.h
- D:/OpenCV/opencv/build/install/include/opencv2/core/cvstd.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/cvstd.inl.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/fast_math.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/hal/interface.h
- D:/OpenCV/opencv/build/install/include/opencv2/core/mat.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/mat.inl.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/matx.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/neon_utils.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/operations.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/optim.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/persistence.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/ptr.inl.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/saturate.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/traits.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/types.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/types_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/core/utility.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/version.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/features2d.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/flann/config.h
- D:/OpenCV/opencv/build/install/include/opencv2/flann/defines.h
- D:/OpenCV/opencv/build/install/include/opencv2/flann/miniflann.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/highgui.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/highgui/highgui.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/highgui/highgui_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/imgcodecs.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/imgcodecs/imgcodecs_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/imgproc.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/imgproc/imgproc_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/imgproc/types_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/ml.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/objdetect.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/objdetect/detection_based_tracker.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/objdetect/objdetect_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/opencv.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/photo.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/photo/photo_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/video.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/video/background_segm.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/video/tracking.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/video/tracking_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/videoio.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/videoio/videoio_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/xfeatures2d.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/xfeatures2d/nonfree.hpp
- D:/rephotografing/src/CsvWriter.cpp
- D:/rephotografing/src/CsvWriter.h
- D:/rephotografing/src/Mesh.h
  D:/rephotografing/src/ModelRegistration.h
  D:/rephotografing/src/PnPProblem.h
  D:/rephotografing/src/Utils.h
@@ -249,132 +130,6 @@ CMakeFiles/rephotografing_cv.dir/src/MSAC.cpp.obj
  D:/rephotografing/src/MSAC.h
  D:/rephotografing/src/errorNIETO.h
  D:/rephotografing/src/lmmin.h
-CMakeFiles/rephotografing_cv.dir/src/Mesh.cpp.obj
- D:/OpenCV/opencv/build/install/include/opencv/cxcore.h
- D:/OpenCV/opencv/build/install/include/opencv2/calib3d.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/calib3d/calib3d_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/core.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/affine.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/base.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/bufferpool.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/core.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/core_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/core/cvdef.h
- D:/OpenCV/opencv/build/install/include/opencv2/core/cvstd.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/cvstd.inl.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/fast_math.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/hal/interface.h
- D:/OpenCV/opencv/build/install/include/opencv2/core/mat.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/mat.inl.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/matx.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/neon_utils.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/operations.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/optim.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/persistence.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/ptr.inl.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/saturate.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/traits.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/types.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/types_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/core/utility.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/version.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/features2d.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/flann/config.h
- D:/OpenCV/opencv/build/install/include/opencv2/flann/defines.h
- D:/OpenCV/opencv/build/install/include/opencv2/flann/miniflann.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/highgui.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/highgui/highgui.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/highgui/highgui_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/imgcodecs.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/imgcodecs/imgcodecs_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/imgproc.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/imgproc/imgproc_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/imgproc/types_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/ml.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/objdetect.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/objdetect/detection_based_tracker.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/objdetect/objdetect_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/opencv.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/photo.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/photo/photo_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/video.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/video/background_segm.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/video/tracking.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/video/tracking_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/videoio.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/videoio/videoio_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/xfeatures2d.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/xfeatures2d/nonfree.hpp
- D:/rephotografing/src/CsvReader.h
- D:/rephotografing/src/Mesh.cpp
- D:/rephotografing/src/Mesh.h
- D:/rephotografing/src/ModelRegistration.h
- D:/rephotografing/src/PnPProblem.h
- D:/rephotografing/src/Utils.h
-CMakeFiles/rephotografing_cv.dir/src/Model.cpp.obj
- D:/OpenCV/opencv/build/install/include/opencv/cxcore.h
- D:/OpenCV/opencv/build/install/include/opencv2/calib3d.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/calib3d/calib3d_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/core.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/affine.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/base.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/bufferpool.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/core.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/core_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/core/cvdef.h
- D:/OpenCV/opencv/build/install/include/opencv2/core/cvstd.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/cvstd.inl.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/fast_math.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/hal/interface.h
- D:/OpenCV/opencv/build/install/include/opencv2/core/mat.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/mat.inl.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/matx.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/neon_utils.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/operations.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/optim.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/persistence.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/ptr.inl.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/saturate.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/traits.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/types.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/types_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/core/utility.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/core/version.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/features2d.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/features2d/features2d.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/flann/config.h
- D:/OpenCV/opencv/build/install/include/opencv2/flann/defines.h
- D:/OpenCV/opencv/build/install/include/opencv2/flann/miniflann.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/highgui.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/highgui/highgui.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/highgui/highgui_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/imgcodecs.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/imgcodecs/imgcodecs_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/imgproc.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/imgproc/imgproc_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/imgproc/types_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/ml.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/objdetect.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/objdetect/detection_based_tracker.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/objdetect/objdetect_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/opencv.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/photo.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/photo/photo_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/video.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/video/background_segm.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/video/tracking.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/video/tracking_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/videoio.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/videoio/videoio_c.h
- D:/OpenCV/opencv/build/install/include/opencv2/xfeatures2d.hpp
- D:/OpenCV/opencv/build/install/include/opencv2/xfeatures2d/nonfree.hpp
- D:/rephotografing/src/CsvWriter.h
- D:/rephotografing/src/Mesh.h
- D:/rephotografing/src/Model.cpp
- D:/rephotografing/src/Model.h
- D:/rephotografing/src/ModelRegistration.h
- D:/rephotografing/src/PnPProblem.h
- D:/rephotografing/src/Utils.h
 CMakeFiles/rephotografing_cv.dir/src/ModelRegistration.cpp.obj
  D:/OpenCV/opencv/build/install/include/opencv/cxcore.h
  D:/OpenCV/opencv/build/install/include/opencv2/calib3d.hpp
@@ -489,7 +244,6 @@ CMakeFiles/rephotografing_cv.dir/src/PnPProblem.cpp.obj
  D:/OpenCV/opencv/build/install/include/opencv2/videoio/videoio_c.h
  D:/OpenCV/opencv/build/install/include/opencv2/xfeatures2d.hpp
  D:/OpenCV/opencv/build/install/include/opencv2/xfeatures2d/nonfree.hpp
- D:/rephotografing/src/Mesh.h
  D:/rephotografing/src/ModelRegistration.h
  D:/rephotografing/src/PnPProblem.cpp
  D:/rephotografing/src/PnPProblem.h
@@ -610,7 +364,6 @@ CMakeFiles/rephotografing_cv.dir/src/Utils.cpp.obj
  D:/OpenCV/opencv/build/install/include/opencv2/videoio/videoio_c.h
  D:/OpenCV/opencv/build/install/include/opencv2/xfeatures2d.hpp
  D:/OpenCV/opencv/build/install/include/opencv2/xfeatures2d/nonfree.hpp
- D:/rephotografing/src/Mesh.h
  D:/rephotografing/src/ModelRegistration.h
  D:/rephotografing/src/PnPProblem.h
  D:/rephotografing/src/Utils.cpp
@@ -738,13 +491,11 @@ CMakeFiles/rephotografing_cv.dir/src/main.cpp.obj
  D:/rephotografing/src/CameraCalibrator.h
  D:/rephotografing/src/Line2D.h
  D:/rephotografing/src/MSAC.h
- D:/rephotografing/src/Mesh.h
- D:/rephotografing/src/Model.h
+ D:/rephotografing/src/Main.cpp
+ D:/rephotografing/src/Main.h
  D:/rephotografing/src/ModelRegistration.h
  D:/rephotografing/src/MyRobustMatcher.h
  D:/rephotografing/src/PnPProblem.h
  D:/rephotografing/src/RobustMatcher.h
  D:/rephotografing/src/Utils.h
  D:/rephotografing/src/errorNIETO.h
- D:/rephotografing/src/main.cpp
- D:/rephotografing/src/main.h

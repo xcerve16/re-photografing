@@ -1,9 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/rephotografing_cv.dir/src/main.cpp.obj"
-  "CMakeFiles/rephotografing_cv.dir/src/CsvReader.cpp.obj"
-  "CMakeFiles/rephotografing_cv.dir/src/CsvWriter.cpp.obj"
-  "CMakeFiles/rephotografing_cv.dir/src/Mesh.cpp.obj"
-  "CMakeFiles/rephotografing_cv.dir/src/Model.cpp.obj"
+  "CMakeFiles/rephotografing_cv.dir/src/Main.cpp.obj"
   "CMakeFiles/rephotografing_cv.dir/src/ModelRegistration.cpp.obj"
   "CMakeFiles/rephotografing_cv.dir/src/PnPProblem.cpp.obj"
   "CMakeFiles/rephotografing_cv.dir/src/RobustMatcher.cpp.obj"

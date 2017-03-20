@@ -19,7 +19,6 @@
 #include "Utils.h"
 #include "MyRobustMatcher.h"
 #include "Line2D.h"
-#include "Model.h"
 #include "MSAC.h"
 #include "RobustMatcher.h"
 
@@ -76,17 +75,20 @@ int numVps = 3;
 bool verbose = false;
 
 // Window's names
-string WIN_USER_SELECT_POINT = "WIN_USER_SELECT_POINT";
-string WIN_REF_IMAGE_FOR_USER = "WIN_REF_IMAGE_FOR_USER";
-string WIN_REF_IMAGE_WITH_HOUGH_LINES = "WIN_REF_IMAGE_WITH_HOUGH_LINES";
-string WIN_REF_IMAGE_WITH_VANISH_POINTS = "WIN_REF_IMAGE_WITH_VANISH_POINTS";
-string WIN_REAL_TIME_DEMO = "WIN_REAL_TIME_DEMO";
+const string WIN_USER_SELECT_POINT = "WIN_USER_SELECT_POINT";
+const string WIN_REF_IMAGE_FOR_USER = "WIN_REF_IMAGE_FOR_USER";
+const string WIN_REF_IMAGE_WITH_HOUGH_LINES = "WIN_REF_IMAGE_WITH_HOUGH_LINES";
+const string WIN_REF_IMAGE_WITH_VANISH_POINTS = "WIN_REF_IMAGE_WITH_VANISH_POINTS";
+const string WIN_REAL_TIME_DEMO = "WIN_REAL_TIME_DEMO";
 
 // File's path
-String path_to_first_image = "resource/image/rsz_biskupsky_palac_3.jpg";
-String path_to_second_image = "resource/image/rsz_biskupsky_palac_2.jpg";
-String path_to_ref_image = "resource/image/ref_biskupsky_palac.jpg";
-string video_read_path = "resource/video/biskupsky_palac.mp4";
+const string path_to_first_image = "resource/image/rsz_biskupsky_palac_2.jpg";
+const string path_to_second_image = "resource/image/rsz_biskupsky_palac_3.jpg";
+const string path_to_ref_image = "resource/image/ref_biskupsky_palac.jpg";
+const string video_read_path = "resource/video/biskupsky_palac.mp4";
+
+// ERROR message
+const string ERROR_READ_IMAGE = "Could not open or find the image";
 
 // RANSAC parameters
 int iterationsCount = 1000;
@@ -94,7 +96,7 @@ float reprojectionError = 10.0;
 double confidence = 0.95;
 
 // Kalman Filter parameters
-int minInliersKalman = 30;
+int minInliersKalman = 10;
 int nStates = 18;            // the number of states
 int nMeasurements = 6;       // the number of measured states
 int nInputs = 0;             // the number of control actions
@@ -141,7 +143,8 @@ double convert_radian_to_degree(double input) {
     return (input * 180) / PI;
 }
 
-void getInliersPoints(Mat first_image, Mat second_image, vector<cv::KeyPoint> keypoints1, Mat descriptor1);
+Mat
+getInliersPoints(Mat first_image, Mat second_image, vector<cv::KeyPoint> keypoints1, Mat descriptor1);
 
 int getDirection(vector<Point2f> list_points2d_scene_match, vector<Point2f> registration_2D_points, int focal, Point2f center);
 
