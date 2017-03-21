@@ -73,12 +73,8 @@ PnPProblem::PnPProblem(const double params[]) {
     _A_matrix.at<double>(2, 2) = 1;
     _R_matrix = cv::Mat::zeros(3, 3, CV_64FC1);   // rotation matrix
     _T_matrix = cv::Mat::zeros(3, 1, CV_64FC1);   // translation matrix
-    _P_matrix = cv::Mat::zeros(3, 4, CV_64FC1);   // rotation-translation matrix
+    _P_matrix = cv::Mat::zeros(4, 4, CV_64FC1);   // rotation-translation matrix
 
-}
-
-PnPProblem::~PnPProblem() {
-    // TODO Auto-generated destructor stub
 }
 
 void PnPProblem::set_P_matrix(const cv::Mat &R_matrix, const cv::Mat &t_matrix) {
@@ -95,13 +91,17 @@ void PnPProblem::set_P_matrix(const cv::Mat &R_matrix, const cv::Mat &t_matrix) 
     _P_matrix.at<double>(0, 3) = t_matrix.at<double>(0);
     _P_matrix.at<double>(1, 3) = t_matrix.at<double>(1);
     _P_matrix.at<double>(2, 3) = t_matrix.at<double>(2);
+    _P_matrix.at<double>(3, 0) = 0;
+    _P_matrix.at<double>(3, 1) = 0;
+    _P_matrix.at<double>(3, 2) = 0;
+    _P_matrix.at<double>(3, 3) = 1;
 }
 
 
 // Estimate the pose given a list of 2D/3D correspondences and the method to use
-bool PnPProblem::estimatePose(const std::vector<cv::Point3f> &list_points3d,
-                              const std::vector<cv::Point2f> &list_points2d,
-                              int flags) {
+bool
+PnPProblem::estimatePose(const std::vector<cv::Point3f> &list_points3d, const std::vector<cv::Point2f> &list_points2d,
+                         int flags) {
     cv::Mat distCoeffs = cv::Mat::zeros(4, 1, CV_64FC1);
     cv::Mat rvec = cv::Mat::zeros(3, 1, CV_64FC1);
     cv::Mat tvec = cv::Mat::zeros(3, 1, CV_64FC1);
@@ -157,9 +157,9 @@ void PnPProblem::mySolvePnPRansac(const std::vector<cv::Point3f> &list_points3d,
 }
 
 void PnPProblem::myProjectPoints(std::vector<cv::Point3f> list3DPoint, cv::Mat rvect, cv::Mat tvect,
-                                 std::vector<cv::Point2f> list2DPoint){
+                                 std::vector<cv::Point2f> list2DPoint) {
     cv::Mat distCoeffs = cv::Mat::zeros(4, 1, CV_64FC1);
-    projectPoints(list3DPoint, rvect, tvect,_A_matrix, distCoeffs, list2DPoint);
+    projectPoints(list3DPoint, rvect, tvect, _A_matrix, distCoeffs, list2DPoint);
 }
 
 // Backproject a 3D point to 2D using the estimated pose parameters
@@ -199,10 +199,9 @@ void PnPProblem::setMatrixParam(double fx, double fy, double cx, double cy) {
     _A_matrix.at<double>(2, 2) = 1;
     _R_matrix = cv::Mat::zeros(3, 3, CV_64FC1);   // rotation matrix
     _T_matrix = cv::Mat::zeros(3, 1, CV_64FC1);   // translation matrix
-    _P_matrix = cv::Mat::zeros(3, 4, CV_64FC1);   // rotation-translation matrix
+    _P_matrix = cv::Mat::zeros(4, 4, CV_64FC1);   // rotation-translation matrix
 
 }
-
 
 
 PnPProblem::PnPProblem() {

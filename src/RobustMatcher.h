@@ -13,32 +13,44 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/features2d/features2d.hpp>
+#include <opencv2/xfeatures2d.hpp>
 
 using namespace cv;
 using namespace std;
+using namespace cv::xfeatures2d;
 
 class RobustMatcher {
+
+
+private:
+
+    cv::Ptr<cv::FeatureDetector> detector;
+    cv::Ptr<cv::DescriptorExtractor> extractor;
+    cv::Ptr<cv::DescriptorMatcher> matcher;
+    float ratio;
+    bool refineF;
+    double distance;
+    double confidence;
+
 public:
-    RobustMatcher() : ratio_(0.8f) {
-        // ORB is the default feature
-        detector_ = cv::ORB::create();
-        extractor_ = cv::ORB::create();
+    RobustMatcher() : ratio(0.65f), refineF(true), confidence(0.99), distance(3.0) {
 
-        // BruteFroce matcher with Norm Hamming is the default matcher
-        matcher_ = cv::makePtr<cv::BFMatcher>((int) cv::NORM_HAMMING, false);
+        detector = SURF::create();
+        extractor = SURF::create();
 
+        matcher = cv::makePtr<cv::BFMatcher>((int) cv::NORM_HAMMING, false);
     }
 
     virtual ~RobustMatcher();
 
     // Set the feature detector
-    void setFeatureDetector(const cv::Ptr<cv::FeatureDetector> &detect) { detector_ = detect; }
+    void setFeatureDetector(const cv::Ptr<cv::FeatureDetector> &detect) { detector = detect; }
 
     // Set the descriptor extractor
-    void setDescriptorExtractor(const cv::Ptr<cv::DescriptorExtractor> &desc) { extractor_ = desc; }
+    void setDescriptorExtractor(const cv::Ptr<cv::DescriptorExtractor> &desc) { extractor = desc; }
 
     // Set the matcher
-    void setDescriptorMatcher(const cv::Ptr<cv::DescriptorMatcher> &match) { matcher_ = match; }
+    void setDescriptorMatcher(const cv::Ptr<cv::DescriptorMatcher> &match) { matcher = match; }
 
     // Compute the keypoints of an image
     void computeKeyPoints(const cv::Mat &image, std::vector<cv::KeyPoint> &keypoints);
@@ -46,13 +58,15 @@ public:
     // Compute the descriptors of an image given its keypoints
     void computeDescriptors(const cv::Mat &image, std::vector<cv::KeyPoint> &keypoints, cv::Mat &descriptors);
 
-    // Set ratioTest parameter for the ratioTest test
-    void setRatio(float rat) { ratio_ = rat; }
+    void setMinDistanceToEpipolar(double d) { distance = d; }
 
-    // Clear matches for which NN ratioTest is > than threshold
-    // return the number of removed points
-    // (corresponding entries being cleared,
-    // i.e. size will be 0)
+    void setConfidenceLevel(double c) { confidence = c; }
+
+    void setRatio(float r) { ratio = r; }
+
+    void refineFundamental(bool flag) { refineF = flag; }
+
+
     int ratioTest(std::vector<std::vector<cv::DMatch> > &matches);
 
     // Insert symmetrical matches in symMatches vector
@@ -70,18 +84,16 @@ public:
                          std::vector<cv::KeyPoint> &keypoints_frame,
                          const cv::Mat &descriptors_model);
 
-    void myMatch(Mat image1, Mat image2, vector<vector<DMatch>> matches, int k);
 
+    Mat match(Mat &image1, Mat &image2, vector<DMatch> &matches, vector<KeyPoint> &keypoints1,
+              vector<KeyPoint> &keypoints2);
 
-private:
-    // pointer to the feature point detector object
-    cv::Ptr<cv::FeatureDetector> detector_;
-    // pointer to the feature descriptor extractor object
-    cv::Ptr<cv::DescriptorExtractor> extractor_;
-    // pointer to the matcher object
-    cv::Ptr<cv::DescriptorMatcher> matcher_;
-    // max ratioTest between 1st and 2nd NN
-    float ratio_;
+    Mat matchSimple(Mat &image1, Mat &descriptors2, vector<DMatch> &matches, vector<KeyPoint> &keypoints1,
+                    vector<KeyPoint> &keypoints2);
+
+    Mat
+    ransacTest(const vector<DMatch> &matches, const vector<KeyPoint> &keypoints1, const vector<KeyPoint> &keypoints2,
+               vector<DMatch> &outMatches);
 };
 
 #endif /* ROBUSTMATCHER_H_ */

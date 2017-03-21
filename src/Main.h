@@ -17,7 +17,6 @@
 #include "PnPProblem.h"
 #include "CameraCalibrator.h"
 #include "Utils.h"
-#include "MyRobustMatcher.h"
 #include "Line2D.h"
 #include "MSAC.h"
 #include "RobustMatcher.h"
@@ -26,6 +25,7 @@
 #ifdef WIN32
 
 #include <windows.h>
+#include <opencv/cv.hpp>
 
 #endif
 #ifdef linux
@@ -53,8 +53,7 @@ Scalar white(255, 255, 255);
 
 ModelRegistration registration;
 CameraCalibrator cameraCalibrator;
-MyRobustMatcher robustMatcher;
-RobustMatcher rmatcher;
+RobustMatcher robustMatcher;
 PnPProblem pnp_registration;
 KalmanFilter kalmanFilter;
 MSAC msac;
@@ -89,6 +88,8 @@ const string video_read_path = "resource/video/biskupsky_palac.mp4";
 
 // ERROR message
 const string ERROR_READ_IMAGE = "Could not open or find the image";
+const string ERROR_OPEN_CAMERA = "Could not open the camera device";
+const string ERROR_COMPARE_MATRIX = "Error while compare project matrix";
 
 // RANSAC parameters
 int iterationsCount = 1000;

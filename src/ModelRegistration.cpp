@@ -12,10 +12,6 @@ ModelRegistration::ModelRegistration() {
     max_registrations_ = 0;
 }
 
-ModelRegistration::~ModelRegistration() {
-    // TODO Auto-generated destructor stub
-}
-
 void ModelRegistration::registerPoint(const cv::Point2f &point2d, const cv::Point3f &point3d) {
     // add correspondence at the end of the vector
     list_points2d_.push_back(point2d);

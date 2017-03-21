@@ -5,7 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "D:/rephotografing/src/lmmin.c" "D:/rephotografing/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/lmmin.c.obj"
+  "D:/Refotografing-source/src/lmmin.c" "D:/Refotografing-source/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/lmmin.c.obj"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 
@@ -15,15 +15,15 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   "D:/OpenCV/opencv/build/install/include/opencv"
   )
 set(CMAKE_DEPENDS_CHECK_CXX
-  "D:/rephotografing/src/CameraCalibrator.cpp" "D:/rephotografing/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/CameraCalibrator.cpp.obj"
-  "D:/rephotografing/src/Line2D.cpp" "D:/rephotografing/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.obj"
-  "D:/rephotografing/src/MSAC.cpp" "D:/rephotografing/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/MSAC.cpp.obj"
-  "D:/rephotografing/src/ModelRegistration.cpp" "D:/rephotografing/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/ModelRegistration.cpp.obj"
-  "D:/rephotografing/src/PnPProblem.cpp" "D:/rephotografing/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/PnPProblem.cpp.obj"
-  "D:/rephotografing/src/RobustMatcher.cpp" "D:/rephotografing/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/RobustMatcher.cpp.obj"
-  "D:/rephotografing/src/Utils.cpp" "D:/rephotografing/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/Utils.cpp.obj"
-  "D:/rephotografing/src/errorNIETO.cpp" "D:/rephotografing/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/errorNIETO.cpp.obj"
-  "D:/rephotografing/src/Main.cpp" "D:/rephotografing/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/main.cpp.obj"
+  "D:/Refotografing-source/src/CameraCalibrator.cpp" "D:/Refotografing-source/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/CameraCalibrator.cpp.obj"
+  "D:/Refotografing-source/src/Line2D.cpp" "D:/Refotografing-source/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.obj"
+  "D:/Refotografing-source/src/MSAC.cpp" "D:/Refotografing-source/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/MSAC.cpp.obj"
+  "D:/Refotografing-source/src/Main.cpp" "D:/Refotografing-source/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/Main.cpp.obj"
+  "D:/Refotografing-source/src/ModelRegistration.cpp" "D:/Refotografing-source/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/ModelRegistration.cpp.obj"
+  "D:/Refotografing-source/src/PnPProblem.cpp" "D:/Refotografing-source/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/PnPProblem.cpp.obj"
+  "D:/Refotografing-source/src/RobustMatcher.cpp" "D:/Refotografing-source/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/RobustMatcher.cpp.obj"
+  "D:/Refotografing-source/src/Utils.cpp" "D:/Refotografing-source/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/Utils.cpp.obj"
+  "D:/Refotografing-source/src/errorNIETO.cpp" "D:/Refotografing-source/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/errorNIETO.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
