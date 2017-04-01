@@ -15,11 +15,9 @@ class CameraCalibrator {
     vector<std::vector<Point3f>> objectPoints;
     vector<std::vector<Point2f>> imagePoints;
     Mat cameraMatrix;
-    Mat distCoeffs;
     int flag;
     Mat map1, map2;
     bool mustInitUndistort;
-    vector<cv::Mat> rvecs, tvecs;
 
 public:
     CameraCalibrator() : flag(0), mustInitUndistort(true) {};
@@ -29,19 +27,9 @@ public:
     void addPoints(const vector<cv::Point2f> &imageCorners,
                    const vector<cv::Point3f> &objectCorners);
 
-    double calibrate(Size &imageSize);
-
-    Mat myremap(const Mat &image);
+    double calibrate(Size imageSize);
 
     Mat getCameraMatrix() { return cameraMatrix; }
-
-    Mat getDistCoeffs() { return distCoeffs; }
-
-    vector<Mat> getRotationVector() { return rvecs; }
-
-    vector<Mat> getTransportVector() { return tvecs; }
-
-    void cleanVectors();
 };
 
 

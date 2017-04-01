@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="CMakeRunConfigurationManager" shouldGenerate="true" buildAllGenerated="true">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true" buildAllGenerated="true">
     <generated>
-      <config projectName="Project" targetName="rephotografing_cv" />
       <config projectName="rephotografing" targetName="rephotografing_cv" />
       <config projectName="rephotografing" targetName="rephotografing" />
     </generated>
@@ -13,46 +12,120 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70e342c2-adc5-4064-9319-db384ed3edb0" name="Default" comment="Oprava projekcni matice u robust matcher&#10;">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard44.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard45.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard46.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard47.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard48.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard49.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard50.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard51.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard52.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard53.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard54.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard55.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard56.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard57.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard58.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard59.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard60.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard61.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard62.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard63.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard64.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard65.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard66.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard67.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard68.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard69.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard70.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard71.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard72.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard73.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard74.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard75.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard76.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard77.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard78.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard79.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard80.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/.name" />
+    <list default="true" id="70e342c2-adc5-4064-9319-db384ed3edb0" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.6.3/CMakeCCompiler.cmake" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.6.3/CMakeCXXCompiler.cmake" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.6.3/CMakeDetermineCompilerABI_C.bin" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.6.3/CMakeDetermineCompilerABI_CXX.bin" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.6.3/CMakeRCCompiler.cmake" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.6.3/CMakeSystem.cmake" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.6.3/CompilerIdC/CMakeCCompilerId.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.6.3/CompilerIdC/a.exe" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.6.3/CompilerIdCXX/CMakeCXXCompilerId.cpp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.6.3/CompilerIdCXX/a.exe" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/C.includecache" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/CXX.includecache" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/depend.internal" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/objects.a" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/CameraCalibrator.cpp.obj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.obj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/MSAC.cpp.obj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/ModelRegistration.cpp.obj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/PnPProblem.cpp.obj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/RobustMatcher.cpp.obj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/Utils.cpp.obj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/errorNIETO.cpp.obj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/lmmin.c.obj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/main.cpp.obj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard13.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard14.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard15.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard16.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard17.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard18.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard19.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard20.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard21.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard22.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard23.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard24.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard25.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard26.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard27.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard28.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard29.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard30.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard31.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard32.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard33.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard34.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard35.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard36.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard37.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard38.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard39.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard40.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard41.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard42.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard43.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard44.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard45.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard46.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard47.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard48.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard49.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard50.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard51.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard52.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard53.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard54.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard55.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard56.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard57.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard58.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard75.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard76.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard77.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard78.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard79.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard80.jpg" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.bin" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/rephotografing_cv.exe" afterPath="$PROJECT_DIR$/cmake-build-debug/rephotografing_cv.exe" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard06.jpg" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard06.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard07.jpg" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard07.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard08.jpg" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard08.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard09.jpg" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard09.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard10.jpg" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard10.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard11.jpg" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard11.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard12.jpg" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard12.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard59.jpg" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard59.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard66.jpg" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard66.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard67.jpg" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard67.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard68.jpg" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard68.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard69.jpg" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard69.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard70.jpg" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard70.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard71.jpg" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard71.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard72.jpg" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard72.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard73.jpg" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard73.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resource/image/chessboards/chessboard74.jpg" afterPath="$PROJECT_DIR$/resource/image/chessboards/chessboard74.jpg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-environment.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-environment.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/build.make" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/build.make" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/depend.make" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/depend.make" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/flags.make" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/flags.make" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/rephotografing.cbp" afterPath="$PROJECT_DIR$/cmake-build-debug/rephotografing.cbp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CameraCalibrator.cpp" afterPath="$PROJECT_DIR$/src/CameraCalibrator.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CameraCalibrator.h" afterPath="$PROJECT_DIR$/src/CameraCalibrator.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.cpp" afterPath="$PROJECT_DIR$/src/Main.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelRegistration.h" afterPath="$PROJECT_DIR$/src/ModelRegistration.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/PnPProblem.h" afterPath="$PROJECT_DIR$/src/PnPProblem.h" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -71,108 +144,56 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Main.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-968">
-              <caret line="705" column="10" lean-forward="false" selection-start-line="705" selection-start-column="10" selection-end-line="705" selection-end-column="10" />
+            <state relative-caret-position="14275">
+              <caret line="885" column="0" lean-forward="true" selection-start-line="885" selection-start-column="0" selection-end-line="885" selection-end-column="0" />
               <folding>
-                <element signature="e#26747#27410#0" expanded="true" />
+                <element signature="e#24644#25307#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="chessboard44.jpg" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resource/image/chessboards/chessboard44.jpg">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ModelRegistration.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ModelRegistration.cpp">
+      <file leaf-file-name="imgproc.hpp" pinned="false" current-in-tab="false">
+        <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/imgproc.hpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="12" column="1" lean-forward="false" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+            <state relative-caret-position="87360">
+              <caret line="4160" column="71" lean-forward="false" selection-start-line="4160" selection-start-column="71" selection-end-line="4160" selection-end-column="71" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MSAC.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/MSAC.cpp">
+      <file leaf-file-name="types.hpp" pinned="false" current-in-tab="false">
+        <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/core/types.hpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="27552">
+              <caret line="1312" column="0" lean-forward="false" selection-start-line="1312" selection-start-column="0" selection-end-line="1312" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CameraCalibrator.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/CameraCalibrator.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="12" column="26" lean-forward="false" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="26" />
               <folding>
-                <element signature="e#0#30#0" expanded="true" />
+                <element signature="e#47#71#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ModelRegistration.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ModelRegistration.h">
+      <file leaf-file-name="CameraCalibrator.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/CameraCalibrator.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="378">
+              <caret line="18" column="9" lean-forward="true" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PnPProblem.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/PnPProblem.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1716">
-              <caret line="78" column="0" lean-forward="false" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MSAC.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/MSAC.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PnPProblem.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/PnPProblem.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1320">
-              <caret line="60" column="22" lean-forward="false" selection-start-line="60" selection-start-column="22" selection-end-line="60" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RobustMatcher.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/RobustMatcher.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3168">
-              <caret line="144" column="0" lean-forward="false" selection-start-line="144" selection-start-column="0" selection-end-line="144" selection-end-column="0" />
-              <folding>
-                <element signature="e#82#106#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Main.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1254">
-              <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
-              <folding>
-                <element signature="e#108#127#0" expanded="true" />
-                <element signature="e#470#490#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -181,9 +202,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>red</find>
-      <find>blue</find>
-      <find>Homography</find>
       <find>focal</find>
       <find>rvect</find>
       <find>estimatePoseRANSAC</find>
@@ -211,6 +229,9 @@
       <find>ransacTest</find>
       <find>&lt;&lt;</find>
       <find>Mat</find>
+      <find>setCalibrationFlag</find>
+      <find>circe</find>
+      <find>green</find>
     </findStrings>
     <replaceStrings>
       <replace>countArgs</replace>
@@ -237,17 +258,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/build3dmodel.cpp" />
-        <option value="$PROJECT_DIR$/src/PoseEstimation.cpp" />
-        <option value="$PROJECT_DIR$/src/CalibrationCamera.h" />
-        <option value="$PROJECT_DIR$/src/CalibrationCamera.cpp" />
         <option value="$PROJECT_DIR$/src/MyMatcher.h" />
-        <option value="$PROJECT_DIR$/src/CameraCalibrator.h" />
         <option value="$PROJECT_DIR$/src/MSAC.h" />
         <option value="$PROJECT_DIR$/src/xxx.h" />
         <option value="$PROJECT_DIR$/src/lmmin.cpp" />
         <option value="$PROJECT_DIR$/data/cookies_ORB.yml" />
-        <option value="$PROJECT_DIR$/src/ModelRegistration.h" />
         <option value="$PROJECT_DIR$/src/Line2D.h" />
         <option value="$PROJECT_DIR$/src/Line2D.cpp" />
         <option value="$PROJECT_DIR$/src/Model.h" />
@@ -274,20 +289,26 @@
         <option value="$PROJECT_DIR$/src/vzor.cpp" />
         <option value="$PROJECT_DIR$/src/Calibrator.cpp" />
         <option value="$PROJECT_DIR$/src/camera_calibration.cpp" />
-        <option value="$PROJECT_DIR$/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/src/CameraCalibrator.cpp" />
         <option value="$PROJECT_DIR$/src/main.h" />
         <option value="$PROJECT_DIR$/src/main.cpp" />
-        <option value="$PROJECT_DIR$/src/PnPProblem.h" />
         <option value="$PROJECT_DIR$/src/Utils.h" />
-        <option value="$PROJECT_DIR$/src/Utils.cpp" />
         <option value="$PROJECT_DIR$/src/MyRobustMatcher.h" />
         <option value="$PROJECT_DIR$/src/RobustMatcher.h" />
         <option value="$PROJECT_DIR$/src/RobustMatcher.cpp" />
-        <option value="$PROJECT_DIR$/src/Main.h" />
         <option value="$PROJECT_DIR$/src/ModelRegistration.cpp" />
         <option value="$PROJECT_DIR$/src/PnPProblem.cpp" />
+        <option value="$PROJECT_DIR$/src/Chapter 09/calibrate.cpp" />
+        <option value="$PROJECT_DIR$/src/Chapter09/CameraCalibrator.h" />
+        <option value="$PROJECT_DIR$/src/Chapter09/CameraCalibrator.cpp" />
+        <option value="$PROJECT_DIR$/src/ModelRegistration.h" />
+        <option value="$PROJECT_DIR$/src/PnPProblem.h" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/src/Main.h" />
+        <option value="$PROJECT_DIR$/src/Chapter09/calibrate.cpp" />
+        <option value="$PROJECT_DIR$/src/CameraCalibrator.cpp" />
+        <option value="$PROJECT_DIR$/src/Utils.cpp" />
         <option value="$PROJECT_DIR$/src/Main.cpp" />
+        <option value="$PROJECT_DIR$/src/CameraCalibrator.h" />
       </list>
     </option>
   </component>
@@ -309,9 +330,9 @@
   </component>
   <component name="OCFindUsagesOptions" text="false" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="-9" />
-    <option name="width" value="1924" />
-    <option name="height" value="1048" />
+    <option name="x" value="952" />
+    <option name="width" value="976" />
+    <option name="height" value="1038" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -409,46 +430,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rephotografing" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Refotografing-source" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resource" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="image" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rephotografing" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Refotografing-source" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resource" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="image" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="chessboards" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -478,7 +459,26 @@
       <recent name="C:\Users\acervenka2\ClionProjects\rephotografing\src" />
     </key>
   </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
   <component name="RunManager" selected="Application.rephotografing">
+    <configuration default="true" type="CLion_Remote" factoryName="GDB Remote Debug" remoteCommand="" symbolFile="" sysroot="">
+      <method />
+    </configuration>
+    <configuration default="true" type="CMakeCatchTestRunConfigurationType" factoryName="Catch Test" PASS_PARENT_ENVS_2="true" TEST_MODE="SUITE_TEST">
+      <envs />
+      <method />
+    </configuration>
     <configuration default="true" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" TEST_MODE="SUITE_TEST">
       <envs />
       <method />
@@ -487,7 +487,20 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="true" type="ChromiumRemoteDebugType" factoryName="Chromium Remote">
+      <method />
+    </configuration>
+    <configuration default="true" type="CompoundRunConfigurationType" factoryName="Compound Run Configuration">
+      <method />
+    </configuration>
     <configuration default="true" type="FirefoxRemoteDebugType" factoryName="Firefox Remote">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
+      <node-interpreter value="project" />
+      <working-dir value="" />
+      <envs />
+      <scope-kind value="ALL" />
       <method />
     </configuration>
     <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
@@ -497,6 +510,9 @@
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeWebKit" factoryName="NW.js">
       <method />
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
@@ -514,6 +530,13 @@
       <option name="SCRIPT_NAME" value="" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="ReactNative" factoryName="React Native">
+      <node-interpreter value="project" />
+      <platform value="ANDROID" />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="Tox" factoryName="Tox">
@@ -526,6 +549,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="rephotografing" />
+      <method />
+    </configuration>
+    <configuration default="true" type="XSLT" factoryName="XSLT">
+      <option name="myOutputFile" />
+      <option name="myOpenOutputFile" value="false" />
+      <option name="myOpenInBrowser" value="false" />
+      <option name="mySmartErrorHandling" value="true" />
+      <option name="myRunnerPort" value="34873" />
+      <option name="myVmArguments" />
+      <option name="myWorkingDirectory" />
+      <option name="myModule" />
+      <option name="myJdk" />
+      <parameters />
+      <OutputType value="CONSOLE" save-to-file="false" />
+      <FileType name="XML" />
+      <JdkChoice value="FROM_MODULE" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.grunt" factoryName="Grunt.js">
+      <node-interpreter value="project" />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
@@ -542,25 +586,6 @@
       <scripts />
       <node-interpreter value="project" />
       <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="Attests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="rephotografing" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
@@ -592,15 +617,10 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="rephotografing" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
+      <option name="_new_regexPattern" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
@@ -613,19 +633,39 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="rephotografing" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="py.test">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="rephotografing" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unnamed" type="FirefoxRemoteDebugType" factoryName="Firefox Remote">
+      <method />
+    </configuration>
+    <configuration default="false" name="rephotografing" type="CMakeRunConfiguration" factoryName="Application" WORKING_DIR="file://$PROJECT_DIR$" PASS_PARENT_ENVS_2="true" PROJECT_NAME="rephotografing" TARGET_NAME="rephotografing_cv" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="rephotografing" RUN_TARGET_NAME="rephotografing_cv">
+      <envs />
+      <method />
+    </configuration>
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="Firefox Remote.Unnamed" />
+      <item index="1" class="java.lang.String" itemvalue="Application.rephotografing" />
+    </list>
+    <configuration default="true" type="tests" factoryName="Attests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs />
@@ -642,24 +682,8 @@
       <option name="TEST_TYPE" value="TEST_SCRIPT" />
       <option name="PATTERN" value="" />
       <option name="USE_PATTERN" value="false" />
-      <option name="testToRun" value="" />
-      <option name="keywords" value="" />
-      <option name="params" value="" />
-      <option name="USE_PARAM" value="false" />
-      <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="rephotografing" type="CMakeRunConfiguration" factoryName="Application" WORKING_DIR="file://$PROJECT_DIR$" PASS_PARENT_ENVS_2="true" PROJECT_NAME="rephotografing" TARGET_NAME="rephotografing_cv" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="rephotografing" RUN_TARGET_NAME="rephotografing_cv">
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="Unnamed" type="FirefoxRemoteDebugType" factoryName="Firefox Remote">
-      <method />
-    </configuration>
-    <list size="2">
-      <item index="0" class="java.lang.String" itemvalue="Application.rephotografing" />
-      <item index="1" class="java.lang.String" itemvalue="Firefox Remote.Unnamed" />
-    </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
@@ -782,7 +806,25 @@
       <workItem from="1490006082617" duration="938000" />
       <workItem from="1490085316604" duration="6723000" />
       <workItem from="1490105030901" duration="4307000" />
-      <workItem from="1490124636638" duration="231000" />
+      <workItem from="1490124636638" duration="1525000" />
+      <workItem from="1490179081220" duration="485000" />
+      <workItem from="1490179578298" duration="907000" />
+      <workItem from="1490194800862" duration="2908000" />
+      <workItem from="1490257805760" duration="93000" />
+      <workItem from="1490282954957" duration="7600000" />
+      <workItem from="1490371903739" duration="596000" />
+      <workItem from="1490449510371" duration="1226000" />
+      <workItem from="1490532711437" duration="2913000" />
+      <workItem from="1490536237872" duration="457000" />
+      <workItem from="1490536723764" duration="14186000" />
+      <workItem from="1490726576335" duration="6618000" />
+      <workItem from="1490906567225" duration="12000" />
+      <workItem from="1490970594489" duration="4979000" />
+      <workItem from="1490981500149" duration="135000" />
+      <workItem from="1490981916400" duration="9000" />
+      <workItem from="1490981942631" duration="740000" />
+      <workItem from="1491032563773" duration="1213000" />
+      <workItem from="1491037517927" duration="967000" />
     </task>
     <task id="LOCAL-00001" summary="registrace funguje, detekce zatim ne">
       <created>1481836872027</created>
@@ -1001,11 +1043,18 @@
       <option name="project" value="LOCAL" />
       <updated>1490124732631</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Pridani obrazku ke kalibraci">
+      <created>1490124886031</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1490124886031</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="633818000" />
+    <option name="totallyTimeSpent" value="681156000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1017,27 +1066,27 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="0" width="1924" height="1048" extended-state="0" />
-    <editor active="false" />
+    <frame x="952" y="0" width="976" height="1038" extended-state="0" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22589238" sideWeight="0.7383918" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25111112" sideWeight="0.7383918" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33182332" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30351076" sideWeight="0.4975" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17667045" sideWeight="0.52934957" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21291053" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.6908267" sideWeight="0.4949303" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3216308" sideWeight="0.377578" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.68957615" sideWeight="0.4949303" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3250283" sideWeight="0.622422" order="5" side_tool="false" content_ui="combo" x="3" y="529" width="1594" height="320" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24907456" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32760596" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3272933" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17503966" sideWeight="0.26160815" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30577576" sideWeight="0.6368821" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34088334" sideWeight="0.4150824" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30464327" sideWeight="0.5282919" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3216308" sideWeight="0.47065046" order="2" side_tool="false" content_ui="combo" x="3" y="529" width="1594" height="320" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21291053" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34088334" sideWeight="0.4150824" order="3" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33218786" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1097,7 +1146,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Pridani Robust Matcher" />
     <MESSAGE value="Korekce ke dni 18.12." />
     <MESSAGE value="Dokonceni triangulace" />
     <MESSAGE value="Rozdelane pose estimation" />
@@ -1122,7 +1170,8 @@
     <MESSAGE value="Výpočet relativní matice" />
     <MESSAGE value="Oprava triangulace, calibrace, smazani prebitecnych trid" />
     <MESSAGE value="Oprava projekcni matice u robust matcher&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Oprava projekcni matice u robust matcher&#10;" />
+    <MESSAGE value="Pridani obrazku ke kalibraci" />
+    <option name="LAST_COMMIT_MESSAGE" value="Pridani obrazku ke kalibraci" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1143,7 +1192,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="1267" />
+      <option name="time" value="1282" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="CMakeRunConfiguration">
@@ -1153,36 +1202,10 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main_detection.cpp" />
-    <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/imgcodecs.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1430">
-          <caret line="65" column="23" lean-forward="false" selection-start-line="65" selection-start-column="7" selection-end-line="65" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Calibrator.h" />
-    <entry file="file://$PROJECT_DIR$/src/Calibrator.cpp" />
-    <entry file="file://$PROJECT_DIR$/src/VID5.xml" />
-    <entry file="file://$PROJECT_DIR$/src/camera_calibration.cpp" />
-    <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/imgproc.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="2669" column="33" lean-forward="false" selection-start-line="2669" selection-start-column="33" selection-end-line="2669" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/core/cvdef.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="186">
           <caret line="408" column="8" lean-forward="false" selection-start-line="408" selection-start-column="8" selection-end-line="408" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/calib3d.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1794">
-          <caret line="508" column="18" lean-forward="false" selection-start-line="508" selection-start-column="18" selection-end-line="508" selection-end-column="18" />
         </state>
       </provider>
     </entry>
@@ -1241,13 +1264,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/core/types.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="1312" column="0" lean-forward="false" selection-start-line="1312" selection-start-column="0" selection-end-line="1312" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/MinGW/include/math.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
@@ -1269,20 +1285,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="682">
-          <caret line="31" column="0" lean-forward="false" selection-start-line="28" selection-start-column="87" selection-end-line="31" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CameraCalibrator.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="770">
-          <caret line="35" column="8" lean-forward="false" selection-start-line="35" selection-start-column="8" selection-end-line="35" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/CsvReader.cpp" />
     <entry file="file://$PROJECT_DIR$/src/CsvWriter.cpp" />
     <entry file="file://$PROJECT_DIR$/src/CsvWriter.h" />
@@ -1290,20 +1292,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1056">
           <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Utils.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3652">
-          <caret line="166" column="0" lean-forward="false" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CameraCalibrator.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1318,7 +1306,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1340,15 +1327,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lmmin.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1357,9 +1335,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1496">
           <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
-          <folding>
-            <element signature="e#131#150#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1367,15 +1342,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="41492">
           <caret line="1886" column="11" lean-forward="false" selection-start-line="1886" selection-start-column="11" selection-end-line="1886" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/PnPProblem.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1320">
-          <caret line="60" column="22" lean-forward="false" selection-start-line="60" selection-start-column="22" selection-end-line="60" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1383,36 +1349,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3168">
           <caret line="144" column="0" lean-forward="false" selection-start-line="144" selection-start-column="0" selection-end-line="144" selection-end-column="0" />
-          <folding>
-            <element signature="e#82#106#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1254">
-          <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
-          <folding>
-            <element signature="e#108#127#0" expanded="true" />
-            <element signature="e#470#490#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ModelRegistration.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="12" column="1" lean-forward="false" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ModelRegistration.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1420,17 +1356,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#30#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/PnPProblem.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1716">
-          <caret line="78" column="0" lean-forward="false" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1438,23 +1363,121 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resource/image/chessboards/chessboard44.jpg" />
+    <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/calib3d.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15400">
+          <caret line="700" column="73" lean-forward="false" selection-start-line="700" selection-start-column="73" selection-end-line="700" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ModelRegistration.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PnPProblem.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="388">
+          <caret line="199" column="13" lean-forward="false" selection-start-line="199" selection-start-column="13" selection-end-line="199" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lmmin.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="15" column="33" lean-forward="false" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1414">
+          <caret line="68" column="21" lean-forward="false" selection-start-line="68" selection-start-column="21" selection-end-line="68" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PnPProblem.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="39">
+          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Utils.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2596">
+          <caret line="118" column="5" lean-forward="false" selection-start-line="118" selection-start-column="5" selection-end-line="118" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ModelRegistration.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/imgproc.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="87360">
+          <caret line="4160" column="71" lean-forward="false" selection-start-line="4160" selection-start-column="71" selection-end-line="4160" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/core/types.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="27552">
+          <caret line="1312" column="0" lean-forward="false" selection-start-line="1312" selection-start-column="0" selection-end-line="1312" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Chapter09/CameraCalibrator.cpp" />
+    <entry file="file://$PROJECT_DIR$/src/Chapter09/estimateF.cpp" />
+    <entry file="file://$PROJECT_DIR$/src/Chapter09/matcher.h" />
+    <entry file="file://$PROJECT_DIR$/src/Chapter09/robustmatching.cpp" />
+    <entry file="file://$PROJECT_DIR$/src/Chapter09/CameraCalibrator.h" />
+    <entry file="file://$PROJECT_DIR$/src/Chapter09/calibrate.cpp" />
+    <entry file="file://$PROJECT_DIR$/src/CameraCalibrator.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="12" column="26" lean-forward="false" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="26" />
+          <folding>
+            <element signature="e#47#71#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CameraCalibrator.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="18" column="9" lean-forward="true" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-968">
-          <caret line="705" column="10" lean-forward="false" selection-start-line="705" selection-start-column="10" selection-end-line="705" selection-end-column="10" />
+        <state relative-caret-position="14275">
+          <caret line="885" column="0" lean-forward="true" selection-start-line="885" selection-start-column="0" selection-end-line="885" selection-end-column="0" />
           <folding>
-            <element signature="e#26747#27410#0" expanded="true" />
+            <element signature="e#24644#25307#0" expanded="true" />
           </folding>
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resource/image/chessboards/chessboard44.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
       </provider>
     </entry>
   </component>

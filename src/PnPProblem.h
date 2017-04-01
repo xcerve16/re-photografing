@@ -20,7 +20,6 @@ class PnPProblem {
 public:
     PnPProblem();
     PnPProblem(const double param[]);
-    virtual ~PnPProblem();
 
     cv::Point2f backproject3DPoint(const cv::Point3f &point3d);
 

@@ -136,7 +136,7 @@ CMAKE_RANLIB:FILEPATH=C:/MinGW/bin/ranlib.exe
 CMAKE_RC_COMPILER:FILEPATH=C:/MinGW/bin/windres.exe
 
 //Flags for Windows Resource Compiler.
-CMAKE_RC_FLAGS:STRING=' '
+CMAKE_RC_FLAGS:STRING=
 
 //Path to a program.
 CMAKE_SH:FILEPATH=CMAKE_SH-NOTFOUND
@@ -223,9 +223,9 @@ CMAKE_CACHEFILE_DIR:INTERNAL=d:/Refotografing-source/cmake-build-debug
 //Major version of cmake used to create the current loaded cache
 CMAKE_CACHE_MAJOR_VERSION:INTERNAL=3
 //Minor version of cmake used to create the current loaded cache
-CMAKE_CACHE_MINOR_VERSION:INTERNAL=6
+CMAKE_CACHE_MINOR_VERSION:INTERNAL=7
 //Patch version of cmake used to create the current loaded cache
-CMAKE_CACHE_PATCH_VERSION:INTERNAL=3
+CMAKE_CACHE_PATCH_VERSION:INTERNAL=1
 //ADVANCED property for variable: CMAKE_COLOR_MAKEFILE
 CMAKE_COLOR_MAKEFILE-ADVANCED:INTERNAL=1
 //Path to CMake executable.
@@ -323,7 +323,7 @@ CMAKE_RC_COMPILER_WORKS:INTERNAL=1
 //ADVANCED property for variable: CMAKE_RC_FLAGS
 CMAKE_RC_FLAGS-ADVANCED:INTERNAL=1
 //Path to CMake installation.
-CMAKE_ROOT:INTERNAL=C:/Program Files (x86)/JetBrains/CLion 2016.3.1/bin/cmake/share/cmake-3.6
+CMAKE_ROOT:INTERNAL=C:/Program Files (x86)/JetBrains/CLion 2016.3.1/bin/cmake/share/cmake-3.7
 //ADVANCED property for variable: CMAKE_SH
 CMAKE_SH-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS

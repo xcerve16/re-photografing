@@ -16,8 +16,6 @@ public:
 
     ModelRegistration();
 
-    virtual ~ModelRegistration();
-
     void setNumMax(int n) { max_registrations_ = n; }
 
     std::vector<cv::Point2f> get_points2d() const { return list_points2d_; }
