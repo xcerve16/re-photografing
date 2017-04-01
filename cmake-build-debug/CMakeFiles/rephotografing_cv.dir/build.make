@@ -206,29 +206,29 @@ CMakeFiles/rephotografing_cv.dir/src/CameraCalibrator.cpp.obj.provides: CMakeFil
 CMakeFiles/rephotografing_cv.dir/src/CameraCalibrator.cpp.obj.provides.build: CMakeFiles/rephotografing_cv.dir/src/CameraCalibrator.cpp.obj
 
 
-CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.obj: CMakeFiles/rephotografing_cv.dir/flags.make
-CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.obj: CMakeFiles/rephotografing_cv.dir/includes_CXX.rsp
-CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.obj: ../src/Line2D.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Refotografing-source\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.obj"
-	C:\MinGW\bin\g++.exe   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\rephotografing_cv.dir\src\Line2D.cpp.obj -c D:\Refotografing-source\src\Line2D.cpp
+CMakeFiles/rephotografing_cv.dir/src/Line.cpp.obj: CMakeFiles/rephotografing_cv.dir/flags.make
+CMakeFiles/rephotografing_cv.dir/src/Line.cpp.obj: CMakeFiles/rephotografing_cv.dir/includes_CXX.rsp
+CMakeFiles/rephotografing_cv.dir/src/Line.cpp.obj: ../src/Line.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Refotografing-source\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/rephotografing_cv.dir/src/Line.cpp.obj"
+	C:\MinGW\bin\g++.exe   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\rephotografing_cv.dir\src\Line.cpp.obj -c D:\Refotografing-source\src\Line.cpp
 
-CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.i"
-	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Refotografing-source\src\Line2D.cpp > CMakeFiles\rephotografing_cv.dir\src\Line2D.cpp.i
+CMakeFiles/rephotografing_cv.dir/src/Line.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rephotografing_cv.dir/src/Line.cpp.i"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Refotografing-source\src\Line.cpp > CMakeFiles\rephotografing_cv.dir\src\Line.cpp.i
 
-CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.s"
-	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Refotografing-source\src\Line2D.cpp -o CMakeFiles\rephotografing_cv.dir\src\Line2D.cpp.s
+CMakeFiles/rephotografing_cv.dir/src/Line.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rephotografing_cv.dir/src/Line.cpp.s"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Refotografing-source\src\Line.cpp -o CMakeFiles\rephotografing_cv.dir\src\Line.cpp.s
 
-CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.obj.requires:
+CMakeFiles/rephotografing_cv.dir/src/Line.cpp.obj.requires:
 
-.PHONY : CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.obj.requires
+.PHONY : CMakeFiles/rephotografing_cv.dir/src/Line.cpp.obj.requires
 
-CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.obj.provides: CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.obj.requires
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.obj.provides.build
-.PHONY : CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.obj.provides
+CMakeFiles/rephotografing_cv.dir/src/Line.cpp.obj.provides: CMakeFiles/rephotografing_cv.dir/src/Line.cpp.obj.requires
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/Line.cpp.obj.provides.build
+.PHONY : CMakeFiles/rephotografing_cv.dir/src/Line.cpp.obj.provides
 
-CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.obj.provides.build: CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.obj
+CMakeFiles/rephotografing_cv.dir/src/Line.cpp.obj.provides.build: CMakeFiles/rephotografing_cv.dir/src/Line.cpp.obj
 
 
 CMakeFiles/rephotografing_cv.dir/src/MSAC.cpp.obj: CMakeFiles/rephotografing_cv.dir/flags.make
@@ -314,7 +314,7 @@ rephotografing_cv_OBJECTS = \
 "CMakeFiles/rephotografing_cv.dir/src/RobustMatcher.cpp.obj" \
 "CMakeFiles/rephotografing_cv.dir/src/Utils.cpp.obj" \
 "CMakeFiles/rephotografing_cv.dir/src/CameraCalibrator.cpp.obj" \
-"CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.obj" \
+"CMakeFiles/rephotografing_cv.dir/src/Line.cpp.obj" \
 "CMakeFiles/rephotografing_cv.dir/src/MSAC.cpp.obj" \
 "CMakeFiles/rephotografing_cv.dir/src/errorNIETO.cpp.obj" \
 "CMakeFiles/rephotografing_cv.dir/src/lmmin.c.obj"
@@ -328,7 +328,7 @@ rephotografing_cv.exe: CMakeFiles/rephotografing_cv.dir/src/PnPProblem.cpp.obj
 rephotografing_cv.exe: CMakeFiles/rephotografing_cv.dir/src/RobustMatcher.cpp.obj
 rephotografing_cv.exe: CMakeFiles/rephotografing_cv.dir/src/Utils.cpp.obj
 rephotografing_cv.exe: CMakeFiles/rephotografing_cv.dir/src/CameraCalibrator.cpp.obj
-rephotografing_cv.exe: CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.obj
+rephotografing_cv.exe: CMakeFiles/rephotografing_cv.dir/src/Line.cpp.obj
 rephotografing_cv.exe: CMakeFiles/rephotografing_cv.dir/src/MSAC.cpp.obj
 rephotografing_cv.exe: CMakeFiles/rephotografing_cv.dir/src/errorNIETO.cpp.obj
 rephotografing_cv.exe: CMakeFiles/rephotografing_cv.dir/src/lmmin.c.obj
@@ -384,7 +384,7 @@ CMakeFiles/rephotografing_cv.dir/requires: CMakeFiles/rephotografing_cv.dir/src/
 CMakeFiles/rephotografing_cv.dir/requires: CMakeFiles/rephotografing_cv.dir/src/RobustMatcher.cpp.obj.requires
 CMakeFiles/rephotografing_cv.dir/requires: CMakeFiles/rephotografing_cv.dir/src/Utils.cpp.obj.requires
 CMakeFiles/rephotografing_cv.dir/requires: CMakeFiles/rephotografing_cv.dir/src/CameraCalibrator.cpp.obj.requires
-CMakeFiles/rephotografing_cv.dir/requires: CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.obj.requires
+CMakeFiles/rephotografing_cv.dir/requires: CMakeFiles/rephotografing_cv.dir/src/Line.cpp.obj.requires
 CMakeFiles/rephotografing_cv.dir/requires: CMakeFiles/rephotografing_cv.dir/src/MSAC.cpp.obj.requires
 CMakeFiles/rephotografing_cv.dir/requires: CMakeFiles/rephotografing_cv.dir/src/errorNIETO.cpp.obj.requires
 CMakeFiles/rephotografing_cv.dir/requires: CMakeFiles/rephotografing_cv.dir/src/lmmin.c.obj.requires

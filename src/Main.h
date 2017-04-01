@@ -1,6 +1,8 @@
-//
-// Created by acervenka2 on 17.01.2017.
-//
+/**
+ * Main.h
+ * Author: Adam Červenka <xcerve16@stud.fit.vutbr.cz>
+ *
+ */
 
 #ifndef REPHOTOGRAFING_MAIN_H
 #define REPHOTOGRAFING_MAIN_H
@@ -17,7 +19,7 @@
 #include "PnPProblem.h"
 #include "CameraCalibrator.h"
 #include "Utils.h"
-#include "Line2D.h"
+#include "Line.h"
 #include "MSAC.h"
 #include "RobustMatcher.h"
 
@@ -34,8 +36,6 @@
 
 #define USE_PPHT
 #define MAX_NUM_LINES    200
-
-const double PI = 3.141592653589793238463;
 
 using namespace cv;
 using namespace std;
@@ -92,19 +92,18 @@ const string ERROR_OPEN_CAMERA = "Could not open the camera device";
 const string ERROR_COMPARE_MATRIX = "Error while compare project matrix";
 
 // RANSAC parameters
+bool useExtrinsicGuess = false;
 int iterationsCount = 1000;
 float reprojectionError = 10.0;
 double confidence = 0.95;
+int pnp_method = SOLVEPNP_ITERATIVE;
 
 // Kalman Filter parameters
 int minInliersKalman = 10;
-int nStates = 18;            // the number of states
-int nMeasurements = 6;       // the number of measured states
-int nInputs = 0;             // the number of control actions
-double dt = 0.125;           // time between measurements (1/FPS)
-
-// PnP parameters
-int pnpMethod = SOLVEPNP_ITERATIVE;
+int nStates = 18;
+int nMeasurements = 6;
+int nInputs = 0;
+double dt = 0.125;
 
 
 struct arg_struct {
@@ -134,19 +133,13 @@ static void onMouseModelRegistration(int event, int x, int y, int, void *);
 
 vector<Mat> processImage(MSAC &msac, int numVps, cv::Mat &imgGRAY, cv::Mat &outputImg);
 
+bool getRobustEstimation(Mat current_frame_vis, Mat description_first_image,
+                         vector<Point3f> list_3D_points_after_registration, Mat measurements, Mat refT);
+
 void initKalmanFilter(KalmanFilter &KF, int nStates, int nMeasurements, int nInputs, double dt);
 
 void updateKalmanFilter(KalmanFilter &KF, Mat &measurements, Mat &translation_estimated, Mat &rotation_estimated);
 
 void fillMeasurements(Mat &measurements, const Mat &translation_measured, const Mat &rotation_measured);
-
-double convert_radian_to_degree(double input) {
-    return (input * 180) / PI;
-}
-
-Mat
-getInliersPoints(Mat first_image, Mat second_image, vector<cv::KeyPoint> keypoints1, Mat descriptor1);
-
-int getDirection(vector<Point2f> list_points2d_scene_match, vector<Point2f> registration_2D_points, int focal, Point2f center);
 
 #endif //REPHOTOGRAFING_MAIN_H

@@ -149,32 +149,32 @@ src/CameraCalibrator.cpp.s:
 	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/CameraCalibrator.cpp.s
 .PHONY : src/CameraCalibrator.cpp.s
 
-src/Line2D.obj: src/Line2D.cpp.obj
+src/Line.obj: src/Line.cpp.obj
 
-.PHONY : src/Line2D.obj
+.PHONY : src/Line.obj
 
 # target to build an object file
-src/Line2D.cpp.obj:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.obj
-.PHONY : src/Line2D.cpp.obj
+src/Line.cpp.obj:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/Line.cpp.obj
+.PHONY : src/Line.cpp.obj
 
-src/Line2D.i: src/Line2D.cpp.i
+src/Line.i: src/Line.cpp.i
 
-.PHONY : src/Line2D.i
+.PHONY : src/Line.i
 
 # target to preprocess a source file
-src/Line2D.cpp.i:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.i
-.PHONY : src/Line2D.cpp.i
+src/Line.cpp.i:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/Line.cpp.i
+.PHONY : src/Line.cpp.i
 
-src/Line2D.s: src/Line2D.cpp.s
+src/Line.s: src/Line.cpp.s
 
-.PHONY : src/Line2D.s
+.PHONY : src/Line.s
 
 # target to generate assembly for a file
-src/Line2D.cpp.s:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.s
-.PHONY : src/Line2D.cpp.s
+src/Line.cpp.s:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/Line.cpp.s
+.PHONY : src/Line.cpp.s
 
 src/MSAC.obj: src/MSAC.cpp.obj
 
@@ -404,9 +404,9 @@ help:
 	@echo ... src/CameraCalibrator.obj
 	@echo ... src/CameraCalibrator.i
 	@echo ... src/CameraCalibrator.s
-	@echo ... src/Line2D.obj
-	@echo ... src/Line2D.i
-	@echo ... src/Line2D.s
+	@echo ... src/Line.obj
+	@echo ... src/Line.i
+	@echo ... src/Line.s
 	@echo ... src/MSAC.obj
 	@echo ... src/MSAC.i
 	@echo ... src/MSAC.s

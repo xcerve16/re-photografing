@@ -1,8 +1,7 @@
-/*
+/**
  * PnPProblem.h
+ * Author: Adam Červenka <xcerve16@stud.fit.vutbr.cz>
  *
- *  Created on: Mar 28, 2014
- *      Author: Edgar Riba
  */
 
 #ifndef PNPPROBLEM_H_
@@ -15,58 +14,51 @@
 
 #include "ModelRegistration.h"
 
+/**
+ * PnP metoda
+ * Dle tutorialu dostupneho na http://docs.opencv.org/3.1.0/dc/d2c/tutorial_real_time_pose.html
+ */
 class PnPProblem {
 
+private:
+
+    cv::Mat _camera_matrix;
+
+    cv::Mat _rotation_matrix;
+
+    cv::Mat _translation_matrix;
+
+    cv::Mat _projection_matrix;
+
 public:
-    PnPProblem();
-    PnPProblem(const double param[]);
-
-    cv::Point2f backproject3DPoint(const cv::Point3f &point3d);
-
-    bool estimatePose(const std::vector<cv::Point3f> &list_points3d, const std::vector<cv::Point2f> &list_points2d,
-                      int flags);
+    PnPProblem() {
+        _camera_matrix = cv::Mat::zeros(3, 3, CV_64FC1);
+        _rotation_matrix = cv::Mat::zeros(3, 3, CV_64FC1);
+        _translation_matrix = cv::Mat::zeros(3, 1, CV_64FC1);
+        _projection_matrix = cv::Mat::zeros(4, 4, CV_64FC1);
+    };
 
     void
-    estimatePoseRANSAC(const std::vector<cv::Point3f> &list_points3d, const std::vector<cv::Point2f> &list_points2d,
-                       int flags, cv::Mat &inliers,
-                       int iterationsCount, float reprojectionError, double confidence);
+    estimatePoseRANSAC(const std::vector<cv::Point3f> &list_3d_points, const std::vector<cv::Point2f> &list_2d_points,
+                       int flags, cv::Mat &inliers, bool use_extrinsic_guess, int iterations_count,
+                       float reprojection_error, double confidence);
 
-    void mySolvePnPRansac(const std::vector<cv::Point3f> &list_points3d, const std::vector<cv::Point2f> &list_points2d,
-                          cv::Mat rvect, cv::Mat tvect);
+    cv::Mat getCameraMatrix() const { return _camera_matrix; }
 
-    void myProjectPoints(std::vector<cv::Point3f> list3DPoint, cv::Mat rvect, cv::Mat tvect,
-                         std::vector<cv::Point2f> list2DPoint);
+    cv::Mat getRotationMatrix() const { return _rotation_matrix; }
 
-    cv::Mat get_A_matrix() const { return _A_matrix; }
+    cv::Mat getTranslationMatrix() const { return _translation_matrix; }
 
-    cv::Mat get_R_matrix() const { return _R_matrix; }
+    cv::Mat getProjectionMatrix() const { return _projection_matrix; }
 
-    cv::Mat get_T_matrix() const { return _T_matrix; }
+    void setProjectionMatrix(const cv::Mat &rotation_matrix, const cv::Mat &translation_matrix);
 
-    cv::Mat get_P_matrix() const { return _P_matrix; }
+    void setCameraMatrix(const cv::Mat &camera_matrix) { _camera_matrix = camera_matrix; };
 
-    void set_P_matrix(const cv::Mat &R_matrix, const cv::Mat &t_matrix);
-
-    void setMatrixParam(double fx, double fy, double sx, double sy);
-
-    void setOpticalCenter(double x, double y);
-
-private:
-    /** The calibration matrix */
-    cv::Mat _A_matrix;
-    /** The computed rotation matrix */
-    cv::Mat _R_matrix;
-    /** The computed translation matrix */
-    cv::Mat _T_matrix;
-    /** The computed projection matrix */
-    cv::Mat _P_matrix;
+    void setOpticalCenter(double cx, double cy);
 };
 
-// Functions for Möller–Trumbore intersection algorithm
-cv::Point3f CROSS(cv::Point3f v1, cv::Point3f v2);
 
-double DOT(cv::Point3f v1, cv::Point3f v2);
 
-cv::Point3f SUB(cv::Point3f v1, cv::Point3f v2);
 
-#endif /* PNPPROBLEM_H_ */
+#endif

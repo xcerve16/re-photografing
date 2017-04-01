@@ -16,7 +16,7 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   )
 set(CMAKE_DEPENDS_CHECK_CXX
   "D:/Refotografing-source/src/CameraCalibrator.cpp" "D:/Refotografing-source/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/CameraCalibrator.cpp.obj"
-  "D:/Refotografing-source/src/Line2D.cpp" "D:/Refotografing-source/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.obj"
+  "D:/Refotografing-source/src/Line.cpp" "D:/Refotografing-source/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/Line.cpp.obj"
   "D:/Refotografing-source/src/MSAC.cpp" "D:/Refotografing-source/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/MSAC.cpp.obj"
   "D:/Refotografing-source/src/Main.cpp" "D:/Refotografing-source/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/Main.cpp.obj"
   "D:/Refotografing-source/src/ModelRegistration.cpp" "D:/Refotografing-source/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/ModelRegistration.cpp.obj"

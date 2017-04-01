@@ -1,8 +1,7 @@
-/*
+/**
  * ModelRegistration.h
+ * Author: Adam Červenka <xcerve16@stud.fit.vutbr.cz>
  *
- *  Created on: Apr 18, 2014
- *      Author: edgar
  */
 
 #ifndef MODELREGISTRATION_H_
@@ -12,43 +11,36 @@
 #include <opencv2/core/core.hpp>
 
 class ModelRegistration {
+
+private:
+
+    int _count_registrations;
+
+    int _max_registrations;
+
+    std::vector<cv::Point2f> _list_2D_points;
+
+    std::vector<cv::Point3f> _list_3D_points;
+
 public:
 
     ModelRegistration();
 
-    void setNumMax(int n) { max_registrations_ = n; }
+    void setRegistrationMax(int n) { _max_registrations = n; }
 
-    std::vector<cv::Point2f> get_points2d() const { return list_points2d_; }
+    int getRegistrationMax() const { return _max_registrations; }
 
-    std::vector<cv::Point3f> get_points3d() const { return list_points3d_; }
+    int getRegistrationCount() const { return _count_registrations; }
 
-    int getNumMax() const { return max_registrations_; }
-
-    int getNumRegistration() const { return n_registrations_; }
-
-    bool is_registrable() const { return (n_registrations_ < max_registrations_); }
-
-    void registerPoint(const cv::Point2f &point2d, const cv::Point3f &point3d);
+    bool isRegistration() const { return (_count_registrations < _max_registrations); }
 
     void register2DPoint(const cv::Point2f &point2d);
 
     void register3DPoint(const cv::Point3f &point3d);
 
-    void reset();
+    std::vector<cv::Point2f> getList2DPoints() const { return _list_2D_points; }
 
-    void set_points3d(int i, cv::Point3f point3_);
-
-    void registerEmpty2DPoint();
-
-private:
-/** The current number of registered points */
-    int n_registrations_;
-/** The total number of points to register */
-    int max_registrations_;
-/** The list of 2D points to register the model */
-    std::vector<cv::Point2f> list_points2d_;
-/** The list of 3D points to register the model */
-    std::vector<cv::Point3f> list_points3d_;
+    std::vector<cv::Point3f> getList3DPoints() const { return _list_3D_points; }
 };
 
-#endif /* MODELREGISTRATION_H_ */
+#endif

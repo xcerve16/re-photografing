@@ -5,7 +5,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/rephotografing_cv.dir/src/RobustMatcher.cpp.obj"
   "CMakeFiles/rephotografing_cv.dir/src/Utils.cpp.obj"
   "CMakeFiles/rephotografing_cv.dir/src/CameraCalibrator.cpp.obj"
-  "CMakeFiles/rephotografing_cv.dir/src/Line2D.cpp.obj"
+  "CMakeFiles/rephotografing_cv.dir/src/Line.cpp.obj"
   "CMakeFiles/rephotografing_cv.dir/src/MSAC.cpp.obj"
   "CMakeFiles/rephotografing_cv.dir/src/errorNIETO.cpp.obj"
   "CMakeFiles/rephotografing_cv.dir/src/lmmin.c.obj"
