@@ -12,43 +12,18 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70e342c2-adc5-4064-9319-db384ed3edb0" name="Default" comment="Pridani novych obrazku">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/galerie (1).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/galerie (2).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/galerie (3).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/galerie (4).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/galerie (5).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/galerie (6).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/galerie (7).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/grand_hotel (1).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/grand_hotel (2).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/grand_hotel (3).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/grand_hotel (4).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/grand_hotel (5).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/janackovo_divadlo (1).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/janackovo_divadlo (2).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/janackovo_divadlo (3).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/janackovo_divadlo (4).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/namesti_svobody (1).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/namesti_svobody (2).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/namesti_svobody (3).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/namesti_svobody (4).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/namesti_svobody (5).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/ref_galerie.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/rsz_cerveny_kostel_2.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/ulice_ceska (1).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/ulice_ceska (2).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/ulice_ceska (3).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/ulice_ceska (4).jpg" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/video/VID_20170221_174405.3gp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/video/video1.mp4" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/video/video2.mp4" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/rephotografing_cv.exe" afterPath="$PROJECT_DIR$/cmake-build-debug/rephotografing_cv.exe" />
+    <list default="true" id="70e342c2-adc5-4064-9319-db384ed3edb0" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/video/galerie.3gp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/video/grand_hotel.3gp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/video/janackovo_divadlo.3gp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/video/namesti_svobody.3gp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/video/ulice_ceska.3gp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/video/velehrad_bazilika.mp4" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/video/velehrad_bazilika_2.mp4" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/3D_rekonstrukce_grand_hotel.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/3D_rekonstrukce_namesti_svobody.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/3D_rekonstrukce_ulice_ceska.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.cpp" afterPath="$PROJECT_DIR$/src/Main.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.h" afterPath="$PROJECT_DIR$/src/Main.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RobustMatcher.cpp" afterPath="$PROJECT_DIR$/src/RobustMatcher.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RobustMatcher.h" afterPath="$PROJECT_DIR$/src/RobustMatcher.h" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -798,7 +773,7 @@
       <workItem from="1491037517927" duration="10383000" />
       <workItem from="1491053288020" duration="16781000" />
       <workItem from="1491073066864" duration="3675000" />
-      <workItem from="1491121023004" duration="439000" />
+      <workItem from="1491121023004" duration="856000" />
     </task>
     <task id="LOCAL-00001" summary="registrace funguje, detekce zatim ne">
       <created>1481836872027</created>
@@ -1038,11 +1013,18 @@
       <option name="project" value="LOCAL" />
       <updated>1491059640532</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Pridani novych obrazku">
+      <created>1491121489946</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1491121489946</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="711467000" />
+    <option name="totallyTimeSpent" value="711884000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
