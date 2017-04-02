@@ -44,15 +44,14 @@ void RobustMatcher::symmetryTest(const std::vector<std::vector<cv::DMatch> > &ma
         if (matchIterator1->empty() || matchIterator1->size() < 2)
             continue;
 
-        for (std::vector<std::vector<cv::DMatch> >::const_iterator
-                     matchIterator2 = matches2.begin(); matchIterator2 != matches2.end(); ++matchIterator2) {
+        for (std::vector<std::vector<cv::DMatch> >::const_iterator matchIterator2 = matches2.begin();
+             matchIterator2 != matches2.end(); ++matchIterator2) {
             if (matchIterator2->empty() || matchIterator2->size() < 2)
                 continue;
 
 
             if ((*matchIterator1)[0].queryIdx == (*matchIterator2)[0].trainIdx &&
                 (*matchIterator2)[0].queryIdx == (*matchIterator1)[0].trainIdx) {
-
                 symMatches.push_back(cv::DMatch((*matchIterator1)[0].queryIdx, (*matchIterator1)[0].trainIdx,
                                                 (*matchIterator1)[0].distance));
                 break;
@@ -73,8 +72,8 @@ void RobustMatcher::robustMatch(const cv::Mat &frame, std::vector<cv::DMatch> &g
 
     std::vector<std::vector<cv::DMatch> > matches12, matches21;
 
-    tryKnnMatch(descriptors_frame, descriptors_model, matches12, 2);
-    tryKnnMatch(descriptors_frame, descriptors_model, matches21, 2);
+    matcher->knnMatch(descriptors_model, descriptors_frame , matches12, 2);
+    matcher->knnMatch(descriptors_frame, descriptors_model, matches21, 2);
 
     ratioTest(matches12);
     ratioTest(matches21);
@@ -149,7 +148,8 @@ cv::Mat RobustMatcher::ransacTest(const std::vector<cv::DMatch> &matches, const 
 
 
 cv::Mat RobustMatcher::robustMatchRANSAC(cv::Mat &image1, cv::Mat &image2, std::vector<cv::DMatch> &matches,
-                                         std::vector<cv::KeyPoint> &key_points1, std::vector<cv::KeyPoint> &key_points2) {
+                                         std::vector<cv::KeyPoint> &key_points1,
+                                         std::vector<cv::KeyPoint> &key_points2) {
 
     detector->detect(image1, key_points1);
     detector->detect(image2, key_points2);
@@ -175,16 +175,6 @@ cv::Mat RobustMatcher::robustMatchRANSAC(cv::Mat &image1, cv::Mat &image2, std::
     return fundemental;
 }
 
-void RobustMatcher::tryKnnMatch(Mat frame, const Mat &model, vector<vector<DMatch>> matches, int k) {
-
-    try {
-        matcher->knnMatch(model, frame, matches, k);
-    } catch (cv::Exception e) {
-        cout << ERROR_KNN_MATCHING << endl;
-        exit(1);
-    }
-
-}
 
 
 

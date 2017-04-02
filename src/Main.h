@@ -55,6 +55,7 @@ ModelRegistration registration;
 CameraCalibrator cameraCalibrator;
 RobustMatcher robustMatcher;
 PnPProblem pnp_registration;
+PnPProblem pnp_detection;
 KalmanFilter kalmanFilter;
 MSAC msac;
 
@@ -62,7 +63,6 @@ MSAC msac;
 // Robust Matcher parameters
 double confidenceLevel = 0.99;
 float ratioTest = 0.70f;
-double max_dist = 0;
 double min_dist = 100;
 
 // SIFT parameters
@@ -76,13 +76,11 @@ bool verbose = false;
 // Window's names
 const string WIN_USER_SELECT_POINT = "WIN_USER_SELECT_POINT";
 const string WIN_REF_IMAGE_FOR_USER = "WIN_REF_IMAGE_FOR_USER";
-const string WIN_REF_IMAGE_WITH_HOUGH_LINES = "WIN_REF_IMAGE_WITH_HOUGH_LINES";
-const string WIN_REF_IMAGE_WITH_VANISH_POINTS = "WIN_REF_IMAGE_WITH_VANISH_POINTS";
 const string WIN_REAL_TIME_DEMO = "WIN_REAL_TIME_DEMO";
 
 // File's path
-const string path_to_first_image = "resource/image/rsz_biskupsky_palac_2.jpg";
-const string path_to_second_image = "resource/image/rsz_biskupsky_palac_3.jpg";
+const string path_to_first_image = "resource/image/grand_hotel (2).jpg";
+const string path_to_second_image = "resource/image/grand_hotel (4).jpg";
 const string path_to_ref_image = "resource/image/ref_biskupsky_palac.jpg";
 const string video_read_path = "resource/video/biskupsky_palac.mp4";
 
@@ -99,31 +97,20 @@ double confidence = 0.95;
 int pnp_method = SOLVEPNP_ITERATIVE;
 
 // Kalman Filter parameters
-int minInliersKalman = 10;
+int minInliersKalman = 50;
 int nStates = 18;
 int nMeasurements = 6;
 int nInputs = 0;
 double dt = 0.125;
 
 
-struct arg_struct {
+struct matcher_struct {
     Mat current_frame;
     Mat description_first_image;
     vector<Point3f> list_3D_points_after_registration;
-    vector<Point2f> list_2D_points_after_registration;
-    int focal;
-    Point2f center;
-    time_t start;
     Mat measurements;
+    Mat T;
 };
-
-struct F {
-    std::vector<cv::Point2f> points2In;
-    std::vector<cv::Point2f>::const_iterator itPts;
-    std::vector<uchar>::const_iterator itIn;
-    std::vector<uchar> inliers;
-};
-
 
 void *robust_matcher(void *arg);
 
@@ -133,8 +120,8 @@ static void onMouseModelRegistration(int event, int x, int y, int, void *);
 
 vector<Mat> processImage(MSAC &msac, int numVps, cv::Mat &imgGRAY, cv::Mat &outputImg);
 
-bool getRobustEstimation(Mat current_frame_vis, Mat description_first_image,
-                         vector<Point3f> list_3D_points_after_registration, Mat measurements, Mat refT);
+bool getRobustEstimation(Mat current_frame_vis, Mat description_first_image, vector<Point3f> list_3D_points,
+                         Mat measurements, Mat T);
 
 void initKalmanFilter(KalmanFilter &KF, int nStates, int nMeasurements, int nInputs, double dt);
 
@@ -142,4 +129,6 @@ void updateKalmanFilter(KalmanFilter &KF, Mat &measurements, Mat &translation_es
 
 void fillMeasurements(Mat &measurements, const Mat &translation_measured, const Mat &rotation_measured);
 
-#endif //REPHOTOGRAFING_MAIN_H
+Mat loadImage(const string basic_string);
+
+#endif

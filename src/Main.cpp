@@ -8,9 +8,6 @@
 
 int index = 0;
 
-
-Mat loadImage(const string basic_string);
-
 int main(int argc, char *argv[]) {
 
     Mat first_image = loadImage(path_to_first_image);
@@ -194,8 +191,8 @@ int main(int argc, char *argv[]) {
     destroyWindow(WIN_USER_SELECT_POINT);
     destroyWindow(WIN_REF_IMAGE_FOR_USER);
 
-    vector<Point3f> list_3D_points_after_registration = registration.getList3DPoints();
-    vector<Point2f> list_2D_points_after_registration = registration.getList2DPoints();
+    vector<Point3f> list_3D_points = registration.getList3DPoints();
+    vector<Point2f> list_2D_points = registration.getList2DPoints();
 
     /**
      * Vypocet optickeho stredu
@@ -251,11 +248,6 @@ int main(int argc, char *argv[]) {
         line(ref_image, center, tmp, green, 1);
         Line primka2(center.x, center.y, tmp.x, tmp.y);
 
-        center.x = (C.x + B.x) / 2;
-        center.y = (C.y + B.y) / 2;
-        tmp.x = A.x;
-        tmp.y = A.y;
-
         primka1.getIntersection(primka2, cx, cy);
     } else {
         cx = ref_image.cols / 2 - 0.5;
@@ -270,13 +262,13 @@ int main(int argc, char *argv[]) {
     Mat inliers_ref_frame;
     vector<Point2f> list_points2d_scene_match;
 
-    pnp_registration.estimatePoseRANSAC(list_3D_points_after_registration, list_2D_points_after_registration,
+    pnp_registration.estimatePoseRANSAC(list_3D_points, list_2D_points,
                                         pnp_method, inliers_ref_frame, useExtrinsicGuess, iterationsCount,
                                         reprojectionError, confidence);
 
     for (int inliers_index = 0; inliers_index < inliers_ref_frame.rows; ++inliers_index) {
         int n = inliers_ref_frame.at<int>(inliers_index);
-        Point2f point2d = list_2D_points_after_registration[n];
+        Point2f point2d = list_2D_points[n];
         list_points2d_scene_match.push_back(point2d);
     }
 
@@ -295,28 +287,18 @@ int main(int argc, char *argv[]) {
     p[0] = p[1] = p[2] = 0;
     p[3] = 1;
 
-    /*************************************************************************
-     *  4.0 DETECTION
-     ************************************************************************/
+    cout << "Referencni kamera: " <<  T << endl;
 
-    initKalmanFilter(kalmanFilter, nStates, nMeasurements, nInputs, dt);
-    Mat measurements(nMeasurements, 1, CV_64F);
+    /**
+     * Robust matcher
+     */
 
-    measurements.setTo(Scalar(0));
+    Mat current_frame, current_frame_vis, descriptor_first_image;
+    key_points_first_image.clear();
 
-    VideoCapture cap;
-    cap.open(video_read_path);
-
-    if (!cap.isOpened()) {
-        cout << ERROR_OPEN_CAMERA << endl;
-        return -1;
-    }
-
-    Mat current_frame, current_frame_vis;
-    Mat detection_model = fundamental_matrix;
-
-    Ptr<SURF> detector = SURF::create();
     Ptr<FeatureDetector> orb = ORB::create(numKeyPoints);
+    orb->detect(first_image, key_points_first_image);
+    orb->compute(first_image, key_points_first_image, descriptor_first_image);
 
     Ptr<flann::IndexParams> indexParams = makePtr<flann::LshIndexParams>(6, 12, 1);
     Ptr<flann::SearchParams> searchParams = makePtr<flann::SearchParams>(50);
@@ -324,52 +306,31 @@ int main(int argc, char *argv[]) {
     Ptr<DescriptorMatcher> descriptorMatcher = makePtr<FlannBasedMatcher>(indexParams, searchParams);
     robustMatcher.setDescriptorMatcher(descriptorMatcher);
     robustMatcher.setRatio(ratioTest);
-
-    bool isFirstImage = true;
-
-    vector<Point2f> featuresPrevious;
-    vector<Point2f> featuresCurrent;
-    vector<Point2f> featuresNextPos;
-    vector<uchar> featuresFound;
-    Mat cImage, lastImgRef, err;
-
-    pthread_t fast_robust_matcher_t, robust_matcher_t;
-
-    arg_struct fast_robust_matcher_arg_struct, robust_matcher_arg_struct;
-
-    //pthread_create(&fast_robust_matcher_t, NULL, fast_robust_matcher, (void *) &fast_robust_matcher_arg_struct);
-    //pthread_create(&robust_matcher_t, NULL, robust_matcher, (void *) robust_matcher_arg_struct);
-
-    std::vector<Point2f> obj;
-    std::vector<Point2f> scene;
-
-    Mat img_matches;
-    Mat descriptor_first_image;
-    /*************************************************************
-     *           * Real-time Camera Pose Estimation *
-     *************************************************************/
-    orb->detect(first_image, key_points_first_image);
-    orb->compute(first_image, key_points_first_image, descriptor_first_image);
-
     robustMatcher.setFeatureDetector(orb);
     robustMatcher.setDescriptorExtractor(orb);
 
-    vector<Point2f> list_2D_points_ref_image_resize_for_video;
-    vector<Point2f> list_2D_points_first_image_resize_for_video;
 
+    /*pthread_t fast_robust_matcher_t, robust_matcher_t;
+    matcher_struct fast_robust_matcher_arg_struct, robust_matcher_arg_struct;
+    pthread_create(&fast_robust_matcher_t, NULL, fast_robust_matcher, (void *) &fast_robust_matcher_arg_struct);
+    pthread_create(&robust_matcher_t, NULL, robust_matcher, (void *) &robust_matcher_arg_struct);*/
 
-    std::vector<cv::KeyPoint> keypoints1;
+    /**
+     * Real-time Camera Pose Estimation
+     */
 
-    Ptr<SurfFeatureDetector> surf = SurfFeatureDetector::create(numKeyPoints);
-    surf->detect(first_image, keypoints1);
+    initKalmanFilter(kalmanFilter, nStates, nMeasurements, nInputs, dt);
+    Mat measurements(nMeasurements, 1, CV_64F);
+    measurements.setTo(Scalar(0));
 
-    Ptr<SurfDescriptorExtractor> surfDesc = SurfDescriptorExtractor::create();
+    VideoCapture cap;
+    cap.open(video_read_path);
+    bool isFirstImage = true;
 
-    cv::Mat descriptors1;
-    surfDesc->compute(first_image, keypoints1, descriptors1);
-
-    int testPass = 0;
-    int testNotPass = 0;
+    if (!cap.isOpened()) {
+        cout << ERROR_OPEN_CAMERA << endl;
+        exit(1);
+    }
 
     namedWindow(WIN_REAL_TIME_DEMO);
 
@@ -377,35 +338,26 @@ int main(int argc, char *argv[]) {
 
         current_frame_vis = current_frame.clone();
 
-        /*if (isFirstImage) {
-            while (!getRobustEstimation(current_frame_vis, descriptor_first_image, list_3D_points_after_registration,
-                                       list_2D_points_after_registration, fx, Point2f(cx, cy), start, measurements));
+        if (isFirstImage) {
+            //getRobustEstimation(current_frame_vis, descriptor_first_image, list_3D_points, measurements,                                T);
+            cameraCalibrator.calibrate(current_frame_vis.size());
+            pnp_detection.setCameraMatrix(cameraCalibrator.getCameraMatrix());
             isFirstImage = false;
-        } else {
-            //pthread_create(&fast_robust_matcher_t, NULL, fast_robust_matcher, (void *) &fast_robust_matcher_arg_struct);
-            //pthread_create(&robust_matcher_t, NULL, robust_matcher, (void *) &robust_matcher_arg_struct);
+        } /*else {
+            robust_matcher_arg_struct.current_frame = current_frame;
+            robust_matcher_arg_struct.description_first_image = descriptor_first_image;
+            robust_matcher_arg_struct.list_3D_points = list_3D_points;
+            robust_matcher_arg_struct.measurements = measurements;
+            robust_matcher_arg_struct.T = T;
+
+            pthread_create(&fast_robust_matcher_t, NULL, fast_robust_matcher, (void *) &fast_robust_matcher_arg_struct);
+            pthread_create(&robust_matcher_t, NULL, robust_matcher, (void *) &robust_matcher_arg_struct);
+            waitKey(20);
         }*/
 
-
-        bool result = getRobustEstimation(current_frame_vis, descriptor_first_image, list_3D_points_after_registration,
-                                          measurements, T);
-
-        if (result) {
-            testPass++;
-        } else {
-            testNotPass++;
-        }
-
-        //TODO: Zjistit jak na vlakna
-        //current_frame_vis = getInliersPoints(first_image.clone(), current_frame_vis.clone(), keypoints1, descriptors1);
-
-
-        isFirstImage = false;
+        getRobustEstimation(current_frame_vis, descriptor_first_image, list_3D_points, measurements, T);
         imshow(WIN_REAL_TIME_DEMO, current_frame_vis);
     }
-
-    /*cout << "Test prosel: " << testPass << endl;
-    cout << "Test neprosel: " << testNotPass << endl;*/
 
     waitKey(0);
     return 0;
@@ -429,9 +381,10 @@ bool getRobustEstimation(Mat current_frame_vis, Mat description_first_image,
     vector<KeyPoint> key_points_current_frame;
     vector<Point3f> list_points3d_model_match;
     vector<Point2f> list_points2d_scene_match;
-    Mat inliers_idx;
     vector<Point2f> list_points2d_inliers;
-    Mat revT;
+    Mat inliers_idx;
+
+
 
     robustMatcher.robustMatch(current_frame_vis, good_matches, key_points_current_frame, description_first_image);
 
@@ -444,12 +397,11 @@ bool getRobustEstimation(Mat current_frame_vis, Mat description_first_image,
 
     draw2DPoints(current_frame_vis, list_points2d_scene_match, red);
 
-    Mat T(4, 4, CV_64F);
     bool good_measurement = false;
 
     if (good_matches.size() > 0) {
 
-        pnp_registration.estimatePoseRANSAC(list_points3d_model_match, list_points2d_scene_match, pnp_method,
+        pnp_detection.estimatePoseRANSAC(list_points3d_model_match, list_points2d_scene_match, pnp_method,
                                             inliers_idx, useExtrinsicGuess, iterationsCount, reprojectionError,
                                             confidence);
 
@@ -459,86 +411,88 @@ bool getRobustEstimation(Mat current_frame_vis, Mat description_first_image,
             list_points2d_inliers.push_back(point2d);
         }
 
-        Mat tvect_ref_frame = pnp_registration.getTranslationMatrix();
-        Mat rvect_ref_frame = pnp_registration.getRotationMatrix();
+        Mat tvect_ref_frame = pnp_detection.getTranslationMatrix();
+        Mat rvect_ref_frame = pnp_detection.getRotationMatrix();
 
         Mat rvect_traspose;
+
         transpose(rvect_ref_frame, rvect_traspose);
         Mat pos = -rvect_traspose * tvect_ref_frame;
 
-        T(cv::Range(0, 3), cv::Range(0, 3)) = rvect_traspose * 1;
-        T(cv::Range(0, 3), cv::Range(3, 4)) = pos * 1;
+        Mat T(4, 4, rvect_traspose.type());
+        T(cv::Range(0, 3), cv::Range(0, 3)) = rvect_traspose;
+        T(cv::Range(0, 3), cv::Range(3, 4)) = pos;
 
         double *p = T.ptr<double>(3);
         p[0] = p[1] = p[2] = 0;
         p[3] = 1;
 
-        revT = Mat(4, 4, CV_64F);
+        Mat revT = Mat(4, 4, CV_64F);
         revT = T.inv() * refT;
+
+        try {
+            revT = Mat(4, 4, CV_64F);
+            revT = pnp_detection.getProjectionMatrix().inv() * refT;
+
+            double posun_x_t = T.at<float>(0, 3);
+            double posun_y_t = T.at<float>(1, 3);
+
+            double posun_x_refT = refT.at<float>(0, 3);
+            double posun_y_refT = refT.at<float>(1, 3);
+
+            double posun_x = revT.at<float>(0, 3);
+            double posun_y = revT.at<float>(1, 3);
+
+            cout << "X: " << posun_x_t << " " << posun_x_refT << " " << posun_x << endl;
+            cout << "Y: " << posun_y_t << " " << posun_y_refT << " " << posun_y << endl;
+
+            if (posun_x < -1.5) {
+                cout << "Doprava " << posun_x << endl;
+                drawText(current_frame_vis, "Doprava", 10, 10, yellow);
+            } else if (posun_x > 1.5) {
+                cout << "Doleva " << posun_x << endl;
+                drawText(current_frame_vis, "Doleva", 10, 10, yellow);
+            } else {
+                drawText(current_frame_vis, "Je to OK", 10, 10, yellow);
+                cout << "OK " << posun_x << endl;
+            }
+
+            if (posun_y > -1.5) {
+                cout << "Nahoru " << posun_y << endl;
+                drawText(current_frame_vis, "Nahoru", 10, 50, yellow);
+            } else if (posun_y < 1.5) {
+                cout << "Dolu " << posun_y << endl;
+                drawText(current_frame_vis, "Dolu", 10, 50, yellow);
+            } else {
+                drawText(current_frame_vis, "Je to OK", 10, 50, yellow);
+                cout << "OK " << posun_y << endl;
+            }
+
+
+        } catch (Exception e) {
+            cout << ERROR_COMPARE_MATRIX << endl;
+        }
 
         if (inliers_idx.rows >= minInliersKalman) {
 
             Mat translation_measured(3, 1, CV_64F);
-            translation_measured = pnp_registration.getTranslationMatrix();
+            translation_measured = pnp_detection.getTranslationMatrix();
 
             Mat rotation_measured(3, 3, CV_64F);
-            rotation_measured = pnp_registration.getRotationMatrix();
+            rotation_measured = pnp_detection.getRotationMatrix();
 
             good_measurement = true;
             fillMeasurements(measurements, translation_measured, rotation_measured);
         }
     }
 
-
     Mat translation_estimated(3, 1, CV_64F);
     Mat rotation_estimated(3, 3, CV_64F);
 
     updateKalmanFilter(kalmanFilter, measurements, translation_estimated, rotation_estimated);
-
-    pnp_registration.setProjectionMatrix(rotation_estimated, translation_estimated);
-
-    try {
-        revT = Mat(4, 4, CV_64F);
-        revT = pnp_registration.getProjectionMatrix().inv() * refT;
-
-        double posun_x_t = T.at<float>(0, 3);
-        double posun_y_t = T.at<float>(1, 3);
-
-        double posun_x_refT = refT.at<float>(0, 3);
-        double posun_y_refT = refT.at<float>(1, 3);
-
-        double posun_x = revT.at<float>(0, 3);
-        double posun_y = revT.at<float>(1, 3);
-
-        cout << "X: " << posun_x_t << " " << posun_x_refT << " " << posun_x << endl;
-        cout << "Y: " << posun_y_t << " " << posun_y_refT << " " << posun_y << endl;
-
-        if (posun_x < -1.5) {
-            cout << "Doprava " << posun_x << endl;
-            drawText(current_frame_vis, "Doprava", 10, 10, yellow);
-        } else if (posun_x > 1.5) {
-            cout << "Doleva " << posun_x << endl;
-            drawText(current_frame_vis, "Doleva", 10, 10, yellow);
-        } else {
-            drawText(current_frame_vis, "Je to OK", 10, 10, yellow);
-            cout << "OK " << posun_x << endl;
-        }
-
-        if (posun_y > -1.5) {
-            cout << "Nahoru " << posun_y << endl;
-            drawText(current_frame_vis, "Nahoru", 10, 20, yellow);
-        } else if (posun_y < 1.5) {
-            cout << "Dolu " << posun_y << endl;
-            drawText(current_frame_vis, "Dolu", 10, 20, yellow);
-        } else {
-            drawText(current_frame_vis, "Je to OK", 10, 20, yellow);
-            cout << "OK " << posun_y << endl;
-        }
+    pnp_detection.setProjectionMatrix(rotation_estimated, translation_estimated);
 
 
-    } catch (Exception e) {
-        cout << ERROR_COMPARE_MATRIX << endl;
-    }
     cout << "============================" << endl;
 
 
@@ -550,28 +504,31 @@ bool getLightweightEstimation(Mat current_frame_vis, Mat description_first_image
 
     //TODO: Zjistit co vsechno zde má být
 
+    vector<Point2f> featuresPrevious;
+    vector<Point2f> featuresCurrent;
+    vector<Point2f> featuresNextPos;
 
+    vector<uchar> featuresFound;
+    Mat cImage, lastImgRef, err;
 
-    /* Mat cImage, featuresPrevious, featuresCurrent, lastImgRef;
-     cvtColor(current_frame_vis, cImage, CV_BGR2GRAY);
-     cImage.convertTo(current_frame_vis, CV_8U);
-     featuresPrevious = featuresCurrent;
-     goodFeaturesToTrack(current_frame_vis, featuresCurrent, 30, 0.01, 30);
+    cvtColor(current_frame_vis, cImage, CV_BGR2GRAY);
+    cImage.convertTo(current_frame_vis, CV_8U);
+    featuresPrevious = featuresCurrent;
+    goodFeaturesToTrack(current_frame_vis, featuresCurrent, 30, 0.01, 30);
+/*
+    if (!isFirstImage) {
+        calcOpticalFlowPyrLK(lastImgRef, current_frame_vis, featuresPrevious, featuresNextPos, featuresFound, err);
+        for (size_t i = 0; i < featuresNextPos.size(); i++) {
+            if (featuresFound[i]) {
+                draw2DPoint(current_frame_vis, featuresPrevious[i], blue);
+                draw2DPoint(current_frame_vis, featuresNextPos[i], yellow);
+                line(current_frame_vis, featuresPrevious[i], featuresNextPos[i], white, 5);
+            }
+        }
+    }
 
-     if (!isFirstImage) {
-         calcOpticalFlowPyrLK(lastImgRef, current_frame_vis, featuresPrevious, featuresNextPos, featuresFound,
-                              err);
-         for (size_t i = 0; i < featuresNextPos.size(); i++) {
-             if (featuresFound[i]) {
-                 draw2DPoint(current_frame_vis, featuresPrevious[i], blue);
-                 draw2DPoint(current_frame_vis, featuresNextPos[i], yellow);
-                 line(current_frame_vis, featuresPrevious[i], featuresNextPos[i], white, 5);
-             }
-         }
-     }
-
-
-     lastImgRef = current_frame_vis.clone();*/
+*/
+    lastImgRef = current_frame_vis.clone();
 
 
     Mat inliers_idx;
@@ -626,14 +583,21 @@ static void onMouseModelRegistration(int event, int x, int y, int, void *) {
 
 void *fast_robust_matcher(void *arg) {
 
-    pthread_exit(NULL);
-}
+return NULL;}
 
 
 void *robust_matcher(void *arg) {
-    struct arg_struct *aStruct = (struct arg_struct *) arg;
+    struct matcher_struct *param = (struct matcher_struct *) arg;
 
-    pthread_exit(NULL);
+    Mat current_frame = param->current_frame;
+    Mat description_first_image = param->description_first_image;
+    vector<Point3f> list_3D_points_after_registration = param->list_3D_points_after_registration;
+    Mat measurements = param->measurements;
+    Mat T = param->T;
+
+    getRobustEstimation(current_frame, description_first_image, list_3D_points_after_registration, measurements, T);
+
+    return NULL;
 }
 
 vector<Mat> processImage(MSAC &msac, int numVps, cv::Mat &imgGRAY, cv::Mat &outputImg) {
@@ -695,14 +659,12 @@ vector<Mat> processImage(MSAC &msac, int numVps, cv::Mat &imgGRAY, cv::Mat &outp
 
 #endif
 
-    // Multiple vanishing points
-    std::vector<cv::Mat> vps;            // vector of vps: vps[vpNum], with vpNum=0...numDetectedVps
-    std::vector<std::vector<int>> CS;    // index of Consensus Set for all vps: CS[vpNum] is a vector containing indexes of lineSegments belonging to Consensus Set of vp numVp
+    std::vector<cv::Mat> vps;
+    std::vector<std::vector<int>> CS;
     std::vector<int> numInliers;
 
     std::vector<std::vector<std::vector<cv::Point> > > lineSegmentsClusters;
 
-    // Call msac function for multiple vanishing point estimation
     msac.multipleVPEstimation(lineSegments, lineSegmentsClusters, numInliers, vps, numVps);
     for (int v = 0; v < vps.size(); v++) {
         double vpNorm = cv::norm(vps[v]);
@@ -710,7 +672,6 @@ vector<Mat> processImage(MSAC &msac, int numVps, cv::Mat &imgGRAY, cv::Mat &outp
         }
     }
 
-    // Draw line segments according to their cluster
     msac.drawCS(outputImg, lineSegmentsClusters, vps);
     return vps;
 }

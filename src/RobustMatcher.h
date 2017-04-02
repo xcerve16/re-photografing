@@ -20,8 +20,6 @@ using namespace cv::xfeatures2d;
 
 class RobustMatcher {
 
-    const string ERROR_KNN_MATCHING = "Error while KNN matching";
-
 private:
 
     cv::Ptr<cv::FeatureDetector> detector;
@@ -85,7 +83,6 @@ public:
     ransacTest(const vector<DMatch> &matches, const vector<KeyPoint> &keypoints1, const vector<KeyPoint> &keypoints2,
                vector<DMatch> &outMatches);
 
-    void tryKnnMatch(Mat frame, const Mat &model, vector<vector<DMatch>> matches, int k);
 };
 
 #endif
