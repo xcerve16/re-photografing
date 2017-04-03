@@ -12,24 +12,18 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70e342c2-adc5-4064-9319-db384ed3edb0" name="Default" comment="Prvni vysledky refotografie">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/rsz_ref_moravske_zemske_divadlo.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/video/grand_hotel.mp4" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/other/S1.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/other/S2.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/other/chessboard.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/other/church01.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/other/church02.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/other/church03.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/other/headPose.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/other/kvadr.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/rephotografing_cv.exe" afterPath="$PROJECT_DIR$/cmake-build-debug/rephotografing_cv.exe" />
+    <list default="true" id="70e342c2-adc5-4064-9319-db384ed3edb0" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/mesh/3D_rekonstrukce_biskupskeho_palace.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/mesh/3D_rekonstrukce_grand_hotel.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/mesh/3D_rekonstrukce_moravskeho_zemskeho_divadla.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/mesh/3D_rekonstrukce_namesti_svobody.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/mesh/3D_rekonstrukce_ulice_ceska.txt" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/3D_rekonstrukce_biskupskeho_palace.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/3D_rekonstrukce_grand_hotel.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/3D_rekonstrukce_moravskeho_zemskeho_divadla.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/3D_rekonstrukce_namesti_svobody.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/3D_rekonstrukce_ulice_ceska.txt" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.cpp" afterPath="$PROJECT_DIR$/src/Main.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.h" afterPath="$PROJECT_DIR$/src/Main.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/PnPProblem.cpp" afterPath="$PROJECT_DIR$/src/PnPProblem.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/PnPProblem.h" afterPath="$PROJECT_DIR$/src/PnPProblem.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RobustMatcher.h" afterPath="$PROJECT_DIR$/src/RobustMatcher.h" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -93,8 +87,16 @@
         <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="194">
-              <caret line="605" column="117" lean-forward="true" selection-start-line="605" selection-start-column="117" selection-end-line="605" selection-end-column="117" />
-              <folding />
+              <caret line="605" column="117" lean-forward="false" selection-start-line="605" selection-start-column="117" selection-end-line="605" selection-end-column="117" />
+              <folding>
+                <marker date="1491213308002" expanded="true" signature="78664:79019" ph="..." />
+                <marker date="1491213308002" expanded="true" signature="78677:79004" ph="..." />
+                <marker date="1491213308002" expanded="true" signature="78725:78990" ph="..." />
+                <marker date="1491213308002" expanded="true" signature="78744:78975" ph="..." />
+                <marker date="1491213308002" expanded="true" signature="78777:78955" ph="..." />
+                <marker date="1491213308002" expanded="true" signature="78817:78921" ph="..." />
+                <marker date="1491213308002" expanded="true" signature="78838:78899" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -105,7 +107,7 @@
             <state relative-caret-position="194">
               <caret line="18" column="32" lean-forward="false" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
               <folding>
-                <element signature="e#21274#21937#0" expanded="true" />
+                <element signature="e#21277#21940#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -244,8 +246,8 @@
         <option value="$PROJECT_DIR$/src/PnPProblem.h" />
         <option value="$PROJECT_DIR$/src/RobustMatcher.h" />
         <option value="$PROJECT_DIR$/src/Utils.cpp" />
-        <option value="$PROJECT_DIR$/src/Main.cpp" />
         <option value="$PROJECT_DIR$/src/Main.h" />
+        <option value="$PROJECT_DIR$/src/Main.cpp" />
       </list>
     </option>
   </component>
@@ -784,7 +786,7 @@
       <workItem from="1491053288020" duration="16781000" />
       <workItem from="1491073066864" duration="3675000" />
       <workItem from="1491121023004" duration="19574000" />
-      <workItem from="1491206354221" duration="3662000" />
+      <workItem from="1491206354221" duration="3830000" />
     </task>
     <task id="LOCAL-00001" summary="registrace funguje, detekce zatim ne">
       <created>1481836872027</created>
@@ -1038,11 +1040,25 @@
       <option name="project" value="LOCAL" />
       <updated>1491121910618</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Prvni vysledky refotografie">
+      <created>1491213251131</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1491213251131</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Prvni vysledky refotografie">
+      <created>1491213293931</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1491213293931</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="734264000" />
+    <option name="totallyTimeSpent" value="734432000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -1160,6 +1176,8 @@
     <MESSAGE value="Pridani novych videi a 3d rekonstrukce" />
     <MESSAGE value="Prvni vysledky refotografie" />
     <option name="LAST_COMMIT_MESSAGE" value="Prvni vysledky refotografie" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1508,8 +1526,16 @@
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
-          <caret line="605" column="117" lean-forward="true" selection-start-line="605" selection-start-column="117" selection-end-line="605" selection-end-column="117" />
-          <folding />
+          <caret line="605" column="117" lean-forward="false" selection-start-line="605" selection-start-column="117" selection-end-line="605" selection-end-column="117" />
+          <folding>
+            <marker date="1491213308002" expanded="true" signature="78664:79019" ph="..." />
+            <marker date="1491213308002" expanded="true" signature="78677:79004" ph="..." />
+            <marker date="1491213308002" expanded="true" signature="78725:78990" ph="..." />
+            <marker date="1491213308002" expanded="true" signature="78744:78975" ph="..." />
+            <marker date="1491213308002" expanded="true" signature="78777:78955" ph="..." />
+            <marker date="1491213308002" expanded="true" signature="78817:78921" ph="..." />
+            <marker date="1491213308002" expanded="true" signature="78838:78899" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1518,7 +1544,7 @@
         <state relative-caret-position="194">
           <caret line="18" column="32" lean-forward="false" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
           <folding>
-            <element signature="e#21274#21937#0" expanded="true" />
+            <element signature="e#21277#21940#0" expanded="true" />
           </folding>
         </state>
       </provider>
