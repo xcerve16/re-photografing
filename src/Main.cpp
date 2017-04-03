@@ -7,6 +7,12 @@
 #include "Main.h"
 
 int index = 0;
+vector<double> posX;
+vector<double> posY;
+vector<double> avg;
+vector<Mat> frames;
+
+double i = 0;
 
 int main(int argc, char *argv[]) {
 
@@ -179,7 +185,6 @@ int main(int argc, char *argv[]) {
             Point3f point3f = list_3D_points_after_triangulation[index];
             registration.register3DPoint(point3f);
             index_of_points.push_back(index);
-            draw2DPoints(clone_of_ref_image, list_points2d, blue);
             break;
         }
 
@@ -262,32 +267,8 @@ int main(int argc, char *argv[]) {
     Mat inliers_ref_frame;
     vector<Point2f> list_points2d_scene_match;
 
-    pnp_registration.estimatePoseRANSAC(list_3D_points, list_2D_points,
-                                        pnp_method, inliers_ref_frame, useExtrinsicGuess, iterationsCount,
-                                        reprojectionError, confidence);
-
-    for (int inliers_index = 0; inliers_index < inliers_ref_frame.rows; ++inliers_index) {
-        int n = inliers_ref_frame.at<int>(inliers_index);
-        Point2f point2d = list_2D_points[n];
-        list_points2d_scene_match.push_back(point2d);
-    }
-
-    Mat tvect_ref_frame = pnp_registration.getTranslationMatrix();
-    Mat rvect_ref_frame = pnp_registration.getRotationMatrix();
-
-    Mat rvect_traspose;
-    transpose(rvect_ref_frame, rvect_traspose);
-    Mat pos = -rvect_traspose * tvect_ref_frame;
-
-    Mat T(4, 4, rvect_traspose.type());
-    T(cv::Range(0, 3), cv::Range(0, 3)) = rvect_traspose;
-    T(cv::Range(0, 3), cv::Range(3, 4)) = pos;
-
-    double *p = T.ptr<double>(3);
-    p[0] = p[1] = p[2] = 0;
-    p[3] = 1;
-
-    cout << "Referencni kamera: " <<  T << endl;
+    pnp_registration.estimatePoseRANSAC(list_3D_points, list_2D_points, pnp_method, inliers_ref_frame,
+                                        useExtrinsicGuess, iterationsCount, reprojectionError, confidence);
 
     /**
      * Robust matcher
@@ -355,9 +336,56 @@ int main(int argc, char *argv[]) {
             waitKey(20);
         }*/
 
-        getRobustEstimation(current_frame_vis, descriptor_first_image, list_3D_points, measurements, T);
+        getRobustEstimation(current_frame_vis, descriptor_first_image, list_3D_points, measurements);
         imshow(WIN_REAL_TIME_DEMO, current_frame_vis);
     }
+
+
+    double min_x = 0;
+    int index_min_x = 0;
+
+    double min_y = 0;
+    int index_min_y = 0;
+
+    double min_avg = 0;
+    int index_min_avg = 0;
+
+
+    for (int j = 0; j < posX.size(); j++) {
+        if (posX[j] < min_x || min_x == 0) {
+            min_x = posX[j];
+            index_min_x = j;
+        }
+    }
+
+
+    for (int j = 0; j < posY.size(); j++) {
+        if (posY[j] < min_y || min_y == 0) {
+            min_y = posY[j];
+            index_min_y = j;
+        }
+    }
+
+    for (int j = 0; j < avg.size(); j++) {
+        if (avg[j] < min_avg || min_avg == 0) {
+            min_avg = avg[j];
+            index_min_avg = j;
+        }
+    }
+
+    cout << min_x << " min x na indexu  " << index_min_x << endl;
+    cout << min_y << " min y na indexu  " << index_min_y << endl;
+    cout << min_avg << " min avg na indexu  " << index_min_avg << endl;
+
+    imshow("Vysladna refotografie podle X", frames[index_min_x]);
+    imshow("Vysladna refotografie podle Y", frames[index_min_y]);
+    imshow("Vysladna refotografie podle prumeru", frames[index_min_avg]);
+
+    if (!imwrite(path_rephotography, frames[index_min_avg])) {
+        cout << ERROR_WRITE_IMAGE << endl;
+    }
+
+    destroyWindow(WIN_REAL_TIME_DEMO);
 
     waitKey(0);
     return 0;
@@ -375,7 +403,7 @@ Mat loadImage(const string path_to_ref_image) {
 }
 
 bool getRobustEstimation(Mat current_frame_vis, Mat description_first_image,
-                         vector<Point3f> list_3D_points_after_registration, Mat measurements, Mat refT) {
+                         vector<Point3f> list_3D_points_after_registration, Mat measurements) {
 
     vector<DMatch> good_matches;
     vector<KeyPoint> key_points_current_frame;
@@ -384,9 +412,11 @@ bool getRobustEstimation(Mat current_frame_vis, Mat description_first_image,
     vector<Point2f> list_points2d_inliers;
     Mat inliers_idx;
 
-
-
-    robustMatcher.robustMatch(current_frame_vis, good_matches, key_points_current_frame, description_first_image);
+    try {
+        robustMatcher.robustMatch(current_frame_vis, good_matches, key_points_current_frame, description_first_image);
+    } catch (Exception exception1) {
+        return false;
+    }
 
     for (unsigned int match_index = 0; match_index < good_matches.size(); ++match_index) {
         Point3f point3d_model = list_3D_points_after_registration[good_matches[match_index].trainIdx];
@@ -395,15 +425,15 @@ bool getRobustEstimation(Mat current_frame_vis, Mat description_first_image,
         list_points2d_scene_match.push_back(point2d_scene);
     }
 
-    draw2DPoints(current_frame_vis, list_points2d_scene_match, red);
+    //draw2DPoints(current_frame_vis, list_points2d_scene_match, red);
 
     bool good_measurement = false;
 
     if (good_matches.size() > 0) {
 
         pnp_detection.estimatePoseRANSAC(list_points3d_model_match, list_points2d_scene_match, pnp_method,
-                                            inliers_idx, useExtrinsicGuess, iterationsCount, reprojectionError,
-                                            confidence);
+                                         inliers_idx, useExtrinsicGuess, iterationsCount, reprojectionError,
+                                         confidence);
 
         for (int inliers_index = 0; inliers_index < inliers_idx.rows; ++inliers_index) {
             int n = inliers_idx.at<int>(inliers_index);
@@ -411,7 +441,7 @@ bool getRobustEstimation(Mat current_frame_vis, Mat description_first_image,
             list_points2d_inliers.push_back(point2d);
         }
 
-        Mat tvect_ref_frame = pnp_detection.getTranslationMatrix();
+        /*Mat tvect_ref_frame = pnp_detection.getTranslationMatrix();
         Mat rvect_ref_frame = pnp_detection.getRotationMatrix();
 
         Mat rvect_traspose;
@@ -425,14 +455,21 @@ bool getRobustEstimation(Mat current_frame_vis, Mat description_first_image,
 
         double *p = T.ptr<double>(3);
         p[0] = p[1] = p[2] = 0;
-        p[3] = 1;
+        p[3] = 1;*/
+
+
+
 
         Mat revT = Mat(4, 4, CV_64F);
+
+        Mat T = pnp_detection.getProjectionMatrix();
+        Mat refT = pnp_registration.getProjectionMatrix();
+
         revT = T.inv() * refT;
 
+        //TODO: podivat se jestli by nesla vyuzit PNP projekcni matice;
+
         try {
-            revT = Mat(4, 4, CV_64F);
-            revT = pnp_detection.getProjectionMatrix().inv() * refT;
 
             double posun_x_t = T.at<float>(0, 3);
             double posun_y_t = T.at<float>(1, 3);
@@ -440,34 +477,20 @@ bool getRobustEstimation(Mat current_frame_vis, Mat description_first_image,
             double posun_x_refT = refT.at<float>(0, 3);
             double posun_y_refT = refT.at<float>(1, 3);
 
-            double posun_x = revT.at<float>(0, 3);
-            double posun_y = revT.at<float>(1, 3);
+            double posun_x = abs(revT.at<float>(0, 3));
+            double posun_y = abs(revT.at<float>(1, 3));
 
-            cout << "X: " << posun_x_t << " " << posun_x_refT << " " << posun_x << endl;
-            cout << "Y: " << posun_y_t << " " << posun_y_refT << " " << posun_y << endl;
+            cout << i << "X: " << posun_x_t << " " << posun_x_refT << " " << posun_x << endl;
+            cout << i << "Y: " << posun_y_t << " " << posun_y_refT << " " << posun_y << endl;
 
-            if (posun_x < -1.5) {
-                cout << "Doprava " << posun_x << endl;
-                drawText(current_frame_vis, "Doprava", 10, 10, yellow);
-            } else if (posun_x > 1.5) {
-                cout << "Doleva " << posun_x << endl;
-                drawText(current_frame_vis, "Doleva", 10, 10, yellow);
-            } else {
-                drawText(current_frame_vis, "Je to OK", 10, 10, yellow);
-                cout << "OK " << posun_x << endl;
-            }
+            i++;
 
-            if (posun_y > -1.5) {
-                cout << "Nahoru " << posun_y << endl;
-                drawText(current_frame_vis, "Nahoru", 10, 50, yellow);
-            } else if (posun_y < 1.5) {
-                cout << "Dolu " << posun_y << endl;
-                drawText(current_frame_vis, "Dolu", 10, 50, yellow);
-            } else {
-                drawText(current_frame_vis, "Je to OK", 10, 50, yellow);
-                cout << "OK " << posun_y << endl;
-            }
+            double prumer = (posun_x + posun_y) / 2;
 
+            posX.push_back(posun_x);
+            posY.push_back(posun_y);
+            avg.push_back(prumer);
+            frames.push_back(current_frame_vis);
 
         } catch (Exception e) {
             cout << ERROR_COMPARE_MATRIX << endl;
@@ -500,7 +523,7 @@ bool getRobustEstimation(Mat current_frame_vis, Mat description_first_image,
 }
 
 bool getLightweightEstimation(Mat current_frame_vis, Mat description_first_image,
-                              vector<Point3f> list_3D_points_after_registration, Mat measurements, Mat refT) {
+                              vector<Point3f> list_3D_points_after_registration, Mat measurements) {
 
     //TODO: Zjistit co vsechno zde má být
 
@@ -583,7 +606,8 @@ static void onMouseModelRegistration(int event, int x, int y, int, void *) {
 
 void *fast_robust_matcher(void *arg) {
 
-return NULL;}
+    return NULL;
+}
 
 
 void *robust_matcher(void *arg) {
@@ -595,7 +619,7 @@ void *robust_matcher(void *arg) {
     Mat measurements = param->measurements;
     Mat T = param->T;
 
-    getRobustEstimation(current_frame, description_first_image, list_3D_points_after_registration, measurements, T);
+    getRobustEstimation(current_frame, description_first_image, list_3D_points_after_registration, measurements);
 
     return NULL;
 }

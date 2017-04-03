@@ -78,16 +78,52 @@ const string WIN_USER_SELECT_POINT = "WIN_USER_SELECT_POINT";
 const string WIN_REF_IMAGE_FOR_USER = "WIN_REF_IMAGE_FOR_USER";
 const string WIN_REAL_TIME_DEMO = "WIN_REAL_TIME_DEMO";
 
-// File's path
-const string path_to_first_image = "resource/image/grand_hotel (2).jpg";
+// Grand hotel
+/*const string path_to_first_image = "resource/image/grand_hotel (2).jpg";
 const string path_to_second_image = "resource/image/grand_hotel (4).jpg";
+const string path_to_ref_image = "resource/image/ref_grand_hotel.jpg";
+const string video_read_path = "resource/video/grand_hotel.mp4";
+const string path_rephotography = "resource/results/exp_grand_hotel.jpg";*/
+// Biskupsky palac
+/*const string path_to_first_image = "resource/image/rsz_biskupsky_palac_2.jpg";
+const string path_to_second_image = "resource/image/rsz_biskupsky_palac_3.jpg";
 const string path_to_ref_image = "resource/image/ref_biskupsky_palac.jpg";
-const string video_read_path = "resource/video/biskupsky_palac.mp4";
+const string video_read_path = "resource/video/biskupsky_palac.3gp";
+const string path_rephotography = "resource/results/exp_biskupsky_palac.jpg";*/
+
+// Ulice Ceska
+/*const string path_to_first_image = "resource/image/ulice_ceska (2).jpg";
+const string path_to_second_image = "resource/image/ulice_ceska (4).jpg";
+const string path_to_ref_image = "resource/image/ref_ulice_ceska.jpg";
+const string video_read_path = "resource/video/ulice_ceska.3gp";
+const string path_rephotography = "resource/results/exp_ulice_ceska.jpg";*/
+
+// Moravske zemske divadlo
+/*const string path_to_first_image = "resource/image/rsz_moravske_zemske_divadlo_3.jpg";
+const string path_to_second_image = "resource/image/rsz_moravske_zemske_divadlo_4.jpg";
+const string path_to_ref_image = "resource/image/rsz_ref_moravske_zemske_divadlo.jpg";
+const string video_read_path = "resource/video/moravske_zemske_divadlo.mp4";
+const string path_rephotography = "resource/results/exp_moravske_zemske_divadlo.jpg";
+*/
+// Kasna parmas
+/*const string path_to_first_image = "resource/image/rsz_kasna_parmas_5.jpg";
+const string path_to_second_image = "resource/image/rsz_kasna_parmas_7.jpg";
+const string path_to_ref_image = "resource/image/rsz_ref_kasna_parmas.jpg";
+const string video_read_path = "resource/video/kasna_parmas.mp4";
+const string path_rephotography = "resource/results/exp_kasna_parmas.jpg";*/
+// Kostel svateho Jakuba
+/*const string path_to_first_image = "resource/image/rsz_kostel_svateho_jakuba_1.jpg";
+const string path_to_second_image = "resource/image/rsz_kostel_svateho_jakuba_2.jpg";
+const string path_to_ref_image = "resource/image/ref_kostel_svateho_jakuba.jpg";
+const string video_read_path = "resource/video/kostel_svateho_jakuba.mp4";
+const string path_rephotography = "resource/results/exp_kostel_svateho_jakuba.jpg";*/
 
 // ERROR message
 const string ERROR_READ_IMAGE = "Could not open or find the image";
+const string ERROR_WRITE_IMAGE = "Could not open the camera device";
 const string ERROR_OPEN_CAMERA = "Could not open the camera device";
 const string ERROR_COMPARE_MATRIX = "Error while compare project matrix";
+
 
 // RANSAC parameters
 bool useExtrinsicGuess = false;
@@ -120,8 +156,7 @@ static void onMouseModelRegistration(int event, int x, int y, int, void *);
 
 vector<Mat> processImage(MSAC &msac, int numVps, cv::Mat &imgGRAY, cv::Mat &outputImg);
 
-bool getRobustEstimation(Mat current_frame_vis, Mat description_first_image, vector<Point3f> list_3D_points,
-                         Mat measurements, Mat T);
+bool getRobustEstimation(Mat current_frame_vis, Mat description, vector<Point3f> list_3D_points, Mat measurements);
 
 void initKalmanFilter(KalmanFilter &KF, int nStates, int nMeasurements, int nInputs, double dt);
 
