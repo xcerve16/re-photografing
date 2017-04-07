@@ -18,8 +18,8 @@ RobustMatcher::computeDescriptors(const cv::Mat &image, std::vector<cv::KeyPoint
 
 int RobustMatcher::ratioTest(std::vector<std::vector<cv::DMatch> > &matches) {
     int removed = 0;
-    for (std::vector<std::vector<cv::DMatch> >::iterator
-                 matchIterator = matches.begin(); matchIterator != matches.end(); ++matchIterator) {
+    for (std::vector<std::vector<cv::DMatch> >::iterator matchIterator = matches.begin();
+         matchIterator != matches.end(); ++matchIterator) {
 
         if (matchIterator->size() > 1) {
             if ((*matchIterator)[0].distance / (*matchIterator)[1].distance > ratio) {
@@ -72,7 +72,7 @@ void RobustMatcher::robustMatch(const cv::Mat &frame, std::vector<cv::DMatch> &g
 
     std::vector<std::vector<cv::DMatch> > matches12, matches21;
 
-    matcher->knnMatch(descriptors_model, descriptors_frame , matches12, 2);
+    matcher->knnMatch(descriptors_model, descriptors_frame, matches12, 2);
     matcher->knnMatch(descriptors_frame, descriptors_model, matches21, 2);
 
     ratioTest(matches12);
@@ -105,7 +105,6 @@ cv::Mat RobustMatcher::ransacTest(const std::vector<cv::DMatch> &matches, const 
 
     std::vector<cv::Point2f> points1, points2;
     for (std::vector<cv::DMatch>::const_iterator it = matches.begin(); it != matches.end(); ++it) {
-
         float x = keypoints1[it->queryIdx].pt.x;
         float y = keypoints1[it->queryIdx].pt.y;
         points1.push_back(cv::Point2f(x, y));
@@ -124,23 +123,6 @@ cv::Mat RobustMatcher::ransacTest(const std::vector<cv::DMatch> &matches, const 
         if (*itIn) {
             outMatches.push_back(*itM);
         }
-    }
-
-    if (refineF) {
-        points1.clear();
-        points2.clear();
-
-        for (std::vector<cv::DMatch>::const_iterator it = outMatches.begin();
-             it != outMatches.end(); ++it) {
-
-            float x = keypoints1[it->queryIdx].pt.x;
-            float y = keypoints1[it->queryIdx].pt.y;
-            points1.push_back(cv::Point2f(x, y));
-            x = keypoints2[it->trainIdx].pt.x;
-            y = keypoints2[it->trainIdx].pt.y;
-            points2.push_back(cv::Point2f(x, y));
-        }
-        fundemental = cv::findFundamentalMat(cv::Mat(points1), cv::Mat(points2), CV_FM_8POINT);
     }
 
     return fundemental;

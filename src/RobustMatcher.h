@@ -30,14 +30,12 @@ private:
 
     float ratio;
 
-    bool refineF;
-
     double distance;
 
     double confidence;
 
 public:
-    RobustMatcher() : ratio(0.65f), refineF(true), confidence(0.99), distance(3.0) {
+    RobustMatcher() : ratio(0.65f), confidence(0.99), distance(3.0) {
 
         detector = SURF::create();
         extractor = SURF::create();
