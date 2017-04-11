@@ -12,143 +12,14 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70e342c2-adc5-4064-9319-db384ed3edb0" name="Default" comment="Pridani dalsich">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Biskupsky_dvur (1).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Biskupsky_dvur (2).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Biskupsky_dvur (3).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Biskupsky_dvur (4).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Biskupsky_dvur (5).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Cerveny_kostel (1).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Cerveny_kostel (2).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Cerveny_kostel (3).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Cerveny_kostel (4).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Cerveny_kostel (5).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Cerveny_kostel (6).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Cerveny_kostel (7).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Galerie (1).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Galerie (2).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Galerie (3).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Galerie (4).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Galerie (5).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Galerie (6).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Galerie (7).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Janackovo_divadlo (1).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Janackovo_divadlo (2).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Janackovo_divadlo (3).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Janackovo_divadlo (4).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Kasna_parmas (1).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Kasna_parmas (2).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Kasna_parmas (3).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Kasna_parmas (4).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Kasna_parmas (5).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Mahenovo_divadlo (1).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Mahenovo_divadlo (2).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Mahenovo_divadlo (3).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Mahenovo_divadlo (4).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Mahenovo_divadlo (5).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Mahenovo_divadlo (6).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Mahenovo_divadlo (7).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Mahenovo_divadlo (8).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Mahenovo_divadlo (9).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Zlata_lod (1).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Zlata_lod (2).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Zlata_lod (3).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/GPS/Zlata_lod (4).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/cerveny_kostel (10).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/cerveny_kostel (11).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/cerveny_kostel (12).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/cerveny_kostel (13).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/cerveny_kostel (9).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/cerveny_kostel.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/galerie (10).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/galerie (8).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/galerie (9).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/janackovo_divadlo (5).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/janackovo_divadlo (6).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/janackovo_divadlo (7).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/kasna_parmas (10).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/kasna_parmas (8).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/kasna_parmas (9).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/rsz_biskupsky_palac_4.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/rsz_kasna_parmas_6.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/reference/ref_bazilika_velehrad.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/reference/ref_biskupsky_palac.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/reference/ref_cerveny_kostel.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/reference/ref_galerie.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/reference/ref_grand_hotel.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/reference/ref_janackovo_divadlo.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/reference/ref_kasna_parnas.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/reference/ref_kostel_svateho_jakuba.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/reference/ref_moravske_zemske_divadlo.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/reference/ref_namesti_svobody (2).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/reference/ref_namesti_svobody.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/reference/ref_ulice_ceska.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/reference/ref_zelny_trh.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/reference/rsz_ref_cerveny_kostel.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/reference/rsz_ref_grand_hotel.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/reference/rsz_ref_janackovo_divadlo.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/reference/rsz_ref_kasna_parmas.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/reference/rsz_ref_moravske_zemske_divadlo.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/results/cerveny_kostel.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/results/exp_biskupsky_palac.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/results/exp_cerveny_kostel.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/results/exp_galerie.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/results/exp_grand_hotel.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/results/exp_janackovo_divadlo.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/results/exp_kasna_parmas.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/results/exp_kostel_svateho_jakuba.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/results/exp_moravske_zemske_divadlo.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/results/galerie (2).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/results/galerie.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/results/grand_hotel (2).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/results/grand_hotel.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/results/janackovo_divadlo (2).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/results/janackovo_divadlo.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/results/kasna_parmas (2).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/results/kasna_parmas (3).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/results/moravske_zemske_divadlo.mp4" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/results/ref_galerie.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/results/ref_grand_hotel.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/results/ref_janackovo_divadlo.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/video/cerveny_kostel_2.3gp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/video/galerie (2).3gp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/video/galerie_2_.mp4" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/video/janackovo_divadlo (2).3gp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/video/kasna_parmas (1).3gp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/video/kasna_parmas (2).3gp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/video/ulice_ceska.mp4" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/mesh/3D_rekonstrukce_galerie.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/mesh/3D_rekonstrukce_janackovo_divadlo.txt" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/ref_bazilika_velehrad.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/ref_biskupsky_palac.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/ref_cerveny_kostel.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/ref_galerie.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/ref_grand_hotel.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/ref_janackovo_divadlo.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/ref_kasna_parnas.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/ref_kostel_svateho_jakuba.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/ref_moravske_zemske_divadlo.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/ref_namesti_svobody (2).jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/ref_namesti_svobody.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/ref_ulice_ceska.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/ref_zelny_trh.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/rsz_ref_cerveny_kostel.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/rsz_ref_kasna_parmas.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/image/rsz_ref_moravske_zemske_divadlo.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/video/cerveny_kostel.mp4" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resource/video/kasna_parmas.mp4" afterPath="" />
+    <list default="true" id="70e342c2-adc5-4064-9319-db384ed3edb0" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/rephotografing_cv.exe" afterPath="$PROJECT_DIR$/cmake-build-debug/rephotografing_cv.exe" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resource/results/biskupsky_palac.jpg" afterPath="$PROJECT_DIR$/resource/results/biskupsky_palac.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resource/results/moravske_zemske_divadlo.jpg" afterPath="$PROJECT_DIR$/resource/results/moravske_zemske_divadlo.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resource/video/biskupsky_palac.mp4" afterPath="$PROJECT_DIR$/resource/video/biskupsky_palac.mp4" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resource/video/grand_hotel.mp4" afterPath="$PROJECT_DIR$/resource/video/grand_hotel.mp4" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resource/video/moravske_zemske_divadlo.mp4" afterPath="$PROJECT_DIR$/resource/video/moravske_zemske_divadlo.mp4" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.cpp" afterPath="$PROJECT_DIR$/src/Main.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.h" afterPath="$PROJECT_DIR$/src/Main.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/PnPProblem.cpp" afterPath="$PROJECT_DIR$/src/PnPProblem.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RobustMatcher.cpp" afterPath="$PROJECT_DIR$/src/RobustMatcher.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RobustMatcher.h" afterPath="$PROJECT_DIR$/src/RobustMatcher.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/resource/video/velehrad_bazilika.mp4" afterPath="$PROJECT_DIR$/resource/video/bazilika_velehrad.mp4" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -170,8 +41,8 @@
       <file leaf-file-name="Main.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1155">
-              <caret line="55" column="7" lean-forward="false" selection-start-line="55" selection-start-column="7" selection-end-line="55" selection-end-column="7" />
+            <state relative-caret-position="3213">
+              <caret line="153" column="68" lean-forward="false" selection-start-line="153" selection-start-column="68" selection-end-line="153" selection-end-column="68" />
               <folding>
                 <element signature="e#137#156#0" expanded="true" />
                 <element signature="e#497#517#0" expanded="true" />
@@ -181,73 +52,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RobustMatcher.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/RobustMatcher.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1281">
-              <caret line="61" column="14" lean-forward="false" selection-start-line="61" selection-start-column="14" selection-end-line="61" selection-end-column="14" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CameraCalibrator.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/CameraCalibrator.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Utils.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Utils.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="21">
-              <caret line="1" column="10" lean-forward="false" selection-start-line="1" selection-start-column="10" selection-end-line="1" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Main.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1890">
-              <caret line="99" column="22" lean-forward="false" selection-start-line="99" selection-start-column="22" selection-end-line="99" selection-end-column="22" />
+            <state relative-caret-position="748">
+              <caret line="558" column="59" lean-forward="true" selection-start-line="558" selection-start-column="59" selection-end-line="558" selection-end-column="59" />
               <folding>
-                <element signature="e#21546#22209#0" expanded="true" />
+                <element signature="e#19593#20256#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mat.inl.hpp" pinned="false" current-in-tab="false">
-        <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/core/mat.inl.hpp">
+      <file leaf-file-name="tracking.hpp" pinned="false" current-in-tab="false">
+        <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/video/tracking.hpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="12369">
-              <caret line="589" column="9" lean-forward="false" selection-start-line="589" selection-start-column="9" selection-end-line="589" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="imgproc.hpp" pinned="false" current-in-tab="false">
-        <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/imgproc.hpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34986">
-              <caret line="1666" column="0" lean-forward="false" selection-start-line="1666" selection-start-column="0" selection-end-line="1666" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PnPProblem.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/PnPProblem.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="24" column="46" lean-forward="false" selection-start-line="24" selection-start-column="46" selection-end-line="24" selection-end-column="46" />
+            <state relative-caret-position="3612">
+              <caret line="172" column="68" lean-forward="false" selection-start-line="172" selection-start-column="68" selection-end-line="172" selection-end-column="68" />
               <folding />
             </state>
           </provider>
@@ -256,20 +77,58 @@
       <file leaf-file-name="RobustMatcher.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/RobustMatcher.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3234">
-              <caret line="154" column="15" lean-forward="false" selection-start-line="154" selection-start-column="15" selection-end-line="154" selection-end-column="15" />
+            <state relative-caret-position="1323">
+              <caret line="63" column="20" lean-forward="false" selection-start-line="63" selection-start-column="20" selection-end-line="63" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pthread.h" pinned="false" current-in-tab="false">
-        <entry file="file://C:/MinGW/include/pthread.h">
+      <file leaf-file-name="PnPProblem.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/PnPProblem.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15519">
-              <caret line="739" column="21" lean-forward="false" selection-start-line="739" selection-start-column="21" selection-end-line="739" selection-end-column="21" />
+            <state relative-caret-position="0">
+              <caret line="0" column="3" lean-forward="false" selection-start-line="0" selection-start-column="3" selection-end-line="0" selection-end-column="3" />
               <folding />
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PnPProblem.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/PnPProblem.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="861">
+              <caret line="41" column="17" lean-forward="false" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cerveny_kostel (1).jpg" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resource/image/cerveny_kostel (1).jpg">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cerveny_kostel (2).jpg" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resource/image/cerveny_kostel (2).jpg">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cerveny_kostel (9).jpg" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resource/image/cerveny_kostel (9).jpg">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cerveny_kostel (8).jpg" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resource/image/cerveny_kostel (8).jpg">
+          <provider selected="true" editor-type-id="images">
+            <state />
           </provider>
         </entry>
       </file>
@@ -277,8 +136,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>cameraCalibrator</find>
-      <find>list_2D_points_after_triangulation</find>
       <find>main</find>
       <find>Ang</find>
       <find>fx</find>
@@ -307,6 +164,8 @@
       <find>0.9</find>
       <find>cout</find>
       <find>find</find>
+      <find>robustMat</find>
+      <find>pnp</find>
     </findStrings>
     <replaceStrings>
       <replace>countArgs</replace>
@@ -381,13 +240,13 @@
         <option value="$PROJECT_DIR$/src/ModelRegistration.cpp" />
         <option value="$PROJECT_DIR$/src/ModelRegistration.h" />
         <option value="$PROJECT_DIR$/src/Utils.h" />
-        <option value="$PROJECT_DIR$/src/PnPProblem.cpp" />
         <option value="$PROJECT_DIR$/src/PnPProblem.h" />
         <option value="$PROJECT_DIR$/src/Utils.cpp" />
-        <option value="$PROJECT_DIR$/src/Main.h" />
-        <option value="$PROJECT_DIR$/src/RobustMatcher.cpp" />
         <option value="$PROJECT_DIR$/src/RobustMatcher.h" />
+        <option value="$PROJECT_DIR$/src/RobustMatcher.cpp" />
         <option value="$PROJECT_DIR$/src/Main.cpp" />
+        <option value="$PROJECT_DIR$/src/Main.h" />
+        <option value="$PROJECT_DIR$/src/PnPProblem.cpp" />
       </list>
     </option>
   </component>
@@ -409,10 +268,9 @@
   </component>
   <component name="OCFindUsagesOptions" text="false" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="-9" />
-    <option name="y" value="-9" />
-    <option name="width" value="1938" />
-    <option name="height" value="1048" />
+    <option name="x" value="-8" />
+    <option name="width" value="1932" />
+    <option name="height" value="1038" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -525,6 +383,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="resource" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rephotografing" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Refotografing-source" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resource" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="reference" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -974,7 +850,11 @@
       <workItem from="1491396829449" duration="923000" />
       <workItem from="1491405084365" duration="1013000" />
       <workItem from="1491561061227" duration="3140000" />
-      <workItem from="1491597502568" duration="292000" />
+      <workItem from="1491597502568" duration="9105000" />
+      <workItem from="1491657893549" duration="19809000" />
+      <workItem from="1491904303505" duration="597000" />
+      <workItem from="1491922096902" duration="4096000" />
+      <workItem from="1491934173401" duration="17000" />
     </task>
     <task id="LOCAL-00001" summary="registrace funguje, detekce zatim ne">
       <created>1481836872027</created>
@@ -1249,11 +1129,18 @@
       <option name="project" value="LOCAL" />
       <updated>1491213401032</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Pridani dalsich videi a fotografii">
+      <created>1491597864254</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1491597864254</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="789667000" />
+    <option name="totallyTimeSpent" value="822999000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -1265,21 +1152,21 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <frame x="-8" y="0" width="1932" height="1038" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20032224" sideWeight="0.7383918" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2117457" sideWeight="0.7383918" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33182332" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30351076" sideWeight="0.4975" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3216308" sideWeight="0.377578" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.8448471" sideWeight="0.4949303" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32842582" sideWeight="0.622422" order="5" side_tool="false" content_ui="combo" x="3" y="529" width="1594" height="320" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.84421533" sideWeight="0.4949303" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32760596" sideWeight="0.622422" order="5" side_tool="false" content_ui="combo" x="3" y="529" width="1594" height="320" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24907456" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3272933" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17503966" sideWeight="0.26160815" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34088334" sideWeight="0.4150824" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34020618" sideWeight="0.4150824" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32975295" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30464327" sideWeight="0.5282919" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.303551" sideWeight="0.5282919" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1345,7 +1232,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Vypocet optickeho stredu refotografie" />
     <MESSAGE value="Dokonceni prvni casti projektu pred zkouskovim" />
     <MESSAGE value="Předelani projektu na jiny PC" />
     <MESSAGE value="Prace na KLT a FLANN matcher" />
@@ -1370,7 +1256,8 @@
     <MESSAGE value="Pridani novych obrazku" />
     <MESSAGE value="Pridani novych videi a 3d rekonstrukce" />
     <MESSAGE value="Prvni vysledky refotografie" />
-    <option name="LAST_COMMIT_MESSAGE" value="Prvni vysledky refotografie" />
+    <MESSAGE value="Pridani dalsich videi a fotografii" />
+    <option name="LAST_COMMIT_MESSAGE" value="Pridani dalsich videi a fotografii" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -1381,6 +1268,36 @@
           <url>file://$PROJECT_DIR$/src/fileOutputInput/file_input_output.cpp</url>
           <line>78</line>
           <option name="timeStamp" value="66" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/RobustMatcher.cpp</url>
+          <line>70</line>
+          <option name="timeStamp" value="1382" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/RobustMatcher.cpp</url>
+          <line>69</line>
+          <option name="timeStamp" value="1383" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/RobustMatcher.cpp</url>
+          <line>99</line>
+          <option name="timeStamp" value="1384" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/RobustMatcher.cpp</url>
+          <line>67</line>
+          <option name="timeStamp" value="1385" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/RobustMatcher.cpp</url>
+          <line>80</line>
+          <option name="timeStamp" value="1392" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/RobustMatcher.cpp</url>
+          <line>81</line>
+          <option name="timeStamp" value="1393" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -1393,119 +1310,17 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="1355" />
+      <option name="time" value="1399" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="CMakeRunConfiguration">
         <watch expression="xxx.camera_matrix_" />
         <watch expression="list_points2d_scene_match" />
+        <watch expression="key_points2" />
       </configuration>
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Line.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="1" column="7" lean-forward="false" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Line.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="1" column="9" lean-forward="false" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-229">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CameraCalibrator.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" column="3" lean-forward="false" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/core/mat.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23520">
-          <caret line="1120" column="0" lean-forward="false" selection-start-line="1120" selection-start-column="0" selection-end-line="1120" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/features2d.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3066">
-          <caret line="146" column="0" lean-forward="false" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resource/image/rsz_cerveny_kostel_5.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resource/image/rsz_cerveny_kostel_6.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resource/image/ref_galerie.jpg" />
-    <entry file="file://$PROJECT_DIR$/resource/image/namesti_svobody (3).jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resource/image/namesti_svobody (4).jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resource/image/namesti_svobody (5).jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resource/image/namesti_svobody (1).jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resource/image/namesti_svobody (2).jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resource/image/moravske_zemske_divadlo (1).jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resource/image/moravske_zemske_divadlo (2).jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resource/image/moravske_zemske_divadlo (3).jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resource/image/grand_hotel (1).jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resource/image/grand_hotel (3).jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resource/image/grand_hotel (5).jpg">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -1532,13 +1347,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/core/types.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="478">
-          <caret line="1326" column="1" lean-forward="false" selection-start-line="1326" selection-start-column="1" selection-end-line="1326" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -1592,20 +1400,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Utils.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="20" column="15" lean-forward="false" selection-start-line="20" selection-start-column="15" selection-end-line="20" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/PnPProblem.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="903">
-          <caret line="43" column="23" lean-forward="false" selection-start-line="43" selection-start-column="23" selection-end-line="43" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/MSAC.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1638,7 +1432,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34986">
           <caret line="1666" column="0" lean-forward="false" selection-start-line="1666" selection-start-column="0" selection-end-line="1666" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1646,15 +1439,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15519">
           <caret line="739" column="21" lean-forward="false" selection-start-line="739" selection-start-column="21" selection-end-line="739" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/PnPProblem.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="24" column="46" lean-forward="false" selection-start-line="24" selection-start-column="46" selection-end-line="24" selection-end-column="46" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1662,15 +1446,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="12369">
           <caret line="589" column="9" lean-forward="false" selection-start-line="589" selection-start-column="9" selection-end-line="589" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CameraCalibrator.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1678,30 +1453,135 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21">
           <caret line="1" column="10" lean-forward="false" selection-start-line="1" selection-start-column="10" selection-end-line="1" selection-end-column="10" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CameraCalibrator.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resource/image/GPS/Biskupsky_dvur (1).jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/core/types.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="1312" column="0" lean-forward="false" selection-start-line="1312" selection-start-column="0" selection-end-line="1312" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Utils.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="34" column="5" lean-forward="false" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/flann/miniflann.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="353">
+          <caret line="114" column="62" lean-forward="false" selection-start-line="114" selection-start-column="62" selection-end-line="114" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/features2d.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="849" column="0" lean-forward="false" selection-start-line="849" selection-start-column="0" selection-end-line="849" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/RobustMatcher.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1281">
-          <caret line="61" column="14" lean-forward="false" selection-start-line="61" selection-start-column="14" selection-end-line="61" selection-end-column="14" />
-          <folding />
+        <state relative-caret-position="704">
+          <caret line="72" column="16" lean-forward="false" selection-start-line="72" selection-start-column="16" selection-end-line="72" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/RobustMatcher.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3234">
-          <caret line="154" column="15" lean-forward="false" selection-start-line="154" selection-start-column="15" selection-end-line="154" selection-end-column="15" />
-          <folding />
-        </state>
+    <entry file="file://$PROJECT_DIR$/resource/image/rsz_biskupsky_palac_3.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resource/image/rsz_biskupsky_palac_4.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resource/image/rsz_biskupsky_palac_2.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resource/image/rsz_cerveny_kostel_6.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resource/image/rsz_cerveny_kostel_2.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resource/image/rsz_cerveny_kostel_5.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resource/image/cerveny_kostel (7).jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resource/image/cerveny_kostel (13).jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resource/image/cerveny_kostel (12).jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resource/image/cerveny_kostel (10).jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resource/image/cerveny_kostel (11).jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resource/image/cerveny_kostel (1).jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resource/image/cerveny_kostel (2).jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resource/image/cerveny_kostel (9).jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resource/image/cerveny_kostel (8).jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1155">
-          <caret line="55" column="7" lean-forward="false" selection-start-line="55" selection-start-column="7" selection-end-line="55" selection-end-column="7" />
+        <state relative-caret-position="3213">
+          <caret line="153" column="68" lean-forward="false" selection-start-line="153" selection-start-column="68" selection-end-line="153" selection-end-column="68" />
           <folding>
             <element signature="e#137#156#0" expanded="true" />
             <element signature="e#497#517#0" expanded="true" />
@@ -1710,12 +1590,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/PnPProblem.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="861">
+          <caret line="41" column="17" lean-forward="false" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PnPProblem.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="3" lean-forward="false" selection-start-line="0" selection-start-column="3" selection-end-line="0" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/RobustMatcher.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1323">
+          <caret line="63" column="20" lean-forward="false" selection-start-line="63" selection-start-column="20" selection-end-line="63" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/video/tracking.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3612">
+          <caret line="172" column="68" lean-forward="false" selection-start-line="172" selection-start-column="68" selection-end-line="172" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1890">
-          <caret line="99" column="22" lean-forward="false" selection-start-line="99" selection-start-column="22" selection-end-line="99" selection-end-column="22" />
+        <state relative-caret-position="748">
+          <caret line="558" column="59" lean-forward="true" selection-start-line="558" selection-start-column="59" selection-end-line="558" selection-end-column="59" />
           <folding>
-            <element signature="e#21546#22209#0" expanded="true" />
+            <element signature="e#19593#20256#0" expanded="true" />
           </folding>
         </state>
       </provider>

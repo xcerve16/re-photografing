@@ -28,14 +28,18 @@ private:
 
     cv::Ptr<cv::DescriptorMatcher> matcher;
 
+    Mat descriptors;
+
     float ratio;
+
+    bool refineF;
 
     double distance;
 
     double confidence;
 
 public:
-    RobustMatcher() : ratio(0.65f), confidence(0.99), distance(3.0) {
+    RobustMatcher() : ratio(0.65f), refineF(true), confidence(0.99), distance(3.0) {
 
         detector = SURF::create();
         extractor = SURF::create();
@@ -67,8 +71,7 @@ public:
                       std::vector<cv::DMatch> &symMatches);
 
     void robustMatch(const cv::Mat &frame, std::vector<cv::DMatch> &good_matches,
-                     std::vector<cv::KeyPoint> &keypoints_frame,
-                     const cv::Mat &descriptors_model);
+                     std::vector<cv::KeyPoint> &keypoints_frame);
 
     void fastRobustMatch(const cv::Mat &frame, std::vector<cv::DMatch> &good_matches,
                          std::vector<cv::KeyPoint> &keypoints_frame,
@@ -80,6 +83,7 @@ public:
     Mat
     ransacTest(const vector<DMatch> &matches, const vector<KeyPoint> &keypoints1, const vector<KeyPoint> &keypoints2,
                vector<DMatch> &outMatches);
+
 
 };
 

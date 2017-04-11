@@ -41,6 +41,7 @@ void PnPProblem::estimatePoseRANSAC(const std::vector<cv::Point3f> &list_3d_poin
     cv::Mat tvec = cv::Mat::zeros(3, 1, CV_64FC1);
     cv::Mat dist_coeffs = cv::Mat::zeros(4, 1, CV_64FC1);
 
+
     cv::solvePnPRansac(list_3d_points, list_2d_points, _camera_matrix, dist_coeffs, rvec, tvec,
                        use_extrinsic_guess, iterations_count, reprojection_error, confidence,
                        inliers, flags);
