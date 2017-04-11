@@ -10,7 +10,7 @@ int index = 0;
 
 vector<double> avg;
 vector<Mat> frames;
-vector<Point2f> inl;
+
 
 int main(int argc, char *argv[]) {
 
@@ -45,7 +45,9 @@ int main(int argc, char *argv[]) {
      * Dle tutorialu dostupneho na http://docs.opencv.org/3.1.0/dc/d2c/tutorial_real_time_pose.html
      */
 
-    Ptr<FeatureDetector> featureDetector = SURF::create(numKeyPoints);
+    Ptr<SurfFeatureDetector> featureDetector = SurfFeatureDetector::create(numKeyPoints);
+    Ptr<SurfDescriptorExtractor> featureExtractor = SurfDescriptorExtractor::create();
+
     vector<KeyPoint> key_points_first_image, key_points_second_image;
     vector<Point2f> detection_points_first_image, detection_points_second_image;
     vector<DMatch> matches;
@@ -54,6 +56,7 @@ int main(int argc, char *argv[]) {
     robustMatcher.setMinDistanceToEpipolar(min_dist);
     robustMatcher.setRatio(ratioTest);
     robustMatcher.setFeatureDetector(featureDetector);
+    robustMatcher.setDescriptorExtractor(featureExtractor);
 
     Mat fundamental_matrix = robustMatcher.robustMatchRANSAC(first_image, second_image, matches, key_points_first_image,
                                                              key_points_second_image);
@@ -62,15 +65,25 @@ int main(int argc, char *argv[]) {
      * Rozklad matic
      */
 
+    Mat m1 = first_image.clone(), m2 = second_image.clone();
+
     for (vector<DMatch>::const_iterator it = matches.begin(); it != matches.end(); ++it) {
         float x = key_points_first_image[it->queryIdx].pt.x;
         float y = key_points_first_image[it->queryIdx].pt.y;
         detection_points_first_image.push_back(Point2f(x, y));
 
+        circle(m1, Point2f(x, y), 3, white);
+
         x = key_points_second_image[it->trainIdx].pt.x;
         y = key_points_second_image[it->trainIdx].pt.y;
         detection_points_second_image.push_back(Point2f(x, y));
+
+        circle(m2, Point2f(x, y), 3, white);
+
     }
+
+    /*imshow("First frame", m1);
+    imshow("Second frame", m2);*/
 
     resize(fundamental_matrix, fundamental_matrix, Size(3, 3));
     cv::Mat R1, R2, t, essential_matrix;
@@ -269,32 +282,26 @@ int main(int argc, char *argv[]) {
     Mat inliers_ref_frame;
     vector<Point2f> list_points2d_scene_match;
 
-    pnp_registration.estimatePoseRANSAC(list_3D_points, list_2D_points, pnp_method, inliers_ref_frame,
-                                        useExtrinsicGuess, iterationsCount, reprojectionError, confidence);
+    pnp_registration.estimatePoseRANSAC(list_3D_points, list_2D_points, pnp_method, useExtrinsicGuess, iterationsCount,
+                                        reprojectionError, confidence);
 
     /**
      * Robust matcher
      */
 
-    Mat current_frame, current_frame_vis, descriptor_first_image, last_current_frame_vis;
-    key_points_first_image.clear();
+    Mat current_frame, current_frame_vis, last_current_frame_vis;
 
-    Ptr<FeatureDetector> orb = ORB::create(numKeyPoints);
-    orb->detect(first_image, key_points_first_image);
-    orb->compute(first_image, key_points_first_image, descriptor_first_image);
 
-    Ptr<flann::IndexParams> indexParams = makePtr<flann::LshIndexParams>(6, 12, 1);
+    Ptr<flann::IndexParams> indexParams = makePtr<flann::LshIndexParams>(20, 10, 2);
     Ptr<flann::SearchParams> searchParams = makePtr<flann::SearchParams>(50);
 
-    Ptr<DescriptorMatcher> descriptorMatcher = makePtr<FlannBasedMatcher>(indexParams, searchParams);
+    Ptr<DescriptorMatcher> descriptorMatcher = makePtr<FlannBasedMatcher>();
     robustMatcher.setDescriptorMatcher(descriptorMatcher);
     robustMatcher.setRatio(ratioTest);
-    robustMatcher.setFeatureDetector(orb);
-    robustMatcher.setDescriptorExtractor(orb);
-
 
     pthread_t fast_robust_matcher_t, robust_matcher_t = ptw32_handle_t();
-    matcher_struct robust_matcher_arg_struct;
+    robust_matcher_struct robust_matcher_arg_struct;
+    fast_robust_matcher_struct fast_robust_matcher_arg_struct;
 
     /**
      * Real-time Camera Pose Estimation
@@ -315,17 +322,17 @@ int main(int argc, char *argv[]) {
 
     namedWindow(WIN_REAL_TIME_DEMO);
 
-    int counter = 1;
-
     int count_frames = 1;
     vector<Mat> current_frames;
 
-    int start = 2;
+    int start = 4;
     int end = 9;
 
-    robust_matcher_arg_struct.description_first_image = descriptor_first_image;
     robust_matcher_arg_struct.list_3D_points = list_3D_points;
     robust_matcher_arg_struct.measurements = measurements;
+
+    fast_robust_matcher_arg_struct.list_3D_points = list_3D_points;
+    fast_robust_matcher_arg_struct.measurements = measurements;
 
     while (cap.read(current_frame) && waitKey(30) != 27) {
 
@@ -343,20 +350,19 @@ int main(int argc, char *argv[]) {
 
             robust_matcher_arg_struct.num = count_frames;
             robust_matcher_arg_struct.current_frame = current_frames[count_frames - 1];
-            robust_matcher_arg_struct.description_first_image = descriptor_first_image;
 
             pthread_create(&robust_matcher_t, NULL, robust_matcher, (void *) &robust_matcher_arg_struct);
-
-        } else if (count_frames % 4 == 0) {
             pthread_join(robust_matcher_t, NULL);
+        } else if (count_frames % 2 == 0) {
+            //pthread_join(robust_matcher_t, NULL);
         }
 
         if (count_frames >= 5) {
-            robust_matcher_arg_struct.num = start;
-            robust_matcher_arg_struct.last_current_frame = current_frames[start - 2];
-            robust_matcher_arg_struct.current_frame = current_frames[start - 1];
+            fast_robust_matcher_arg_struct.num = start;
+            fast_robust_matcher_arg_struct.last_current_frame = current_frames[start - 2];
+            fast_robust_matcher_arg_struct.current_frame = current_frames[start - 1];
 
-            pthread_create(&fast_robust_matcher_t, NULL, fast_robust_matcher, (void *) &robust_matcher_arg_struct);
+            pthread_create(&fast_robust_matcher_t, NULL, fast_robust_matcher, (void *) &fast_robust_matcher_arg_struct);
             pthread_join(fast_robust_matcher_t, NULL);
             start++;
 
@@ -366,42 +372,17 @@ int main(int argc, char *argv[]) {
             }
 
         }
-        cout << "Snimek je " << count_frames << endl;
         count_frames++;
         imshow(WIN_REAL_TIME_DEMO, current_frame_vis);
-
-
     }
 
 
     waitKey(2000);
 
-    double min_avg = 0;
-    int index_min_avg = 0;
 
     for (int k = 0; k < frames.size(); k++) {
         cout << k << ' ' << avg[k] << endl;
     }
-
-
-    if (!avg.empty()) {
-        for (int j = 0; j < avg.size(); j++) {
-            if (!isnan(avg[j]) && (avg[j] < min_avg || min_avg == 0)) {
-                min_avg = avg[j];
-                index_min_avg = j;
-            }
-        }
-
-        cout << "vysledna fotografie: " << index_min_avg << endl;
-
-        imshow("Vysledna refotografie podle prumeru", frames[index_min_avg]);
-        imshow("Referecni snimek", ref_image);
-
-        if (!imwrite(path_rephotography, frames[index_min_avg])) {
-            cout << ERROR_WRITE_IMAGE << endl;
-        }
-    }
-
 
     destroyWindow(WIN_REAL_TIME_DEMO);
 
@@ -420,44 +401,34 @@ Mat loadImage(const string path_to_ref_image) {
     return image;
 }
 
-bool getRobustEstimation(Mat current_frame_vis, Mat description_first_image, vector<Point3f> list_3D_points,
+bool getRobustEstimation(Mat current_frame_vis, vector<Point3f> list_3D_points,
                          Mat measurements) {
 
     vector<DMatch> good_matches;
     vector<KeyPoint> key_points_current_frame;
     vector<Point3f> list_points3d_model_match;
     vector<Point2f> list_points2d_scene_match;
-    vector<Point2f> list_points2d_inliers;
-    Mat inliers_idx;
 
-    robustMatcher.robustMatch(current_frame_vis, good_matches, key_points_current_frame, description_first_image);
-
-    for (unsigned int match_index = 0; match_index < good_matches.size(); ++match_index) {
-        Point3f point3d_model = list_3D_points[good_matches[match_index].trainIdx];
-        Point2f point2d_scene = key_points_current_frame[good_matches[match_index].queryIdx].pt;
+    robustMatcher.robustMatch(current_frame_vis, good_matches, key_points_current_frame);
+    for (unsigned int index = 0; index < good_matches.size(); ++index) {
+        Point3f point3d_model = list_3D_points[good_matches[index].trainIdx];
+        Point2f point2d_scene = key_points_current_frame[good_matches[index].queryIdx].pt;
         list_points3d_model_match.push_back(point3d_model);
         list_points2d_scene_match.push_back(point2d_scene);
     }
+
+
+    draw2DPoints(current_frame_vis, list_points2d_scene_match, blue);
+
 
     bool good_measurement = false;
 
     if (good_matches.size() > 0) {
 
         pnp_detection.estimatePoseRANSAC(list_points3d_model_match, list_points2d_scene_match, pnp_method,
-                                         inliers_idx, useExtrinsicGuess, iterationsCount, reprojectionError,
-                                         confidence);
+                                         useExtrinsicGuess, iterationsCount, reprojectionError, confidence);
 
-        if (inliers_idx.empty()) {
-            return false;
-        }
-
-        inl.clear();
-
-        for (int inliers_index = 0; inliers_index < inliers_idx.rows; ++inliers_index) {
-            int n = inliers_idx.at<int>(inliers_index);
-            Point2f point2d = list_points2d_scene_match[n];
-            inl.push_back(point2d);
-        }
+        draw2DPoints(current_frame_vis, list_points2d_scene_match, red);
 
         Mat revT = Mat(4, 4, CV_64F);
 
@@ -474,18 +445,14 @@ bool getRobustEstimation(Mat current_frame_vis, Mat description_first_image, vec
         avg.push_back(prumer);
         frames.push_back(current_frame_vis);
 
+        Mat translation_measured(3, 1, CV_64F);
+        translation_measured = pnp_detection.getTranslationMatrix();
 
-        if (inliers_idx.rows >= minInliersKalman) {
+        Mat rotation_measured(3, 3, CV_64F);
+        rotation_measured = pnp_detection.getRotationMatrix();
 
-            Mat translation_measured(3, 1, CV_64F);
-            translation_measured = pnp_detection.getTranslationMatrix();
-
-            Mat rotation_measured(3, 3, CV_64F);
-            rotation_measured = pnp_detection.getRotationMatrix();
-
-            good_measurement = true;
-            fillMeasurements(measurements, translation_measured, rotation_measured);
-        }
+        good_measurement = true;
+        fillMeasurements(measurements, translation_measured, rotation_measured);
     }
 
     Mat translation_estimated(3, 1, CV_64F);
@@ -493,25 +460,19 @@ bool getRobustEstimation(Mat current_frame_vis, Mat description_first_image, vec
 
     updateKalmanFilter(kalmanFilter, measurements, translation_estimated, rotation_estimated);
     pnp_detection.setProjectionMatrix(rotation_estimated, translation_estimated);
-
     return good_measurement;
 }
 
-bool getLightweightEstimation(Mat last_current_frame_vis, Mat current_frame_vis, Mat description_first_image,
-                              vector<Point3f> list_3D_points, Mat measurements) {
+bool getLightweightEstimation(Mat last_current_frame_vis, Mat current_frame_vis, vector<Point3f> list_3D_points,
+                              Mat measurements) {
 
-    vector<DMatch> good_matches;
-    vector<KeyPoint> key_points_current_frame;
-    vector<Point3f> list_points3d_model_match;
     vector<Point2f> list_points2d_scene_match;
-    vector<Point2f> list_points2d_inliers;
-    Mat inliers_idx;
 
-    vector<Point2f> featuresPrevious = inl;
-    vector<Point2f> featuresCurrent = inl;
+    vector<Point2f> featuresPrevious = pnp_detection.getInliersPoints();
+    vector<Point2f> featuresCurrent = pnp_detection.getInliersPoints();
     vector<Point2f> featuresNextPos;
-
     vector<uchar> featuresFound;
+
     Mat last, current, err;
 
     cvtColor(last_current_frame_vis, last, CV_BGR2GRAY);
@@ -520,7 +481,6 @@ bool getLightweightEstimation(Mat last_current_frame_vis, Mat current_frame_vis,
     last.convertTo(last_current_frame_vis, CV_8U);
     current.convertTo(current_frame_vis, CV_8U);
     featuresPrevious = featuresCurrent;
-
 
     goodFeaturesToTrack(current_frame_vis, featuresCurrent, 30, 0.01, 30);
     calcOpticalFlowPyrLK(last, current, featuresPrevious, featuresNextPos, featuresFound, err);
@@ -531,58 +491,9 @@ bool getLightweightEstimation(Mat last_current_frame_vis, Mat current_frame_vis,
         }
     }
 
-    bool good_measurement = false;
-
-    if (good_matches.size() > 0) {
-
-        pnp_detection.estimatePoseRANSAC(list_3D_points, list_points2d_scene_match, pnp_method,
-                                         inliers_idx, useExtrinsicGuess, iterationsCount, reprojectionError,
-                                         confidence);
-
-        inl.clear();
-
-        for (int inliers_index = 0; inliers_index < inliers_idx.rows; ++inliers_index) {
-            int n = inliers_idx.at<int>(inliers_index);
-            Point2f point2d = list_points2d_scene_match[n];
-            inl.push_back(point2d);
-        }
-
-        Mat revT = Mat(4, 4, CV_64F);
-
-        Mat T = pnp_detection.getProjectionMatrix();
-        Mat refT = pnp_registration.getProjectionMatrix();
-
-        revT = T.inv() * refT;
-
-        double pozice_x = revT.at<float>(0, 3);
-        double pozice_y = revT.at<float>(1, 3);
-
-        double prumer = pozice_x + pozice_y;
-        prumer /= 2;
-
-        avg.push_back(prumer);
-        frames.push_back(current_frame_vis);
-
-        if (inliers_idx.rows >= minInliersKalman) {
-
-            Mat translation_measured(3, 1, CV_64F);
-            translation_measured = pnp_detection.getTranslationMatrix();
-
-            Mat rotation_measured(3, 3, CV_64F);
-            rotation_measured = pnp_detection.getRotationMatrix();
-
-            good_measurement = true;
-            fillMeasurements(measurements, translation_measured, rotation_measured);
-        }
-    }
-
-    Mat translation_estimated(3, 1, CV_64F);
-    Mat rotation_estimated(3, 3, CV_64F);
-
-    updateKalmanFilter(kalmanFilter, measurements, translation_estimated, rotation_estimated);
-    pnp_detection.setProjectionMatrix(rotation_estimated, translation_estimated);
-
-    return good_measurement;
+    //pnp_detection.estimatePoseRANSAC(list_3D_points, list_points2d_scene_match, pnp_method, useExtrinsicGuess,
+    //                                 iterationsCount, reprojectionError, confidence);
+    return true;
 }
 
 
@@ -607,31 +518,29 @@ static void onMouseModelRegistration(int event, int x, int y, int, void *) {
 
 
 void *fast_robust_matcher(void *arg) {
-    struct matcher_struct *param = (struct matcher_struct *) arg;
+    struct fast_robust_matcher_struct *param = (struct fast_robust_matcher_struct *) arg;
     cout << "FASTstart with frames " << param->num << endl;
 
     Mat last_current_frame = param->last_current_frame;
     Mat current_frame = param->current_frame;
-    Mat description_first_image = param->description_first_image;
     vector<Point3f> list_3D_points = param->list_3D_points;
     Mat measurements = param->measurements;
 
-    getLightweightEstimation(last_current_frame, current_frame, description_first_image, list_3D_points, measurements);
+    getLightweightEstimation(last_current_frame, current_frame, list_3D_points, measurements);
     cout << "FASTend" << endl;
     return NULL;
 }
 
 
 void *robust_matcher(void *arg) {
-    struct matcher_struct *param = (struct matcher_struct *) arg;
+    struct robust_matcher_struct *param = (struct robust_matcher_struct *) arg;
     cout << "ROBUSTstart with frames " << param->num << endl;
 
     Mat current_frame = param->current_frame;
-    Mat description_first_image = param->description_first_image;
     vector<Point3f> list_3D_points_after_registration = param->list_3D_points;
     Mat measurements = param->measurements;
 
-    getRobustEstimation(current_frame, description_first_image, list_3D_points_after_registration, measurements);
+    getRobustEstimation(current_frame, list_3D_points_after_registration, measurements);
     cout << "ROBUSTend" << endl;
 
     return NULL;

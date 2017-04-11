@@ -169,11 +169,17 @@ int nInputs = 0;
 double dt = 0.125;
 
 
-struct matcher_struct {
+struct robust_matcher_struct {
+    int num;
+    Mat current_frame;
+    vector<Point3f> list_3D_points;
+    Mat measurements;
+};
+
+struct fast_robust_matcher_struct {
     int num;
     Mat last_current_frame;
     Mat current_frame;
-    Mat description_first_image;
     vector<Point3f> list_3D_points;
     Mat measurements;
 };
@@ -186,9 +192,9 @@ static void onMouseModelRegistration(int event, int x, int y, int, void *);
 
 vector<Mat> processImage(MSAC &msac, int numVps, cv::Mat &imgGRAY, cv::Mat &outputImg);
 
-bool getRobustEstimation(Mat current_frame_vis, Mat description, vector<Point3f> list_3D_points, Mat measurements);
+bool getRobustEstimation(Mat current_frame_vis, vector<Point3f> list_3D_points, Mat measurements);
 
-bool getLightweightEstimation(Mat last_current_frame_vis, Mat current_frame_vis, Mat description,
+bool getLightweightEstimation(Mat last_current_frame_vis, Mat current_frame_vis,
                               vector<Point3f> list_3D_points, Mat measurements);
 
 void initKalmanFilter(KalmanFilter &KF, int nStates, int nMeasurements, int nInputs, double dt);

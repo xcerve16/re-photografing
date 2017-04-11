@@ -61,19 +61,20 @@ void RobustMatcher::symmetryTest(const std::vector<std::vector<cv::DMatch> > &ma
 
 }
 
-void RobustMatcher::robustMatch(const cv::Mat &frame, std::vector<cv::DMatch> &good_matches,
-                                std::vector<cv::KeyPoint> &keypoints_frame, const cv::Mat &descriptors_model) {
+void RobustMatcher::robustMatch(const cv::Mat &image2, std::vector<cv::DMatch> &good_matches,
+                                std::vector<cv::KeyPoint> &key_points2) {
 
 
-    this->computeKeyPoints(frame, keypoints_frame);
+    detector->detect(image2, key_points2);
 
-    cv::Mat descriptors_frame;
-    this->computeDescriptors(frame, keypoints_frame, descriptors_frame);
+    cv::Mat descriptors2;
+    extractor->compute(image2, key_points2, descriptors2);
 
-    std::vector<std::vector<cv::DMatch> > matches12, matches21;
 
-    matcher->knnMatch(descriptors_model, descriptors_frame, matches12, 2);
-    matcher->knnMatch(descriptors_frame, descriptors_model, matches21, 2);
+    std::vector<std::vector<cv::DMatch>> matches12, matches21;
+
+    matcher->knnMatch(descriptors, descriptors2, matches12, 2);
+    matcher->knnMatch(descriptors2, descriptors, matches21, 2);
 
     ratioTest(matches12);
     ratioTest(matches21);
@@ -125,6 +126,22 @@ cv::Mat RobustMatcher::ransacTest(const std::vector<cv::DMatch> &matches, const 
         }
     }
 
+    if (refineF) {
+        points1.clear();
+        points2.clear();
+
+        for (std::vector<cv::DMatch>::const_iterator it = outMatches.begin();
+             it != outMatches.end(); ++it) {
+            float x = keypoints1[it->queryIdx].pt.x;
+            float y = keypoints1[it->queryIdx].pt.y;
+            points1.push_back(cv::Point2f(x, y));
+            x = keypoints2[it->trainIdx].pt.x;
+            y = keypoints2[it->trainIdx].pt.y;
+            points2.push_back(cv::Point2f(x, y));
+        }
+        fundemental = cv::findFundamentalMat(cv::Mat(points1), cv::Mat(points2), CV_FM_8POINT);
+    }
+
     return fundemental;
 }
 
@@ -139,6 +156,9 @@ cv::Mat RobustMatcher::robustMatchRANSAC(cv::Mat &image1, cv::Mat &image2, std::
     cv::Mat descriptors1, descriptors2;
     extractor->compute(image1, key_points1, descriptors1);
     extractor->compute(image2, key_points2, descriptors2);
+
+    descriptors = descriptors1.clone();
+
 
     BFMatcher matcher;
 

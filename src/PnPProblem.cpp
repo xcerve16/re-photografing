@@ -33,23 +33,31 @@ void PnPProblem::setProjectionMatrix(const cv::Mat &rotation_matrix, const cv::M
 
 
 void PnPProblem::estimatePoseRANSAC(const std::vector<cv::Point3f> &list_3d_points,
-                                    const std::vector<cv::Point2f> &list_2d_points, int flags, cv::Mat &inliers,
-                                    bool use_extrinsic_guess, int iterations_count, float reprojection_error,
-                                    double confidence) {
+                                    const std::vector<cv::Point2f> &list_2d_points, int flags, bool use_extrinsic_guess,
+                                    int iterations_count, float reprojection_error, double confidence) {
 
     cv::Mat rvec = cv::Mat::zeros(3, 1, CV_64FC1);
     cv::Mat tvec = cv::Mat::zeros(3, 1, CV_64FC1);
     cv::Mat dist_coeffs = cv::Mat::zeros(4, 1, CV_64FC1);
+    cv::Mat inliers_points;
 
-    cv::solvePnPRansac(list_3d_points, list_2d_points, _camera_matrix, dist_coeffs, rvec, tvec,
-                       use_extrinsic_guess, iterations_count, reprojection_error, confidence,
-                       inliers, flags);
+    cv::solvePnPRansac(list_3d_points, list_2d_points, _camera_matrix, dist_coeffs, rvec, tvec, use_extrinsic_guess,
+                       iterations_count, reprojection_error, confidence, inliers_points, flags);
 
     Rodrigues(rvec, _rotation_matrix);
     _translation_matrix = tvec;
 
-    this->setProjectionMatrix(_rotation_matrix, _translation_matrix);
+    if (!inliers_points.empty()) {
+        _inliers_points.clear();
 
+        for (int index = 0; index < inliers_points.rows; ++index) {
+            int n = inliers_points.at<int>(index);
+            cv::Point2f point2d = list_2d_points[n];
+            _inliers_points.push_back(point2d);
+        }
+    }
+
+    this->setProjectionMatrix(_rotation_matrix, _translation_matrix);
 }
 
 void PnPProblem::setOpticalCenter(double cx, double cy) {
