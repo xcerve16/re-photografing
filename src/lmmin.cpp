@@ -1,3 +1,8 @@
+/**
+ * lmmin.cpp
+ * Author: Adam Červenka <xcerve16@stud.fit.vutbr.cz>
+ * Kód je převzat ze stránek: https://marcosnietoblog.wordpress.com/2012/03/31/vanishing-point-detection-c-source-code/
+ */
 /*
  * Project:  LevenbergMarquardtLeastSquaresFitting
  *
@@ -53,9 +58,9 @@
 */
 
 const lm_control_struct lm_control_double = {
-    LM_USERTOL, LM_USERTOL, LM_USERTOL, LM_USERTOL, 100., 100, 1, 0 };
+        LM_USERTOL, LM_USERTOL, LM_USERTOL, LM_USERTOL, 100., 100, 1, 0 };
 const lm_control_struct lm_control_float = {
-    1.e-7, 1.e-7, 1.e-7, 1.e-7, 100., 100, 0, 0 };
+        1.e-7, 1.e-7, 1.e-7, 1.e-7, 100., 100, 0, 0 };
 
 
 /*****************************************************************************/
@@ -63,33 +68,33 @@ const lm_control_struct lm_control_float = {
 /*****************************************************************************/
 
 const char *lm_infmsg[] = {
-    "success (sum of squares below underflow limit)",
-    "success (the relative error in the sum of squares is at most tol)",
-    "success (the relative error between x and the solution is at most tol)",
-    "success (both errors are at most tol)",
-    "trapped by degeneracy (increasing epsilon might help)",
-    "timeout (number of calls to fcn has reached maxcall*(n+1))",
-    "failure (ftol<tol: cannot reduce sum of squares any further)",
-    "failure (xtol<tol: cannot improve approximate solution any further)",
-    "failure (gtol<tol: cannot improve approximate solution any further)",
-    "exception (not enough memory)",
-    "fatal coding error (improper input parameters)",
-    "exception (break requested within function evaluation)"
+        "success (sum of squares below underflow limit)",
+        "success (the relative error in the sum of squares is at most tol)",
+        "success (the relative error between x and the solution is at most tol)",
+        "success (both errors are at most tol)",
+        "trapped by degeneracy (increasing epsilon might help)",
+        "timeout (number of calls to fcn has reached maxcall*(n+1))",
+        "failure (ftol<tol: cannot reduce sum of squares any further)",
+        "failure (xtol<tol: cannot improve approximate solution any further)",
+        "failure (gtol<tol: cannot improve approximate solution any further)",
+        "exception (not enough memory)",
+        "fatal coding error (improper input parameters)",
+        "exception (break requested within function evaluation)"
 };
 
 const char *lm_shortmsg[] = {
-    "success (0)",
-    "success (f)",
-    "success (p)",
-    "success (f,p)",
-    "degenerate",
-    "call limit",
-    "failed (f)",
-    "failed (p)",
-    "failed (o)",
-    "no memory",
-    "invalid input",
-    "user break"
+        "success (0)",
+        "success (f)",
+        "success (p)",
+        "success (f,p)",
+        "degenerate",
+        "call limit",
+        "failed (f)",
+        "failed (p)",
+        "failed (o)",
+        "no memory",
+        "invalid input",
+        "user break"
 };
 
 
@@ -97,9 +102,9 @@ const char *lm_shortmsg[] = {
 /*  lm_printout_std (default monitoring routine)                             */
 /*****************************************************************************/
 
-void lm_printout_std( int n_par, const double *par, int m_dat,
-                      const void *data, const double *fvec,
-                      int printflags, int iflag, int iter, int nfev)
+void lm_printout_std(int n_par, const double *par, int m_dat,
+                     const void *data, const double *fvec,
+                     int printflags, int iflag, int iter, int nfev)
 /*
  *       data  : for soft control of printout behaviour, add control
  *                 variables to the data struct
@@ -148,13 +153,13 @@ void lm_printout_std( int n_par, const double *par, int m_dat,
 /*  lm_minimize (intermediate-level interface)                               */
 /*****************************************************************************/
 
-void lmmin( int n_par, double *par, int m_dat, const void *data, 
-            void (*evaluate) (const double *par, int m_dat, const void *data,
-                              double *fvec, int *info),
-            const lm_control_struct *control, lm_status_struct *status,
-            void (*printout) (int n_par, const double *par, int m_dat,
-                              const void *data, const double *fvec,
-                              int printflags, int iflag, int iter, int nfev) )
+void lmmin(int n_par, double *par, int m_dat, const void *data,
+           void (*evaluate) (const double *par, int m_dat, const void *data,
+                             double *fvec, int *info),
+           const lm_control_struct *control, lm_status_struct *status,
+           void (*printout) (int n_par, const double *par, int m_dat,
+                             const void *data, const double *fvec,
+                             int printflags, int iflag, int iter, int nfev) )
 {
 
 /*** allocate work space. ***/
@@ -182,7 +187,7 @@ void lmmin( int n_par, double *par, int m_dat, const void *data,
 
     /* default diagonal */
     if( ! control->scale_diag )
-        for( j=0; j<n_par; ++j )
+        for(j=0; j<n_par; ++j )
             diag[j] = 1;
 
 /*** perform fit. ***/
@@ -191,15 +196,15 @@ void lmmin( int n_par, double *par, int m_dat, const void *data,
 
     /* this goes through the modified legacy interface: */
     lm_lmdif(
-        m, n, par, fvec, control->ftol, control->xtol, control->gtol,
-        control->maxcall * (n+1), control->epsilon, diag,
-        ( control->scale_diag ? 1 : 2 ), control->stepbound, &(status->info),
-        &(status->nfev), fjac, ipvt, qtf, wa1, wa2, wa3, wa4,
-        evaluate, printout, control->printflags, data );
+            m, n, par, fvec, control->ftol, control->xtol, control->gtol,
+            control->maxcall * (n+1), control->epsilon, diag,
+            ( control->scale_diag ? 1 : 2 ), control->stepbound, &(status->info),
+            &(status->nfev), fjac, ipvt, qtf, wa1, wa2, wa3, wa4,
+            evaluate, printout, control->printflags, data );
 
     if ( printout )
         (*printout)(
-            n, par, m, data, fvec, control->printflags, -1, 0, status->nfev );
+                n, par, m, data, fvec, control->printflags, -1, 0, status->nfev );
     status->fnorm = lm_enorm(m, fvec);
     if ( status->info < 0 )
         status->info = 11;
@@ -214,30 +219,30 @@ void lmmin( int n_par, double *par, int m_dat, const void *data,
 /*  lm_lmdif (low-level, modified legacy interface for full control)         */
 /*****************************************************************************/
 
-void lm_lmpar( int n, double *r, int ldr, int *ipvt, double *diag,
-               double *qtb, double delta, double *par, double *x,
-               double *sdiag, double *aux, double *xdi );
-void lm_qrfac( int m, int n, double *a, int pivot, int *ipvt,
-               double *rdiag, double *acnorm, double *wa );
-void lm_qrsolv( int n, double *r, int ldr, int *ipvt, double *diag,
-                double *qtb, double *x, double *sdiag, double *wa );
+void lm_lmpar(int n, double *r, int ldr, int *ipvt, double *diag,
+              double *qtb, double delta, double *par, double *x,
+              double *sdiag, double *aux, double *xdi );
+void lm_qrfac(int m, int n, double *a, int pivot, int *ipvt,
+              double *rdiag, double *acnorm, double *wa );
+void lm_qrsolv(int n, double *r, int ldr, int *ipvt, double *diag,
+               double *qtb, double *x, double *sdiag, double *wa );
 
 #define MIN(a,b) (((a)<=(b)) ? (a) : (b))
 #define MAX(a,b) (((a)>=(b)) ? (a) : (b))
 #define SQR(x)   (x)*(x)
 
 
-void lm_lmdif( int m, int n, double *x, double *fvec, double ftol,
-               double xtol, double gtol, int maxfev, double epsfcn,
-               double *diag, int mode, double factor, int *info, int *nfev,
-               double *fjac, int *ipvt, double *qtf, double *wa1,
-               double *wa2, double *wa3, double *wa4,
-               void (*evaluate) (const double *par, int m_dat, const void *data,
-                                 double *fvec, int *info),
-               void (*printout) (int n_par, const double *par, int m_dat,
-                                 const void *data, const double *fvec,
-                                 int printflags, int iflag, int iter, int nfev),
-               int printflags, const void *data )
+void lm_lmdif(int m, int n, double *x, double *fvec, double ftol,
+              double xtol, double gtol, int maxfev, double epsfcn,
+              double *diag, int mode, double factor, int *info, int *nfev,
+              double *fjac, int *ipvt, double *qtf, double *wa1,
+              double *wa2, double *wa3, double *wa4,
+              void (*evaluate) (const double *par, int m_dat, const void *data,
+                                double *fvec, int *info),
+              void (*printout) (int n_par, const double *par, int m_dat,
+                                const void *data, const double *fvec,
+                                int printflags, int iflag, int iter, int nfev),
+              int printflags, const void *data )
 {
 /*
  *   The purpose of lmdif is to minimize the sum of the squares of
@@ -392,7 +397,7 @@ void lm_lmdif( int m, int n, double *x, double *fvec, double ftol,
  */
     int i, iter, j;
     double actred, delta, dirder, eps, fnorm, fnorm1, gnorm, par, pnorm,
-        prered, ratio, step, sum, temp, temp1, temp2, temp3, xnorm;
+            prered, ratio, step, sum, temp, temp1, temp2, temp3, xnorm;
     static double p1 = 0.1;
     static double p0001 = 1.0e-4;
 
@@ -407,7 +412,7 @@ void lm_lmdif( int m, int n, double *x, double *fvec, double ftol,
 /*** lmdif: check input parameters for errors. ***/
 
     if ((n <= 0) || (m < n) || (ftol < 0.)
-        || (xtol < 0.) || (gtol < 0.) || (maxfev <= 0) || (factor <= 0.)) {
+                               || (xtol < 0.) || (gtol < 0.) || (maxfev <= 0) || (factor <= 0.)) {
         *info = 10;             // invalid parameter
         return;
     }
@@ -477,7 +482,7 @@ void lm_lmdif( int m, int n, double *x, double *fvec, double ftol,
         lm_qrfac(m, n, fjac, 1, ipvt, wa1, wa2, wa3);
         /* return values are ipvt, wa1=rdiag, wa2=acnorm */
 
-        if (!iter) { 
+        if (!iter) {
             /* first iteration only */
             if (mode != 2) {
                 /* diag := norms of the columns of the initial Jacobian */
@@ -546,8 +551,8 @@ void lm_lmdif( int m, int n, double *x, double *fvec, double ftol,
 
 /*** inner: determine the levenberg-marquardt parameter. ***/
 
-            lm_lmpar( n, fjac, m, ipvt, diag, qtf, delta, &par,
-                      wa1, wa2, wa4, wa3 );
+            lm_lmpar(n, fjac, m, ipvt, diag, qtf, delta, &par,
+                     wa1, wa2, wa4, wa3 );
             /* used return values are fjac (partly), par, wa1=x, wa3=diag*x */
 
             for (j = 0; j < n; j++)
@@ -665,7 +670,7 @@ void lm_lmdif( int m, int n, double *x, double *fvec, double ftol,
                 return;
             }
             if (fabs(actred) <= LM_MACHEP &&
-                prered <= LM_MACHEP && 0.5 * ratio <= 1){
+                    prered <= LM_MACHEP && 0.5 * ratio <= 1){
                 *info = 6;
                 return;
             }
@@ -881,7 +886,7 @@ void lm_lmpar(int n, double *r, int ldr, int *ipvt, double *diag,
         dxnorm = lm_enorm(n, xdi);
         fp_old = fp;
         fp = dxnorm - delta;
-        
+
         /** if the function is small enough, accept the current value
             of par. Also test for the exceptional cases where parl
             is zero or the number of iterations has reached 10. **/
@@ -890,7 +895,7 @@ void lm_lmpar(int n, double *r, int ldr, int *ipvt, double *diag,
             || (parl == 0. && fp <= fp_old && fp_old < 0.)
             || iter == 10)
             break; /* the only exit from the iteration. */
-        
+
         /** compute the Newton correction. **/
 
         for (j = 0; j < n; j++)
@@ -911,11 +916,11 @@ void lm_lmpar(int n, double *r, int ldr, int *ipvt, double *diag,
         else if (fp < 0)
             paru = MIN(paru, *par);
         /* the case fp==0 is precluded by the break condition  */
-        
+
         /** compute an improved estimate for par. **/
-        
+
         *par = MAX(parl, *par + parc);
-        
+
     }
 
 } /*** lm_lmpar. ***/
@@ -1022,7 +1027,7 @@ void lm_qrfac(int m, int n, double *a, int pivot, int *ipvt,
         ipvt[j] = ipvt[kmax];
         ipvt[kmax] = k;
 
-      pivot_ok:
+        pivot_ok:
         /** compute the Householder transformation to reduce the
             j-th column of a to a multiple of the j-th unit vector. **/
 
@@ -1206,7 +1211,7 @@ void lm_qrsolv(int n, double *r, int ldr, int *ipvt, double *diag,
             }
         }
 
-      L90:
+        L90:
         /** store the diagonal element of s and restore
             the corresponding diagonal element of r. **/
 

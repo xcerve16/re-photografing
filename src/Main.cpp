@@ -74,12 +74,6 @@ int main(int argc, char *argv[]) {
 
     }
 
-    imshow("First frame", m1);
-    imshow("Second frame", m2);
-    imwrite("first_frame.jpg", m1);
-    imwrite("second_frame.jpg", m2);
-
-
     resize(fundamental_matrix, fundamental_matrix, cv::Size(3, 3));
     cv::Mat R1, R2, t, essential_matrix;
 
@@ -255,17 +249,22 @@ int main(int argc, char *argv[]) {
         tmp.y = B.y;
         Line primka2(center.x, center.y, tmp.x, tmp.y);
 
-        primka1.getIntersection(primka2, cx, cy);
+        primka1.getIntersection(primka2, cy, cx);
     } else {
         cx = ref_image.cols / 2 - 0.5;
         cy = ref_image.rows / 2 - 0.5;
     }
 
-    cx = abs(cx);
-    cy = abs(cy);
+    cx = abs((int) cx);
+    cy = abs((int) cy);
 
     cv::waitKey(0);
+    std::cout << pnp_registration.getCameraMatrix() << std::endl;
     pnp_registration.setOpticalCenter(cx, cy);
+    std::cout << pnp_registration.getCameraMatrix() << std::endl;
+
+
+
 
     /**
      * Pozice historicke kamery

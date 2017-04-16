@@ -1,9 +1,14 @@
+/**
+ * errorNIETO.h
+ * Author: Adam Červenka <xcerve16@stud.fit.vutbr.cz>
+ * Kód je převzat ze stránek: https://marcosnietoblog.wordpress.com/2012/03/31/vanishing-point-detection-c-source-code/
+ */
 #ifndef __ERRORNIETO_H__
 #define __ERRORNIETO_H__
 
 #include "cv.h"      
 #include "highgui.h" 
-#include "cxcore.h" 
+#include "cxcore.h"
 
 /** This is the data structure passed to the Levenberg-Marquardt procedure */
 struct data_struct
@@ -14,9 +19,8 @@ struct data_struct
 
 	cv::Mat &K;		// Camera calibration matrix (3x3)
 
-	data_struct (cv::Mat &_LSS, cv::Mat &_Lengths, cv::Mat &_midPoints, cv::Mat &_K): 
-		LSS(_LSS), Lengths(_Lengths), midPoints(_midPoints), K(_K)
-	{
+	data_struct (cv::Mat &_LSS, cv::Mat &_Lengths, cv::Mat &_midPoints, cv::Mat &_K):
+			LSS(_LSS), Lengths(_Lengths), midPoints(_midPoints), K(_K) {
 	}
 };
 

@@ -1,9 +1,16 @@
+/**
+ * MSAC.h
+ * Author: Adam Červenka <xcerve16@stud.fit.vutbr.cz>
+ * Kód je převzat ze stránek: https://marcosnietoblog.wordpress.com/2012/03/31/vanishing-point-detection-c-source-code/
+ *
+ */
+
 #ifndef __MSAC_H__
 #define __MSAC_H__
 
 #include "cv.h"      
 #include "highgui.h" 
-#include "cxcore.h"  
+#include "cxcore.h"
 
 #include "errorNIETO.h"
 
@@ -16,6 +23,7 @@ class MSAC
 {
 public:
 	MSAC(void);
+
 	~MSAC(void);
 
 private:
@@ -44,7 +52,7 @@ private:
 	std::vector<int> __MSS;			// Minimal sample set
 
 	// Auxiliar variables
-	cv::Mat __a, __an, __b, __bn, __li, __c;	
+	cv::Mat __a, __an, __b, __bn, __li, __c;
 	cv::Mat __vp, __vpAux;
 
 	// Calibration
@@ -58,21 +66,21 @@ private:
 	// Consensus set
 	std::vector<int> __CS_idx, __CS_best;	// Indexes of line segments: 1 -> belong to CS, 0 -> does not belong 
 	std::vector<int> __ind_CS_best;		// Vector of indexes of the Consensus Set 
-	double vp_length_ratio;			
+	double vp_length_ratio;
 
 public:
-	
+
 	/** Initialisation of MSAC procedure*/
 	void init(int mode, cv::Size imSize, bool verbose=false);
 
 	/** Main function which returns, if detected, several vanishing points and a vector of containers of line segments
 		corresponding to each Consensus Set.*/
 	void multipleVPEstimation(std::vector<std::vector<cv::Point> > &lineSegments, std::vector<std::vector<std::vector<cv::Point> > > &lineSegmentsClusters, std::vector<int> &numInliers, std::vector<cv::Mat> &vps, int numVps);
-		
+
 	/** Draws vanishing points and line segments according to the vanishing point they belong to*/
 	void drawCS(cv::Mat &im, std::vector<std::vector<std::vector<cv::Point> > > &lineSegmentsClusters, std::vector<cv::Mat> &vps);
 
-private:	
+private:
 	/** This function returns a randomly selected MSS*/
 	void GetMinimalSampleSet(cv::Mat &Li, cv::Mat &Lengths, cv::Mat &Mi, std::vector<int> &MSS, cv::Mat &vp);
 
@@ -81,21 +89,21 @@ private:
 
 	/** This is an auxiliar function that formats data into appropriate containers*/
 	void fillDataContainers(std::vector<std::vector<cv::Point> > &lineSegments);
-	
+
 	// Estimation functions
 	/** This function estimates the vanishing point for a given set of line segments using the Least-squares procedure*/
 	void estimateLS(cv::Mat &Li, cv::Mat &Lengths, std::vector<int> &set, int set_length, cv::Mat &vEst);
 
 	/** This function estimates the vanishing point for a given set of line segments using the Nieto's method*/
 	void estimateNIETO(cv::Mat &Li, cv::Mat &Lengths, cv::Mat &Mi, std::vector<int> &set, int set_length, cv::Mat &vEst);
-	
+
 	// Error functions
 	/** This function computes the residuals of the line segments given a vanishing point using the Least-squares method*/
 	float errorLS(int vpNum, cv::Mat &Li, cv::Mat &vp, std::vector<float> &E, int *CS_counter);
 
 	/** This function computes the residuals of the line segments given a vanishing point using the Nieto's method*/
 	float errorNIETO(int vpNum, cv::Mat &Li, cv::Mat &lengthsLS, cv::Mat &Mi, cv::Mat &vp, std::vector<float> &E, int *CS_counter);
-	
+
 };
 
 #endif // __MSAC_H__

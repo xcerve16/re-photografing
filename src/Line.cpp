@@ -6,12 +6,6 @@
 
 #include "Line.h"
 
-Line::Line(double a, double b, double c) {
-    this->a = a;
-    this->b = b;
-    this->c = c;
-}
-
 Line::Line(double x1, double y1, double x2, double y2) {
     a = y2 - y1;
     b = x1 - x2;

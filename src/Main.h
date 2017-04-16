@@ -82,9 +82,9 @@ const std::string video_read_path = "resource/video/grand_hotel.mp4";
 const std::string path_rephotography = "resource/results/exp_grand_hotel.jpg";*/
 
 // Biskupsky palac
-const std::string path_to_first_image = "resource/image/rsz_biskupsky_palac_3.jpg";
+const std::string path_to_first_image = "resource/image/rsz_biskupsky_palac_2.jpg";
 const std::string path_to_second_image = "resource/image/rsz_biskupsky_palac_3.jpg";
-const std::string path_to_ref_image = "resource/reference/ref_biskupsky_palac.jpg";
+const std::string path_to_ref_image = "resource/image/rsz_biskupsky_palac_4.jpg";
 const std::string video_read_path = "resource/video/biskupsky_palac.mp4";
 //const std::string path_rephotography = "resource/results/exp_biskupsky_palac.jpg";
 
