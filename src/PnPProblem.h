@@ -40,6 +40,8 @@ public:
         _projection_matrix = cv::Mat::zeros(4, 4, CV_64FC1);
     };
 
+    ~PnPProblem() {}
+
     void
     estimatePoseRANSAC(const std::vector<cv::Point3f> &list_3d_points, const std::vector<cv::Point2f> &list_2d_points,
                        int flags, bool use_extrinsic_guess, int iterations_count,
@@ -60,8 +62,6 @@ public:
     void setCameraMatrix(const cv::Mat &camera_matrix) { _camera_matrix = camera_matrix; };
 
     void setOpticalCenter(double cx, double cy);
-
-    void setInliersPoints(std::vector<cv::Point2f> inliers_points) { _inliers_points = inliers_points; }
 
 };
 

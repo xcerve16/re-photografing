@@ -281,29 +281,29 @@ CMakeFiles/rephotografing_cv.dir/src/errorNIETO.cpp.obj.provides: CMakeFiles/rep
 CMakeFiles/rephotografing_cv.dir/src/errorNIETO.cpp.obj.provides.build: CMakeFiles/rephotografing_cv.dir/src/errorNIETO.cpp.obj
 
 
-CMakeFiles/rephotografing_cv.dir/src/lmmin.c.obj: CMakeFiles/rephotografing_cv.dir/flags.make
-CMakeFiles/rephotografing_cv.dir/src/lmmin.c.obj: CMakeFiles/rephotografing_cv.dir/includes_C.rsp
-CMakeFiles/rephotografing_cv.dir/src/lmmin.c.obj: ../src/lmmin.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Refotografing-source\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/rephotografing_cv.dir/src/lmmin.c.obj"
-	C:\MinGW\bin\gcc.exe  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\rephotografing_cv.dir\src\lmmin.c.obj   -c D:\Refotografing-source\src\lmmin.c
+CMakeFiles/rephotografing_cv.dir/src/lmmin.cpp.obj: CMakeFiles/rephotografing_cv.dir/flags.make
+CMakeFiles/rephotografing_cv.dir/src/lmmin.cpp.obj: CMakeFiles/rephotografing_cv.dir/includes_CXX.rsp
+CMakeFiles/rephotografing_cv.dir/src/lmmin.cpp.obj: ../src/lmmin.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Refotografing-source\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/rephotografing_cv.dir/src/lmmin.cpp.obj"
+	C:\MinGW\bin\g++.exe   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\rephotografing_cv.dir\src\lmmin.cpp.obj -c D:\Refotografing-source\src\lmmin.cpp
 
-CMakeFiles/rephotografing_cv.dir/src/lmmin.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/rephotografing_cv.dir/src/lmmin.c.i"
-	C:\MinGW\bin\gcc.exe  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\Refotografing-source\src\lmmin.c > CMakeFiles\rephotografing_cv.dir\src\lmmin.c.i
+CMakeFiles/rephotografing_cv.dir/src/lmmin.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rephotografing_cv.dir/src/lmmin.cpp.i"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Refotografing-source\src\lmmin.cpp > CMakeFiles\rephotografing_cv.dir\src\lmmin.cpp.i
 
-CMakeFiles/rephotografing_cv.dir/src/lmmin.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/rephotografing_cv.dir/src/lmmin.c.s"
-	C:\MinGW\bin\gcc.exe  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\Refotografing-source\src\lmmin.c -o CMakeFiles\rephotografing_cv.dir\src\lmmin.c.s
+CMakeFiles/rephotografing_cv.dir/src/lmmin.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rephotografing_cv.dir/src/lmmin.cpp.s"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Refotografing-source\src\lmmin.cpp -o CMakeFiles\rephotografing_cv.dir\src\lmmin.cpp.s
 
-CMakeFiles/rephotografing_cv.dir/src/lmmin.c.obj.requires:
+CMakeFiles/rephotografing_cv.dir/src/lmmin.cpp.obj.requires:
 
-.PHONY : CMakeFiles/rephotografing_cv.dir/src/lmmin.c.obj.requires
+.PHONY : CMakeFiles/rephotografing_cv.dir/src/lmmin.cpp.obj.requires
 
-CMakeFiles/rephotografing_cv.dir/src/lmmin.c.obj.provides: CMakeFiles/rephotografing_cv.dir/src/lmmin.c.obj.requires
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/lmmin.c.obj.provides.build
-.PHONY : CMakeFiles/rephotografing_cv.dir/src/lmmin.c.obj.provides
+CMakeFiles/rephotografing_cv.dir/src/lmmin.cpp.obj.provides: CMakeFiles/rephotografing_cv.dir/src/lmmin.cpp.obj.requires
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/lmmin.cpp.obj.provides.build
+.PHONY : CMakeFiles/rephotografing_cv.dir/src/lmmin.cpp.obj.provides
 
-CMakeFiles/rephotografing_cv.dir/src/lmmin.c.obj.provides.build: CMakeFiles/rephotografing_cv.dir/src/lmmin.c.obj
+CMakeFiles/rephotografing_cv.dir/src/lmmin.cpp.obj.provides.build: CMakeFiles/rephotografing_cv.dir/src/lmmin.cpp.obj
 
 
 # Object files for target rephotografing_cv
@@ -317,7 +317,7 @@ rephotografing_cv_OBJECTS = \
 "CMakeFiles/rephotografing_cv.dir/src/Line.cpp.obj" \
 "CMakeFiles/rephotografing_cv.dir/src/MSAC.cpp.obj" \
 "CMakeFiles/rephotografing_cv.dir/src/errorNIETO.cpp.obj" \
-"CMakeFiles/rephotografing_cv.dir/src/lmmin.c.obj"
+"CMakeFiles/rephotografing_cv.dir/src/lmmin.cpp.obj"
 
 # External object files for target rephotografing_cv
 rephotografing_cv_EXTERNAL_OBJECTS =
@@ -331,7 +331,7 @@ rephotografing_cv.exe: CMakeFiles/rephotografing_cv.dir/src/CameraCalibrator.cpp
 rephotografing_cv.exe: CMakeFiles/rephotografing_cv.dir/src/Line.cpp.obj
 rephotografing_cv.exe: CMakeFiles/rephotografing_cv.dir/src/MSAC.cpp.obj
 rephotografing_cv.exe: CMakeFiles/rephotografing_cv.dir/src/errorNIETO.cpp.obj
-rephotografing_cv.exe: CMakeFiles/rephotografing_cv.dir/src/lmmin.c.obj
+rephotografing_cv.exe: CMakeFiles/rephotografing_cv.dir/src/lmmin.cpp.obj
 rephotografing_cv.exe: CMakeFiles/rephotografing_cv.dir/build.make
 rephotografing_cv.exe: D:/OpenCV/opencv/build/install/x86/mingw/lib/libopencv_xphoto310.dll.a
 rephotografing_cv.exe: D:/OpenCV/opencv/build/install/x86/mingw/lib/libopencv_surface_matching310.dll.a
@@ -387,7 +387,7 @@ CMakeFiles/rephotografing_cv.dir/requires: CMakeFiles/rephotografing_cv.dir/src/
 CMakeFiles/rephotografing_cv.dir/requires: CMakeFiles/rephotografing_cv.dir/src/Line.cpp.obj.requires
 CMakeFiles/rephotografing_cv.dir/requires: CMakeFiles/rephotografing_cv.dir/src/MSAC.cpp.obj.requires
 CMakeFiles/rephotografing_cv.dir/requires: CMakeFiles/rephotografing_cv.dir/src/errorNIETO.cpp.obj.requires
-CMakeFiles/rephotografing_cv.dir/requires: CMakeFiles/rephotografing_cv.dir/src/lmmin.c.obj.requires
+CMakeFiles/rephotografing_cv.dir/requires: CMakeFiles/rephotografing_cv.dir/src/lmmin.cpp.obj.requires
 
 .PHONY : CMakeFiles/rephotografing_cv.dir/requires
 

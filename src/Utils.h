@@ -13,14 +13,9 @@
 
 #include "PnPProblem.h"
 
-using namespace std;
-using namespace cv;
-
-void drawText(cv::Mat image, std::string text, int x, int y, cv::Scalar color);
-
 void draw2DPoints(cv::Mat image, std::vector<cv::Point2f> &list_points, cv::Scalar color);
 
-void draw2DPoint(cv::Mat image, Point2f &list_points, cv::Scalar color);
+void draw2DPoint(cv::Mat image, cv::Point2f &points, cv::Scalar color);
 
 cv::Mat rot2euler(const cv::Mat & rotationMatrix);
 

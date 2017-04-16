@@ -8,7 +8,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/rephotografing_cv.dir/src/Line.cpp.obj"
   "CMakeFiles/rephotografing_cv.dir/src/MSAC.cpp.obj"
   "CMakeFiles/rephotografing_cv.dir/src/errorNIETO.cpp.obj"
-  "CMakeFiles/rephotografing_cv.dir/src/lmmin.c.obj"
+  "CMakeFiles/rephotografing_cv.dir/src/lmmin.cpp.obj"
   "rephotografing_cv.pdb"
   "rephotografing_cv.exe"
   "rephotografing_cv.exe.manifest"
@@ -16,6 +16,6 @@ file(REMOVE_RECURSE
 )
 
 # Per-language clean rules from dependency scanning.
-foreach(lang C CXX)
+foreach(lang CXX)
   include(CMakeFiles/rephotografing_cv.dir/cmake_clean_${lang}.cmake OPTIONAL)
 endforeach()

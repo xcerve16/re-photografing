@@ -1,15 +1,12 @@
 #include "errorNIETO.h"
 
-using namespace std;
-using namespace cv;
-
-float distanceNieto( cv::Mat &vanishingPoint, cv::Mat &lineSegment, float lengthLineSegment, cv::Mat &midPoint )
+float distanceNieto(cv::Mat &vanishingPoint, cv::Mat &lineSegment, cv::Mat &midPoint)
 {
 	// IMPORTANT: The vanishing point must arrive here uncalibrated and in Cartesian coordinates
 	// Line segment normal (2D)
 	float n0 = -lineSegment.at<float>(1,0);
 	float n1 = lineSegment.at<float>(0,0);
-	float nNorm = sqrt(n0*n0 + n1*n1);
+	float nNorm = (float) sqrt(n0 * n0 + n1 * n1);
 
 	// Mid point
 	float c0 = midPoint.at<float>(0,0);
@@ -24,7 +21,7 @@ float distanceNieto( cv::Mat &vanishingPoint, cv::Mat &lineSegment, float length
 	float r0, r1;
 	r0 = v1*c2 - v2*c1;
 	r1 = v2*c0 - v0*c2;
-	float rNorm = sqrt(r0*r0 + r1*r1);
+	float rNorm = (float) sqrt(r0 * r0 + r1 * r1);
 
 	float num = (r0*n0 + r1*n1);
 	if( num < 0 )
@@ -38,13 +35,13 @@ float distanceNieto( cv::Mat &vanishingPoint, cv::Mat &lineSegment, float length
 
 	return d;
 }
-void evaluateNieto( const double *param, int m_dat, const void *data,
-					double *fvec, int *info)
+
+void evaluateNieto(const double *param, const void *data,
+				   double *fvec, int *info)
 {
 	// Cast to correct types
 	data_struct *mydata;
 	mydata = (data_struct *) data;
-	int ndat = 0;
 
 	// IMPORTANT!!: the vanishing point has arrived here calibrated AND in spherical coordinates!
 	// 1) Get Cartesian coordaintes
@@ -55,10 +52,10 @@ void evaluateNieto( const double *param, int m_dat, const void *data,
 	double z = cos(theta);
 
 	// 2) Uncalibrate it using the K matrix in the data	
-	cv::Mat vn = Mat(3,1,CV_32F);
-	vn.at<float>(0,0) = x;
-	vn.at<float>(1,0) = y;
-	vn.at<float>(2,0) = z;
+	cv::Mat vn = cv::Mat(3, 1, CV_32F);
+	vn.at<float>(0, 0) = (float) x;
+	vn.at<float>(1, 0) = (float) y;
+	vn.at<float>(2, 0) = (float) z;
 	
 	cv::Mat vanishingPoint = mydata->K*vn;
 	if(vanishingPoint.at<float>(2,0) != 0)
@@ -68,9 +65,9 @@ void evaluateNieto( const double *param, int m_dat, const void *data,
 		vanishingPoint.at<float>(2,0) = 1;
 	}
 
-	cv::Mat lineSegment = Mat(3,1,CV_32F);
+	cv::Mat lineSegment = cv::Mat(3, 1, CV_32F);
 	float lengthLineSegment = 0;
-	cv::Mat midPoint = Mat(3,1,CV_32F);
+	cv::Mat midPoint = cv::Mat(3, 1, CV_32F);
 
 	// Fill fvec
 	for(int p=0; p< mydata->LSS.cols ; p++)

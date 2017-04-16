@@ -365,32 +365,32 @@ src/errorNIETO.cpp.s:
 	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/errorNIETO.cpp.s
 .PHONY : src/errorNIETO.cpp.s
 
-src/lmmin.obj: src/lmmin.c.obj
+src/lmmin.obj: src/lmmin.cpp.obj
 
 .PHONY : src/lmmin.obj
 
 # target to build an object file
-src/lmmin.c.obj:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/lmmin.c.obj
-.PHONY : src/lmmin.c.obj
+src/lmmin.cpp.obj:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/lmmin.cpp.obj
+.PHONY : src/lmmin.cpp.obj
 
-src/lmmin.i: src/lmmin.c.i
+src/lmmin.i: src/lmmin.cpp.i
 
 .PHONY : src/lmmin.i
 
 # target to preprocess a source file
-src/lmmin.c.i:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/lmmin.c.i
-.PHONY : src/lmmin.c.i
+src/lmmin.cpp.i:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/lmmin.cpp.i
+.PHONY : src/lmmin.cpp.i
 
-src/lmmin.s: src/lmmin.c.s
+src/lmmin.s: src/lmmin.cpp.s
 
 .PHONY : src/lmmin.s
 
 # target to generate assembly for a file
-src/lmmin.c.s:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/lmmin.c.s
-.PHONY : src/lmmin.c.s
+src/lmmin.cpp.s:
+	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/lmmin.cpp.s
+.PHONY : src/lmmin.cpp.s
 
 # Help Target
 help:

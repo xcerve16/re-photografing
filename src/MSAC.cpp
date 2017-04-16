@@ -1,22 +1,18 @@
 #include <opencv2/imgproc.hpp>
 #include "MSAC.h"
-#include "errorNIETO.h"
 #include "lmmin.h"
 
 //#ifdef DEBUG_MAP	// if defined, a 2D map will be created (which slows down the process)
 
-using namespace std;
-using namespace cv;
-
 MSAC::MSAC(void)
 {
 	// Auxiliar variables
-	__a = Mat(3,1,CV_32F);
-	__an = Mat(3,1,CV_32F);
-	__b = Mat(3,1,CV_32F);
-	__bn = Mat(3,1,CV_32F);
-	__li = Mat(3,1,CV_32F);
-	__c = Mat(3,1,CV_32F);	
+    __a = cv::Mat(3, 1, CV_32F);
+    __an = cv::Mat(3, 1, CV_32F);
+    __b = cv::Mat(3, 1, CV_32F);
+    __bn = cv::Mat(3, 1, CV_32F);
+    __li = cv::Mat(3, 1, CV_32F);
+    __c = cv::Mat(3, 1, CV_32F);
 
 	__vp = cv::Mat(3,1,CV_32F);
 	__vpAux = cv::Mat(3,1,CV_32F);
@@ -49,7 +45,7 @@ void MSAC::init(int mode, cv::Size imSize, bool verbose)
 	for(int i=0; i<__minimal_sample_set_dimension; ++i) __MSS.push_back(0);
 	
 	// (Default) Calibration	
-	__K = Mat(3,3,CV_32F);
+    __K = cv::Mat(3, 3, CV_32F);
 	__K.setTo(0);
 	__K.at<float>(0,0) = (float)__width;
 	__K.at<float>(0,2) = (float)__width/2;
@@ -67,9 +63,9 @@ void MSAC::fillDataContainers(std::vector<std::vector<cv::Point> > &lineSegments
 
 	// Transform all line segments
 	// __Li = [l_00 l_01 l_02; l_10 l_11 l_12; l_20 l_21 l_22; ...]; where li=[l_i0;l_i1;l_i2]^T is li=an x bn; 
-	__Li = Mat(numLines, 3, CV_32F);
-	__Mi = Mat(numLines, 3, CV_32F);
-	__Lengths = Mat(numLines, numLines, CV_32F);
+    __Li = cv::Mat(numLines, 3, CV_32F);
+    __Mi = cv::Mat(numLines, 3, CV_32F);
+    __Lengths = cv::Mat(numLines, numLines, CV_32F);
 	__Lengths.setTo(0);
 
 	// Fill data containers (__Li, __Mi, __Lenghts)
@@ -77,8 +73,8 @@ void MSAC::fillDataContainers(std::vector<std::vector<cv::Point> > &lineSegments
 	for (int i=0; i<numLines; i++)
 	{
 		// Extract the end-points					
-		Point p1 = lineSegments[i][0];
-		Point p2 = lineSegments[i][1];
+        cv::Point p1 = lineSegments[i][0];
+        cv::Point p2 = lineSegments[i][1];
 		__a.at<float>(0,0) = (float)p1.x;
 		__a.at<float>(1,0) = (float)p1.y;
 		__a.at<float>(2,0) = 1;
@@ -161,11 +157,11 @@ void MSAC::multipleVPEstimation(std::vector<std::vector<cv::Point> > &lineSegmen
 		int max_no_updates = INT_MAX;		
 
 		// Define containers of CS (Consensus set): __CS_best to store the best one, and __CS_idx to evaluate a new candidate
-		__CS_best = vector<int>(numLines, 0);
-		__CS_idx = vector<int>(numLines, 0);
+        __CS_best = std::vector<int>(numLines, 0);
+        __CS_idx = std::vector<int>(numLines, 0);
 
 		// Allocate Error matrix
-		vector<float> E = vector<float>(numLines, 0);		
+        std::vector<float> E = std::vector<float>(numLines, 0);
 
 		// MSAC
 		if(__verbose)
@@ -199,7 +195,7 @@ void MSAC::multipleVPEstimation(std::vector<std::vector<cv::Point> > &lineSegmen
 
 			// Update ------------------------------
 			// If the new cost is better than the best one, update
-			if (N_I >= __minimal_sample_set_dimension && (J<__J_best) || ((J == __J_best) && (N_I > __N_I_best)))
+            if (((N_I >= __minimal_sample_set_dimension) && (J < __J_best)) || ((J == __J_best) && (N_I > __N_I_best)))
 			{
 				__notify = true;
 
@@ -245,7 +241,7 @@ void MSAC::multipleVPEstimation(std::vector<std::vector<cv::Point> > &lineSegmen
 			// Verbose
 			if (__verbose && __notify)
 			{
-				int aux = max(T_iter, __min_iters);
+                int aux = std::max(T_iter, __min_iters);
 				printf("Iteration = %5d/%9d. ", iter, aux);
 				printf("Inliers = %6d/%6d (cost is J = %8.4f)\n", __N_I_best, numLines, __J_best);
 
@@ -315,9 +311,9 @@ void MSAC::multipleVPEstimation(std::vector<std::vector<cv::Point> > &lineSegmen
 				__vp = __K.inv()*__vp;
 			}
 			if(__verbose)
-				printf("VP = (%.3f,%.3f,%.3f)\n", __vp.at<float>(0,0), __vp.at<float>(1,0), __vp.at<float>(2,0));			
-			
-			// Copy to output vector
+                printf("VP = (%.3f,%.3f,%.3f)\n", __vp.at<float>(0, 0), __vp.at<float>(1, 0), __vp.at<float>(2, 0));
+
+            // Copy to output std::vector
 			vps.push_back(__vp);	
 		}
 		else if(fabs(__J_best - 1) < 0.000001)
@@ -342,9 +338,9 @@ void MSAC::multipleVPEstimation(std::vector<std::vector<cv::Point> > &lineSegmen
 			else
 			{
 				// Calibrate
-				__vp = __K.inv()*__vp;					
-			}	
-			// Copy to output vector
+				__vp = __K.inv()*__vp;
+            }
+            // Copy to output std::vector
 			vps.push_back(__vp);	
 		}		
 
@@ -411,8 +407,8 @@ void MSAC::estimateLS(cv::Mat &Li, cv::Mat &Lengths, std::vector<int> &set, int 
 	{	
 		// Just the cross product
 		// DATA IS CALIBRATED in MODE_LS
-		cv::Mat ls0 = Mat(3,1,CV_32F);
-		cv::Mat ls1 = Mat(3,1,CV_32F);
+        cv::Mat ls0 = cv::Mat(3, 1, CV_32F);
+        cv::Mat ls1 = cv::Mat(3, 1, CV_32F);
 
 		ls0.at<float>(0,0) = Li.at<float>(set[0],0);
 		ls0.at<float>(1,0) = Li.at<float>(set[0],1);
@@ -435,8 +431,8 @@ void MSAC::estimateLS(cv::Mat &Li, cv::Mat &Lengths, std::vector<int> &set, int 
 	}
 	
 	// Extract the line segments corresponding to the indexes contained in the set
-	cv::Mat li_set = Mat(3, set_length, CV_32F);
-	cv::Mat Lengths_set = Mat(set_length, set_length, CV_32F);
+    cv::Mat li_set = cv::Mat(3, set_length, CV_32F);
+    cv::Mat Lengths_set = cv::Mat(set_length, set_length, CV_32F);
 	Lengths_set.setTo(0);
 		
 	// Fill line segments info
@@ -453,7 +449,7 @@ void MSAC::estimateLS(cv::Mat &Li, cv::Mat &Lengths, std::vector<int> &set, int 
 	// Generate the matrix ATA (a partir de LSS_set=A)
 	cv::Mat L = li_set.t();
 	cv::Mat Tau = Lengths_set;
-	cv::Mat ATA = Mat(3,3,CV_32F);
+    cv::Mat ATA = cv::Mat(3, 3, CV_32F);
 	ATA = L.t()*Tau.t()*Tau*L;
 	
 	// Obtain eigendecomposition
@@ -484,8 +480,8 @@ void MSAC::estimateNIETO(cv::Mat &Li, cv::Mat &Lengths, cv::Mat &Mi, std::vector
 	{	
 		// Just the cross product
 		// DATA IS NOT CALIBRATED for MODE_NIETO
-		cv::Mat ls0 = Mat(3,1,CV_32F);
-		cv::Mat ls1 = Mat(3,1,CV_32F);
+        cv::Mat ls0 = cv::Mat(3, 1, CV_32F);
+        cv::Mat ls1 = cv::Mat(3, 1, CV_32F);
 
 		ls0.at<float>(0,0) = Li.at<float>(set[0],0);
 		ls0.at<float>(1,0) = Li.at<float>(set[0],1);
@@ -509,9 +505,9 @@ void MSAC::estimateNIETO(cv::Mat &Li, cv::Mat &Lengths, cv::Mat &Mi, std::vector
 	}
 
 	// Extract the line segments corresponding to the indexes contained in the set
-	cv::Mat li_set = Mat(3, set_length, CV_32F);
-	cv::Mat Lengths_set = Mat(set_length, set_length, CV_32F);
-	cv::Mat mi_set = Mat(3, set_length, CV_32F);
+    cv::Mat li_set = cv::Mat(3, set_length, CV_32F);
+    cv::Mat Lengths_set = cv::Mat(set_length, set_length, CV_32F);
+    cv::Mat mi_set = cv::Mat(3, set_length, CV_32F);
 	Lengths_set.setTo(0);
 
 	// Fill line segments info
@@ -544,8 +540,8 @@ void MSAC::estimateNIETO(cv::Mat &Li, cv::Mat &Lengths, cv::Mat &Mi, std::vector
 	infoTest = &aux;
 
 	// Image limits
-	cv::Mat pt0 = Mat(3,1,CV_32F);
-	cv::Mat pt3 = Mat(3,1,CV_32F);
+	cv::Mat pt0 = cv::Mat(3,1,CV_32F);
+	cv::Mat pt3 = cv::Mat(3,1,CV_32F);
 	pt0.at<float>(0,0) = 0; pt0.at<float>(1,0) = 0; pt0.at<float>(2,0) = 1;
 	pt3.at<float>(0,0) = __width; pt3.at<float>(1,0) = __height; pt3.at<float>(2,0) = 1;
 
@@ -603,8 +599,8 @@ void MSAC::estimateNIETO(cv::Mat &Li, cv::Mat &Lengths, cv::Mat &Mi, std::vector
 	// The starting point is the provided vp which is already calibrated
 	if(__verbose)
 	{
-		printf("\nInitial Cal.VP = (%.3f,%.3f,%.3f)\n", vp.at<float>(0,0), vp.at<float>(1,0), vp.at<float>(2,0));		
-		cv::Mat vpUnc = Mat(3,1,CV_32F);
+        printf("\nInitial Cal.VP = (%.3f,%.3f,%.3f)\n", vp.at<float>(0, 0), vp.at<float>(1, 0), vp.at<float>(2, 0));
+        cv::Mat vpUnc = cv::Mat(3, 1, CV_32F);
 		vpUnc = __K*vp;
 		if(vpUnc.at<float>(2,0) != 0)
 		{
@@ -663,7 +659,7 @@ float MSAC::errorLS(int vpNum, cv::Mat &Li, cv::Mat &vp, std::vector<float> &E, 
 	double vn_norm = cv::norm(vn);
 
 	cv::Mat li;
-	li = Mat(3,1,CV_32F);
+    li = cv::Mat(3, 1, CV_32F);
 	double li_norm = 0;
 	float di = 0;
 	
@@ -683,7 +679,7 @@ float MSAC::errorLS(int vpNum, cv::Mat &Li, cv::Mat &vp, std::vector<float> &E, 
 		/* Add to CS if error is less than expected noise */
 		if (E[i] <= __T_noise_squared)
 		{
-			__CS_idx[i] = vpNum;		// set index to 1
+            __CS_idx[i] = vpNum;        // set index_of_registration to 1
 			(*CS_counter)++;
 			
 			// Torr method
@@ -703,10 +699,10 @@ float MSAC::errorNIETO(int vpNum, cv::Mat &Li, cv::Mat &Lengths, cv::Mat &Mi, cv
 {
 	float J = 0;
 	float di = 0;
-	
-	cv::Mat lineSegment = Mat(3,1,CV_32F);
+
+    cv::Mat lineSegment = cv::Mat(3, 1, CV_32F);
 	float lengthLineSegment = 0;
-	cv::Mat midPoint = Mat(3,1,CV_32F);
+    cv::Mat midPoint = cv::Mat(3, 1, CV_32F);
 
 	// The vp arrives here calibrated, need to uncalibrate (check it anyway)
 	cv::Mat vn = cv::Mat(3,1,CV_32F);
@@ -742,7 +738,7 @@ float MSAC::errorNIETO(int vpNum, cv::Mat &Li, cv::Mat &Lengths, cv::Mat &Mi, cv
 		/* Add to CS if error is less than expected noise */
 		if (E[i] <= __T_noise_squared)
 		{
-			__CS_idx[i] = vpNum;		// set index to 1
+            __CS_idx[i] = vpNum;        // set index_of_registration to 1
 			(*CS_counter)++;
 			
 			// Torr method
@@ -762,7 +758,7 @@ float MSAC::errorNIETO(int vpNum, cv::Mat &Li, cv::Mat &Lengths, cv::Mat &Mi, cv
 }
 void MSAC::drawCS(cv::Mat &im, std::vector<std::vector<std::vector<cv::Point> > > &lineSegmentsClusters, std::vector<cv::Mat> &vps)
 {
-	vector<cv::Scalar> colors;
+    std::vector<cv::Scalar> colors;
 	colors.push_back(cv::Scalar(0,0,255)); // First is RED
 	colors.push_back(cv::Scalar(0,255,0)); // Second is GREEN 
 	colors.push_back(cv::Scalar(255,0,0)); // Third is BLUE
@@ -772,7 +768,7 @@ void MSAC::drawCS(cv::Mat &im, std::vector<std::vector<std::vector<cv::Point> > 
 	{
 		if(vps[vpNum].at<float>(2,0) != 0)
 		{
-			Point2f vp(vps[vpNum].at<float>(0,0), vps[vpNum].at<float>(1,0));
+            cv::Point2f vp(vps[vpNum].at<float>(0, 0), vps[vpNum].at<float>(1, 0));
 
 			// Paint vp if inside the image
 			if(vp.x >=0 && vp.x < im.cols && vp.y >=0 && vp.y <im.rows)
@@ -787,8 +783,8 @@ void MSAC::drawCS(cv::Mat &im, std::vector<std::vector<std::vector<cv::Point> > 
 	{
 		for(unsigned int i=0; i<lineSegmentsClusters[c].size(); i++)
 		{
-			Point pt1 = lineSegmentsClusters[c][i][0];
-			Point pt2 = lineSegmentsClusters[c][i][1];
+            cv::Point pt1 = lineSegmentsClusters[c][i][0];
+            cv::Point pt2 = lineSegmentsClusters[c][i][1];
 
 			line(im, pt1, pt2, colors[c], 1);
 		}

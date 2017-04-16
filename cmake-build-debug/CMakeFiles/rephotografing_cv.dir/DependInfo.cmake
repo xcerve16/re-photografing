@@ -1,19 +1,8 @@
 # The set of languages for which implicit dependencies are needed:
 set(CMAKE_DEPENDS_LANGUAGES
-  "C"
   "CXX"
   )
 # The set of files for implicit dependencies of each language:
-set(CMAKE_DEPENDS_CHECK_C
-  "D:/Refotografing-source/src/lmmin.c" "D:/Refotografing-source/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/lmmin.c.obj"
-  )
-set(CMAKE_C_COMPILER_ID "GNU")
-
-# The include file search paths:
-set(CMAKE_C_TARGET_INCLUDE_PATH
-  "D:/OpenCV/opencv/build/install/include"
-  "D:/OpenCV/opencv/build/install/include/opencv"
-  )
 set(CMAKE_DEPENDS_CHECK_CXX
   "D:/Refotografing-source/src/CameraCalibrator.cpp" "D:/Refotografing-source/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/CameraCalibrator.cpp.obj"
   "D:/Refotografing-source/src/Line.cpp" "D:/Refotografing-source/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/Line.cpp.obj"
@@ -24,6 +13,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "D:/Refotografing-source/src/RobustMatcher.cpp" "D:/Refotografing-source/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/RobustMatcher.cpp.obj"
   "D:/Refotografing-source/src/Utils.cpp" "D:/Refotografing-source/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/Utils.cpp.obj"
   "D:/Refotografing-source/src/errorNIETO.cpp" "D:/Refotografing-source/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/errorNIETO.cpp.obj"
+  "D:/Refotografing-source/src/lmmin.cpp" "D:/Refotografing-source/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/lmmin.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

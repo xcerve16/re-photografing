@@ -38,12 +38,11 @@ typedef struct {
 typedef struct {
     double fnorm;     /* norm of the residue vector fvec. */
     int nfev;         /* actual number of iterations. */
-    int info;         /* status (index for lm_infmsg and lm_shortmsg). */
+    int info;         /* status (index_of_registration for lm_infmsg and lm_shortmsg). */
 } lm_status_struct;
 
 /* Recommended control parameter settings. */
 extern const lm_control_struct lm_control_double;
-extern const lm_control_struct lm_control_float;
 
 /* Standard monitoring routine. */
 void lm_printout_std( int n_par, const double *par, int m_dat,

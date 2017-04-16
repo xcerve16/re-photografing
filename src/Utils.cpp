@@ -12,18 +12,10 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/calib3d/calib3d.hpp>
 
-int fontFace = cv::FONT_ITALIC;
-double fontScale = 0.75;
-int thickness_font = 2;
-
 
 int lineType = 8;
 int radius = 4;
 
-
-void drawText(cv::Mat image, std::string text, int x, int y, cv::Scalar color) {
-    cv::putText(image, text, cv::Point(x, y), fontFace, fontScale, color, thickness_font, 8);
-}
 
 void draw2DPoints(cv::Mat image, std::vector<cv::Point2f> &list_points, cv::Scalar color) {
     for (size_t i = 0; i < list_points.size(); i++) {
@@ -32,8 +24,8 @@ void draw2DPoints(cv::Mat image, std::vector<cv::Point2f> &list_points, cv::Scal
     }
 }
 
-void draw2DPoint(cv::Mat image, Point2f &list_points, cv::Scalar color) {
-    cv::circle(image, list_points, radius, color, -1, lineType);
+void draw2DPoint(cv::Mat image, cv::Point2f &points, cv::Scalar color) {
+    cv::circle(image, points, radius, color, -1, lineType);
 }
 
 

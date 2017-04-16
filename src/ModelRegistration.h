@@ -26,6 +26,8 @@ public:
 
     ModelRegistration();
 
+    ~ModelRegistration() {}
+
     void setRegistrationMax(int n) { _max_registrations = n; }
 
     int getRegistrationMax() const { return _max_registrations; }

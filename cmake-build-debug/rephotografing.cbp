@@ -140,7 +140,7 @@
 		<Unit filename="D:/Refotografing-source/src/errorNIETO.h">
 			<Option target="rephotografing_cv"/>
 		</Unit>
-		<Unit filename="D:/Refotografing-source/src/lmmin.c">
+		<Unit filename="D:/Refotografing-source/src/lmmin.cpp">
 			<Option target="rephotografing_cv"/>
 		</Unit>
 		<Unit filename="D:/Refotografing-source/src/lmmin.h">

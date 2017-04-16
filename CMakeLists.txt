@@ -13,7 +13,7 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 FIND_PACKAGE(OpenCV REQUIRED core highgui imgproc xfeatures2d)
 
 
-add_executable(rephotografing_cv src/Main.cpp src/Main.h src/ModelRegistration.cpp src/ModelRegistration.h src/PnPProblem.cpp src/PnPProblem.h src/RobustMatcher.cpp src/RobustMatcher.h src/Utils.cpp src/Utils.h src/CameraCalibrator.cpp src/CameraCalibrator.h src/Line.cpp src/Line.h src/MSAC.cpp src/MSAC.h src/errorNIETO.cpp src/errorNIETO.h src/lmmin.c src/lmmin.h)
+add_executable(rephotografing_cv src/Main.cpp src/Main.h src/ModelRegistration.cpp src/ModelRegistration.h src/PnPProblem.cpp src/PnPProblem.h src/RobustMatcher.cpp src/RobustMatcher.h src/Utils.cpp src/Utils.h src/CameraCalibrator.cpp src/CameraCalibrator.h src/Line.cpp src/Line.h src/MSAC.cpp src/MSAC.h src/errorNIETO.cpp src/errorNIETO.h src/lmmin.cpp src/lmmin.h)
 
 # add libs you need
 set(OpenCV_LIBS

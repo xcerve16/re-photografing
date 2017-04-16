@@ -7,6 +7,14 @@
 #include <opencv/cv.hpp>
 #include "RobustMatcher.h"
 
+RobustMatcher::RobustMatcher() {
+
+    detector = cv::xfeatures2d::SURF::create();
+    extractor = cv::xfeatures2d::SURF::create();
+
+    matcher = cv::makePtr<cv::BFMatcher>((int) cv::NORM_HAMMING, false);
+}
+
 void RobustMatcher::computeKeyPoints(const cv::Mat &image, std::vector<cv::KeyPoint> &keypoints) {
     detector->detect(image, keypoints);
 }
@@ -71,7 +79,7 @@ void RobustMatcher::robustMatch(const cv::Mat &image2, std::vector<cv::DMatch> &
     extractor->compute(image2, key_points2, descriptors2);
 
 
-    std::vector<std::vector<cv::DMatch>> matches12, matches21;
+    std::vector<std::vector<cv::DMatch> > matches12, matches21;
 
     matcher->knnMatch(descriptors, descriptors2, matches12, 2);
     matcher->knnMatch(descriptors2, descriptors, matches21, 2);
@@ -160,9 +168,9 @@ cv::Mat RobustMatcher::robustMatchRANSAC(cv::Mat &image1, cv::Mat &image2, std::
     descriptors = descriptors1.clone();
 
 
-    BFMatcher matcher;
+    cv::BFMatcher matcher;
 
-    std::vector<std::vector<cv::DMatch>> matches1, matches2;
+    std::vector<std::vector<cv::DMatch> > matches1, matches2;
     matcher.knnMatch(descriptors1, descriptors2, matches1, 2);
     matcher.knnMatch(descriptors2, descriptors1, matches2, 2);
 

@@ -14,10 +14,6 @@
 #include <opencv2/features2d/features2d.hpp>
 #include <opencv2/xfeatures2d.hpp>
 
-using namespace cv;
-using namespace std;
-using namespace cv::xfeatures2d;
-
 class RobustMatcher {
 
 private:
@@ -28,7 +24,7 @@ private:
 
     cv::Ptr<cv::DescriptorMatcher> matcher;
 
-    Mat descriptors;
+    cv::Mat descriptors;
 
     float ratio;
 
@@ -39,13 +35,9 @@ private:
     double confidence;
 
 public:
-    RobustMatcher() : ratio(0.65f), refineF(true), confidence(0.99), distance(3.0) {
+    RobustMatcher();
 
-        detector = SURF::create();
-        extractor = SURF::create();
-
-        matcher = cv::makePtr<cv::BFMatcher>((int) cv::NORM_HAMMING, false);
-    }
+    ~RobustMatcher() {};
 
     void setFeatureDetector(const cv::Ptr<cv::FeatureDetector> &detect) { detector = detect; }
 
@@ -77,12 +69,13 @@ public:
                          std::vector<cv::KeyPoint> &keypoints_frame,
                          const cv::Mat &descriptors_model);
 
-    Mat robustMatchRANSAC(Mat &image1, Mat &descriptors2, vector<DMatch> &matches, vector<KeyPoint> &key_points1,
-                          vector<KeyPoint> &key_points2);
+    cv::Mat robustMatchRANSAC(cv::Mat &image1, cv::Mat &descriptors2, std::vector<cv::DMatch> &matches,
+                              std::vector<cv::KeyPoint> &key_points1,
+                              std::vector<cv::KeyPoint> &key_points2);
 
-    Mat
-    ransacTest(const vector<DMatch> &matches, const vector<KeyPoint> &keypoints1, const vector<KeyPoint> &keypoints2,
-               vector<DMatch> &outMatches);
+    cv::Mat ransacTest(const std::vector<cv::DMatch> &matches, const std::vector<cv::KeyPoint> &keypoints1,
+                       const std::vector<cv::KeyPoint> &keypoints2,
+                       std::vector<cv::DMatch> &outMatches);
 
 
 };
