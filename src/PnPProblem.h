@@ -42,10 +42,9 @@ public:
 
     ~PnPProblem() {}
 
-    void
-    estimatePoseRANSAC(const std::vector<cv::Point3f> &list_3d_points, const std::vector<cv::Point2f> &list_2d_points,
-                       int flags, bool use_extrinsic_guess, int iterations_count,
-                       float reprojection_error, double confidence);
+    void estimatePoseRANSAC(const std::vector<cv::Point3f> &list_3d_points,
+                            const std::vector<cv::Point2f> &list_2d_points, int flags, bool use_extrinsic_guess,
+                            int iterations_count, float reprojection_error, double confidence);
 
     cv::Mat getCameraMatrix() const { return _camera_matrix; }
 

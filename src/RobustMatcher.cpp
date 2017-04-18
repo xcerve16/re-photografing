@@ -134,22 +134,6 @@ cv::Mat RobustMatcher::ransacTest(const std::vector<cv::DMatch> &matches, const 
         }
     }
 
-    if (refineF) {
-        points1.clear();
-        points2.clear();
-
-        for (std::vector<cv::DMatch>::const_iterator it = outMatches.begin();
-             it != outMatches.end(); ++it) {
-            float x = keypoints1[it->queryIdx].pt.x;
-            float y = keypoints1[it->queryIdx].pt.y;
-            points1.push_back(cv::Point2f(x, y));
-            x = keypoints2[it->trainIdx].pt.x;
-            y = keypoints2[it->trainIdx].pt.y;
-            points2.push_back(cv::Point2f(x, y));
-        }
-        fundemental = cv::findFundamentalMat(cv::Mat(points1), cv::Mat(points2), CV_FM_8POINT);
-    }
-
     return fundemental;
 }
 
@@ -167,6 +151,9 @@ cv::Mat RobustMatcher::robustMatchRANSAC(cv::Mat &image1, cv::Mat &image2, std::
 
     descriptors = descriptors1.clone();
 
+    std::cout << descriptors1.size() << std::endl;
+
+    std::cout << descriptors2.size() << std::endl;
 
     cv::BFMatcher matcher;
 

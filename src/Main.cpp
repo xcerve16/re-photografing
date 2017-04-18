@@ -6,6 +6,11 @@
 
 #include "Main.h"
 
+std::vector<cv::Mat> frames;
+std::vector<double> prumerXY;
+std::vector<double> prumerZX;
+
+
 int main(int argc, char *argv[]) {
 
     cv::Mat first_image = loadImage(path_to_first_image);
@@ -32,12 +37,19 @@ int main(int argc, char *argv[]) {
 
     pnp_registration.setCameraMatrix(camera_matrix);
 
+    std::cout << camera_matrix << std::endl;
+
+    double pom_x = first_image.cols / 2;
+    double pom_y = first_image.rows / 2;
+
+    pnp_registration.setOpticalCenter(pom_x, pom_y);
 
     /**
      * Robust matcher
      * Dle tutorialu dostupneho na https://www.packtpub.com/books/content/learn-computer-vision-applications-open-cv
      * Dle tutorialu dostupneho na http://docs.opencv.org/3.1.0/dc/d2c/tutorial_real_time_pose.html
      */
+
 
     cv::Ptr<cv::xfeatures2d::SurfFeatureDetector> featureDetector = cv::xfeatures2d::SurfFeatureDetector::create(
             numKeyPoints);
@@ -84,11 +96,19 @@ int main(int argc, char *argv[]) {
      * Triangulace
      */
 
-    cv::Mat rotation_translation_matrix_first_image, rotation_translation_vector_second_image, result_3D_points,
-            rotation_vector_first_image, translation_vector_first_image, found_3D_points;
-    rotation_translation_vector_second_image = cv::Mat::eye(3, 4, CV_64FC1);
+    cv::Mat rotation_translation_matrix_first_image, rotation_translation_matrix_second_image, result_3D_points,
+            rotation_vector_first_image, translation_vector_first_image, found_3D_points, result_matrix;
 
-    double count_positive_z[4] = {0, 0, 0, 0};
+
+    rotation_translation_matrix_second_image = cv::Mat::eye(3, 4, CV_64FC1);
+    rotation_translation_matrix_first_image = cv::Mat::eye(3, 4, CV_64FC1);
+
+    int max = 0;
+
+    int count_positive_z[4] = {0, 0, 0, 0};
+
+
+    std::cout << pnp_registration.getCameraMatrix() << std::endl;
 
     for (int i = 0; i < 4; i++) {
         switch (i) {
@@ -102,11 +122,11 @@ int main(int argc, char *argv[]) {
                 break;
             case 2:
                 rotation_vector_first_image = R1;
-                translation_vector_first_image = t * -1;
+                translation_vector_first_image = -t;
                 break;
             case 3:
                 rotation_vector_first_image = R2;
-                translation_vector_first_image = t * -1;
+                translation_vector_first_image = -t;
                 break;
             default:
                 break;
@@ -116,8 +136,8 @@ int main(int argc, char *argv[]) {
 
         cv::Mat triangulation_3D_points, camera_matrix_a, camera_matrix_b;
 
-        camera_matrix_a = camera_matrix * rotation_translation_matrix_first_image;
-        camera_matrix_b = camera_matrix * rotation_translation_vector_second_image;
+        camera_matrix_a = pnp_registration.getCameraMatrix() * rotation_translation_matrix_first_image;
+        camera_matrix_b = pnp_registration.getCameraMatrix() * rotation_translation_matrix_second_image;
         triangulatePoints(camera_matrix_a, camera_matrix_b, detection_points_first_image, detection_points_second_image,
                           found_3D_points);
 
@@ -125,15 +145,29 @@ int main(int argc, char *argv[]) {
         convertPointsFromHomogeneous(triangulation_3D_points, triangulation_3D_points);
 
         for (int j = 0; j < triangulation_3D_points.rows; j++) {
-            if (triangulation_3D_points.at<float>(j, 2) > 0) {
+
+            cv::Mat pom = found_3D_points.col(j) / found_3D_points.col(j).at<float>(3, 0);
+
+            pom.convertTo(pom, CV_64F);
+            cv::Mat point3f = rotation_translation_matrix_first_image * pom;
+            cv::Mat pom1, point3f1;
+            transpose(pom, pom1);
+            transpose(point3f, point3f1);
+            if (triangulation_3D_points.at<float>(j, 2) > 0 && point3f.at<double>(2, 0) > 0) {
                 count_positive_z[i]++;
             }
         }
 
-        if (result_3D_points.empty() or count_positive_z[i - 1] < count_positive_z[i]) {
-            result_3D_points = triangulation_3D_points;
+        if (max < count_positive_z[i]) {
+            result_3D_points = triangulation_3D_points.clone();
+            result_matrix = rotation_translation_matrix_first_image.clone();
+            max = count_positive_z[i];
         }
     }
+
+    std::cout << result_matrix << std::endl;
+
+    std::cout << result_3D_points << std::endl;
 
     std::vector<cv::Point3f> list_3D_points_after_triangulation;
     std::vector<cv::Point2f> list_2D_points_after_triangulation;
@@ -161,6 +195,9 @@ int main(int argc, char *argv[]) {
 
     int previousNumRegistration = registration.getRegistrationCount();
     std::vector<int> index_of_points;
+
+
+    std::cout << result_3D_points << std::endl;
 
     while (cv::waitKey(30) < 0) {
 
@@ -259,12 +296,7 @@ int main(int argc, char *argv[]) {
     cy = abs((int) cy);
 
     cv::waitKey(0);
-    std::cout << pnp_registration.getCameraMatrix() << std::endl;
     pnp_registration.setOpticalCenter(cx, cy);
-    std::cout << pnp_registration.getCameraMatrix() << std::endl;
-
-
-
 
     /**
      * Pozice historicke kamery
@@ -275,6 +307,8 @@ int main(int argc, char *argv[]) {
     pnp_registration.estimatePoseRANSAC(list_3D_points, list_2D_points, pnp_method, useExtrinsicGuess, iterationsCount,
                                         reprojectionError, confidence);
 
+    std::cout << "Historicka kamera: " << std::endl;
+    std::cout << pnp_registration.getProjectionMatrix() << std::endl;
     /**
      * Robust matcher
      */
@@ -318,6 +352,7 @@ int main(int argc, char *argv[]) {
     robust_matcher_arg_struct.list_3D_points = list_3D_points;
     robust_matcher_arg_struct.measurements = measurements;
 
+    fast_robust_matcher_arg_struct.list_3D_points = list_3D_points;
     while (cap.read(current_frame) && cv::waitKey(30) != 27) {
 
         last_current_frame_vis = current_frame_vis;
@@ -328,9 +363,9 @@ int main(int argc, char *argv[]) {
             cameraCalibrator.calibrate(current_frame_vis.size());
             pnp_detection.setCameraMatrix(cameraCalibrator.getCameraMatrix());
             isFirstImage = false;
-        }
 
-        if (count_frames % 4 == 1) {
+            while (!getRobustEstimation(current_frame_vis, list_3D_points, measurements));
+        } else if (count_frames % 4 == 1) {
             robust_matcher_arg_struct.current_frame = current_frames[count_frames - 1];
 
             pthread_create(&robust_matcher_t, NULL, robust_matcher, (void *) &robust_matcher_arg_struct);
@@ -351,13 +386,34 @@ int main(int argc, char *argv[]) {
                 end += 3;
                 start -= 3;
             }
-
         }
         count_frames++;
         cv::imshow(WIN_REAL_TIME_DEMO, current_frame_vis);
     }
 
     cv::destroyWindow(WIN_REAL_TIME_DEMO);
+    int index_min_avg = 0;
+    double min_avg = 0;
+    for (int j = 0; j < prumerXY.size(); j++) {
+        if (!std::isnan(prumerXY[j]) && (prumerXY[j] < min_avg || min_avg == 0)) {
+            min_avg = prumerXY[j];
+            index_min_avg = j;
+        }
+    }
+
+    int index_min_avg2 = 0;
+    double min_avg2 = 0;
+
+    for (int j = 0; j < prumerZX.size(); j++) {
+        if (!std::isnan(prumerZX[j]) && (prumerZX[j] < min_avg2 || min_avg2 == 0)) {
+            min_avg2 = prumerZX[j];
+            index_min_avg2 = j;
+        }
+    }
+
+    cv::imshow("Vysledna refotografie podle prumeru", frames[index_min_avg]);
+    imshow("Referecni snimek", ref_image);
+    cv::imshow("Vysledna refotografie podle prumeru2", frames[index_min_avg2]);
 
     cv::waitKey(0);
     return 0;
@@ -382,6 +438,7 @@ bool getRobustEstimation(cv::Mat current_frame_vis, std::vector<cv::Point3f> lis
     std::vector<cv::Point3f> list_points3d_model_match;
     std::vector<cv::Point2f> list_points2d_scene_match;
 
+    cv::Mat revT = cv::Mat(4, 4, CV_64F);
     robustMatcher.robustMatch(current_frame_vis, good_matches, key_points_current_frame);
     for (unsigned int i = 0; i < good_matches.size(); ++i) {
         cv::Point3f point3d_model = list_3D_points[good_matches[i].trainIdx];
@@ -401,16 +458,26 @@ bool getRobustEstimation(cv::Mat current_frame_vis, std::vector<cv::Point3f> lis
         pnp_detection.estimatePoseRANSAC(list_points3d_model_match, list_points2d_scene_match, pnp_method,
                                          useExtrinsicGuess, iterationsCount, reprojectionError, confidence);
 
-        if (pnp_detection.getInliersPoints().size() < minInliersKalman) {
+        if (pnp_detection.getInliersPoints().size() > minInliersKalman) {
+
 
             draw2DPoints(current_frame_vis, list_points2d_scene_match, red);
-
-            cv::Mat revT = cv::Mat(4, 4, CV_64F);
-
             cv::Mat T = pnp_detection.getProjectionMatrix();
             cv::Mat refT = pnp_registration.getProjectionMatrix();
 
             revT = T.inv() * refT;
+
+            double x = revT.at<float>(0, 3);
+            double y = revT.at<float>(1, 3);
+            double z = revT.at<float>(2, 3);
+
+            double xx = (x + y + z) / 3;
+            double yy = (y + z) / 2;
+
+            frames.push_back(current_frame_vis);
+            prumerXY.push_back(xx);
+            prumerZX.push_back(yy);
+
 
             cv::Mat translation_measured(3, 1, CV_64F);
             translation_measured = pnp_detection.getTranslationMatrix();
@@ -429,10 +496,16 @@ bool getRobustEstimation(cv::Mat current_frame_vis, std::vector<cv::Point3f> lis
     updateKalmanFilter(kalmanFilter, measurements, translation_estimated, rotation_estimated);
     pnp_detection.setProjectionMatrix(rotation_estimated, translation_estimated);
 
+    std::cout << "Robustni odhad: " << std::endl;
+    std::cout << pnp_detection.getProjectionMatrix() << std::endl;
+    std::cout << "Relativni rozdil: " << std::endl;
+    std::cout << revT << std::endl;
+
     return good_measurement;
 }
 
-bool getLightweightEstimation(cv::Mat last_current_frame_vis, cv::Mat current_frame_vis) {
+bool getLightweightEstimation(cv::Mat last_current_frame_vis, std::vector<cv::Point3f> list_3D_points,
+                              cv::Mat current_frame_vis) {
 
     std::vector<cv::Point2f> list_points2d_scene_match;
 
@@ -442,6 +515,8 @@ bool getLightweightEstimation(cv::Mat last_current_frame_vis, cv::Mat current_fr
     std::vector<uchar> featuresFound;
 
     cv::Mat last, current, err;
+    cv::Mat revT = cv::Mat(4, 4, CV_64F);
+
 
     cvtColor(last_current_frame_vis, last, CV_BGR2GRAY);
     cvtColor(current_frame_vis, current, CV_BGR2GRAY);
@@ -450,17 +525,38 @@ bool getLightweightEstimation(cv::Mat last_current_frame_vis, cv::Mat current_fr
     current.convertTo(current_frame_vis, CV_8U);
     featuresPrevious = featuresCurrent;
 
-    goodFeaturesToTrack(current_frame_vis, featuresCurrent, 30, 0.01, 30);
-    calcOpticalFlowPyrLK(last, current, featuresPrevious, featuresNextPos, featuresFound, err);
+    if (!featuresPrevious.empty()) {
+        goodFeaturesToTrack(current_frame_vis, featuresCurrent, 30, 0.01, 30);
 
-    for (size_t i = 0; i < featuresNextPos.size(); i++) {
-        if (featuresFound[i]) {
-            list_points2d_scene_match.push_back(featuresNextPos[i]);
+        calcOpticalFlowPyrLK(last, current, featuresPrevious, featuresNextPos, featuresFound, err);
+
+        for (size_t i = 0; i < featuresNextPos.size(); i++) {
+            if (featuresFound[i]) {
+                list_points2d_scene_match.push_back(featuresNextPos[i]);
+            }
+        }
+        if (list_3D_points.size() == list_points2d_scene_match.size()) {
+            pnp_detection.estimatePoseRANSAC(list_3D_points, list_points2d_scene_match, pnp_method, useExtrinsicGuess,
+                                             iterationsCount, reprojectionError, confidence);
+
+
+            if (pnp_detection.getInliersPoints().size() > minInliersKalman) {
+
+                draw2DPoints(current_frame_vis, list_points2d_scene_match, red);
+                cv::Mat T = pnp_detection.getProjectionMatrix();
+                cv::Mat refT = pnp_registration.getProjectionMatrix();
+
+                revT = T.inv() * refT;
+
+            }
+
         }
     }
+    std::cout << "Lehky odhad: " << std::endl;
+    std::cout << pnp_detection.getProjectionMatrix() << std::endl;
+    std::cout << "Relativni rozdil: " << std::endl;
+    std::cout << revT << std::endl;
 
-    //pnp_detection.estimatePoseRANSAC(list_3D_points, list_points2d_scene_match, pnp_method, useExtrinsicGuess,
-    //                                 iterationsCount, reprojectionError, confidence);
     return true;
 }
 
@@ -489,8 +585,9 @@ void *fast_robust_matcher(void *arg) {
     struct fast_robust_matcher_struct *param = (struct fast_robust_matcher_struct *) arg;
     cv::Mat last_current_frame = param->last_current_frame;
     cv::Mat current_frame = param->current_frame;
+    std::vector<cv::Point3f> list_3D_points = param->list_3D_points;
 
-    getLightweightEstimation(last_current_frame, current_frame);
+    getLightweightEstimation(last_current_frame, list_3D_points, current_frame);
     return NULL;
 }
 
@@ -500,7 +597,6 @@ void *robust_matcher(void *arg) {
     cv::Mat current_frame = param->current_frame;
     std::vector<cv::Point3f> list_3D_points_after_registration = param->list_3D_points;
     cv::Mat measurements = param->measurements;
-
     getRobustEstimation(current_frame, list_3D_points_after_registration, measurements);
     return NULL;
 }

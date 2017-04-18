@@ -57,9 +57,9 @@ MSAC msac;
 
 
 // Robust cv::Matcher parameters
-double confidenceLevel = 0.99;
+double confidenceLevel = 0.99995;
 float ratioTest = 0.70f;
-double min_dist = 100;
+double min_dist = 1;
 
 // SIFT parameters
 int numKeyPoints = 1000;
@@ -82,9 +82,9 @@ const std::string video_read_path = "resource/video/grand_hotel.mp4";
 const std::string path_rephotography = "resource/results/exp_grand_hotel.jpg";*/
 
 // Biskupsky palac
-const std::string path_to_first_image = "resource/image/rsz_biskupsky_palac_2.jpg";
-const std::string path_to_second_image = "resource/image/rsz_biskupsky_palac_3.jpg";
-const std::string path_to_ref_image = "resource/image/rsz_biskupsky_palac_4.jpg";
+const std::string path_to_first_image = "resource/image/GPS/Biskupsky_dvur (1).jpg";
+const std::string path_to_second_image = "resource/image/GPS/Biskupsky_dvur (2).jpg";
+const std::string path_to_ref_image = "resource/reference/ref_biskupsky_palac.jpg";
 const std::string video_read_path = "resource/video/biskupsky_palac.mp4";
 //const std::string path_rephotography = "resource/results/exp_biskupsky_palac.jpg";
 
@@ -173,6 +173,7 @@ struct robust_matcher_struct {
 
 struct fast_robust_matcher_struct {
     cv::Mat last_current_frame;
+    std::vector<cv::Point3f> list_3D_points;
     cv::Mat current_frame;
 };
 
@@ -186,7 +187,8 @@ std::vector<cv::Mat> processImage(MSAC &msac, int numVps, cv::Mat &imgGRAY, cv::
 
 bool getRobustEstimation(cv::Mat current_frame_vis, std::vector<cv::Point3f> list_3D_points, cv::Mat measurements);
 
-bool getLightweightEstimation(cv::Mat last_current_frame_vis, cv::Mat current_frame_vis);
+bool getLightweightEstimation(cv::Mat last_current_frame_vis, std::vector<cv::Point3f> list_3D_points,
+                              cv::Mat current_frame_vis);
 
 void initKalmanFilter(cv::KalmanFilter &KF, int nStates, int nMeasurements, int nInputs, double dt);
 
