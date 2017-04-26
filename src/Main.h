@@ -57,7 +57,7 @@ MSAC msac;
 
 
 // Robust cv::Matcher parameters
-double confidenceLevel = 0.99995;
+double confidenceLevel = 0.999;
 float ratioTest = 0.70f;
 double min_dist = 1;
 

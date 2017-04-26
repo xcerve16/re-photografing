@@ -28,8 +28,6 @@ private:
 
     float ratio;
 
-    bool refineF;
-
     double distance;
 
     double confidence;
@@ -44,10 +42,6 @@ public:
     void setDescriptorExtractor(const cv::Ptr<cv::DescriptorExtractor> &desc) { extractor = desc; }
 
     void setDescriptorMatcher(const cv::Ptr<cv::DescriptorMatcher> &match) { matcher = match; }
-
-    void computeKeyPoints(const cv::Mat &image, std::vector<cv::KeyPoint> &keypoints);
-
-    void computeDescriptors(const cv::Mat &image, std::vector<cv::KeyPoint> &keypoints, cv::Mat &descriptors);
 
     void setMinDistanceToEpipolar(double d) { distance = d; }
 
@@ -65,17 +59,13 @@ public:
     void robustMatch(const cv::Mat &frame, std::vector<cv::DMatch> &good_matches,
                      std::vector<cv::KeyPoint> &keypoints_frame);
 
-    void fastRobustMatch(const cv::Mat &frame, std::vector<cv::DMatch> &good_matches,
-                         std::vector<cv::KeyPoint> &keypoints_frame,
-                         const cv::Mat &descriptors_model);
-
     cv::Mat robustMatchRANSAC(cv::Mat &image1, cv::Mat &descriptors2, std::vector<cv::DMatch> &matches,
                               std::vector<cv::KeyPoint> &key_points1,
-                              std::vector<cv::KeyPoint> &key_points2);
+                              std::vector<cv::KeyPoint> &key_points2, cv::Mat cameraMatrix);
 
     cv::Mat ransacTest(const std::vector<cv::DMatch> &matches, const std::vector<cv::KeyPoint> &keypoints1,
                        const std::vector<cv::KeyPoint> &keypoints2,
-                       std::vector<cv::DMatch> &outMatches);
+                       std::vector<cv::DMatch> &outMatches, cv::Mat cameraMatrix);
 
 
 };

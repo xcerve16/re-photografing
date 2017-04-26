@@ -65,9 +65,11 @@ int main(int argc, char *argv[]) {
     robustMatcher.setFeatureDetector(featureDetector);
     robustMatcher.setDescriptorExtractor(featureExtractor);
 
-    cv::Mat fundamental_matrix = robustMatcher.robustMatchRANSAC(first_image, second_image, matches,
-                                                                 key_points_first_image,
-                                                                 key_points_second_image);
+    camera_matrix = pnp_registration.getCameraMatrix();
+
+    cv::Mat essential_matrix = robustMatcher.robustMatchRANSAC(first_image, second_image, matches,
+                                                               key_points_first_image, key_points_second_image,
+                                                               camera_matrix);
 
     /**
      * Rozklad matic
@@ -86,11 +88,10 @@ int main(int argc, char *argv[]) {
 
     }
 
-    resize(fundamental_matrix, fundamental_matrix, cv::Size(3, 3));
-    cv::Mat R1, R2, t, essential_matrix;
-
-    essential_matrix = pnp_registration.getCameraMatrix().t() * fundamental_matrix * pnp_registration.getCameraMatrix();
-    decomposeEssentialMat(essential_matrix, R1, R2, t);
+    cv::Mat R, t;
+    cv::Mat points1 = cv::Mat(detection_points_first_image);
+    cv::Mat points2 = cv::Mat(detection_points_second_image);
+    cv::recoverPose(essential_matrix, points1, points2, camera_matrix, R, t);
 
     /**
      * Triangulace
@@ -103,79 +104,27 @@ int main(int argc, char *argv[]) {
     rotation_translation_matrix_second_image = cv::Mat::eye(3, 4, CV_64FC1);
     rotation_translation_matrix_first_image = cv::Mat::eye(3, 4, CV_64FC1);
 
-    int max = 0;
 
-    int count_positive_z[4] = {0, 0, 0, 0};
+    hconcat(R, t, rotation_translation_matrix_first_image);
+    cv::Mat triangulation_3D_points, camera_matrix_a, camera_matrix_b;
 
+    camera_matrix_a = camera_matrix * rotation_translation_matrix_first_image;
+    camera_matrix_b = camera_matrix * rotation_translation_matrix_second_image;
 
-    std::cout << pnp_registration.getCameraMatrix() << std::endl;
+    triangulatePoints(camera_matrix_a, camera_matrix_b, points1, points2, found_3D_points);
 
-    for (int i = 0; i < 4; i++) {
-        switch (i) {
-            case 0:
-                rotation_vector_first_image = R1;
-                translation_vector_first_image = t;
-                break;
-            case 1:
-                rotation_vector_first_image = R2;
-                translation_vector_first_image = t;
-                break;
-            case 2:
-                rotation_vector_first_image = R1;
-                translation_vector_first_image = -t;
-                break;
-            case 3:
-                rotation_vector_first_image = R2;
-                translation_vector_first_image = -t;
-                break;
-            default:
-                break;
-        }
-
-        hconcat(rotation_vector_first_image, translation_vector_first_image, rotation_translation_matrix_first_image);
-
-        cv::Mat triangulation_3D_points, camera_matrix_a, camera_matrix_b;
-
-        camera_matrix_a = pnp_registration.getCameraMatrix() * rotation_translation_matrix_first_image;
-        camera_matrix_b = pnp_registration.getCameraMatrix() * rotation_translation_matrix_second_image;
-        triangulatePoints(camera_matrix_a, camera_matrix_b, detection_points_first_image, detection_points_second_image,
-                          found_3D_points);
-
-        transpose(found_3D_points, triangulation_3D_points);
-        convertPointsFromHomogeneous(triangulation_3D_points, triangulation_3D_points);
-
-        for (int j = 0; j < triangulation_3D_points.rows; j++) {
-
-            cv::Mat pom = found_3D_points.col(j) / found_3D_points.col(j).at<float>(3, 0);
-
-            pom.convertTo(pom, CV_64F);
-            cv::Mat point3f = rotation_translation_matrix_first_image * pom;
-            cv::Mat pom1, point3f1;
-            transpose(pom, pom1);
-            transpose(point3f, point3f1);
-            if (triangulation_3D_points.at<float>(j, 2) > 0 && point3f.at<double>(2, 0) > 0) {
-                count_positive_z[i]++;
-            }
-        }
-
-        if (max < count_positive_z[i]) {
-            result_3D_points = triangulation_3D_points.clone();
-            result_matrix = rotation_translation_matrix_first_image.clone();
-            max = count_positive_z[i];
-        }
-    }
-
-    std::cout << result_matrix << std::endl;
-
-    std::cout << result_3D_points << std::endl;
+    transpose(found_3D_points, triangulation_3D_points);
+    convertPointsFromHomogeneous(triangulation_3D_points, triangulation_3D_points);
 
     std::vector<cv::Point3f> list_3D_points_after_triangulation;
     std::vector<cv::Point2f> list_2D_points_after_triangulation;
-    for (int i = 0; i < result_3D_points.rows; i++) {
+    for (int i = 0; i < triangulation_3D_points.rows; i++) {
         list_3D_points_after_triangulation.push_back(
-                cv::Point3f(result_3D_points.at<float>(i, 0), result_3D_points.at<float>(i, 1),
-                            result_3D_points.at<float>(i, 2)));
+                cv::Point3f(triangulation_3D_points.at<float>(i, 0), triangulation_3D_points.at<float>(i, 1),
+                            triangulation_3D_points.at<float>(i, 2)));
     }
+
+    std::cout << triangulation_3D_points << std::endl;
 
     /**
      * Registrace korespondencnich bodu
@@ -196,8 +145,6 @@ int main(int argc, char *argv[]) {
     int previousNumRegistration = registration.getRegistrationCount();
     std::vector<int> index_of_points;
 
-
-    std::cout << result_3D_points << std::endl;
 
     while (cv::waitKey(30) < 0) {
 
@@ -341,7 +288,7 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
 
-    cv::namedWindow(WIN_REAL_TIME_DEMO);
+
 
     int count_frames = 1;
     std::vector<cv::Mat> current_frames;
@@ -353,6 +300,13 @@ int main(int argc, char *argv[]) {
     robust_matcher_arg_struct.measurements = measurements;
 
     fast_robust_matcher_arg_struct.list_3D_points = list_3D_points;
+
+    cv::projectPoints(list_3D_points_after_triangulation, R, t, camera_matrix, cv::Mat(),
+                      list_2D_points_after_triangulation);
+    draw2DPoints(second_image, list_2D_points_after_triangulation, blue);
+    cv::imshow("WIM", first_image);
+
+    cv::namedWindow(WIN_REAL_TIME_DEMO);
     while (cap.read(current_frame) && cv::waitKey(30) != 27) {
 
         last_current_frame_vis = current_frame_vis;
@@ -369,9 +323,9 @@ int main(int argc, char *argv[]) {
             robust_matcher_arg_struct.current_frame = current_frames[count_frames - 1];
 
             pthread_create(&robust_matcher_t, NULL, robust_matcher, (void *) &robust_matcher_arg_struct);
-            pthread_join(robust_matcher_t, NULL);
-        } else if (count_frames % 2 == 0) {
             //pthread_join(robust_matcher_t, NULL);
+        } else if (count_frames % 2 == 0) {
+            pthread_join(robust_matcher_t, NULL);
         }
 
         if (count_frames >= 5) {
@@ -388,6 +342,7 @@ int main(int argc, char *argv[]) {
             }
         }
         count_frames++;
+        cv::waitKey(2000);
         cv::imshow(WIN_REAL_TIME_DEMO, current_frame_vis);
     }
 

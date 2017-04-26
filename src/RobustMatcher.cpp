@@ -15,15 +15,6 @@ RobustMatcher::RobustMatcher() {
     matcher = cv::makePtr<cv::BFMatcher>((int) cv::NORM_HAMMING, false);
 }
 
-void RobustMatcher::computeKeyPoints(const cv::Mat &image, std::vector<cv::KeyPoint> &keypoints) {
-    detector->detect(image, keypoints);
-}
-
-void
-RobustMatcher::computeDescriptors(const cv::Mat &image, std::vector<cv::KeyPoint> &keypoints, cv::Mat &descriptors) {
-    extractor->compute(image, keypoints, descriptors);
-}
-
 int RobustMatcher::ratioTest(std::vector<std::vector<cv::DMatch> > &matches) {
     int removed = 0;
     for (std::vector<std::vector<cv::DMatch> >::iterator matchIterator = matches.begin();
@@ -90,27 +81,9 @@ void RobustMatcher::robustMatch(const cv::Mat &image2, std::vector<cv::DMatch> &
     symmetryTest(matches12, matches21, good_matches);
 }
 
-void RobustMatcher::fastRobustMatch(const cv::Mat &frame, std::vector<cv::DMatch> &good_matches,
-                                    std::vector<cv::KeyPoint> &keypoints_frame,
-                                    const cv::Mat &descriptors_model) {
-
-    this->computeKeyPoints(frame, keypoints_frame);
-
-    cv::Mat descriptors_frame;
-    this->computeDescriptors(frame, keypoints_frame, descriptors_frame);
-
-    std::vector<std::vector<cv::DMatch> > matches;
-    matcher->knnMatch(descriptors_frame, descriptors_model, matches, 2);
-
-    for (std::vector<std::vector<cv::DMatch> >::iterator matchIterator = matches.begin();
-         matchIterator != matches.end(); ++matchIterator) {
-        if (!matchIterator->empty()) good_matches.push_back((*matchIterator)[0]);
-    }
-}
-
-
 cv::Mat RobustMatcher::ransacTest(const std::vector<cv::DMatch> &matches, const std::vector<cv::KeyPoint> &keypoints1,
-                                  const std::vector<cv::KeyPoint> &keypoints2, std::vector<cv::DMatch> &outMatches) {
+                                  const std::vector<cv::KeyPoint> &keypoints2, std::vector<cv::DMatch> &outMatches,
+                                  cv::Mat cameraMatrix) {
 
     std::vector<cv::Point2f> points1, points2;
     for (std::vector<cv::DMatch>::const_iterator it = matches.begin(); it != matches.end(); ++it) {
@@ -125,6 +98,8 @@ cv::Mat RobustMatcher::ransacTest(const std::vector<cv::DMatch> &matches, const 
     std::vector<uchar> inliers(points1.size(), 0);
     cv::Mat fundemental = findFundamentalMat(cv::Mat(points1), cv::Mat(points2), inliers, CV_FM_RANSAC, distance,
                                              confidence);
+    cv::Mat essential_matrix = cv::findEssentialMat(cv::Mat(points1), cv::Mat(points2), cameraMatrix, cv::RANSAC,
+                                                    confidence, distance);
 
     std::vector<uchar>::const_iterator itIn = inliers.begin();
     std::vector<cv::DMatch>::const_iterator itM = matches.begin();
@@ -134,13 +109,13 @@ cv::Mat RobustMatcher::ransacTest(const std::vector<cv::DMatch> &matches, const 
         }
     }
 
-    return fundemental;
+    return essential_matrix;
 }
 
 
 cv::Mat RobustMatcher::robustMatchRANSAC(cv::Mat &image1, cv::Mat &image2, std::vector<cv::DMatch> &matches,
                                          std::vector<cv::KeyPoint> &key_points1,
-                                         std::vector<cv::KeyPoint> &key_points2) {
+                                         std::vector<cv::KeyPoint> &key_points2, cv::Mat cameraMatrix) {
 
     detector->detect(image1, key_points1);
     detector->detect(image2, key_points2);
@@ -167,7 +142,7 @@ cv::Mat RobustMatcher::robustMatchRANSAC(cv::Mat &image1, cv::Mat &image2, std::
     std::vector<cv::DMatch> symMatches;
     symmetryTest(matches1, matches2, symMatches);
 
-    cv::Mat fundemental = ransacTest(symMatches, key_points1, key_points2, matches);
+    cv::Mat fundemental = ransacTest(symMatches, key_points1, key_points2, matches, cameraMatrix);
 
     return fundemental;
 }
