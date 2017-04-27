@@ -12,17 +12,17 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70e342c2-adc5-4064-9319-db384ed3edb0" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Main.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Main.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/PnPProblem.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/PnPProblem.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/RobustMatcher.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/RobustMatcher.h" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/rephotografing_cv.exe" afterPath="$PROJECT_DIR$/cmake-build-debug/rephotografing_cv.exe" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resource/results/ref_biskupsky_palac.jpg" afterPath="$PROJECT_DIR$/resource/results/ref_biskupsky_palac.jpg" />
+    <list default="true" id="70e342c2-adc5-4064-9319-db384ed3edb0" name="Default" comment="Pripraveno pro android verzi">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Main.cpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Main.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/PnPProblem.cpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/PnPProblem.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/RobustMatcher.cpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/RobustMatcher.h" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/rephotografing_cv.exe" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
+    <list id="5ff8f381-4f09-4fb1-9ab2-e7cc5b0e542a" name="Revert: Prepracovani main A" comment="" />
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -52,31 +52,91 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="lmmin.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/lmmin.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="14" lean-forward="false" selection-start-line="0" selection-start-column="14" selection-end-line="8" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ModelRegistration.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ModelRegistration.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ModelRegistration.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="504">
-              <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+              <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MSAC.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/MSAC.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="20" column="33" lean-forward="false" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Main.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="190">
+              <caret line="401" column="19" lean-forward="false" selection-start-line="401" selection-start-column="19" selection-end-line="401" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PnPProblem.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/PnPProblem.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1260">
+              <caret line="60" column="1" lean-forward="false" selection-start-line="60" selection-start-column="1" selection-end-line="60" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PnPProblem.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/PnPProblem.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="525">
+              <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RobustMatcher.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/RobustMatcher.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-944">
+              <caret line="22" column="15" lean-forward="false" selection-start-line="22" selection-start-column="15" selection-end-line="22" selection-end-column="15" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RobustMatcher.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/RobustMatcher.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="44" column="0" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Main.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="436">
+              <caret line="236" column="9" lean-forward="false" selection-start-line="236" selection-start-column="9" selection-end-line="236" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="workspace.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="1258" column="248" lean-forward="false" selection-start-line="1258" selection-start-column="248" selection-end-line="1258" selection-end-column="248" />
               <folding />
             </state>
           </provider>
@@ -188,7 +248,6 @@
         <option value="$PROJECT_DIR$/src/Line2D.cpp" />
         <option value="$PROJECT_DIR$/src/CameraCalibrator.cpp" />
         <option value="$PROJECT_DIR$/src/ModelRegistration.h" />
-        <option value="$PROJECT_DIR$/src/RobustMatcher.h" />
         <option value="$PROJECT_DIR$/src/Line.h" />
         <option value="$PROJECT_DIR$/src/CameraCalibrator.h" />
         <option value="$PROJECT_DIR$/src/Utils.h" />
@@ -200,12 +259,13 @@
         <option value="$PROJECT_DIR$/src/errorNIETO.h" />
         <option value="$PROJECT_DIR$/src/errorNIETO.cpp" />
         <option value="$PROJECT_DIR$/src/Line.cpp" />
-        <option value="$PROJECT_DIR$/src/RobustMatcher.cpp" />
+        <option value="$PROJECT_DIR$/src/ModelRegistration.cpp" />
         <option value="$PROJECT_DIR$/src/PnPProblem.cpp" />
         <option value="$PROJECT_DIR$/src/PnPProblem.h" />
-        <option value="$PROJECT_DIR$/src/ModelRegistration.cpp" />
-        <option value="$PROJECT_DIR$/src/Main.cpp" />
         <option value="$PROJECT_DIR$/src/Main.h" />
+        <option value="$PROJECT_DIR$/src/Main.cpp" />
+        <option value="$PROJECT_DIR$/src/RobustMatcher.cpp" />
+        <option value="$PROJECT_DIR$/src/RobustMatcher.h" />
       </list>
     </option>
   </component>
@@ -838,6 +898,7 @@
       <workItem from="1493024804667" duration="627000" />
       <workItem from="1493107989767" duration="5000" />
       <workItem from="1493228479478" duration="540000" />
+      <workItem from="1493312441380" duration="768000" />
     </task>
     <task id="LOCAL-00001" summary="registrace funguje, detekce zatim ne">
       <created>1481836872027</created>
@@ -1151,7 +1212,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="883122000" />
+    <option name="totallyTimeSpent" value="886011000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -1165,11 +1226,12 @@
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.52255636" sideWeight="0.7383918" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.53061223" sideWeight="0.7383918" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33182332" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31823328" sideWeight="0.5258621" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30351076" sideWeight="0.4975" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32875144" sideWeight="0.38308188" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24915062" sideWeight="0.4949303" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24915062" sideWeight="0.4949303" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34937" sideWeight="0.6169181" order="5" side_tool="false" content_ui="combo" x="3" y="529" width="1594" height="320" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24865736" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1580756" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -1177,7 +1239,6 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34020618" sideWeight="0.4150824" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32975295" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31844217" sideWeight="0.5258621" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1234,6 +1295,14 @@
               <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
                 <collection />
               </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
             </State>
           </value>
         </entry>
@@ -1244,7 +1313,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Uprava robust matcher v detection" />
     <MESSAGE value="Pokus vytvorit dve vlakna na porovnani se nezdaril" />
     <MESSAGE value="Code review main_registration" />
     <MESSAGE value="Code review stukrutry projektu" />
@@ -1269,7 +1337,8 @@
     <MESSAGE value="posledni vezre pred konzultacemi" />
     <MESSAGE value="posledni verze pred konzultacemi" />
     <MESSAGE value="Upravy z konzulace" />
-    <option name="LAST_COMMIT_MESSAGE" value="Upravy z konzulace" />
+    <MESSAGE value="Pripraveno pro android verzi" />
+    <option name="LAST_COMMIT_MESSAGE" value="Pripraveno pro android verzi" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -1313,13 +1382,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="224" column="18" lean-forward="false" selection-start-line="224" selection-start-column="18" selection-end-line="224" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="609" column="117" lean-forward="false" selection-start-line="609" selection-start-column="117" selection-end-line="609" selection-end-column="117" />
         </state>
       </provider>
     </entry>
@@ -1433,8 +1495,8 @@
     </entry>
     <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/core.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22932">
-          <caret line="1092" column="18" lean-forward="false" selection-start-line="1092" selection-start-column="18" selection-end-line="1092" selection-end-column="18" />
+        <state relative-caret-position="-1949">
+          <caret line="1073" column="16" lean-forward="false" selection-start-line="1073" selection-start-column="16" selection-end-line="1073" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -1454,15 +1516,15 @@
     </entry>
     <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/core/types.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27552">
+        <state relative-caret-position="511">
           <caret line="1312" column="0" lean-forward="false" selection-start-line="1312" selection-start-column="0" selection-end-line="1312" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/calib3d.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6195">
-          <caret line="295" column="0" lean-forward="false" selection-start-line="295" selection-start-column="0" selection-end-line="295" selection-end-column="0" />
+        <state relative-caret-position="244">
+          <caret line="511" column="43" lean-forward="false" selection-start-line="511" selection-start-column="43" selection-end-line="511" selection-end-column="43" />
         </state>
       </provider>
     </entry>
@@ -1536,13 +1598,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/MSAC.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="5" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/MSAC.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
@@ -1550,10 +1605,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/RobustMatcher.h" />
-    <entry file="file://$PROJECT_DIR$/src/RobustMatcher.cpp" />
-    <entry file="file://$PROJECT_DIR$/src/PnPProblem.cpp" />
-    <entry file="file://$PROJECT_DIR$/src/PnPProblem.h" />
     <entry file="file://$PROJECT_DIR$/src/lmmin.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1562,8 +1613,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.h" />
-    <entry file="file://$PROJECT_DIR$/src/Main.cpp" />
     <entry file="file://$PROJECT_DIR$/src/CameraCalibrator.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="945">
@@ -1585,7 +1634,71 @@
     <entry file="file://$PROJECT_DIR$/src/ModelRegistration.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
-          <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MSAC.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="20" column="33" lean-forward="false" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PnPProblem.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1260">
+          <caret line="60" column="1" lean-forward="false" selection-start-line="60" selection-start-column="1" selection-end-line="60" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PnPProblem.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/RobustMatcher.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-944">
+          <caret line="22" column="15" lean-forward="false" selection-start-line="22" selection-start-column="15" selection-end-line="22" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/RobustMatcher.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="44" column="0" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="401" column="19" lean-forward="false" selection-start-line="401" selection-start-column="19" selection-end-line="401" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="436">
+          <caret line="236" column="9" lean-forward="false" selection-start-line="236" selection-start-column="9" selection-end-line="236" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="1258" column="248" lean-forward="false" selection-start-line="1258" selection-start-column="248" selection-end-line="1258" selection-end-column="248" />
           <folding />
         </state>
       </provider>
