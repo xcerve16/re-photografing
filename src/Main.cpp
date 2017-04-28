@@ -93,6 +93,9 @@ int main(int argc, char *argv[]) {
     cv::Mat points2 = cv::Mat(detection_points_second_image);
     cv::recoverPose(essential_matrix, points1, points2, camera_matrix, R, t);
 
+
+    std::cout << R << std::endl;
+    std::cout << t << std::endl;
     /**
      * Triangulace
      */
@@ -111,7 +114,7 @@ int main(int argc, char *argv[]) {
     camera_matrix_a = camera_matrix * rotation_translation_matrix_first_image;
     camera_matrix_b = camera_matrix * rotation_translation_matrix_second_image;
 
-    triangulatePoints(camera_matrix_a, camera_matrix_b, points1, points2, found_3D_points);
+    triangulatePoints(camera_matrix_b, camera_matrix_a, points1, points2, found_3D_points);
 
     transpose(found_3D_points, triangulation_3D_points);
     convertPointsFromHomogeneous(triangulation_3D_points, triangulation_3D_points);
@@ -304,21 +307,20 @@ int main(int argc, char *argv[]) {
     cv::projectPoints(list_3D_points_after_triangulation, R, t, camera_matrix, cv::Mat(),
                       list_2D_points_after_triangulation);
     draw2DPoints(second_image, list_2D_points_after_triangulation, blue);
-    cv::imshow("WIM", first_image);
 
     cv::namedWindow(WIN_REAL_TIME_DEMO);
     while (cap.read(current_frame) && cv::waitKey(30) != 27) {
-
-        last_current_frame_vis = current_frame_vis;
+        last_current_frame_vis = current_frame_vis.clone();
         current_frame_vis = current_frame.clone();
         current_frames.push_back(current_frame_vis);
 
         if (isFirstImage) {
+            // TODO: zkalibrovat kameru
             cameraCalibrator.calibrate(current_frame_vis.size());
             pnp_detection.setCameraMatrix(cameraCalibrator.getCameraMatrix());
             isFirstImage = false;
 
-            while (!getRobustEstimation(current_frame_vis, list_3D_points, measurements));
+            getRobustEstimation(current_frame_vis, list_3D_points, measurements);
         } else if (count_frames % 4 == 1) {
             robust_matcher_arg_struct.current_frame = current_frames[count_frames - 1];
 
@@ -342,33 +344,11 @@ int main(int argc, char *argv[]) {
             }
         }
         count_frames++;
-        cv::waitKey(2000);
-        cv::imshow(WIN_REAL_TIME_DEMO, current_frame_vis);
+        cv::imshow(WIN_REAL_TIME_DEMO, current_frame);
+
     }
 
     cv::destroyWindow(WIN_REAL_TIME_DEMO);
-    int index_min_avg = 0;
-    double min_avg = 0;
-    for (int j = 0; j < prumerXY.size(); j++) {
-        if (!std::isnan(prumerXY[j]) && (prumerXY[j] < min_avg || min_avg == 0)) {
-            min_avg = prumerXY[j];
-            index_min_avg = j;
-        }
-    }
-
-    int index_min_avg2 = 0;
-    double min_avg2 = 0;
-
-    for (int j = 0; j < prumerZX.size(); j++) {
-        if (!std::isnan(prumerZX[j]) && (prumerZX[j] < min_avg2 || min_avg2 == 0)) {
-            min_avg2 = prumerZX[j];
-            index_min_avg2 = j;
-        }
-    }
-
-    cv::imshow("Vysledna refotografie podle prumeru", frames[index_min_avg]);
-    imshow("Referecni snimek", ref_image);
-    cv::imshow("Vysledna refotografie podle prumeru2", frames[index_min_avg2]);
 
     cv::waitKey(0);
     return 0;
@@ -448,11 +428,13 @@ bool getRobustEstimation(cv::Mat current_frame_vis, std::vector<cv::Point3f> lis
     cv::Mat translation_estimated(3, 1, CV_64F);
     cv::Mat rotation_estimated(3, 3, CV_64F);
 
+    std::cout << "Robustni odhad: " << std::endl;
+    std::cout << pnp_detection.getProjectionMatrix() << std::endl;
+
     updateKalmanFilter(kalmanFilter, measurements, translation_estimated, rotation_estimated);
     pnp_detection.setProjectionMatrix(rotation_estimated, translation_estimated);
 
-    std::cout << "Robustni odhad: " << std::endl;
-    std::cout << pnp_detection.getProjectionMatrix() << std::endl;
+
     std::cout << "Relativni rozdil: " << std::endl;
     std::cout << revT << std::endl;
 

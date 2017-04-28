@@ -152,9 +152,9 @@ const std::string ERROR_OPEN_CAMERA = "Could not open the camera device";
 
 // RANSAC parameters
 bool useExtrinsicGuess = false;
-int iterationsCount = 1000;
-float reprojectionError = 10.0;
-double confidence = 0.95;
+int iterationsCount = 10000;
+float reprojectionError = 3.0;
+double confidence = 0.99995;
 int pnp_method = cv::SOLVEPNP_ITERATIVE;
 
 // Kalman Filter parameters
