@@ -9,6 +9,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/rephotografing_cv.dir/src/MSAC.cpp.obj"
   "CMakeFiles/rephotografing_cv.dir/src/errorNIETO.cpp.obj"
   "CMakeFiles/rephotografing_cv.dir/src/lmmin.cpp.obj"
+  "CMakeFiles/rephotografing_cv.dir/src/Android.cpp.obj"
   "rephotografing_cv.pdb"
   "rephotografing_cv.exe"
   "rephotografing_cv.exe.manifest"

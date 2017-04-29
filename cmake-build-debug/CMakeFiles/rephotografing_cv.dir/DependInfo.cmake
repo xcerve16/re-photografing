@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "D:/Refotografing-source/src/Android.cpp" "D:/Refotografing-source/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/Android.cpp.obj"
   "D:/Refotografing-source/src/CameraCalibrator.cpp" "D:/Refotografing-source/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/CameraCalibrator.cpp.obj"
   "D:/Refotografing-source/src/Line.cpp" "D:/Refotografing-source/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/Line.cpp.obj"
   "D:/Refotografing-source/src/MSAC.cpp" "D:/Refotografing-source/cmake-build-debug/CMakeFiles/rephotografing_cv.dir/src/MSAC.cpp.obj"
