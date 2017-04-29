@@ -264,6 +264,8 @@ int main(int argc, char *argv[]) {
      * Robust matcher
      */
 
+    std::cout << "List 2D points: " << list_2D_points << std::endl;
+
     cv::Mat current_frame, current_frame_vis, last_current_frame_vis;
 
 
