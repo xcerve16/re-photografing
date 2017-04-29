@@ -14,9 +14,6 @@
   <component name="ChangeListManager">
     <list default="true" id="70e342c2-adc5-4064-9319-db384ed3edb0" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CameraCalibrator.h" afterPath="$PROJECT_DIR$/src/CameraCalibrator.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.cpp" afterPath="$PROJECT_DIR$/src/Main.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.h" afterPath="$PROJECT_DIR$/src/Main.h" />
     </list>
     <list id="5ff8f381-4f09-4fb1-9ab2-e7cc5b0e542a" name="Revert: Prepracovani main A" comment="" />
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -134,7 +131,7 @@
         <entry file="file://$PROJECT_DIR$/src/Main.h">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="300">
-              <caret line="240" column="56" lean-forward="false" selection-start-line="240" selection-start-column="56" selection-end-line="240" selection-end-column="56" />
+              <caret line="241" column="57" lean-forward="false" selection-start-line="241" selection-start-column="57" selection-end-line="241" selection-end-column="57" />
               <folding />
             </state>
           </provider>
@@ -262,8 +259,8 @@
         <option value="$PROJECT_DIR$/src/RobustMatcher.cpp" />
         <option value="$PROJECT_DIR$/src/RobustMatcher.h" />
         <option value="$PROJECT_DIR$/src/CameraCalibrator.h" />
-        <option value="$PROJECT_DIR$/src/Main.cpp" />
         <option value="$PROJECT_DIR$/src/Main.h" />
+        <option value="$PROJECT_DIR$/src/Main.cpp" />
       </list>
     </option>
   </component>
@@ -807,7 +804,7 @@
       <workItem from="1493107989767" duration="5000" />
       <workItem from="1493228479478" duration="540000" />
       <workItem from="1493312441380" duration="768000" />
-      <workItem from="1493488177217" duration="19000" />
+      <workItem from="1493488177217" duration="63000" />
     </task>
     <task id="LOCAL-00001" summary="registrace funguje, detekce zatim ne">
       <created>1481836872027</created>
@@ -1117,11 +1114,25 @@
       <option name="project" value="LOCAL" />
       <updated>1492538281706</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="Pripraveno pro android verzi">
+      <created>1493488216236</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1493488216236</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Pripraveno pro android verzi">
+      <created>1493488238248</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1493488238248</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="891639000" />
+    <option name="totallyTimeSpent" value="891683000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -1139,7 +1150,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33182332" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30351076" sideWeight="0.4975" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32875144" sideWeight="0.38308188" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24915062" sideWeight="0.4949303" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24915062" sideWeight="0.4949303" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34937" sideWeight="0.6169181" order="5" side_tool="false" content_ui="combo" x="3" y="529" width="1594" height="320" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24865736" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1580756" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -1520,6 +1531,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1302">
           <caret line="62" column="43" lean-forward="false" selection-start-line="62" selection-start-column="43" selection-end-line="62" selection-end-column="43" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1535,6 +1547,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="1264" column="241" lean-forward="false" selection-start-line="1264" selection-start-column="241" selection-end-line="1264" selection-end-column="241" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1599,7 +1612,7 @@
     <entry file="file://$PROJECT_DIR$/src/Main.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
-          <caret line="240" column="56" lean-forward="false" selection-start-line="240" selection-start-column="56" selection-end-line="240" selection-end-column="56" />
+          <caret line="241" column="57" lean-forward="false" selection-start-line="241" selection-start-column="57" selection-end-line="241" selection-end-column="57" />
           <folding />
         </state>
       </provider>
