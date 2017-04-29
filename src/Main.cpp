@@ -26,21 +26,18 @@ void *robust_matcher(void *arg) {
     return NULL;
 }
 
-Main::Main(cv::Mat image1, cv::Mat image2, cv::Mat ref) {
+void
+Main::initReconstruction(cv::Mat image1, cv::Mat image2, cv::Mat ref, cv::Point2f cf, cv::Point2f ff, cv::Point2f cc,
+                         cv::Point2f fc) {
     first_image = image1;
     second_image = image2;
     ref_image = ref;
+    pnp_registration.setCameraParameter(cf.x, cf.y, ff.x, ff.y);
+    pnp_detection.setCameraParameter(cc.x, cc.y, fc.x, fc.y);
 
 }
 
-void Main::initReconstruction(cv::Mat first_frame, cv::Mat second_frame, cv::Mat reference_frame) {
-    Main(first_frame, second_frame, reference_frame);
-}
-
-void Main::processReconstruction(cv::Point2f c, cv::Point2f f) {
-
-
-    pnp_registration.setCameraParameter(c.x, c.y, f.x, f.y);
+void Main::processReconstruction() {
 
     /**
      * Robust matcher
@@ -49,9 +46,9 @@ void Main::processReconstruction(cv::Point2f c, cv::Point2f f) {
      */
 
 
-    cv::Ptr<cv::xfeatures2d::SurfFeatureDetector> featureDetector = cv::xfeatures2d::SurfFeatureDetector::create(
+    cv::Ptr<cv::ORB> featureDetector = cv::ORB::create(
             numKeyPoints);
-    cv::Ptr<cv::xfeatures2d::SurfDescriptorExtractor> featureExtractor = cv::xfeatures2d::SurfDescriptorExtractor::create();
+    cv::Ptr<cv::ORB> featureExtractor = cv::ORB::create();
 
     std::vector<cv::KeyPoint> key_points_first_image, key_points_second_image;
     std::vector<cv::Point2f> detection_points_first_image, detection_points_second_image;
@@ -190,7 +187,7 @@ cv::Mat Main::loadImage(const std::string path_to_ref_image) {
     return image;
 }
 
-cv::Mat Main::registrationPoints(double x, double y) {
+void Main::registrationPoints(double x, double y, cv::Mat &out) {
     cv::Point2f point_2d = cv::Point2f((float) x, (float) y);
     bool is_registrable = registration.isRegistration();
 
@@ -215,7 +212,7 @@ cv::Mat Main::registrationPoints(double x, double y) {
         registration.register3DPoint(point3f);
         previousNumRegistration = registration.getRegistrationCount();
     }
-    return clone_frame_with_triangulation;
+    out = clone_frame_with_triangulation;
 }
 
 void Main::nextPoint() {
@@ -223,6 +220,9 @@ void Main::nextPoint() {
 }
 
 void Main::initNavigation() {
+
+    start = 4;
+    end = 9;
 
     std::vector<cv::Point2f> list_2D_points = registration.getList2DPoints();
     std::vector<cv::Point3f> list_3D_points = registration.getList3DPoints();
@@ -358,6 +358,7 @@ int Main::processNavigation(cv::Mat current_frame, int count_frames) {
         }
     }
     cv::imshow(WIN_REAL_TIME_DEMO, current_frame_vis);
+    return 0;
 }
 
 bool getRobustEstimation(cv::Mat current_frame_vis, std::vector<cv::Point3f> list_3D_points,

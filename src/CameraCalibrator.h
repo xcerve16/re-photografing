@@ -18,9 +18,9 @@ class CameraCalibrator {
 
 private:
 
-    std::vector<std::vector<cv::Point3f>> _object_points;
+    std::vector<std::vector<cv::Point3f> > _object_points;
 
-    std::vector<std::vector<cv::Point2f>> _image_points;
+    std::vector<std::vector<cv::Point2f> > _image_points;
 
     cv::Mat _camera_matrix;
 

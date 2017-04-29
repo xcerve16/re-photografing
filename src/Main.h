@@ -190,7 +190,7 @@ void updateKalmanFilter(cv::KalmanFilter &KF, cv::Mat &measurements, cv::Mat &tr
 
 void fillMeasurements(cv::Mat &measurements, const cv::Mat &translation_measured, const cv::Mat &rotation_measured);
 
-pthread_t fast_robust_matcher_t, robust_matcher_t = ptw32_handle_t();
+pthread_t fast_robust_matcher_t, robust_matcher_t;
 
 robust_matcher_struct robust_matcher_arg_struct;
 
@@ -219,9 +219,9 @@ private:
 
     cv::Mat measurements;
 
-    int start = 4;
+    int start;
 
-    int end = 9;
+    int end;
 
     void initKalmanFilter(cv::KalmanFilter &KF, int nStates, int nMeasurements, int nInputs, double dt);
 
@@ -230,15 +230,16 @@ private:
     std::vector<cv::Mat> processImage(MSAC &msac, int numVps, cv::Mat &imgGRAY, cv::Mat &outputImg);
 
 public:
-    Main(cv::Mat first_frame, cv::Mat second_frame, cv::Mat reference_frame);
+    Main() {};
 
-    void initReconstruction(cv::Mat first_frame, cv::Mat second_frame, cv::Mat reference_frame);
+    void initReconstruction(cv::Mat first_frame, cv::Mat second_frame, cv::Mat reference_frame, cv::Point2f cf,
+                            cv::Point2f ff, cv::Point2f cc, cv::Point2f fc);
 
-    void processReconstruction(cv::Point2f c, cv::Point2f f);
+    void processReconstruction();
 
     void nextPoint();
 
-    cv::Mat registrationPoints(double x, double y);
+    void registrationPoints(double x, double y, cv::Mat &out);
 
     void initNavigation();
 
