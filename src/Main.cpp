@@ -163,6 +163,7 @@ int main(int argc, char *argv[]) {
             if (previousNumRegistration != registration.getRegistrationCount()) {
                 index_of_points.push_back(index_of_registration);
                 registration.register3DPoint(point3f);
+                index_of_registration++;
                 previousNumRegistration = registration.getRegistrationCount();
             }
 
@@ -507,7 +508,6 @@ static void onMouseModelRegistration(int event, int x, int y, int, void *) {
 
         if (is_registrable) {
             registration.register2DPoint(point_2d);
-            index_of_registration++;
             if (registration.getRegistrationCount() == registration.getRegistrationMax()) {
                 end_registration = true;
             }
