@@ -62,6 +62,7 @@ public:
 
     void setOpticalCenter(double cx, double cy);
 
+    void setCameraParameter(double cx, double cy, double fx, double fy);
 };
 
 

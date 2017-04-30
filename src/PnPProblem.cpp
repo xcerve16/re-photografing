@@ -66,3 +66,11 @@ void PnPProblem::setOpticalCenter(double cx, double cy) {
     _camera_matrix.at<double>(0, 2) = cx;
     _camera_matrix.at<double>(1, 2) = cy;
 }
+
+void PnPProblem::setCameraParameter(double cx, double cy, double fx, double fy) {
+    _camera_matrix.at<double>(0, 2) = cx;
+    _camera_matrix.at<double>(1, 2) = cy;
+    _camera_matrix.at<double>(0, 0) = fx;
+    _camera_matrix.at<double>(1, 1) = fy;
+
+}

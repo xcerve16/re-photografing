@@ -18,6 +18,8 @@ private:
 
     int _max_registrations;
 
+    int _index_registration;
+
     std::vector<cv::Point2f> _list_2D_points;
 
     std::vector<cv::Point3f> _list_3D_points;
@@ -34,6 +36,8 @@ public:
 
     int getRegistrationCount() const { return _count_registrations; }
 
+    int getIndexRegistration() const { return _index_registration; }
+
     bool isRegistration() const { return (_count_registrations < _max_registrations); }
 
     void register2DPoint(const cv::Point2f &point2d);
@@ -43,6 +47,10 @@ public:
     std::vector<cv::Point2f> getList2DPoints() const { return _list_2D_points; }
 
     std::vector<cv::Point3f> getList3DPoints() const { return _list_3D_points; }
+
+    void setIndexRegistration(int i);
+
+    void incRegistrationIndex();
 };
 
 #endif

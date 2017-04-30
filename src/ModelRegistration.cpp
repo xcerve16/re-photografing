@@ -9,6 +9,7 @@
 ModelRegistration::ModelRegistration() {
     _count_registrations = 0;
     _max_registrations = 0;
+    _index_registration = 0;
 }
 
 void ModelRegistration::register2DPoint(const cv::Point2f &point2d) {
@@ -18,6 +19,14 @@ void ModelRegistration::register2DPoint(const cv::Point2f &point2d) {
 
 void ModelRegistration::register3DPoint(const cv::Point3f &point3d) {
     _list_3D_points.push_back(point3d);
+}
+
+void ModelRegistration::setIndexRegistration(int i) {
+    _index_registration = i;
+}
+
+void ModelRegistration::incRegistrationIndex() {
+    _index_registration++;
 }
 
 

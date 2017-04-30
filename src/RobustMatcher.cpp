@@ -96,8 +96,7 @@ cv::Mat RobustMatcher::ransacTest(const std::vector<cv::DMatch> &matches, const 
     }
 
     std::vector<uchar> inliers(points1.size(), 0);
-    cv::Mat fundemental = findFundamentalMat(cv::Mat(points1), cv::Mat(points2), inliers, CV_FM_RANSAC, distance,
-                                             confidence);
+    findFundamentalMat(cv::Mat(points1), cv::Mat(points2), inliers, CV_FM_RANSAC, distance, confidence);
     cv::Mat essential_matrix = cv::findEssentialMat(cv::Mat(points1), cv::Mat(points2), cameraMatrix, cv::RANSAC,
                                                     confidence, distance);
 
@@ -108,7 +107,6 @@ cv::Mat RobustMatcher::ransacTest(const std::vector<cv::DMatch> &matches, const 
             outMatches.push_back(*itM);
         }
     }
-
     return essential_matrix;
 }
 
@@ -142,9 +140,9 @@ cv::Mat RobustMatcher::robustMatchRANSAC(cv::Mat &image1, cv::Mat &image2, std::
     std::vector<cv::DMatch> symMatches;
     symmetryTest(matches1, matches2, symMatches);
 
-    cv::Mat fundemental = ransacTest(symMatches, key_points1, key_points2, matches, cameraMatrix);
+    cv::Mat essencial_matrix = ransacTest(symMatches, key_points1, key_points2, matches, cameraMatrix);
 
-    return fundemental;
+    return essencial_matrix;
 }
 
 

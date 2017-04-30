@@ -6,43 +6,41 @@
 
 #include "Main.h"
 
-std::vector<cv::Mat> frames;
-std::vector<double> prumerXY;
-std::vector<double> prumerZX;
+void *fast_robust_matcher(void *arg) {
+    struct fast_robust_matcher_struct *param = (struct fast_robust_matcher_struct *) arg;
+    cv::Mat last_current_frame = param->last_current_frame;
+    cv::Mat current_frame = param->current_frame;
+    std::vector<cv::Point3f> list_3D_points = param->list_3D_points;
+    int directory = param->directory;
+
+    getLightweightEstimation(last_current_frame, list_3D_points, current_frame, directory);
+    return NULL;
+}
 
 
-int main(int argc, char *argv[]) {
+void *robust_matcher(void *arg) {
+    struct robust_matcher_struct *param = (struct robust_matcher_struct *) arg;
+    cv::Mat current_frame = param->current_frame;
+    std::vector<cv::Point3f> list_3D_points_after_registration = param->list_3D_points;
+    cv::Mat measurements = param->measurements;
+    int directory = param->directory;
 
-    cv::Mat first_image = loadImage(path_to_first_image);
-    cv::Mat second_image = loadImage(path_to_second_image);
+    getRobustEstimation(current_frame, list_3D_points_after_registration, measurements, directory);
+    return NULL;
+}
 
-    /**
-     * Kalibrace fotoaparatu
-     * Dle tutorialu dostupneho na https://www.packtpub.com/books/content/learn-computer-vision-applications-open-cv
-     */
+void
+Main::initReconstruction(cv::Mat image1, cv::Mat image2, cv::Mat ref, cv::Point2f cf, cv::Point2f ff, cv::Point2f cc,
+                         cv::Point2f fc) {
+    first_image = image1;
+    second_image = image2;
+    ref_image = ref;
+    pnp_registration.setCameraParameter(cf.x, cf.y, ff.x, ff.y);
+    pnp_detection.setCameraParameter(cc.x, cc.y, fc.x, fc.y);
 
-    std::vector<std::string> list_file_name;
-    cv::Size border_size(7, 9);
+}
 
-    for (int i = 1; i <= 12; i++) {
-        std::stringstream file_name;
-        file_name << "resource/image/chessboards/chessboard" << std::setw(2) << std::setfill('0') << i << ".jpg";
-        list_file_name.push_back(file_name.str());
-    }
-
-    cameraCalibrator.addChessboardPoints(list_file_name, border_size);
-    cameraCalibrator.calibrate(first_image.size());
-
-    cv::Mat camera_matrix = cameraCalibrator.getCameraMatrix();
-
-    pnp_registration.setCameraMatrix(camera_matrix);
-
-    std::cout << camera_matrix << std::endl;
-
-    double pom_x = first_image.cols / 2;
-    double pom_y = first_image.rows / 2;
-
-    pnp_registration.setOpticalCenter(pom_x, pom_y);
+void Main::processReconstruction() {
 
     /**
      * Robust matcher
@@ -56,16 +54,16 @@ int main(int argc, char *argv[]) {
     cv::Ptr<cv::xfeatures2d::SurfDescriptorExtractor> featureExtractor = cv::xfeatures2d::SurfDescriptorExtractor::create();
 
     std::vector<cv::KeyPoint> key_points_first_image, key_points_second_image;
-    std::vector<cv::Point2f> detection_points_first_image, detection_points_second_image;
+    std::vector<cv::Point2f> detection_points_second_image;
     std::vector<cv::DMatch> matches;
 
     robustMatcher.setConfidenceLevel(confidenceLevel);
-    robustMatcher.setMinDistanceToEpipolar(min_dist);
+    robustMatcher.setMinDistanceToEpipolar(max_distance);
     robustMatcher.setRatio(ratioTest);
     robustMatcher.setFeatureDetector(featureDetector);
     robustMatcher.setDescriptorExtractor(featureExtractor);
 
-    camera_matrix = pnp_registration.getCameraMatrix();
+    cv::Mat camera_matrix = pnp_registration.getCameraMatrix();
 
     cv::Mat essential_matrix = robustMatcher.robustMatchRANSAC(first_image, second_image, matches,
                                                                key_points_first_image, key_points_second_image,
@@ -74,8 +72,6 @@ int main(int argc, char *argv[]) {
     /**
      * Rozklad matic
      */
-
-    cv::Mat m1 = first_image.clone(), m2 = second_image.clone();
 
     for (std::vector<cv::DMatch>::const_iterator it = matches.begin(); it != matches.end(); ++it) {
         float x = key_points_first_image[it->queryIdx].pt.x;
@@ -93,9 +89,6 @@ int main(int argc, char *argv[]) {
     cv::Mat points2 = cv::Mat(detection_points_second_image);
     cv::recoverPose(essential_matrix, points1, points2, camera_matrix, R, t);
 
-
-    std::cout << R << std::endl;
-    std::cout << t << std::endl;
     /**
      * Triangulace
      */
@@ -114,80 +107,78 @@ int main(int argc, char *argv[]) {
     camera_matrix_a = camera_matrix * rotation_translation_matrix_first_image;
     camera_matrix_b = camera_matrix * rotation_translation_matrix_second_image;
 
+
+    std::cout << points1 << std::endl;
+    std::cout << points2 << std::endl;
+    std::cout << camera_matrix_b << std::endl;
+    std::cout << camera_matrix_a << std::endl;
+
     triangulatePoints(camera_matrix_b, camera_matrix_a, points1, points2, found_3D_points);
+    std::cout << found_3D_points << std::endl;
 
     transpose(found_3D_points, triangulation_3D_points);
     convertPointsFromHomogeneous(triangulation_3D_points, triangulation_3D_points);
 
-    std::vector<cv::Point3f> list_3D_points_after_triangulation;
     std::vector<cv::Point2f> list_2D_points_after_triangulation;
     for (int i = 0; i < triangulation_3D_points.rows; i++) {
-        list_3D_points_after_triangulation.push_back(
+        list_3D_points.push_back(
                 cv::Point3f(triangulation_3D_points.at<float>(i, 0), triangulation_3D_points.at<float>(i, 1),
                             triangulation_3D_points.at<float>(i, 2)));
     }
-
-    std::cout << triangulation_3D_points << std::endl;
 
     /**
      * Registrace korespondencnich bodu
      * Dle tutorialu dostupneho na http://docs.opencv.org/3.1.0/dc/d2c/tutorial_real_time_pose.html
      */
-
-    cv::namedWindow(WIN_REF_IMAGE_FOR_USER);
-    cv::namedWindow(WIN_USER_SELECT_POINT);
-
-    cv::setMouseCallback(WIN_USER_SELECT_POINT, onMouseModelRegistration, 0);
-
-    cv::Mat ref_image = loadImage(path_to_ref_image);
-
+    for (int i = 0; i < list_3D_points.size(); i++) {
+        std::cout << list_3D_points[i] << std::endl;
+    }
     registration.setRegistrationMax(number_registration);
-    std::vector<cv::Point2f> list_points2d;
-    std::vector<cv::Point3f> list_points3d;
-
-    int previousNumRegistration = registration.getRegistrationCount();
-    std::vector<int> index_of_points;
 
 
-    while (cv::waitKey(30) < 0) {
+}
 
-        cv::Mat clone_of_ref_image = ref_image.clone();
-        cv::Mat clone_frame_with_triangulation = first_image.clone();
-        list_points2d = registration.getList2DPoints();
-        list_points3d = registration.getList3DPoints();
-        if (!end_registration) {
+cv::Mat Main::loadImage(const std::string path_to_ref_image) {
 
-            draw2DPoint(clone_frame_with_triangulation, detection_points_first_image[index_of_registration], green);
-            cv::Point3f point3f = list_3D_points_after_triangulation[index_of_registration];
+    cv::Mat image = cv::imread(path_to_ref_image);
+    if (!image.data) {
+        std::cout << ERROR_READ_IMAGE << std::endl;
+        exit(1);
+    }
+    return image;
+}
 
-            if (previousNumRegistration != registration.getRegistrationCount()) {
-                index_of_points.push_back(index_of_registration);
-                registration.register3DPoint(point3f);
-                index_of_registration++;
-                previousNumRegistration = registration.getRegistrationCount();
-            }
+void Main::registrationPoints(double x, double y, cv::Mat &out) {
+    cv::Point2f point_2d = cv::Point2f((float) x, (float) y);
+    bool is_registrable = registration.isRegistration();
+    int index = registration.getIndexRegistration();
 
-        } else {
-            cv::Point3f point3f = list_3D_points_after_triangulation[index_of_registration];
-            registration.register3DPoint(point3f);
-            index_of_points.push_back(index_of_registration);
-            break;
-        }
-
-        draw2DPoints(clone_of_ref_image, list_points2d, blue);
-        cv::imshow(WIN_USER_SELECT_POINT, clone_of_ref_image);
-        cv::imshow(WIN_REF_IMAGE_FOR_USER, clone_frame_with_triangulation);
+    if (is_registrable) {
+        registration.register2DPoint(point_2d);
+        cv::Point3f point3f = list_3D_points[index];
+        registration.register3DPoint(point3f);
+        index_points.push_back(index);
+        index++;
     }
 
-    cv::destroyWindow(WIN_USER_SELECT_POINT);
-    cv::destroyWindow(WIN_REF_IMAGE_FOR_USER);
+    cv::Mat clone_frame_with_triangulation = first_image.clone();
+    draw2DPoint(clone_frame_with_triangulation, detection_points_first_image[index], green);
+    registration.setIndexRegistration(index);
 
-    std::vector<cv::Point3f> list_3D_points = registration.getList3DPoints();
+    out = clone_frame_with_triangulation.clone();
+}
+
+void Main::nextPoint() {
+    registration.incRegistrationIndex();
+}
+
+void Main::initNavigation() {
+
+    start = 4;
+    end = 9;
+
     std::vector<cv::Point2f> list_2D_points = registration.getList2DPoints();
-
-    /**
-     * Vypocet optickeho stredu
-     */
+    std::vector<cv::Point3f> list_3D_points = registration.getList3DPoints();
 
     std::vector<cv::Mat> vanish_point;
     cv::Mat output_ref_image, gray_ref_image;
@@ -264,112 +255,71 @@ int main(int argc, char *argv[]) {
      * Robust matcher
      */
 
-    std::cout << "List 2D points: " << list_2D_points << std::endl;
-
     cv::Mat current_frame, current_frame_vis, last_current_frame_vis;
-
 
     cv::Ptr<cv::DescriptorMatcher> descriptorMatcher = cv::makePtr<cv::FlannBasedMatcher>();
     robustMatcher.setDescriptorMatcher(descriptorMatcher);
     robustMatcher.setRatio(ratioTest);
 
-    pthread_t fast_robust_matcher_t, robust_matcher_t = ptw32_handle_t();
-    robust_matcher_struct robust_matcher_arg_struct;
-    fast_robust_matcher_struct fast_robust_matcher_arg_struct;
 
     /**
      * Real-time Camera Pose Estimation
      */
 
-    initKalmanFilter(kalmanFilter, nStates, nMeasurements, nInputs, dt);
-    cv::Mat measurements(nMeasurements, 1, CV_64F);
+    measurements = cv::Mat(nMeasurements, 1, CV_64F);
     measurements.setTo(cv::Scalar(0));
 
-    cv::VideoCapture cap;
-    cap.open(video_read_path);
-    bool isFirstImage = true;
-
-    if (!cap.isOpened()) {
-        std::cout << ERROR_OPEN_CAMERA << std::endl;
-        exit(1);
-    }
-
-
-
-    int count_frames = 1;
-    std::vector<cv::Mat> current_frames;
-
-    int start = 4;
-    int end = 9;
+    initKalmanFilter(kalmanFilter, nStates, nMeasurements, nInputs, dt);
 
     robust_matcher_arg_struct.list_3D_points = list_3D_points;
     robust_matcher_arg_struct.measurements = measurements;
 
     fast_robust_matcher_arg_struct.list_3D_points = list_3D_points;
 
-    cv::projectPoints(list_3D_points_after_triangulation, R, t, camera_matrix, cv::Mat(),
-                      list_2D_points_after_triangulation);
-    draw2DPoints(second_image, list_2D_points_after_triangulation, blue);
 
-    cv::namedWindow(WIN_REAL_TIME_DEMO);
-    while (cap.read(current_frame) && cv::waitKey(30) != 27) {
-        last_current_frame_vis = current_frame_vis.clone();
-        current_frame_vis = current_frame.clone();
-        current_frames.push_back(current_frame_vis);
-
-        if (isFirstImage) {
-            // TODO: zkalibrovat kameru
-            cameraCalibrator.calibrate(current_frame_vis.size());
-            pnp_detection.setCameraMatrix(cameraCalibrator.getCameraMatrix());
-            isFirstImage = false;
-
-            getRobustEstimation(current_frame_vis, list_3D_points, measurements);
-        } else if (count_frames % 4 == 1) {
-            robust_matcher_arg_struct.current_frame = current_frames[count_frames - 1];
-
-            pthread_create(&robust_matcher_t, NULL, robust_matcher, (void *) &robust_matcher_arg_struct);
-            //pthread_join(robust_matcher_t, NULL);
-        } else if (count_frames % 2 == 0) {
-            pthread_join(robust_matcher_t, NULL);
-        }
-
-        if (count_frames >= 5) {
-            fast_robust_matcher_arg_struct.last_current_frame = current_frames[start - 2];
-            fast_robust_matcher_arg_struct.current_frame = current_frames[start - 1];
-
-            pthread_create(&fast_robust_matcher_t, NULL, fast_robust_matcher, (void *) &fast_robust_matcher_arg_struct);
-            pthread_join(fast_robust_matcher_t, NULL);
-            start++;
-
-            if (start == end) {
-                end += 3;
-                start -= 3;
-            }
-        }
-        count_frames++;
-        cv::imshow(WIN_REAL_TIME_DEMO, current_frame);
-
-    }
-
-    cv::destroyWindow(WIN_REAL_TIME_DEMO);
-
-    cv::waitKey(0);
-    return 0;
 }
 
-cv::Mat loadImage(const std::string path_to_ref_image) {
+int Main::processNavigation(cv::Mat current_frame, int count_frames) {
 
-    cv::Mat image = cv::imread(path_to_ref_image);
+    cv::Mat last_current_frame_vis = current_frame;
+    cv::Mat current_frame_vis = current_frame.clone();
+    current_frames.push_back(current_frame_vis);
 
-    if (!image.data) {
-        std::cout << ERROR_READ_IMAGE << std::endl;
-        exit(1);
+    int directory;
+
+    if (count_frames == 1) {
+        while (!getRobustEstimation(current_frame_vis, registration.getList3DPoints(), measurements, directory));
+    } else if (count_frames % 4 == 1) {
+        robust_matcher_arg_struct.current_frame = current_frames[count_frames - 1];
+        robust_matcher_arg_struct.directory = directory;
+
+
+        pthread_create(&robust_matcher_t, NULL, robust_matcher, (void *) &robust_matcher_arg_struct);
+        //pthread_join(robust_matcher_t, NULL);
+    } else if (count_frames % 2 == 0) {
+        pthread_join(robust_matcher_t, NULL);
     }
-    return image;
+
+    if (count_frames >= 5) {
+        fast_robust_matcher_arg_struct.last_current_frame = current_frames[start - 2];
+        fast_robust_matcher_arg_struct.current_frame = current_frames[start - 1];
+        fast_robust_matcher_arg_struct.directory = directory;
+
+        pthread_create(&fast_robust_matcher_t, NULL, fast_robust_matcher, (void *) &fast_robust_matcher_arg_struct);
+        pthread_join(fast_robust_matcher_t, NULL);
+        start++;
+
+        if (start == end) {
+            end += 3;
+            start -= 3;
+        }
+    }
+    cv::imshow(WIN_REAL_TIME_DEMO, current_frame_vis);
+    return directory;
 }
 
 bool getRobustEstimation(cv::Mat current_frame_vis, std::vector<cv::Point3f> list_3D_points,
-                         cv::Mat measurements) {
+                         cv::Mat measurements, int &directory) {
 
     std::vector<cv::DMatch> good_matches;
     std::vector<cv::KeyPoint> key_points_current_frame;
@@ -405,17 +355,12 @@ bool getRobustEstimation(cv::Mat current_frame_vis, std::vector<cv::Point3f> lis
 
             revT = T.inv() * refT;
 
-            double x = revT.at<float>(0, 3);
-            double y = revT.at<float>(1, 3);
-            double z = revT.at<float>(2, 3);
+            int x = (int) revT.at<float>(0, 3);
+            int y = (int) revT.at<float>(1, 3);
 
-            double xx = (x + y + z) / 3;
-            double yy = (y + z) / 2;
+            directory = getDirectory(x, y);
 
-            frames.push_back(current_frame_vis);
-            prumerXY.push_back(xx);
-            prumerZX.push_back(yy);
-
+            std::cout << x << ", " << y << std::endl;
 
             cv::Mat translation_measured(3, 1, CV_64F);
             translation_measured = pnp_detection.getTranslationMatrix();
@@ -431,13 +376,11 @@ bool getRobustEstimation(cv::Mat current_frame_vis, std::vector<cv::Point3f> lis
     cv::Mat translation_estimated(3, 1, CV_64F);
     cv::Mat rotation_estimated(3, 3, CV_64F);
 
-    std::cout << "Robustni odhad: " << std::endl;
-    std::cout << pnp_detection.getProjectionMatrix() << std::endl;
-
     updateKalmanFilter(kalmanFilter, measurements, translation_estimated, rotation_estimated);
     pnp_detection.setProjectionMatrix(rotation_estimated, translation_estimated);
 
-
+    std::cout << "Robustni odhad: " << std::endl;
+    std::cout << pnp_detection.getProjectionMatrix() << std::endl;
     std::cout << "Relativni rozdil: " << std::endl;
     std::cout << revT << std::endl;
 
@@ -445,7 +388,7 @@ bool getRobustEstimation(cv::Mat current_frame_vis, std::vector<cv::Point3f> lis
 }
 
 bool getLightweightEstimation(cv::Mat last_current_frame_vis, std::vector<cv::Point3f> list_3D_points,
-                              cv::Mat current_frame_vis) {
+                              cv::Mat current_frame_vis, int &directory) {
 
     std::vector<cv::Point2f> list_points2d_scene_match;
 
@@ -488,6 +431,10 @@ bool getLightweightEstimation(cv::Mat last_current_frame_vis, std::vector<cv::Po
 
                 revT = T.inv() * refT;
 
+                int x = (int) revT.at<float>(0, 3);
+                int y = (int) revT.at<float>(1, 3);
+
+                directory = getDirectory(x, y);
             }
 
         }
@@ -500,47 +447,34 @@ bool getLightweightEstimation(cv::Mat last_current_frame_vis, std::vector<cv::Po
     return true;
 }
 
-
-static void onMouseModelRegistration(int event, int x, int y, int, void *) {
-
-    if (event == cv::EVENT_LBUTTONUP) {
-
-        cv::Point2f point_2d = cv::Point2f((float) x, (float) y);
-        bool is_registrable = registration.isRegistration();
-
-        if (is_registrable) {
-            registration.register2DPoint(point_2d);
-            if (registration.getRegistrationCount() == registration.getRegistrationMax()) {
-                end_registration = true;
-            }
+int getDirectory(int x, int y) {
+    int directory;
+    if (x == 0) {
+        if (y > 0) {
+            directory = 1;
+        } else if (y < 0) {
+            directory = 2;
         }
-    } else if (event == cv::EVENT_RBUTTONUP) {
-        index_of_registration++;
+    } else if (y == 0) {
+        if (x > 0) {
+            directory = 3;
+        } else if (x < 0) {
+            directory = 4;
+        }
+    } else if (x < 0 && y < 0) {
+        directory = 14;
+    } else if (x > 0 && y < 0) {
+        directory = 13;
+    } else if (x < 0 && y > 0) {
+        directory = 24;
+    } else if (x > 0 && y > 0) {
+        directory = 23;
     }
+    return directory;
 }
 
 
-void *fast_robust_matcher(void *arg) {
-    struct fast_robust_matcher_struct *param = (struct fast_robust_matcher_struct *) arg;
-    cv::Mat last_current_frame = param->last_current_frame;
-    cv::Mat current_frame = param->current_frame;
-    std::vector<cv::Point3f> list_3D_points = param->list_3D_points;
-
-    getLightweightEstimation(last_current_frame, list_3D_points, current_frame);
-    return NULL;
-}
-
-
-void *robust_matcher(void *arg) {
-    struct robust_matcher_struct *param = (struct robust_matcher_struct *) arg;
-    cv::Mat current_frame = param->current_frame;
-    std::vector<cv::Point3f> list_3D_points_after_registration = param->list_3D_points;
-    cv::Mat measurements = param->measurements;
-    getRobustEstimation(current_frame, list_3D_points_after_registration, measurements);
-    return NULL;
-}
-
-std::vector<cv::Mat> processImage(MSAC &msac, int numVps, cv::Mat &imgGRAY, cv::Mat &outputImg) {
+std::vector<cv::Mat> Main::processImage(MSAC &msac, int numVps, cv::Mat &imgGRAY, cv::Mat &outputImg) {
     cv::Mat imgCanny;
     cv::Canny(imgGRAY, imgCanny, 180, 120, 3);
     std::vector<std::vector<cv::Point> > lineSegments;
@@ -618,7 +552,7 @@ std::vector<cv::Mat> processImage(MSAC &msac, int numVps, cv::Mat &imgGRAY, cv::
 
 
 /**********************************************************************************************************/
-void initKalmanFilter(cv::KalmanFilter &KF, int nStates, int nMeasurements, int nInputs, double dt) {
+void Main::initKalmanFilter(cv::KalmanFilter &KF, int nStates, int nMeasurements, int nInputs, double dt) {
 
     KF.init(nStates, nMeasurements, nInputs, CV_64F);
     setIdentity(KF.processNoiseCov, cv::Scalar::all(1e-5));
@@ -721,3 +655,47 @@ void fillMeasurements(cv::Mat &measurements, const cv::Mat &translation_measured
     measurements.at<double>(5) = measured_eulers.at<double>(2);      // yaw
 }
 
+
+int main(int argc, char *argv[]) {
+    Main process;
+
+    cv::Mat fist_frame = cv::imread(path_to_first_image);
+    cv::Mat second_frame = cv::imread(path_to_second_image);
+    cv::Mat ref_frame = cv::imread(path_to_ref_image);
+
+    process.initReconstruction(fist_frame, second_frame, ref_frame, cv::Point2f(273, 339), cv::Point2f(585, 548),
+                               cv::Point2f(341, 172), cv::Point2f(2040, 1548));
+    process.processReconstruction();
+
+    cv::Mat out;
+    process.registrationPoints(85, 217, out);
+    //cv::imshow("1",out);
+    process.nextPoint();
+    process.nextPoint();
+    process.registrationPoints(144, 218, out);
+    //cv::imshow("2",out);
+    process.nextPoint();
+    process.nextPoint();
+    process.nextPoint();
+    process.nextPoint();
+    process.registrationPoints(106, 198, out);
+    //cv::imshow("3",out);
+    process.nextPoint();
+    process.registrationPoints(124, 217, out);
+    //cv::imshow("4",out);
+    process.registrationPoints(164, 186, out);
+    //cv::imshow("5",out);
+    process.registrationPoints(118, 194, out);
+    //cv::imshow("6",out);
+    process.nextPoint();
+    process.nextPoint();
+    process.registrationPoints(174, 165, out);
+    //cv::imshow("7",out);
+    process.nextPoint();
+    process.registrationPoints(104, 389, out);
+    //cv::imshow("8",out);
+    process.initNavigation();
+    int directory = process.processNavigation(out, 1);
+    std::cout << directory << std::endl;
+    return 0;
+}
