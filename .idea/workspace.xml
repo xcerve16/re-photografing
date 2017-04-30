@@ -36,9 +36,35 @@
       <file leaf-file-name="CameraCalibrator.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/CameraCalibrator.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="42">
-              <caret line="2" column="53" lean-forward="false" selection-start-line="2" selection-start-column="53" selection-end-line="2" selection-end-column="53" />
+            <state relative-caret-position="190">
+              <caret line="25" column="73" lean-forward="false" selection-start-line="25" selection-start-column="73" selection-end-line="25" selection-end-column="73" />
+              <folding>
+                <element signature="e#90#114#0" expanded="true" />
+                <marker date="1493546964426" expanded="true" signature="1372:1465" ph="{...}" />
+                <marker date="1493546964426" expanded="true" signature="1523:1704" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="imgproc.hpp" pinned="false" current-in-tab="false">
+        <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/imgproc.hpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="284">
+              <caret line="3311" column="18" lean-forward="false" selection-start-line="3311" selection-start-column="18" selection-end-line="3311" selection-end-column="18" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CameraCalibrator.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/CameraCalibrator.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="131">
+              <caret line="28" column="67" lean-forward="false" selection-start-line="28" selection-start-column="66" selection-end-line="28" selection-end-column="67" />
+              <folding>
+                <marker date="1493546964441" expanded="true" signature="378:974" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -63,32 +89,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ModelRegistration.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ModelRegistration.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="301">
-              <caret line="36" column="28" lean-forward="false" selection-start-line="36" selection-start-column="28" selection-end-line="36" selection-end-column="28" />
-              <folding>
-                <marker date="1493543720161" expanded="true" signature="226:1022" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MSAC.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/MSAC.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="20" column="33" lean-forward="false" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="types.hpp" pinned="false" current-in-tab="false">
         <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/core/types.hpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="27552">
+            <state relative-caret-position="184">
               <caret line="1312" column="0" lean-forward="false" selection-start-line="1312" selection-start-column="0" selection-end-line="1312" selection-end-column="0" />
               <folding />
             </state>
@@ -98,11 +102,21 @@
       <file leaf-file-name="Main.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-420">
-              <caret line="83" column="0" lean-forward="true" selection-start-line="79" selection-start-column="4" selection-end-line="129" selection-end-column="54" />
+            <state relative-caret-position="-2835">
+              <caret line="33" column="19" lean-forward="false" selection-start-line="33" selection-start-column="19" selection-end-line="33" selection-end-column="19" />
               <folding>
                 <element signature="e#19415#20078#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="stl_bvector.h" pinned="false" current-in-tab="false">
+        <entry file="file://C:/MinGW/lib/gcc/mingw32/5.3.0/include/c++/bits/stl_bvector.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="64">
+              <caret line="920" column="4" lean-forward="false" selection-start-line="920" selection-start-column="4" selection-end-line="920" selection-end-column="4" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -117,22 +131,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cvstd.inl.hpp" pinned="false" current-in-tab="false">
-        <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/core/cvstd.inl.hpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3612">
-              <caret line="172" column="0" lean-forward="false" selection-start-line="172" selection-start-column="0" selection-end-line="172" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Main.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="200" column="0" lean-forward="false" selection-start-line="200" selection-start-column="0" selection-end-line="200" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="362">
+              <caret line="87" column="71" lean-forward="false" selection-start-line="87" selection-start-column="71" selection-end-line="87" selection-end-column="71" />
+              <folding>
+                <marker date="1493546964441" expanded="true" signature="2271:2371" ph="//..." />
+                <marker date="1493546964441" expanded="true" signature="2372:2761" ph="/.../" />
+                <marker date="1493546964441" expanded="true" signature="2790:3247" ph="/.../" />
+                <marker date="1493546964441" expanded="true" signature="3265:3668" ph="/.../" />
+                <marker date="1493546964441" expanded="true" signature="3695:4134" ph="/.../" />
+                <marker date="1493546964441" expanded="true" signature="4147:4520" ph="/.../" />
+                <marker date="1493546964441" expanded="true" signature="4543:4970" ph="/.../" />
+                <marker date="1493546964441" expanded="true" signature="4993:5412" ph="/.../" />
+                <marker date="1493546964441" expanded="true" signature="5432:5840" ph="/.../" />
+                <marker date="1493546964441" expanded="true" signature="6431:6532" ph="{...}" />
+                <marker date="1493546964441" expanded="true" signature="6569:6676" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -141,7 +157,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>184X</find>
       <find>283</find>
       <find>283Y</find>
       <find>0.</find>
@@ -171,6 +186,7 @@
       <find>ptw32</find>
       <find>index_of_registration</find>
       <find>index_of_registration++</find>
+      <find>ca</find>
     </findStrings>
     <replaceStrings>
       <replace>countArgs</replace>
@@ -242,10 +258,8 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/Line2D.cpp" />
         <option value="$PROJECT_DIR$/src/ModelRegistration.cpp" />
-        <option value="$PROJECT_DIR$/src/CameraCalibrator.cpp" />
         <option value="$PROJECT_DIR$/src/ModelRegistration.h" />
         <option value="$PROJECT_DIR$/src/Line.h" />
-        <option value="$PROJECT_DIR$/src/CameraCalibrator.h" />
         <option value="$PROJECT_DIR$/src/Utils.h" />
         <option value="$PROJECT_DIR$/src/Utils.cpp" />
         <option value="$PROJECT_DIR$/src/MSAC.cpp" />
@@ -258,8 +272,10 @@
         <option value="$PROJECT_DIR$/src/PnPProblem.h" />
         <option value="$PROJECT_DIR$/src/RobustMatcher.cpp" />
         <option value="$PROJECT_DIR$/src/RobustMatcher.h" />
-        <option value="$PROJECT_DIR$/src/Main.h" />
         <option value="$PROJECT_DIR$/src/PnPProblem.cpp" />
+        <option value="$PROJECT_DIR$/src/CameraCalibrator.h" />
+        <option value="$PROJECT_DIR$/src/CameraCalibrator.cpp" />
+        <option value="$PROJECT_DIR$/src/Main.h" />
         <option value="$PROJECT_DIR$/src/Main.cpp" />
       </list>
     </option>
@@ -380,7 +396,7 @@
     <property name="js.eslint.eslintPackage" value="" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
     <property name="last_opened_file_path" value="D:/OpenCV/opencv/sources/samples/cpp/tutorial_code/calib3d/real_time_pose_estimation" />
-    <property name="SearchEverywhereHistoryKey" value="Pnp&#9;FILE&#9;file://D:/Refotografing-source/src/PnPProblem.h&#10;estimatePoseRANSAC&#9;null&#9;null&#10;Video&#9;null&#9;null&#10;BruteForce&#9;null&#9;null" />
+    <property name="SearchEverywhereHistoryKey" value="Came&#9;FILE&#9;file://D:/Refotografing-source/src/CameraCalibrator.cpp&#10;Pnp&#9;FILE&#9;file://D:/Refotografing-source/src/PnPProblem.h&#10;estimatePoseRANSAC&#9;null&#9;null&#10;Video&#9;null&#9;null&#10;BruteForce&#9;null&#9;null" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -1110,7 +1126,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="881285000" />
+    <option name="totallyTimeSpent" value="883407000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -1129,7 +1145,7 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31823328" sideWeight="0.5258621" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30351076" sideWeight="0.4975" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32875144" sideWeight="0.38308188" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.6772367" sideWeight="0.4949303" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.8414496" sideWeight="0.4949303" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34881088" sideWeight="0.6169181" order="5" side_tool="false" content_ui="combo" x="3" y="529" width="1594" height="320" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24865736" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1580756" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -1252,6 +1268,11 @@
           <line>78</line>
           <option name="timeStamp" value="66" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/Main.cpp</url>
+          <line>33</line>
+          <option name="timeStamp" value="1487" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
@@ -1263,7 +1284,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="1483" />
+      <option name="time" value="1489" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="CMakeRunConfiguration">
@@ -1274,12 +1295,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/grand_hotel.jpg" />
-    <entry file="file://$PROJECT_DIR$/resource/image/kasna_parmas (1).jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/imgcodecs.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -1291,13 +1306,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="26481">
           <caret line="1261" column="241" lean-forward="false" selection-start-line="1261" selection-start-column="241" selection-end-line="1261" selection-end-column="241" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/imgproc.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34986">
-          <caret line="1666" column="0" lean-forward="false" selection-start-line="1666" selection-start-column="0" selection-end-line="1666" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1479,26 +1487,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/CameraCalibrator.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="3" lean-forward="false" selection-start-line="0" selection-start-column="3" selection-end-line="0" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ModelRegistration.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="36" column="28" lean-forward="false" selection-start-line="36" selection-start-column="28" selection-end-line="36" selection-end-column="28" />
+        <state relative-caret-position="385">
+          <caret line="45" column="2" lean-forward="false" selection-start-line="45" selection-start-column="2" selection-end-line="45" selection-end-column="2" />
           <folding>
-            <marker date="1493543720161" expanded="true" signature="226:1022" ph="{...}" />
+            <marker date="1493544841222" expanded="true" signature="226:1022" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MSAC.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
+        <state relative-caret-position="378">
           <caret line="20" column="33" lean-forward="false" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
           <folding />
         </state>
@@ -1528,7 +1529,7 @@
     </entry>
     <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/core/types.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27552">
+        <state relative-caret-position="184">
           <caret line="1312" column="0" lean-forward="false" selection-start-line="1312" selection-start-column="0" selection-end-line="1312" selection-end-column="0" />
           <folding />
         </state>
@@ -1557,14 +1558,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="200" column="0" lean-forward="false" selection-start-line="200" selection-start-column="0" selection-end-line="200" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/PnPProblem.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1323">
@@ -1580,14 +1573,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/CameraCalibrator.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="2" column="53" lean-forward="false" selection-start-line="2" selection-start-column="53" selection-end-line="2" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/PnPProblem.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1344">
@@ -1595,10 +1580,76 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/core/cvstd.inl.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="172" column="0" lean-forward="false" selection-start-line="172" selection-start-column="0" selection-end-line="172" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/MinGW/lib/gcc/mingw32/5.3.0/include/c++/bits/stl_bvector.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="920" column="4" lean-forward="false" selection-start-line="920" selection-start-column="4" selection-end-line="920" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CameraCalibrator.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="25" column="73" lean-forward="false" selection-start-line="25" selection-start-column="73" selection-end-line="25" selection-end-column="73" />
+          <folding>
+            <element signature="e#90#114#0" expanded="true" />
+            <marker date="1493546964426" expanded="true" signature="1372:1465" ph="{...}" />
+            <marker date="1493546964426" expanded="true" signature="1523:1704" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/OpenCV/opencv/build/install/include/opencv2/imgproc.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="3311" column="18" lean-forward="false" selection-start-line="3311" selection-start-column="18" selection-end-line="3311" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CameraCalibrator.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="28" column="67" lean-forward="false" selection-start-line="28" selection-start-column="66" selection-end-line="28" selection-end-column="67" />
+          <folding>
+            <marker date="1493546964441" expanded="true" signature="378:974" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="362">
+          <caret line="87" column="71" lean-forward="false" selection-start-line="87" selection-start-column="71" selection-end-line="87" selection-end-column="71" />
+          <folding>
+            <marker date="1493546964441" expanded="true" signature="2271:2371" ph="//..." />
+            <marker date="1493546964441" expanded="true" signature="2372:2761" ph="/.../" />
+            <marker date="1493546964441" expanded="true" signature="2790:3247" ph="/.../" />
+            <marker date="1493546964441" expanded="true" signature="3265:3668" ph="/.../" />
+            <marker date="1493546964441" expanded="true" signature="3695:4134" ph="/.../" />
+            <marker date="1493546964441" expanded="true" signature="4147:4520" ph="/.../" />
+            <marker date="1493546964441" expanded="true" signature="4543:4970" ph="/.../" />
+            <marker date="1493546964441" expanded="true" signature="4993:5412" ph="/.../" />
+            <marker date="1493546964441" expanded="true" signature="5432:5840" ph="/.../" />
+            <marker date="1493546964441" expanded="true" signature="6431:6532" ph="{...}" />
+            <marker date="1493546964441" expanded="true" signature="6569:6676" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-420">
-          <caret line="83" column="0" lean-forward="true" selection-start-line="79" selection-start-column="4" selection-end-line="129" selection-end-column="54" />
+        <state relative-caret-position="-2835">
+          <caret line="33" column="19" lean-forward="false" selection-start-line="33" selection-start-column="19" selection-end-line="33" selection-end-column="19" />
           <folding>
             <element signature="e#19415#20078#0" expanded="true" />
           </folding>
