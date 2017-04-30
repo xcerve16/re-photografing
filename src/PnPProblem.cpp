@@ -71,5 +71,6 @@ void PnPProblem::setCameraParameter(double cx, double cy, double fx, double fy) 
     _camera_matrix.at<double>(1, 2) = cy;
     _camera_matrix.at<double>(0, 0) = fx;
     _camera_matrix.at<double>(1, 1) = fy;
+    _camera_matrix.at<double>(2, 2) = 1;
 
 }

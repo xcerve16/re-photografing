@@ -35,7 +35,10 @@ Main::initReconstruction(cv::Mat image1, cv::Mat image2, cv::Mat ref, cv::Point2
     first_image = image1;
     second_image = image2;
     ref_image = ref;
-    pnp_registration.setCameraParameter(cf.x, cf.y, ff.x, ff.y);
+
+    int cx = first_image.cols / 2;
+    int cy = first_image.rows / 2;
+    pnp_registration.setCameraParameter(cx, cy, ff.x, ff.y);
     pnp_detection.setCameraParameter(cc.x, cc.y, fc.x, fc.y);
 
 }
@@ -104,17 +107,13 @@ void Main::processReconstruction() {
     hconcat(R, t, rotation_translation_matrix_first_image);
     cv::Mat triangulation_3D_points, camera_matrix_a, camera_matrix_b;
 
+    std::cout << rotation_translation_matrix_first_image << std::endl;
+    std::cout << camera_matrix << std::endl;
+
     camera_matrix_a = camera_matrix * rotation_translation_matrix_first_image;
     camera_matrix_b = camera_matrix * rotation_translation_matrix_second_image;
 
-
-    std::cout << points1 << std::endl;
-    std::cout << points2 << std::endl;
-    std::cout << camera_matrix_b << std::endl;
-    std::cout << camera_matrix_a << std::endl;
-
     triangulatePoints(camera_matrix_b, camera_matrix_a, points1, points2, found_3D_points);
-    std::cout << found_3D_points << std::endl;
 
     transpose(found_3D_points, triangulation_3D_points);
     convertPointsFromHomogeneous(triangulation_3D_points, triangulation_3D_points);
@@ -130,9 +129,8 @@ void Main::processReconstruction() {
      * Registrace korespondencnich bodu
      * Dle tutorialu dostupneho na http://docs.opencv.org/3.1.0/dc/d2c/tutorial_real_time_pose.html
      */
-    for (int i = 0; i < list_3D_points.size(); i++) {
-        std::cout << list_3D_points[i] << std::endl;
-    }
+
+    std::cout << list_3D_points << std::endl;
     registration.setRegistrationMax(number_registration);
 
 
@@ -669,33 +667,33 @@ int main(int argc, char *argv[]) {
 
     cv::Mat out;
     process.registrationPoints(85, 217, out);
-    //cv::imshow("1",out);
     process.nextPoint();
     process.nextPoint();
+    cv::imshow("1", out);
     process.registrationPoints(144, 218, out);
-    //cv::imshow("2",out);
     process.nextPoint();
     process.nextPoint();
     process.nextPoint();
     process.nextPoint();
+    cv::imshow("2", out);
     process.registrationPoints(106, 198, out);
-    //cv::imshow("3",out);
     process.nextPoint();
+    cv::imshow("3", out);
     process.registrationPoints(124, 217, out);
-    //cv::imshow("4",out);
+    cv::imshow("4", out);
     process.registrationPoints(164, 186, out);
-    //cv::imshow("5",out);
+    cv::imshow("5", out);
     process.registrationPoints(118, 194, out);
-    //cv::imshow("6",out);
     process.nextPoint();
     process.nextPoint();
+    cv::imshow("6", out);
     process.registrationPoints(174, 165, out);
-    //cv::imshow("7",out);
     process.nextPoint();
+    cv::imshow("7", out);
     process.registrationPoints(104, 389, out);
-    //cv::imshow("8",out);
+    cv::imshow("8", out);
     process.initNavigation();
+
     int directory = process.processNavigation(out, 1);
-    std::cout << directory << std::endl;
     return 0;
 }
