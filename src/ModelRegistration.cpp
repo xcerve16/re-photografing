@@ -23,7 +23,10 @@ void ModelRegistration::register3DPoint(const cv::Point3f &point3d) {
 
 void ModelRegistration::setIndexRegistration(int i) {
     _index_registration = i;
+}
 
+void ModelRegistration::incRegistrationIndex() {
+    _index_registration++;
 }
 
 

@@ -49,6 +49,8 @@ public:
     std::vector<cv::Point3f> getList3DPoints() const { return _list_3D_points; }
 
     void setIndexRegistration(int i);
+
+    void incRegistrationIndex();
 };
 
 #endif

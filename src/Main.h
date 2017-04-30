@@ -58,7 +58,7 @@ MSAC msac;
 // Robust cv::Matcher parameters
 double confidenceLevel = 0.999;
 float ratioTest = 0.70f;
-double max_distance = 1;
+double max_distance = 2;
 
 // SIFT parameters
 int numKeyPoints = 1000;

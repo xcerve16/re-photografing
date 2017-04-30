@@ -88,6 +88,9 @@ void Main::processReconstruction() {
     cv::Mat points2 = cv::Mat(detection_points_second_image);
     cv::recoverPose(essential_matrix, points1, points2, camera_matrix, R, t);
 
+
+    std::cout << R << std::endl;
+    std::cout << t << std::endl;
     /**
      * Triangulace
      */
@@ -106,10 +109,7 @@ void Main::processReconstruction() {
     camera_matrix_a = camera_matrix * rotation_translation_matrix_first_image;
     camera_matrix_b = camera_matrix * rotation_translation_matrix_second_image;
 
-
     triangulatePoints(camera_matrix_b, camera_matrix_a, points1, points2, found_3D_points);
-
-    std::cout << found_3D_points << std::endl;
 
     transpose(found_3D_points, triangulation_3D_points);
     convertPointsFromHomogeneous(triangulation_3D_points, triangulation_3D_points);
@@ -153,7 +153,7 @@ void Main::registrationPoints(double x, double y, cv::Mat &out) {
         registration.register2DPoint(point_2d);
         cv::Point3f point3f = list_3D_points[index];
         registration.register3DPoint(point3f);
-        index_points.push_back(index_of_registration);
+        index_points.push_back(index);
         index++;
     }
 
@@ -165,7 +165,7 @@ void Main::registrationPoints(double x, double y, cv::Mat &out) {
 }
 
 void Main::nextPoint() {
-    index_of_registration++;
+    registration.incRegistrationIndex();
 }
 
 void Main::initNavigation() {
@@ -280,9 +280,6 @@ int Main::processNavigation(cv::Mat current_frame, int count_frames) {
     current_frames.push_back(current_frame_vis);
 
     if (count_frames == 1) {
-        cameraCalibrator.calibrate(current_frame_vis.size());
-        pnp_detection.setCameraMatrix(cameraCalibrator.getCameraMatrix());
-
         while (!getRobustEstimation(current_frame_vis, registration.getList3DPoints(), measurements));
     } else if (count_frames % 4 == 1) {
         robust_matcher_arg_struct.current_frame = current_frames[count_frames - 1];
@@ -626,48 +623,33 @@ int main(int argc, char *argv[]) {
 
     cv::Mat out;
     process.registrationPoints(85, 217, out);
-    process.registrationPoints(144, 218, out);
-    process.registrationPoints(106, 198, out);
-    process.registrationPoints(124, 217, out);
-    process.registrationPoints(164, 186, out);
-    process.registrationPoints(118, 194, out);
-    process.registrationPoints(174, 165, out);
-    process.registrationPoints(104, 389, out);
-
-
-    ModelRegistration modelRegistration = process.getModelRegistration();
-    std::cout << modelRegistration.getList2DPoints() << std::endl;
-    std::cout << modelRegistration.getList3DPoints() << std::endl;
-
-
-
-    /*cv::Mat out;
-    process.registrationPoints(85, 217, out);
-    cv::imshow("1",out);
+    //cv::imshow("1",out);
     process.nextPoint();
     process.nextPoint();
     process.registrationPoints(144, 218, out);
-    cv::imshow("2",out);
+    //cv::imshow("2",out);
     process.nextPoint();
     process.nextPoint();
     process.nextPoint();
     process.nextPoint();
     process.registrationPoints(106, 198, out);
-    cv::imshow("3",out);
+    //cv::imshow("3",out);
     process.nextPoint();
     process.registrationPoints(124, 217, out);
-    cv::imshow("4",out);
+    //cv::imshow("4",out);
     process.registrationPoints(164, 186, out);
-    cv::imshow("5",out);
+    //cv::imshow("5",out);
     process.registrationPoints(118, 194, out);
-    cv::imshow("6",out);
+    //cv::imshow("6",out);
     process.nextPoint();
     process.nextPoint();
     process.registrationPoints(174, 165, out);
-    cv::imshow("7",out);
+    //cv::imshow("7",out);
     process.nextPoint();
     process.registrationPoints(104, 389, out);
-    cv::imshow("8",out);
-    cv::waitKey(0);*/
-    //process.initNavigation();
+    //cv::imshow("8",out);
+    process.initNavigation();
+    int directory = process.processNavigation(out, 1);
+    std::cout << directory << std::endl;
+    return 0;
 }
