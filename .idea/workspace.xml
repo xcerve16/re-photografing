@@ -14,10 +14,6 @@
   <component name="ChangeListManager">
     <list default="true" id="70e342c2-adc5-4064-9319-db384ed3edb0" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.cpp" afterPath="$PROJECT_DIR$/src/Main.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.h" afterPath="$PROJECT_DIR$/src/Main.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelRegistration.cpp" afterPath="$PROJECT_DIR$/src/ModelRegistration.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelRegistration.h" afterPath="$PROJECT_DIR$/src/ModelRegistration.h" />
     </list>
     <list id="5ff8f381-4f09-4fb1-9ab2-e7cc5b0e542a" name="Revert: Prepracovani main A" comment="" />
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -197,8 +193,8 @@
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
-        <option value="Adam" />
         <option value="Adam Cervenka &lt;cervenka.a@gmail.com&gt;" />
+        <option value="Adam" />
         <option value="Adam Červenka &lt;cervenka.a@gmail.com&gt;" />
       </list>
     </option>
@@ -1131,11 +1127,18 @@
       <option name="project" value="LOCAL" />
       <updated>1493488238248</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="Pripraveno pro android verzi">
+      <created>1493544756181</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1493544756181</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="897885000" />
+    <option name="totallyTimeSpent" value="897942000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -1553,6 +1556,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2415">
           <caret line="115" column="23" lean-forward="false" selection-start-line="115" selection-start-column="23" selection-end-line="115" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
