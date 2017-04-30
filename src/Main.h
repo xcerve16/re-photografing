@@ -81,8 +81,8 @@ const std::string video_read_path = "resource/video/grand_hotel.mp4";
 const std::string path_rephotography = "resource/results/exp_grand_hotel.jpg";*/
 
 // Biskupsky palac
-const std::string path_to_first_image = "resource/image/GPS/Biskupsky_dvur (1).jpg";
-const std::string path_to_second_image = "resource/image/GPS/Biskupsky_dvur (2).jpg";
+const std::string path_to_first_image = "resource/image/rsz_biskupsky_palac_2.jpg";
+const std::string path_to_second_image = "resource/image/rsz_biskupsky_palac_3.jpg";
 const std::string path_to_ref_image = "resource/reference/ref_biskupsky_palac.jpg";
 const std::string video_read_path = "resource/video/biskupsky_palac.mp4";
 //const std::string path_rephotography = "resource/results/exp_biskupsky_palac.jpg";*/
@@ -168,22 +168,25 @@ struct robust_matcher_struct {
     cv::Mat current_frame;
     std::vector<cv::Point3f> list_3D_points;
     cv::Mat measurements;
+    int directory;
 };
 
 struct fast_robust_matcher_struct {
     cv::Mat last_current_frame;
     std::vector<cv::Point3f> list_3D_points;
     cv::Mat current_frame;
+    int directory;
 };
 
 void *robust_matcher(void *arg);
 
 void *fast_robust_matcher(void *arg);
 
-bool getRobustEstimation(cv::Mat current_frame_vis, std::vector<cv::Point3f> list_3D_points, cv::Mat measurements);
+bool getRobustEstimation(cv::Mat current_frame_vis, std::vector<cv::Point3f> list_3D_points, cv::Mat measurements,
+                         int &directory);
 
 bool getLightweightEstimation(cv::Mat last_current_frame_vis, std::vector<cv::Point3f> list_3D_points,
-                              cv::Mat current_frame_vis);
+                              cv::Mat current_frame_vis, int &directory);
 
 void updateKalmanFilter(cv::KalmanFilter &KF, cv::Mat &measurements, cv::Mat &translation_estimated,
                         cv::Mat &rotation_estimated);
@@ -195,6 +198,8 @@ pthread_t fast_robust_matcher_t, robust_matcher_t;
 robust_matcher_struct robust_matcher_arg_struct;
 
 fast_robust_matcher_struct fast_robust_matcher_arg_struct;
+
+int getDirectory(int x, int y);
 
 class Main {
 
@@ -227,6 +232,7 @@ private:
 
     std::vector<cv::Mat> processImage(MSAC &msac, int numVps, cv::Mat &imgGRAY, cv::Mat &outputImg);
 
+
 public:
     Main() {};
 
@@ -244,6 +250,8 @@ public:
     void initNavigation();
 
     int processNavigation(cv::Mat current_frame, int count_frames);
+
+
 };
 
 
