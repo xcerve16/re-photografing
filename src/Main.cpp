@@ -324,7 +324,6 @@ int main(int argc, char *argv[]) {
         current_frames.push_back(current_frame_vis);
 
         if (isFirstImage) {
-            // TODO: zkalibrovat kameru
             cameraCalibrator.calibrate(current_frame_vis.size());
             pnp_detection.setCameraMatrix(cameraCalibrator.getCameraMatrix());
             isFirstImage = false;
