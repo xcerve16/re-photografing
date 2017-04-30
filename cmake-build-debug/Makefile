@@ -122,33 +122,6 @@ rephotografing_cv/fast:
 	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/build
 .PHONY : rephotografing_cv/fast
 
-src/Android.obj: src/Android.cpp.obj
-
-.PHONY : src/Android.obj
-
-# target to build an object file
-src/Android.cpp.obj:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/Android.cpp.obj
-.PHONY : src/Android.cpp.obj
-
-src/Android.i: src/Android.cpp.i
-
-.PHONY : src/Android.i
-
-# target to preprocess a source file
-src/Android.cpp.i:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/Android.cpp.i
-.PHONY : src/Android.cpp.i
-
-src/Android.s: src/Android.cpp.s
-
-.PHONY : src/Android.s
-
-# target to generate assembly for a file
-src/Android.cpp.s:
-	$(MAKE) -f CMakeFiles\rephotografing_cv.dir\build.make CMakeFiles/rephotografing_cv.dir/src/Android.cpp.s
-.PHONY : src/Android.cpp.s
-
 src/CameraCalibrator.obj: src/CameraCalibrator.cpp.obj
 
 .PHONY : src/CameraCalibrator.obj
@@ -428,9 +401,6 @@ help:
 	@echo ... rephotografing_cv
 	@echo ... edit_cache
 	@echo ... rebuild_cache
-	@echo ... src/Android.obj
-	@echo ... src/Android.i
-	@echo ... src/Android.s
 	@echo ... src/CameraCalibrator.obj
 	@echo ... src/CameraCalibrator.i
 	@echo ... src/CameraCalibrator.s

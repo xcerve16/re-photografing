@@ -81,7 +81,7 @@ const std::string video_read_path = "resource/video/grand_hotel.mp4";
 const std::string path_rephotography = "resource/results/exp_grand_hotel.jpg";*/
 
 // Biskupsky palac
-/*const std::string path_to_first_image = "resource/image/GPS/Biskupsky_dvur (1).jpg";
+const std::string path_to_first_image = "resource/image/GPS/Biskupsky_dvur (1).jpg";
 const std::string path_to_second_image = "resource/image/GPS/Biskupsky_dvur (2).jpg";
 const std::string path_to_ref_image = "resource/reference/ref_biskupsky_palac.jpg";
 const std::string video_read_path = "resource/video/biskupsky_palac.mp4";
@@ -209,11 +209,9 @@ private:
 
     std::vector<cv::Point2f> detection_points_first_image;
 
-    std::vector<cv::Point3f> list_3D_points_after_triangulation;
+    std::vector<cv::Point3f> list_3D_points;
 
-    int previousNumRegistration;
-
-    std::vector<int> index_of_points;
+    std::vector<int> index_points;
 
     std::vector<cv::Mat> current_frames;
 
@@ -236,6 +234,8 @@ public:
                             cv::Point2f ff, cv::Point2f cc, cv::Point2f fc);
 
     void processReconstruction();
+
+    ModelRegistration getModelRegistration() { return registration; }
 
     void nextPoint();
 

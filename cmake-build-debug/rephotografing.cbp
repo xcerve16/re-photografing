@@ -86,12 +86,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="D:/Refotografing-source/src/Android.cpp">
-			<Option target="rephotografing_cv"/>
-		</Unit>
-		<Unit filename="D:/Refotografing-source/src/Android.h">
-			<Option target="rephotografing_cv"/>
-		</Unit>
 		<Unit filename="D:/Refotografing-source/src/CameraCalibrator.cpp">
 			<Option target="rephotografing_cv"/>
 		</Unit>

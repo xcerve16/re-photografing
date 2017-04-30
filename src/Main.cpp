@@ -46,12 +46,12 @@ void Main::processReconstruction() {
      */
 
 
-    cv::Ptr<cv::ORB> featureDetector = cv::ORB::create(
+    cv::Ptr<cv::xfeatures2d::SurfFeatureDetector> featureDetector = cv::xfeatures2d::SurfFeatureDetector::create(
             numKeyPoints);
-    cv::Ptr<cv::ORB> featureExtractor = cv::ORB::create();
+    cv::Ptr<cv::xfeatures2d::SurfDescriptorExtractor> featureExtractor = cv::xfeatures2d::SurfDescriptorExtractor::create();
 
     std::vector<cv::KeyPoint> key_points_first_image, key_points_second_image;
-    std::vector<cv::Point2f> detection_points_first_image, detection_points_second_image;
+    std::vector<cv::Point2f> detection_points_second_image;
     std::vector<cv::DMatch> matches;
 
     robustMatcher.setConfidenceLevel(confidenceLevel);
@@ -61,6 +61,8 @@ void Main::processReconstruction() {
     robustMatcher.setDescriptorExtractor(featureExtractor);
 
     cv::Mat camera_matrix = pnp_registration.getCameraMatrix();
+    std::cout << camera_matrix << std::endl;
+
 
     cv::Mat essential_matrix = robustMatcher.robustMatchRANSAC(first_image, second_image, matches,
                                                                key_points_first_image, key_points_second_image,
@@ -104,15 +106,17 @@ void Main::processReconstruction() {
     camera_matrix_a = camera_matrix * rotation_translation_matrix_first_image;
     camera_matrix_b = camera_matrix * rotation_translation_matrix_second_image;
 
-    triangulatePoints(camera_matrix_a, camera_matrix_b, points1, points2, found_3D_points);
+
+    triangulatePoints(camera_matrix_b, camera_matrix_a, points1, points2, found_3D_points);
+
+    std::cout << found_3D_points << std::endl;
 
     transpose(found_3D_points, triangulation_3D_points);
     convertPointsFromHomogeneous(triangulation_3D_points, triangulation_3D_points);
 
-    std::vector<cv::Point3f> list_3D_points_after_triangulation;
     std::vector<cv::Point2f> list_2D_points_after_triangulation;
     for (int i = 0; i < triangulation_3D_points.rows; i++) {
-        list_3D_points_after_triangulation.push_back(
+        list_3D_points.push_back(
                 cv::Point3f(triangulation_3D_points.at<float>(i, 0), triangulation_3D_points.at<float>(i, 1),
                             triangulation_3D_points.at<float>(i, 2)));
     }
@@ -121,59 +125,12 @@ void Main::processReconstruction() {
      * Registrace korespondencnich bodu
      * Dle tutorialu dostupneho na http://docs.opencv.org/3.1.0/dc/d2c/tutorial_real_time_pose.html
      */
-
-    cv::Mat ref_image = loadImage(path_to_ref_image);
-
-    registration.setRegistrationMax(number_registration);
-    std::vector<cv::Point2f> list_points2d;
-    std::vector<cv::Point3f> list_points3d;
-
-    int previousNumRegistration = registration.getRegistrationCount();
-    std::vector<int> index_of_points;
-
-
-    while (cv::waitKey(30) < 0) {
-
-        cv::Mat clone_of_ref_image = ref_image.clone();
-        cv::Mat clone_frame_with_triangulation = first_image.clone();
-        list_points2d = registration.getList2DPoints();
-        list_points3d = registration.getList3DPoints();
-        if (!end_registration) {
-
-            draw2DPoint(clone_frame_with_triangulation, detection_points_first_image[index_of_registration], green);
-            cv::Point3f point3f = list_3D_points_after_triangulation[index_of_registration];
-
-            if (previousNumRegistration != registration.getRegistrationCount()) {
-                index_of_points.push_back(index_of_registration);
-                registration.register3DPoint(point3f);
-                previousNumRegistration = registration.getRegistrationCount();
-            }
-
-        } else {
-            cv::Point3f point3f = list_3D_points_after_triangulation[index_of_registration];
-            registration.register3DPoint(point3f);
-            index_of_points.push_back(index_of_registration);
-            break;
-        }
-
-        draw2DPoints(clone_of_ref_image, list_points2d, blue);
-        cv::imshow(WIN_USER_SELECT_POINT, clone_of_ref_image);
-        cv::imshow(WIN_REF_IMAGE_FOR_USER, clone_frame_with_triangulation);
+    for (int i = 0; i < list_3D_points.size(); i++) {
+        std::cout << list_3D_points[i] << std::endl;
     }
-
-    cv::destroyWindow(WIN_USER_SELECT_POINT);
-    cv::destroyWindow(WIN_REF_IMAGE_FOR_USER);
-
-    std::vector<cv::Point3f> list_3D_points = registration.getList3DPoints();
-    std::vector<cv::Point2f> list_2D_points = registration.getList2DPoints();
-
-    /**
-     * Vypocet optickeho stredu
-     */
+    registration.setRegistrationMax(number_registration);
 
 
-    cv::destroyWindow(WIN_REAL_TIME_DEMO);
-    cv::waitKey(0);
 }
 
 cv::Mat Main::loadImage(const std::string path_to_ref_image) {
@@ -190,29 +147,21 @@ cv::Mat Main::loadImage(const std::string path_to_ref_image) {
 void Main::registrationPoints(double x, double y, cv::Mat &out) {
     cv::Point2f point_2d = cv::Point2f((float) x, (float) y);
     bool is_registrable = registration.isRegistration();
+    int index = registration.getIndexRegistration();
 
     if (is_registrable) {
         registration.register2DPoint(point_2d);
-        index_of_registration++;
-        if (registration.getRegistrationCount() == registration.getRegistrationMax()) {
-            end_registration = true;
-        }
-    }
-
-    cv::Mat clone_of_ref_image = ref_image.clone();
-    cv::Mat clone_frame_with_triangulation = first_image.clone();
-    std::vector<cv::Point2f> list_points2d = registration.getList2DPoints();
-    std::vector<cv::Point3f> list_points3d = registration.getList3DPoints();
-
-    draw2DPoint(clone_frame_with_triangulation, detection_points_first_image[index_of_registration], green);
-    cv::Point3f point3f = list_3D_points_after_triangulation[index_of_registration];
-
-    if (previousNumRegistration != registration.getRegistrationCount()) {
-        index_of_points.push_back(index_of_registration);
+        cv::Point3f point3f = list_3D_points[index];
         registration.register3DPoint(point3f);
-        previousNumRegistration = registration.getRegistrationCount();
+        index_points.push_back(index_of_registration);
+        index++;
     }
-    out = clone_frame_with_triangulation;
+
+    cv::Mat clone_frame_with_triangulation = first_image.clone();
+    draw2DPoint(clone_frame_with_triangulation, detection_points_first_image[index], green);
+    registration.setIndexRegistration(index);
+
+    out = clone_frame_with_triangulation.clone();
 }
 
 void Main::nextPoint() {
@@ -665,3 +614,60 @@ void fillMeasurements(cv::Mat &measurements, const cv::Mat &translation_measured
     measurements.at<double>(5) = measured_eulers.at<double>(2);      // yaw
 }
 
+
+int main(int argc, char *argv[]) {
+    Main process;
+
+    process.initReconstruction(cv::imread(path_to_first_image), cv::imread(path_to_second_image),
+                               cv::imread(path_to_ref_image), cv::Point2f(273, 339), cv::Point2f(585, 548),
+                               cv::Point2f(0, 0),
+                               cv::Point2f(0, 0));
+    process.processReconstruction();
+
+    cv::Mat out;
+    process.registrationPoints(85, 217, out);
+    process.registrationPoints(144, 218, out);
+    process.registrationPoints(106, 198, out);
+    process.registrationPoints(124, 217, out);
+    process.registrationPoints(164, 186, out);
+    process.registrationPoints(118, 194, out);
+    process.registrationPoints(174, 165, out);
+    process.registrationPoints(104, 389, out);
+
+
+    ModelRegistration modelRegistration = process.getModelRegistration();
+    std::cout << modelRegistration.getList2DPoints() << std::endl;
+    std::cout << modelRegistration.getList3DPoints() << std::endl;
+
+
+
+    /*cv::Mat out;
+    process.registrationPoints(85, 217, out);
+    cv::imshow("1",out);
+    process.nextPoint();
+    process.nextPoint();
+    process.registrationPoints(144, 218, out);
+    cv::imshow("2",out);
+    process.nextPoint();
+    process.nextPoint();
+    process.nextPoint();
+    process.nextPoint();
+    process.registrationPoints(106, 198, out);
+    cv::imshow("3",out);
+    process.nextPoint();
+    process.registrationPoints(124, 217, out);
+    cv::imshow("4",out);
+    process.registrationPoints(164, 186, out);
+    cv::imshow("5",out);
+    process.registrationPoints(118, 194, out);
+    cv::imshow("6",out);
+    process.nextPoint();
+    process.nextPoint();
+    process.registrationPoints(174, 165, out);
+    cv::imshow("7",out);
+    process.nextPoint();
+    process.registrationPoints(104, 389, out);
+    cv::imshow("8",out);
+    cv::waitKey(0);*/
+    //process.initNavigation();
+}
