@@ -241,13 +241,13 @@ public:
     void initReconstruction(cv::Mat first_frame, cv::Mat second_frame, cv::Mat reference_frame, cv::Point2f cf,
                             cv::Point2f ff, cv::Point2f cc, cv::Point2f fc);
 
-    void processReconstruction();
+    cv::Mat processReconstruction();
 
     ModelRegistration getModelRegistration() { return registration; }
 
-    void nextPoint();
+    cv::Point2f nextPoint();
 
-    void registrationPoints(double x, double y, cv::Mat &out);
+    cv::Point2f registrationPoints(float x, float y);
 
     void initNavigation();
 

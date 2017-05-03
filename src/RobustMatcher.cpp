@@ -9,8 +9,8 @@
 
 RobustMatcher::RobustMatcher() {
 
-    detector = cv::xfeatures2d::SURF::create();
-    extractor = cv::xfeatures2d::SURF::create();
+    detector = cv::ORB::create();
+    extractor = cv::ORB::create();
 
     matcher = cv::makePtr<cv::BFMatcher>((int) cv::NORM_HAMMING, false);
 }

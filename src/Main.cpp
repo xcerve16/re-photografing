@@ -12,8 +12,12 @@ void *fast_robust_matcher(void *arg) {
     cv::Mat current_frame = param->current_frame;
     std::vector<cv::Point3f> list_3D_points = param->list_3D_points;
     int directory = param->directory;
+    try {
+        getLightweightEstimation(last_current_frame, list_3D_points, current_frame, directory);
+    } catch (cv::Exception e) {
+        std::cout << e.msg << std::endl;
+    }
 
-    getLightweightEstimation(last_current_frame, list_3D_points, current_frame, directory);
     return NULL;
 }
 
@@ -25,7 +29,12 @@ void *robust_matcher(void *arg) {
     cv::Mat measurements = param->measurements;
     int directory = param->directory;
 
-    getRobustEstimation(current_frame, list_3D_points_after_registration, measurements, directory);
+    try {
+        getRobustEstimation(current_frame, list_3D_points_after_registration, measurements, directory);
+    } catch (cv::Exception e) {
+        std::cout << e.msg << std::endl;
+    }
+
     return NULL;
 }
 
@@ -43,7 +52,7 @@ Main::initReconstruction(cv::Mat image1, cv::Mat image2, cv::Mat ref, cv::Point2
 
 }
 
-void Main::processReconstruction() {
+cv::Mat Main::processReconstruction() {
 
     /**
      * Robust matcher
@@ -128,8 +137,9 @@ void Main::processReconstruction() {
      */
 
     registration.setRegistrationMax(number_registration);
-
-
+    cv::Mat clone_frame_with_triangulation = first_image;
+    draw2DPoint(clone_frame_with_triangulation, detection_points_first_image[0], green);
+    return clone_frame_with_triangulation.clone();
 }
 
 cv::Mat Main::loadImage(const std::string path_to_ref_image) {
@@ -142,8 +152,8 @@ cv::Mat Main::loadImage(const std::string path_to_ref_image) {
     return image;
 }
 
-void Main::registrationPoints(double x, double y, cv::Mat &out) {
-    cv::Point2f point_2d = cv::Point2f((float) x, (float) y);
+cv::Point2f Main::registrationPoints(float x, float y) {
+    cv::Point2f point_2d = cv::Point2f(x, y);
     bool is_registrable = registration.isRegistration();
     int index = registration.getIndexRegistration();
 
@@ -156,14 +166,29 @@ void Main::registrationPoints(double x, double y, cv::Mat &out) {
     }
 
     cv::Mat clone_frame_with_triangulation = first_image.clone();
-    draw2DPoint(clone_frame_with_triangulation, detection_points_first_image[index], green);
     registration.setIndexRegistration(index);
 
-    out = clone_frame_with_triangulation.clone();
+    float pos_x = detection_points_first_image[index].x;
+    float pos_y = detection_points_first_image[index].y;
+
+    cv::Point2f point = cv::Point2f(pos_x, pos_y);
+
+    return point;
 }
 
-void Main::nextPoint() {
+cv::Point2f Main::nextPoint() {
+
     registration.incRegistrationIndex();
+
+    cv::Mat clone_frame_with_triangulation = first_image.clone();
+    int index = registration.getIndexRegistration();
+
+    float x = detection_points_first_image[index].x;
+    float y = detection_points_first_image[index].y;
+
+    cv::Point2f point = cv::Point2f(x, y);
+
+    return point;
 }
 
 void Main::initNavigation() {
@@ -289,8 +314,6 @@ void Main::initNavigation() {
     robust_matcher_arg_struct.measurements = measurements;
 
     fast_robust_matcher_arg_struct.list_3D_points = list_3D_points;
-
-
 }
 
 int Main::processNavigation(cv::Mat current_frame, int count_frames) {
@@ -302,7 +325,11 @@ int Main::processNavigation(cv::Mat current_frame, int count_frames) {
     int directory = 0;
 
     if (count_frames == 1) {
-        getRobustEstimation(current_frame_vis, registration.getList3DPoints(), measurements, directory);
+        try {
+            getRobustEstimation(current_frame_vis, registration.getList3DPoints(), measurements, directory);
+        } catch (cv::Exception e) {
+            std::cout << e.msg << std::endl;
+        }
     } else if (count_frames % 4 == 1) {
         robust_matcher_arg_struct.current_frame = current_frames[count_frames - 1];
         robust_matcher_arg_struct.directory = directory;
@@ -390,11 +417,6 @@ bool getRobustEstimation(cv::Mat current_frame_vis, std::vector<cv::Point3f> lis
     updateKalmanFilter(kalmanFilter, measurements, translation_estimated, rotation_estimated);
     pnp_detection.setProjectionMatrix(rotation_estimated, translation_estimated);
 
-    std::cout << "Robustni odhad: " << std::endl;
-    std::cout << pnp_detection.getProjectionMatrix() << std::endl;
-    std::cout << "Relativni rozdil: " << std::endl;
-    std::cout << revT << std::endl;
-
     return good_measurement;
 }
 
@@ -450,11 +472,6 @@ bool getLightweightEstimation(cv::Mat last_current_frame_vis, std::vector<cv::Po
 
         }
     }
-    std::cout << "Lehky odhad: " << std::endl;
-    std::cout << pnp_detection.getProjectionMatrix() << std::endl;
-    std::cout << "Relativni rozdil: " << std::endl;
-    std::cout << revT << std::endl;
-
     return true;
 }
 
@@ -676,34 +693,34 @@ int main(int argc, char *argv[]) {
 
     process.initReconstruction(fist_frame, second_frame, ref_frame, cv::Point2f(273, 339), cv::Point2f(585, 548),
                                cv::Point2f(341, 172), cv::Point2f(2040, 1548));
-    process.processReconstruction();
+    cv::Mat out = process.processReconstruction();
+    cv::imshow("0", out);
 
-    cv::Mat out;
-    process.registrationPoints(85, 217, out);
+    process.registrationPoints(85, 217);
     process.nextPoint();
     process.nextPoint();
     //cv::imshow("1", out);
-    process.registrationPoints(144, 218, out);
+    process.registrationPoints(144, 218);
     process.nextPoint();
     process.nextPoint();
     process.nextPoint();
     process.nextPoint();
     //cv::imshow("2", out);
-    process.registrationPoints(106, 198, out);
+    process.registrationPoints(106, 198);
     process.nextPoint();
     //cv::imshow("3", out);
-    process.registrationPoints(124, 217, out);
+    process.registrationPoints(124, 217);
     //cv::imshow("4", out);
-    process.registrationPoints(164, 186, out);
+    process.registrationPoints(164, 186);
     //cv::imshow("5", out);
-    process.registrationPoints(118, 194, out);
+    process.registrationPoints(118, 194);
     process.nextPoint();
     process.nextPoint();
     //cv::imshow("6", out);
-    process.registrationPoints(174, 165, out);
+    process.registrationPoints(174, 165);
     process.nextPoint();
     //cv::imshow("7", out);
-    process.registrationPoints(104, 389, out);
+    process.registrationPoints(104, 389);
     //cv::imshow("8", out);
     process.initNavigation();
 
