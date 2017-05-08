@@ -81,10 +81,8 @@ const std::string video_read_path = "resource/video/grand_hotel.mp4";
 const std::string path_rephotography = "resource/results/exp_grand_hotel.jpg";*/
 
 // Biskupsky palac
-const std::string path_to_first_image = "resource/image/GPS/Biskupsky_dvur (1).jpg";
-const std::string path_to_second_image = "resource/image/GPS/Biskupsky_dvur (2).jpg";
-const std::string path_to_third_image = "resource/image/GPS/Biskupsky_dvur (3).jpg";
-
+const std::string path_to_first_image = "resource/image/rsz_biskupsky_palac_2.jpg";
+const std::string path_to_second_image = "resource/image/rsz_biskupsky_palac_3.jpg";
 const std::string path_to_ref_image = "resource/reference/ref_biskupsky_palac.jpg";
 const std::string video_read_path = "resource/video/biskupsky_palac.mp4";
 //const std::string path_rephotography = "resource/results/exp_biskupsky_palac.jpg";*/
@@ -153,9 +151,9 @@ const std::string ERROR_OPEN_CAMERA = "Could not open the camera device";
 
 // RANSAC parameters
 bool useExtrinsicGuess = false;
-int iterationsCount = 50;
-float reprojectionError = 10.0;
-double confidence = 0.95;
+int iterationsCount = 10000;
+float reprojectionError = 3.0;
+double confidence = 0.999;
 int pnp_method = cv::SOLVEPNP_ITERATIVE;
 
 // Kalman Filter parameters
