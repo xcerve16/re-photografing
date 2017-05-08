@@ -13,56 +13,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="70e342c2-adc5-4064-9319-db384ed3edb0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/castle.000.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/castle.001.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/castle.002.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/castle.003.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/castle.004.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/castle.005.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/castle.006.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/castle.007.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/castle.008.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/castle.009.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/castle.010.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/castle.011.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/castle.012.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/castle.013.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/castle.014.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/castle.015.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/castle.016.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/castle.017.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/castle.018.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/castle.019.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/castle.020.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/castle.021.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/castle.022.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/castle.023.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/castle.024.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/castle.025.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/castle.026.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/castle.027.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/pom01.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/pom02.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/pom03.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/pom04.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/pom05.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/pom06.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/pom07.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/pom08.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/pom09.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/pom10.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/pom11.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/pom12.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/pom13.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/pom14.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/pom15.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/pom16.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/pom17.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/pom18.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/pom19.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/image/chessboards/pom20.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/results/kasna_parmas (4).jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resource/results/mahenovo_divadlo.jpg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="5ff8f381-4f09-4fb1-9ab2-e7cc5b0e542a" name="Revert: Prepracovani main A" comment="" />
@@ -125,13 +75,13 @@
       <file leaf-file-name="workspace.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="466">
-              <caret line="669" column="112" lean-forward="false" selection-start-line="669" selection-start-column="112" selection-end-line="669" selection-end-column="112" />
+            <state relative-caret-position="1285">
+              <caret line="708" column="112" lean-forward="false" selection-start-line="708" selection-start-column="112" selection-end-line="708" selection-end-column="112" />
               <folding>
-                <element signature="e#8424#8428#0" expanded="true" />
-                <element signature="e#8428#8432#0" expanded="true" />
-                <element signature="e#9405#9409#0" expanded="true" />
-                <element signature="e#9410#9414#0" expanded="true" />
+                <element signature="e#11877#11881#0" expanded="true" />
+                <element signature="e#11881#11885#0" expanded="true" />
+                <element signature="e#12858#12862#0" expanded="true" />
+                <element signature="e#12863#12867#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -914,7 +864,7 @@
       <workItem from="1493988558398" duration="17615000" />
       <workItem from="1494061568344" duration="812000" />
       <workItem from="1494188051585" duration="8529000" />
-      <workItem from="1494275179290" duration="258000" />
+      <workItem from="1494275179290" duration="314000" />
     </task>
     <task id="LOCAL-00001" summary="registrace funguje, detekce zatim ne">
       <created>1481836872027</created>
@@ -1245,11 +1195,18 @@
       <option name="project" value="LOCAL" />
       <updated>1494275360262</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="Poslední commity">
+      <created>1494275445836</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1494275445836</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="917335000" />
+    <option name="totallyTimeSpent" value="917391000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -1268,7 +1225,7 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45073614" sideWeight="0.42051557" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30351076" sideWeight="0.4975" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6228766" sideWeight="0.5510204" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.85050964" sideWeight="0.4949303" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27180067" sideWeight="0.4949303" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6228766" sideWeight="0.4489796" order="5" side_tool="false" content_ui="combo" x="3" y="529" width="1594" height="320" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24865736" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1574179" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -1725,13 +1682,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="466">
-          <caret line="669" column="112" lean-forward="false" selection-start-line="669" selection-start-column="112" selection-end-line="669" selection-end-column="112" />
+        <state relative-caret-position="1285">
+          <caret line="708" column="112" lean-forward="false" selection-start-line="708" selection-start-column="112" selection-end-line="708" selection-end-column="112" />
           <folding>
-            <element signature="e#8424#8428#0" expanded="true" />
-            <element signature="e#8428#8432#0" expanded="true" />
-            <element signature="e#9405#9409#0" expanded="true" />
-            <element signature="e#9410#9414#0" expanded="true" />
+            <element signature="e#11877#11881#0" expanded="true" />
+            <element signature="e#11881#11885#0" expanded="true" />
+            <element signature="e#12858#12862#0" expanded="true" />
+            <element signature="e#12863#12867#0" expanded="true" />
           </folding>
         </state>
       </provider>
