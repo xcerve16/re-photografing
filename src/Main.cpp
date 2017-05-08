@@ -25,14 +25,10 @@ void *robust_matcher(void *arg) {
     cv::Mat measurements = param->measurements;
     int directory = param->directory;
 
-    std::vector<std::string> list_file_name;
-    cv::Size border_size(7, 9);
 
-    for (int i = 1; i <= 12; i++) {
-        std::stringstream file_name;
-        file_name << "resource/image/chessboards/chessboard" << std::setw(2) << std::setfill('0') << i << ".jpg";
-        list_file_name.push_back(file_name.str());
-    }
+    getRobustEstimation(current_frame, list_3D_points_after_registration, measurements, directory);
+    return NULL;
+}
 
 void
 Main::initReconstruction(cv::Mat image1, cv::Mat image2, cv::Mat ref, cv::Point2f cf, cv::Point2f ff, cv::Point2f cc,
@@ -46,7 +42,7 @@ Main::initReconstruction(cv::Mat image1, cv::Mat image2, cv::Mat ref, cv::Point2
 
 }
 
-void Main::processReconstruction() {
+cv::Point2f Main::processReconstruction() {
 
     /**
      * Robust matcher
@@ -64,12 +60,12 @@ void Main::processReconstruction() {
     std::vector<cv::DMatch> matches;
 
     robustMatcher.setConfidenceLevel(confidenceLevel);
-    robustMatcher.setMinDistanceToEpipolar(min_dist);
+    robustMatcher.setMinDistanceToEpipolar(max_distance);
     robustMatcher.setRatio(ratioTest);
     robustMatcher.setFeatureDetector(featureDetector);
     robustMatcher.setDescriptorExtractor(featureExtractor);
 
-    camera_matrix = pnp_registration.getCameraMatrix();
+    cv::Mat camera_matrix = pnp_registration.getCameraMatrix();
 
     cv::Mat essential_matrix = robustMatcher.robustMatchRANSAC(first_image, second_image, matches,
                                                                key_points_first_image, key_points_second_image,
@@ -141,17 +137,12 @@ void Main::processReconstruction() {
     }
     registration.setRegistrationMax(number_registration);
 
+    float pos_x = detection_points_first_image[0].x;
+    float pos_y = detection_points_first_image[0].y;
 
-}
+    cv::Point2f point = cv::Point2f(pos_x, pos_y);
 
-cv::Mat Main::loadImage(const std::string path_to_ref_image) {
-
-    cv::Mat image = cv::imread(path_to_ref_image);
-    if (!image.data) {
-        std::cout << ERROR_READ_IMAGE << std::endl;
-        exit(1);
-    }
-    return image;
+    return point;
 }
 
 cv::Point2f Main::registrationPoints(float x, float y) {
@@ -199,6 +190,7 @@ void Main::initNavigation() {
     end = 9;
 
     std::vector<cv::Point3f> list_3D_points = registration.getList3DPoints();
+    std::vector<cv::Point2f> list_2D_points = registration.getList2DPoints();
 
     std::vector<cv::Mat> vanish_point;
     cv::Mat output_ref_image, gray_ref_image;
@@ -673,39 +665,10 @@ int main(int argc, char *argv[]) {
 
     process.initReconstruction(fist_frame, second_frame, ref_frame, cv::Point2f(273, 339), cv::Point2f(585, 548),
                                cv::Point2f(341, 172), cv::Point2f(2040, 1548));
-    cv::Mat out = process.processReconstruction();
-    cv::imshow("0", out);
-
-    process.registrationPoints(85, 217);
-    process.nextPoint();
-    process.nextPoint();
-    //cv::imshow("1", out);
-    process.registrationPoints(144, 218);
-    process.nextPoint();
-    process.nextPoint();
-    process.nextPoint();
-    process.nextPoint();
-    //cv::imshow("2", out);
-    process.registrationPoints(106, 198);
-    process.nextPoint();
-    //cv::imshow("3", out);
-    process.registrationPoints(124, 217);
-    //cv::imshow("4", out);
-    process.registrationPoints(164, 186);
-    //cv::imshow("5", out);
-    process.registrationPoints(118, 194);
-    process.nextPoint();
-    process.nextPoint();
-    //cv::imshow("6", out);
-    process.registrationPoints(174, 165);
-    process.nextPoint();
-    //cv::imshow("7", out);
-    process.registrationPoints(104, 389);
-    //cv::imshow("8", out);
+    process.processReconstruction();
     process.initNavigation();
 
-    cv::Mat third_frame = cv::imread(path_to_third_image);
-    int directory = process.processNavigation(third_frame, 1);
-    std::cout << directory << std::endl;
+    /*int directory = process.processNavigation(third_frame, 1);
+    std::cout << directory << std::endl;*/
     return 0;
 }

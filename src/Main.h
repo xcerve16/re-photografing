@@ -38,16 +38,12 @@
 #define USE_PPHT
 #define MAX_NUM_LINES    200
 
-bool end_registration = false;
 int const number_registration = 8;
-int index_of_registration = 0;
 
 // Color
 cv::Scalar red(0, 0, 255);
-cv::Scalar green(0, 255, 0);
 cv::Scalar blue(255, 0, 0);
 
-CameraCalibrator cameraCalibrator;
 RobustMatcher robustMatcher;
 PnPProblem pnp_registration;
 PnPProblem pnp_detection;
@@ -68,11 +64,6 @@ int mode = MODE_NIETO;
 int numVps = 3;
 bool verbose = false;
 
-// Window's names
-const std::string WIN_USER_SELECT_POINT = "WIN_USER_SELECT_POINT";
-const std::string WIN_REF_IMAGE_FOR_USER = "WIN_REF_IMAGE_FOR_USER";
-const std::string WIN_REAL_TIME_DEMO = "WIN_REAL_TIME_DEMO";
-
 // Grand hotel
 /*const std::string path_to_first_image = "resource/image/grand_hotel (2).jpg";
 const std::string path_to_second_image = "resource/image/grand_hotel (4).jpg";
@@ -81,10 +72,10 @@ const std::string video_read_path = "resource/video/grand_hotel.mp4";
 const std::string path_rephotography = "resource/results/exp_grand_hotel.jpg";*/
 
 // Biskupsky palac
-const std::string path_to_first_image = "resource/image/rsz_biskupsky_palac_2.jpg";
-const std::string path_to_second_image = "resource/image/rsz_biskupsky_palac_3.jpg";
-const std::string path_to_ref_image = "resource/reference/ref_biskupsky_palac.jpg";
-const std::string video_read_path = "resource/video/biskupsky_palac.mp4";
+const std::string path_to_first_image = "resource/image/GPS/Galerie (3).jpg";
+const std::string path_to_second_image = "resource/image/GPS/Galerie (4).jpg";
+const std::string path_to_ref_image = "resource/image/GPS/Galerie (2).jpg";
+const std::string video_read_path = "resource/video/galerie.3gp";
 //const std::string path_rephotography = "resource/results/exp_biskupsky_palac.jpg";*/
 
 // Ulice Ceska
@@ -142,12 +133,6 @@ const std::string path_to_second_image = "resource/image/cerveny_kostel (13).jpg
 const std::string path_to_ref_image = "resource/reference/ref_cerveny_kostel.jpg";
 const std::string video_read_path = "resource/video/cerveny_kostel_2.3gp";
 const std::string path_rephotography = "resource/results/exp_cerveny_kostel.jpg";*/
-
-// ERROR message
-const std::string ERROR_READ_IMAGE = "Could not open or find the image";
-//const std::string ERROR_WRITE_IMAGE = "Could not open the camera device";
-const std::string ERROR_OPEN_CAMERA = "Could not open the camera device";
-
 
 // RANSAC parameters
 bool useExtrinsicGuess = false;
@@ -228,8 +213,6 @@ private:
 
     void initKalmanFilter(cv::KalmanFilter &KF, int nStates, int nMeasurements, int nInputs, double dt);
 
-    cv::Mat loadImage(const std::string path_to_file);
-
     std::vector<cv::Mat> processImage(MSAC &msac, int numVps, cv::Mat &imgGRAY, cv::Mat &outputImg);
 
 
@@ -239,7 +222,7 @@ public:
     void initReconstruction(cv::Mat first_frame, cv::Mat second_frame, cv::Mat reference_frame, cv::Point2f cf,
                             cv::Point2f ff, cv::Point2f cc, cv::Point2f fc);
 
-    cv::Mat processReconstruction();
+    cv::Point2f processReconstruction();
 
     ModelRegistration getModelRegistration() { return registration; }
 
