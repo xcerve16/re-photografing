@@ -7,9 +7,8 @@
 #include "Main.h"
 
 std::vector<cv::Mat> frames;
-std::vector<double> prumerXY;
-std::vector<double> prumerZX;
-
+std::vector<double> position;
+int indexFrame = 0;
 
 int main(int argc, char *argv[]) {
 
@@ -37,12 +36,16 @@ int main(int argc, char *argv[]) {
 
     pnp_registration.setCameraMatrix(camera_matrix);
 
-    std::cout << camera_matrix << std::endl;
-
     double pom_x = first_image.cols / 2;
     double pom_y = first_image.rows / 2;
 
+
+    std::cout << camera_matrix << std::endl;
+
     pnp_registration.setOpticalCenter(pom_x, pom_y);
+
+    //pnp_registration.setCameraParameter(384, 288 , 990, 990);
+
 
     /**
      * Robust matcher
@@ -93,9 +96,6 @@ int main(int argc, char *argv[]) {
     cv::Mat points2 = cv::Mat(detection_points_second_image);
     cv::recoverPose(essential_matrix, points1, points2, camera_matrix, R, t);
 
-
-    std::cout << R << std::endl;
-    std::cout << t << std::endl;
     /**
      * Triangulace
      */
@@ -113,13 +113,6 @@ int main(int argc, char *argv[]) {
 
     camera_matrix_a = camera_matrix * rotation_translation_matrix_first_image;
     camera_matrix_b = camera_matrix * rotation_translation_matrix_second_image;
-
-
-    std::cout << "Camera_matrix_a: " << camera_matrix_a << std::endl;
-    std::cout << "Camera_matrix_b: " << camera_matrix_b << std::endl;
-    std::cout << "Points1: " << points1 << std::endl;
-    std::cout << "Points2: " << points2 << std::endl;
-
 
     triangulatePoints(camera_matrix_b, camera_matrix_a, points1, points2, found_3D_points);
 
@@ -191,6 +184,12 @@ int main(int argc, char *argv[]) {
 
     std::vector<cv::Point3f> list_3D_points = registration.getList3DPoints();
     std::vector<cv::Point2f> list_2D_points = registration.getList2DPoints();
+    std::vector<cv::Point2f> list_2D_points_first_frama;
+    std::vector<cv::Point2f> list_2D_points_second_frame;
+    for (int i = 0; i < index_of_points.size(); i++) {
+        list_2D_points_first_frama.push_back(detection_points_first_image[index_of_points[i]]);
+        list_2D_points_second_frame.push_back(detection_points_second_image[index_of_points[i]]);
+    }
 
     /**
      * Vypocet optickeho stredu
@@ -254,7 +253,6 @@ int main(int argc, char *argv[]) {
     cy = abs((int) cy);
 
     cv::waitKey(0);
-    pnp_registration.setOpticalCenter(cx, cy);
 
     /**
      * Pozice historicke kamery
@@ -267,11 +265,22 @@ int main(int argc, char *argv[]) {
 
     std::cout << "Historicka kamera: " << std::endl;
     std::cout << pnp_registration.getProjectionMatrix() << std::endl;
+    std::cout << "Prvni snimek" << std::endl;
+    pnp_registration.estimatePoseRANSAC(list_3D_points, list_2D_points_first_frama, pnp_method, useExtrinsicGuess,
+                                        iterationsCount,
+                                        reprojectionError, confidence);
+    std::cout << pnp_registration.getProjectionMatrix() << std::endl;
+
+    std::cout << "Druhy snimek" << std::endl;
+    pnp_registration.estimatePoseRANSAC(list_3D_points, list_2D_points_second_frame, pnp_method, useExtrinsicGuess,
+                                        iterationsCount,
+                                        reprojectionError, confidence);
+    std::cout << pnp_registration.getProjectionMatrix() << std::endl;
+
+
     /**
      * Robust matcher
      */
-
-    std::cout << "List 2D points: " << list_2D_points << std::endl;
 
     cv::Mat current_frame, current_frame_vis, last_current_frame_vis;
 
@@ -358,6 +367,16 @@ int main(int argc, char *argv[]) {
 
     cv::destroyWindow(WIN_REAL_TIME_DEMO);
 
+    int min = 0;
+
+    for (int i = 0; i < frames.size(); i++) {
+        if (position[min] > position[i]) {
+            min = i;
+        }
+    }
+
+    cv::imshow("Test", frames[min]);
+
     cv::waitKey(0);
     return 0;
 }
@@ -410,18 +429,6 @@ bool getRobustEstimation(cv::Mat current_frame_vis, std::vector<cv::Point3f> lis
 
             revT = T.inv() * refT;
 
-            double x = revT.at<float>(0, 3);
-            double y = revT.at<float>(1, 3);
-            double z = revT.at<float>(2, 3);
-
-            double xx = (x + y + z) / 3;
-            double yy = (y + z) / 2;
-
-            frames.push_back(current_frame_vis);
-            prumerXY.push_back(xx);
-            prumerZX.push_back(yy);
-
-
             cv::Mat translation_measured(3, 1, CV_64F);
             translation_measured = pnp_detection.getTranslationMatrix();
 
@@ -430,21 +437,32 @@ bool getRobustEstimation(cv::Mat current_frame_vis, std::vector<cv::Point3f> lis
 
             good_measurement = true;
             fillMeasurements(measurements, translation_measured, rotation_measured);
+
+
+            double pos = revT.at<double>(3, 0) + revT.at<double>(3, 1);
+            pos /= 2;
+
+            position.push_back(pos);
+            frames.push_back(current_frame_vis);
+
+
+            std::cout << indexFrame << " Robustni odhad: " << std::endl;
+            std::cout << pnp_detection.getProjectionMatrix() << std::endl;
+
+            /*std::cout << "Relativni rozdil: " << std::endl;
+             std::cout << revT << std::endl;*/
+
+            indexFrame++;
         }
     }
 
     cv::Mat translation_estimated(3, 1, CV_64F);
     cv::Mat rotation_estimated(3, 3, CV_64F);
 
-    std::cout << "Robustni odhad: " << std::endl;
-    std::cout << pnp_detection.getProjectionMatrix() << std::endl;
 
     updateKalmanFilter(kalmanFilter, measurements, translation_estimated, rotation_estimated);
     pnp_detection.setProjectionMatrix(rotation_estimated, translation_estimated);
 
-
-    std::cout << "Relativni rozdil: " << std::endl;
-    std::cout << revT << std::endl;
 
     return good_measurement;
 }

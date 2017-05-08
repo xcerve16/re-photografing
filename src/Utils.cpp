@@ -14,7 +14,7 @@
 
 
 int lineType = 8;
-int radius = 4;
+int radius = 3;
 
 
 void draw2DPoints(cv::Mat image, std::vector<cv::Point2f> &list_points, cv::Scalar color) {

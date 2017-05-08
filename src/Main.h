@@ -59,7 +59,7 @@ MSAC msac;
 // Robust cv::Matcher parameters
 double confidenceLevel = 0.999;
 float ratioTest = 0.70f;
-double min_dist = 1;
+double min_dist = 2;
 
 // SIFT parameters
 int numKeyPoints = 1000;
@@ -82,10 +82,10 @@ const std::string video_read_path = "resource/video/grand_hotel.mp4";
 const std::string path_rephotography = "resource/results/exp_grand_hotel.jpg";*/
 
 // Biskupsky palac
-const std::string path_to_first_image = "resource/image/GPS/Biskupsky_dvur (1).jpg";
-const std::string path_to_second_image = "resource/image/GPS/Biskupsky_dvur (2).jpg";
-const std::string path_to_ref_image = "resource/reference/ref_biskupsky_palac.jpg";
-const std::string video_read_path = "resource/video/biskupsky_palac.mp4";
+const std::string path_to_first_image = "resource/image/GPS/Galerie (3).jpg";
+const std::string path_to_second_image = "resource/image/GPS/Galerie (4).jpg";
+const std::string path_to_ref_image = "resource/image/GPS/Galerie (1).jpg";
+const std::string video_read_path = "resource/video/galerie.3gp";
 //const std::string path_rephotography = "resource/results/exp_biskupsky_palac.jpg";
 
 // Ulice Ceska
@@ -154,7 +154,7 @@ const std::string ERROR_OPEN_CAMERA = "Could not open the camera device";
 bool useExtrinsicGuess = false;
 int iterationsCount = 10000;
 float reprojectionError = 3.0;
-double confidence = 0.99995;
+double confidence = 0.999;
 int pnp_method = cv::SOLVEPNP_ITERATIVE;
 
 // Kalman Filter parameters
